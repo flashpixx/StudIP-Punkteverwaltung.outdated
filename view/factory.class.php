@@ -24,17 +24,30 @@
     **/
 
 
-    /** Interfaceklasse für den Zugriff auf die Matrikelnummer, damit
-     * die Matrikelnummer auch aus anderen Datenquellen gelesen werden kann
+    require_once("administration.class.php");
+    require_once("student.class.php");
+
+    
+
+    /** Factoryklasse, die in Abhängigkeit der Berechtigung das Layout für das
+     * Rendering liefert
      **/
-    abstract class MatrikelNummerInterface
+    class ViewFactory
     {
 
-        /** liefert die Matrikelnummer oder einen leeren Wert zurück
-         * @param $pxUID BenutzerID oder ein Array mit IDs
-         * @return Leerwert, Nummer oder Array mit Nummern
+        /** liefert das passende Viewobjekt oder null
+         * @param $poUser Userobjekt
+         * @return Viewobjekt
          **/
-        abstract function get( $pxUID );
+        static function get( $poUser )
+        {
+            if ($poUser->getPermission()->hasTeacherPermissionInPOI() || $poUser->getPermission()->hasTutorPermissionInPOI())
+                return new AdministrationView($poUser);
+            elseif ($poUser->isStudent())
+                return new StudentView($poUser);
+
+            return null;
+        }
         
     }
     

@@ -24,18 +24,33 @@
     **/
 
 
-    /** Interfaceklasse für den Zugriff auf die Matrikelnummer, damit
-     * die Matrikelnummer auch aus anderen Datenquellen gelesen werden kann
+    require_once("interface.class.php");
+
+
+
+    /** Factoryklasse, die in Abhängigkeit der Berechtigung das Layout für das
+     * Rendering liefert
      **/
-    abstract class MatrikelNummerInterface
+    class AdministrationView extends ViewInterface
     {
 
-        /** liefert die Matrikelnummer oder einen leeren Wert zurück
-         * @param $pxUID BenutzerID oder ein Array mit IDs
-         * @return Leerwert, Nummer oder Array mit Nummern
+        /** Ctor für die Erzeugung
+         * @param $poUser Useropbjekt
          **/
-        abstract function get( $pxUID );
-        
+        function __construct( $poUser = null )
+        {
+            parent::__construct( $poUser );
+        }
+
+        /** liefert den Menunamen
+         * @overload
+         * @return Menutext
+         **/
+        function getMenuName()
+        {
+            return _("Punktverwaltung");
+        }
+
     }
-    
+
 ?>

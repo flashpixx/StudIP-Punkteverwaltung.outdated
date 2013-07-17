@@ -24,18 +24,30 @@
     **/
 
 
-    /** Interfaceklasse für den Zugriff auf die Matrikelnummer, damit
-     * die Matrikelnummer auch aus anderen Datenquellen gelesen werden kann
-     **/
-    abstract class MatrikelNummerInterface
+    /** Interfaceklasse für das Layout der Punkteverwaltungszeite **/
+    abstract class ViewInterface
     {
+        /** aktueller Benutzer **/
+        protected $moUser = null;
 
-        /** liefert die Matrikelnummer oder einen leeren Wert zurück
-         * @param $pxUID BenutzerID oder ein Array mit IDs
-         * @return Leerwert, Nummer oder Array mit Nummern
+
+        /** Ctor für das setzen des Users **/
+        protected __construct( $poUser = null )
+        {
+            $this->moUser = $poUser;
+        }
+
+
+        /** erzeugt das Layout zur Ansicht
+         * @param $poUser aktuelles Userobjekt
          **/
-        abstract function get( $pxUID );
-        
+        abstract function show();
+
+        /** liefert den Namen für das Menü
+         * @return Name des Menüs
+         **/
+        abstract function getMenuName();
+
     }
     
-?>
+   ?>

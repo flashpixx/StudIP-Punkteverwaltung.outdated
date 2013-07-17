@@ -6,7 +6,7 @@
     # GPL License                                                              #
     #                                                                          #
     # This file is part of the StudIP-Punkteverwaltung.                        #
-    # Copyright (c) 2013, Philipp Kraus, <philipp.kraus@flashpixx.de>          #
+    # Copyright (c) 2013, Philipp Kraus, <philipp.kraus@tu-clausthal.de>       #
     # This program is free software: you can redistribute it and/or modify     #
     # it under the terms of the GNU General Public License as                  #
     # published by the Free Software Foundation, either version 3 of the       #
@@ -24,30 +24,28 @@
     **/
 
 
-    @require_once("matrikelnummer/database.class.php");
+    require_once("matrikelnummer/factory.class.php");
+    require_once("view/factory.class.php");
 
 
     
     /** Basisklasse für das Plugin **/
     class Punkteverwaltung extends AbstractStudIPStandardPlugin implements StandardPlugin
     {
+        private $moView = null;
 
         /** Ctor der Klasse für Initialisierung **/
         function __construct()
         {
             parent::AbstractStudIPStandardPlugin();
 
+            // setzt die Klasseneigenschaften
+            $this->moView = ViewFactory::get( $this->getUser() );
 
-            // erzeuge Navigation in der Veranstaltung
+
+            // erzeuge Navigation in der Veranstaltung und setzt sie in der Übersicht
             $loNav = new PluginNavigation();
-
-            // setze Navigation in Abhängigkeit der Rechte
-            if ($this->getUser()->getPermission()->hasTeacherPermissionInPOI() || $this->getUser()->getPermission()->hasTutorPermissionInPOI())
-                $loNav->setDisplayname(_("Punktverwaltung"));
-            else
-                $loNav->setDisplayname(_("Punkte"));
-
-            // setze Navigation und erzeuge es in der Übersicht
+            $loNav->setDisplayname( $this->moView->getMenuName() );
             $this->setNavigation($loNav);
             $this->setShownInOverview(true);
         }

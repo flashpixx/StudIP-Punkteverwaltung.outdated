@@ -6,7 +6,7 @@
     # GPL License                                                              #
     #                                                                          #
     # This file is part of the StudIP-Punkteverwaltung.                        #
-    # Copyright (c) 2013, Philipp Kraus, <philipp.kraus@flashpixx.de>          #
+    # Copyright (c) 2013, Philipp Kraus, <philipp.kraus@tu-clausthal.de>       #
     # This program is free software: you can redistribute it and/or modify     #
     # it under the terms of the GNU General Public License as                  #
     # published by the Free Software Foundation, either version 3 of the       #
@@ -60,6 +60,7 @@
 
 
         /** liefert die Matrikelnummer oder einen leeren Wert zurück
+         * @overload
          * @param $pxUID BenutzerID oder ein Array mit IDs
          * @return Leerwert, Nummer oder Array mit Nummern
          **/
@@ -109,4 +110,4 @@
 
     }
     
-    ?>
+?>
