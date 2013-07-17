@@ -35,6 +35,9 @@
         /** Ctor der Klasse für Initialisierung **/
         function __construct()
         {
+            parent::AbstractStudIPStandardPlugin();
+
+
             // erzeuge Navigation in der Veranstaltung
             $loNav = new PluginNavigation();
 
