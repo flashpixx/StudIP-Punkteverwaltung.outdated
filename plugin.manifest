@@ -1,8 +1,6 @@
-pluginclassname=Punkteverwaltung
 pluginname=Punkteverwaltung
+pluginclassname=Punkteverwaltung
 origin=Philipp Kraus <philipp.kraus@flashpixx.de>
-homepage=https://github.com/flashpixx/StudIP-Punkteverwaltung
-updateURL=https://github.com/flashpixx/StudIP-Punkteverwaltung/blob/master/update.xml
 version=0.1
 description=Punkteverwaltung für Übungen und Tutorien
 studipMinVersion=2.0
