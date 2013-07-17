@@ -1,8 +1,8 @@
 pluginname=Punkteverwaltung
-pluginclassname=Punkteverwaltung
+pluginclassname=punkteverwaltung
 origin=Philipp Kraus <philipp.kraus@flashpixx.de>
 version=0.1
 description=Punkteverwaltung für Übungen und Tutorien
 studipMinVersion=2.0
-dbscheme=plugin_install.sql
-uninstalldbscheme=plugin_uninstall.sql
+dbscheme=install.sql
+uninstalldbscheme=uninstall.sql

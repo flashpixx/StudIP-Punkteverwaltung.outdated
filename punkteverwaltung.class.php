@@ -24,18 +24,20 @@
      **/
 
 
-    /** base class for plugin initialization **/
+    /** Basisklasse für das Plugin **/
     class Punkteverwaltung extends AbstractStudIPStandardPlugin implements StandardPlugin
     {
 
-        /** ctor of the class **/
+        /** Ctor der Klasse für Initialisierung **/
         function __construct()
         {
             parent::AbstractStudIPStandardPlugin();
         }
 
 
-        /** returns the name / description of the plugin **/
+        /** liefert die Beschreibung des Plugins
+         * @return Beschreibung
+         **/
         function getPluginname() {
             return _("Punkteverwaltung für Übungen & Tutorien");
         }
