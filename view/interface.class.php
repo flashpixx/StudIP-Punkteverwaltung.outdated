@@ -31,8 +31,10 @@
         protected $moUser = null;
 
 
-        /** Ctor für das setzen des Users **/
-        protected __construct( $poUser = null )
+        /** Ctor für das setzen des Users
+         * @param $poUser Userobjekt
+         **/
+        protected function __construct( $poUser = null )
         {
             $this->moUser = $poUser;
         }
