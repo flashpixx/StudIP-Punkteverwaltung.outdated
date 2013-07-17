@@ -24,6 +24,10 @@
     **/
 
 
+    @require_once("matrikelnummer.class.php");
+
+
+    
     /** Basisklasse für das Plugin **/
     class Punkteverwaltung extends AbstractStudIPStandardPlugin implements StandardPlugin
     {
@@ -32,15 +36,18 @@
         function __construct()
         {
             parent::AbstractStudIPStandardPlugin();
-        }
 
 
-        /** liefert die Beschreibung des Plugins
-         * @return Beschreibung
-         **/
-        function getPluginname() {
-            return _("Punkteverwaltung für Übungen & Tutorien");
+            // erzeuge Navigation in der Veranstaltung
+            $loNav = new PluginNavigation();
+            $loNav->setDisplayname(_("Punktverwaltung"));
+
+
+            $this->setNavigation($loNav);
+            $this->setShownInOverview(true);
+
         }
+
     }
 
 ?>
