@@ -42,6 +42,7 @@
             parent::__construct( $poUser );
         }
 
+        
         /** liefert den Menunamen
          * @overload
          * @return Menutext
@@ -51,7 +52,15 @@
             return _("Punkte");
         }
 
-        
+
+        /** show Methode
+         * @overload
+         **/
+        function show()
+        {
+            echo "Admin";
+        }
+
     }
     
 ?>

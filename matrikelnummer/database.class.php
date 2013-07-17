@@ -38,6 +38,7 @@
                                              "field_number" => "matrikelnr"
                                             );
 
+        
         /** Datenbankobjekt, wenn null, dann kein Zugriff auf die Matrikelnummer möglich **/
         private $moDatabase = null;
 

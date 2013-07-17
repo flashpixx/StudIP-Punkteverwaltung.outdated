@@ -42,6 +42,7 @@
             parent::__construct( $poUser );
         }
 
+    
         /** liefert den Menunamen
          * @overload
          * @return Menutext
@@ -49,6 +50,15 @@
         function getMenuName()
         {
             return _("Punktverwaltung");
+        }
+
+
+        /** show Methode
+         * @overload
+         **/
+        function show()
+        {
+            echo "Admin";
         }
 
     }

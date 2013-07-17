@@ -34,6 +34,8 @@
     {
         private $moView = null;
 
+
+        
         /** Ctor der Klasse für Initialisierung **/
         function __construct()
         {

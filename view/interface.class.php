@@ -30,6 +30,7 @@
         /** aktueller Benutzer **/
         protected $moUser = null;
 
+        
 
         /** Ctor für das setzen des Users
          * @param $poUser Userobjekt
@@ -44,6 +45,7 @@
          * @param $poUser aktuelles Userobjekt
          **/
         abstract function show();
+
 
         /** liefert den Namen für das Menü
          * @return Name des Menüs
