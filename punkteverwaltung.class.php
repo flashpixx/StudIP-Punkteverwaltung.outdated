@@ -24,7 +24,7 @@
     **/
 
 
-    @require_once("matrikelnummer.class.php");
+    @require_once("matrikelnummer/database.class.php");
 
 
     
@@ -40,13 +40,19 @@
 
             // erzeuge Navigation in der Veranstaltung
             $loNav = new PluginNavigation();
-            $loNav->setDisplayname(_("Punktverwaltung"));
 
+            // setze Navigation in Abhängigkeit der Rechte
+            if ($this->getUser()->getPermission()->hasTeacherPermissionInPOI() || $this->getUser()->getPermission()->hasTutorPermissionInPOI())
+                $loNav->setDisplayname(_("Punktverwaltung"));
+            else
+                $loNav->setDisplayname(_("Punkte"));
 
+            // setze Navigation und erzeuge es in der Übersicht
             $this->setNavigation($loNav);
             $this->setShownInOverview(true);
-
         }
+
+        
 
     }
 

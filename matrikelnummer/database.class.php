@@ -24,11 +24,11 @@
     **/
 
 
-    /** Klasse für den Zugriff auf die Matrikelnummer
-     * @note Wenn die Konfiguration leer ist oder die Tabelle nicht gefunden wird, dann liefert
-     * ein Zugriff auf die Nummer immer einen leeren Wert
-     **/
-    class MatrikelNummer
+    require_once("interface.class.php");
+
+
+    /** Klasse für den Zugriff auf die Matrikelnummer **/
+    class MatrikelNummerDatabase extends MatrikelNummerInterface
     {
 
         /** Konfiguration **/
