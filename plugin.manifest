@@ -1,6 +1,6 @@
 pluginname=Punkteverwaltung
 pluginclassname=punkteverwaltung
-origin=Philipp Kraus <philipp.kraus@flashpixx.de>
+origin=TUC
 version=0.1
 description=Punkteverwaltung für Übungen und Tutorien
 studipMinVersion=2.0
