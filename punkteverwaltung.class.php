@@ -55,7 +55,8 @@
             */
 
             /** Menü wird unter die Veranstalung als Tab eingehangen **/
-            Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show")) );
+            if (Navigation::hasItem("/course"))
+                Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show")) );
         }
 
 
