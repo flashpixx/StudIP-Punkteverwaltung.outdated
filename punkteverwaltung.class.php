@@ -50,8 +50,7 @@
             */
 
             /** Menü wird unter die Veranstalung als Tab eingehangen **/
-            $loNav = Navigation::getItem("/course");
-            $loNav->addSubNavigation("punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show/punkteverwaltung")));
+            Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show")) );
         }
 
 
