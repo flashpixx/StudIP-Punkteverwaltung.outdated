@@ -24,19 +24,78 @@
     **/
 
 
-    require_once("matrikelnummer/factory.class.php");
-    require_once("view/factory.class.php");
+    require_once("bootstrap.php";
+    //require_once("matrikelnummer/factory.class.php");
+    //require_once("view/factory.class.php");
 
 
-    
+
+    // http://docs.studip.de/develop/Entwickler/HowToFormulars
+    // http://docs.studip.de/develop/Entwickler/HowToHTML
+
+
     /** Basisklasse für das Plugin **/
+    class punkteverwaltung extends StudIPPlugin implements StandardPlugin {
+
+        public function __construct() {
+            parent::__construct();
+
+            $navigation = new AutoNavigation(_("Punkteverwaltung"));
+            $navigation->setURL(PluginEngine::GetURL($this, array(), "show"));
+            $navigation->setImage(Assets::image_path("blank.gif"));
+            Navigation::addItem("/punkteverwaltung", $navigation);
+        }
+
+        public function initialize () {
+
+        }
+
+        public function getTabNavigation($course_id) {
+            return array();
+        }
+
+        public function getNotificationObjects($course_id, $since, $user_id) {
+            return array();
+        }
+
+        public function getIconNavigation($course_id, $last_visit, $user_id) {
+            // ...
+        }
+
+        public function getInfoTemplate($course_id) {
+            // ...
+        }
+
+        public function perform($unconsumed_path) {
+            $this->setupAutoload();
+            $dispatcher = new Trails_Dispatcher(
+                                                $this->getPluginPath(),
+                                                rtrim(PluginEngine::getLink($this, array(), null), "/"),
+                                                "show"
+                                                );
+            $dispatcher->plugin = $this;
+            $dispatcher->dispatch($unconsumed_path);
+        }
+        
+        private function setupAutoload() {
+            if (class_exists("StudipAutoloader"))
+                StudipAutoloader::addAutoloadPath(__DIR__ . "/models");
+            else
+                spl_autoload_register(function ($class) { include_once(__DIR__ . $class . ".php"); });
+
+        }
+    }
+
+
+
+    /**
     class Punkteverwaltung extends AbstractStudIPStandardPlugin implements StandardPlugin
     {
         private $moView = null;
 
 
         
-        /** Ctor der Klasse für Initialisierung **/
+        ** Ctor der Klasse für Initialisierung **
         function __construct()
         {
             parent::AbstractStudIPStandardPlugin();
@@ -49,11 +108,9 @@
             $loNav = new PluginNavigation();
             $loNav->setDisplayname( $this->moView->getMenuName() );
             $this->setNavigation($loNav);
-            $this->setShownInOverview(true);
         }
 
-        
-
     }
+    **/
 
 ?>
