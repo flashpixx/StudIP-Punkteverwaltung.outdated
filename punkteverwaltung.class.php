@@ -50,15 +50,7 @@
 
         }
 
-        public function getTabNavigation($course_id) {
-            return array();
-        }
-
-        public function getNotificationObjects($course_id, $since, $user_id) {
-            return array();
-        }
-
-        public function getIconNavigation($course_id, $last_visit, $user_id) {
+        public function getIconNavigation($course_id, $last_visit) {
             // ...
         }
 
@@ -70,19 +62,18 @@
             $this->setupAutoload();
             $dispatcher = new Trails_Dispatcher(
                                                 $this->getPluginPath(),
-                                                rtrim(PluginEngine::getLink($this, array(), null), "/"),
-                                                "show"
+                                                rtrim(PluginEngine::getLink($this, array(), null), '/'),
+                                                'show'
                                                 );
             $dispatcher->plugin = $this;
             $dispatcher->dispatch($unconsumed_path);
         }
-        
+
         private function setupAutoload() {
             if (class_exists("StudipAutoloader"))
                 StudipAutoloader::addAutoloadPath(__DIR__ . "/models");
             else
-                spl_autoload_register(function ($class) { include_once(__DIR__ . $class . ".php"); });
-
+                spl_autoload_register(function ($class) { include_once __DIR__ . $class . ".php"; });
         }
     }
 
@@ -113,4 +104,3 @@
     }
     **/
 
-?>
