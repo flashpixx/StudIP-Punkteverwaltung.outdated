@@ -45,18 +45,15 @@
         function __construct() {
             parent::__construct();
 
-            $loView =
-
-            /* Trails Menü Definition wird nicht verwendet
-            $navigation = new AutoNavigation(_("Punkteverwaltung"));
+            // Trails Menü Definition wird nicht verwendet
+            $navigation = new AutoNavigation(_("Punkte"));
             $navigation->setURL(PluginEngine::GetURL($this, array(), "show"));
             $navigation->setImage(Assets::image_path("blank.gif"));
             Navigation::addItem("/punkteverwaltung", $navigation);
-            */
 
-            /** Menü wird unter die Veranstalung als Tab eingehangen **/
+            /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
             if (Navigation::hasItem("/course"))
-                Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show")) );
+                Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
         }
 
 
