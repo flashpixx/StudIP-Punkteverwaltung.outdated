@@ -26,7 +26,7 @@
 
     require_once("bootstrap.php");
     //require_once("matrikelnummer/factory.class.php");
-    require_once("view/factory.class.php");
+    //require_once("view/factory.class.php");
 
 
 
