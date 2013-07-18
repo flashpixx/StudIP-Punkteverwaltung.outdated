@@ -1,1 +1,5 @@
-Does it work? <strong><?= $answer ?></strong>
+<?php
+
+    echo "test".$answer;
+
+?>
