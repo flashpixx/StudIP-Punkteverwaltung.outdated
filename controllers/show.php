@@ -3,20 +3,19 @@
     class ShowController extends StudipController
     {
 
-        function before_filter(&$action, &$args)
+        function before_filter( &$action, &$args )
         {
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
             // PageLayout::setTitle("");
         }
 
-
+        
         function index_action()
         {
             $this->answer = "Yes";
         }
 
         
-        // customized #url_for for plugins
         function url_for($to)
         {
             $args = func_get_args();
@@ -31,5 +30,6 @@
             $args[0] = $to;
             
             return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
-        } 
+        }
+        
     }
