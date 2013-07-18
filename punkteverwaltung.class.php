@@ -42,7 +42,6 @@
 
         function __construct() {
             parent::__construct();
-            $this->moView = ViewFactory::get( $this->getUser() );
 
             /* Trails Menu Definition
             $navigation = new AutoNavigation(_("Punkteverwaltung"));
