@@ -39,8 +39,12 @@
     /** Basisklasse für das Plugin **/
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin {
 
+        private $moView = null;
+
+
         function __construct() {
             parent::__construct();
+            $this->moView = ViewFactory::get( $this->getUser() );
 
             /* Trails Menu Definition
             $navigation = new AutoNavigation(_("Punkteverwaltung"));
@@ -57,8 +61,7 @@
             */
 
             $loNav = Navigation::getItem("/course");
-            $loNav->addSubNavigation("Punkteverwaltung", new Navigation(_("blub"), PluginEngine::GetURL($this, array(), "show/blub")));
-            $this->setNavigation($loNav);
+            $loNav->addSubNavigation("punkteverwaltung", new Navigation($this->moView->getMenuName(), PluginEngine::GetURL($this, array(), "show/punkteverwaltung")));
         }
 
         function initialize () {
