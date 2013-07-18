@@ -6,6 +6,7 @@
         function before_filter( &$action, &$args )
         {
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
+            $this->currentuser = $GLOBALS["user"];
             // PageLayout::setTitle("");
         }
 
