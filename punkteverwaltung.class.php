@@ -30,6 +30,7 @@
 
     ini_set("display_errors", TRUE);
     error_reporting(E_ALL);
+    //error_reporting(E_ALL ^ E_NOTICE);
 
     // http://docs.studip.de/develop/Entwickler/HowToFormulars
     // http://docs.studip.de/develop/Entwickler/HowToHTML
