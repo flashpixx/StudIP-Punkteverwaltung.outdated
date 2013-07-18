@@ -34,10 +34,13 @@
             // PageLayout::setTitle("");
         }
 
-        
-        function index_action() { }
 
-        
+        function index_action()
+        {
+            $this->answer = "admin";
+        }
+
+
         function url_for($to)
         {
             $args = func_get_args();
@@ -50,7 +53,7 @@
             # urlencode all but the first argument
             $args    = array_map("urlencode", $args);
             $args[0] = $to;
-            
+
             return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
         }
         
