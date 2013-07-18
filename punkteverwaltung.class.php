@@ -28,6 +28,7 @@
     //require_once("matrikelnummer/factory.class.php");
 
 
+    error_reporting(E_ALL);
 
     // http://docs.studip.de/develop/Entwickler/HowToFormulars
     // http://docs.studip.de/develop/Entwickler/HowToHTML
