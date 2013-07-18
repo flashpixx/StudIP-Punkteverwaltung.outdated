@@ -25,7 +25,7 @@
 
 
     require_once("bootstrap.php");
-    //require_once("matrikelnummer/factory.class.php");
+    #require_once("matrikelnummer/factory.class.php");
 
 
     //ini_set("display_errors", TRUE);
@@ -44,6 +44,8 @@
 
         function __construct() {
             parent::__construct();
+
+            $loView =
 
             /* Trails Menü Definition wird nicht verwendet
             $navigation = new AutoNavigation(_("Punkteverwaltung"));
