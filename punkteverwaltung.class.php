@@ -54,11 +54,15 @@
             $loNav->addSubNavigation("punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show/punkteverwaltung")));
         }
 
+
         function initialize () { }
+
 
         function getIconNavigation($course_id, $last_visit) { }
 
+
         function getInfoTemplate($course_id) { }
+
 
         function perform($unconsumed_path)
         {
@@ -72,6 +76,7 @@
             $dispatcher->dispatch($unconsumed_path);
         }
 
+        
         private function setupAutoload()
         {
             if (class_exists("StudipAutoloader"))
