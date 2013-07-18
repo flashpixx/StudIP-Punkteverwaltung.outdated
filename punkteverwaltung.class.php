@@ -33,12 +33,13 @@
     // http://docs.studip.de/develop/Entwickler/HowToFormulars
     // http://docs.studip.de/develop/Entwickler/HowToHTML
     // http://studip.tleilax.de/plugins/generator/
+    // http://docs.studip.de/api
 
 
     /** Basisklasse für das Plugin **/
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin {
 
-        public function __construct() {
+        function __construct() {
             parent::__construct();
 
             /* Trails Menu Definition
@@ -48,25 +49,31 @@
             Navigation::addItem("/punkteverwaltung", $navigation);
             */
 
+            /* alt
             $loNav = new PluginNavigation();
             $loNav->setDisplayname( _("xxxx") );
             $loNav->setURL(PluginEngine::GetURL($this, array(), "show"));
-            Navigation::addItem("/punkteverwaltung", $loNav);
+            $this->setNavigation($loNav);
+            */
+
+            $loNav = Navigation::getItem("/course");
+            $loNav->addSubNavigation("Punkteverwaltung", new Navigation(_("blub"), PluginEngine::GetURL($this, array(), "show/blub")));
+            $this->setNavigation($loNav);
         }
 
-        public function initialize () {
+        function initialize () {
 
         }
 
-        public function getIconNavigation($course_id, $last_visit) {
+        function getIconNavigation($course_id, $last_visit) {
             // ...
         }
 
-        public function getInfoTemplate($course_id) {
+        function getInfoTemplate($course_id) {
             // ...
         }
 
-        public function perform($unconsumed_path) {
+        function perform($unconsumed_path) {
             $this->setupAutoload();
             $dispatcher = new Trails_Dispatcher(
                                                 $this->getPluginPath(),
