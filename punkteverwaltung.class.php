@@ -32,6 +32,7 @@
 
     // http://docs.studip.de/develop/Entwickler/HowToFormulars
     // http://docs.studip.de/develop/Entwickler/HowToHTML
+    // http://studip.tleilax.de/plugins/generator/
 
 
     /** Basisklasse für das Plugin **/
@@ -40,10 +41,16 @@
         public function __construct() {
             parent::__construct();
 
+            /* Trails Menu Definition
             $navigation = new AutoNavigation(_("Punkteverwaltung"));
             $navigation->setURL(PluginEngine::GetURL($this, array(), "show"));
             $navigation->setImage(Assets::image_path("blank.gif"));
             Navigation::addItem("/punkteverwaltung", $navigation);
+            */
+
+            $loNav = new PluginNavigation();
+            $loNav->setURL(PluginEngine::GetURL($this, array(), "show"));
+            Navigation::addItem("/punkteverwaltung", $loNav);
         }
 
         public function initialize () {
@@ -62,8 +69,8 @@
             $this->setupAutoload();
             $dispatcher = new Trails_Dispatcher(
                                                 $this->getPluginPath(),
-                                                rtrim(PluginEngine::getLink($this, array(), null), '/'),
-                                                'show'
+                                                rtrim(PluginEngine::getLink($this, array(), null), "/"),
+                                                "show"
                                                 );
             $dispatcher->plugin = $this;
             $dispatcher->dispatch($unconsumed_path);
