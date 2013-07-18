@@ -1,4 +1,5 @@
 <?php
+    
 class ShowController extends StudipController {
 
     public function before_filter(&$action, &$args) {
@@ -32,3 +33,5 @@ class ShowController extends StudipController {
         return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
     } 
 }
+
+?>
