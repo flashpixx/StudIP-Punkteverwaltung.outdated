@@ -70,33 +70,20 @@
             if (!$this->moDatabase)
                 return null;
 
+            $loPrepare = $this->moDatabase->prepare("select ".self::$maConfiguration["field_number"]." as num from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+
             if (is_string($pxUID))
             {
-                $loPrepare = $this->moDatabase->prepare("select :fieldnumber as num from :tablename where :fielduid = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array(
-                                           "tablename"   => self::$maConfiguration["tablename"],
-                                           "fieldnumber" => self::$maConfiguration["field_number"],
-                                           "fielduid"    => self::$maConfiguration["field_userid"],
-                                           "uid"         => $pxUID
-                                          )
-                                   );
+                $loPrepare->execute( array("uid" => $pxUID ) );
                 $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
                     return $loResult["num"];
 
             } elseif (is_array($pxUID)) {
-                $loPrepare = $this->moDatabase->prepare("select :fieldnumber as num from :tablename where :fielduid = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-
                 $laList = array();
                 foreach ($pxUID as $lcUID)
                 {
-                    $loPrepare->execute( array(
-                                               "tablename"   => self::$maConfiguration["tablename"],
-                                               "fieldnumber" => self::$maConfiguration["field_number"],
-                                               "fielduid"    => self::$maConfiguration["field_userid"],
-                                               "uid"         => $lcUID
-                                               )
-                                        );
+                    $loPrepare->execute( array( "uid" => $lcUID ) );
                     $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     if ($loResult)
                         array_push($laList, $loResult["num"]);
