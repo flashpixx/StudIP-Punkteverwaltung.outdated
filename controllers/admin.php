@@ -24,7 +24,7 @@
     **/
 
 
-    class ShowController extends StudipController
+    class AdminController extends StudipController
     {
 
         function before_filter( &$action, &$args )
