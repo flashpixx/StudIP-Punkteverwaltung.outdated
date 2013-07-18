@@ -37,10 +37,8 @@
 
 
     /** Basisklasse für das Plugin **/
-    class punkteverwaltung extends StudIPPlugin implements StandardPlugin {
-
-        private $moView = null;
-
+    class punkteverwaltung extends StudIPPlugin implements StandardPlugin
+    {
 
         function __construct() {
             parent::__construct();
@@ -61,7 +59,7 @@
             */
 
             $loNav = Navigation::getItem("/course");
-            $loNav->addSubNavigation("punkteverwaltung", new Navigation($this->moView->getMenuName(), PluginEngine::GetURL($this, array(), "show/punkteverwaltung")));
+            $loNav->addSubNavigation("punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show/punkteverwaltung")));
         }
 
         function initialize () {
