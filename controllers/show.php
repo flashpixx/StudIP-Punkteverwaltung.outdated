@@ -1,12 +1,12 @@
 <?php
     
-    class ShowController extends AuthenticatedController
+    class ShowController extends StudipController
     {
 
         function before_filter(&$action, &$args)
         {
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
-            // PageLayout::setTitle('');
+            // PageLayout::setTitle("");
         }
 
 
