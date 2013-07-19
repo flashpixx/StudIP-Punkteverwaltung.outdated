@@ -67,6 +67,8 @@
         }
 
 
+        
+
         /** privater Ctor, um das Objekt nur durch den statischen Factory (get) erzeugen zu können
          * @param $pcID VeranstaltungsID (SeminarID)
          **/

@@ -26,6 +26,8 @@
 
     
     require_once(dirname(dirname(__DIR__)) . "/sys/matrikelnummer/factory.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltug.class.php");
+
 
     $loMatrikelNr = MatrikelNummerFactory::get();
 
@@ -34,5 +36,9 @@
     echo "Dozentenrecht: ".(CoursePermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
     echo "Tutorrecht: ".(CoursePermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
     echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
+
+
+    if (!empty(Veranstaltug::get()))
+        echo "<a href=\"".$controller->url_for("punkteverwaltung/create")."\">Für diese Veranstaltung die Punkteverwaltung aktivieren</a>";
 
 ?>
