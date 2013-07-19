@@ -27,21 +27,24 @@
 
     require_once(dirname(__DIR__) . "/sys/veranstaltung.class.php");
 
-    
+
+    /** Controller für die Administration **/
     class AdminController extends StudipController
     {
 
+        /** Before-Aufruf zum setzen von Defaultvariablen **/
         function before_filter( &$action, &$args )
         {
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
-            $this->userseminar = $GLOBALS["user"];
             // PageLayout::setTitle("");
         }
 
 
+        /** Default Action **/
         function index_action() { }
 
-        
+
+        /** erzeugt für eine Veranstaltung einen neuen Eintrag mit Defaultwerten **/
         function create_action()
         {
             Veranstaltung::create();
@@ -49,6 +52,14 @@
         }
 
 
+        /** setzt die Einträge der Veranstaltung **/
+        function updateuebung_action()
+        {
+
+        }
+
+
+        /** URL Aufruf **/
         function url_for($to)
         {
             $args = func_get_args();

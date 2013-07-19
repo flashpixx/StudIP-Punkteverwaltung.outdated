@@ -28,9 +28,13 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/matrikelnummer/factory.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung.class.php");
 
+    
     $loVeranstaltung = Veranstaltung::get();
 
     if (empty($loVeranstaltung))
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
+    else {
+
+    }
 
 ?>
