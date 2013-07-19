@@ -54,6 +54,19 @@
         }
 
 
+        /** erzeugt einen neuen Eintrag für die Veranstaltung
+         * @param $pcID VeranstaltungsID (SeminarID) [leer für aktuelle ID, sofern vorhanden]
+         **/
+        static function create( $pcID = null )
+        {
+            if ( (empty($pcID)) && (isset($GLOBALS["SessionSeminar"])) )
+                $pcID = $GLOBALS["SessionSeminar"];
+
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_seminar (id, bestehenprozent, allow_nichtbestanden) values (:semid, 100, 0)" );
+            $loPrepare->execute( array("semid" => $pcID) );
+        }
+
+
         /** privater Ctor, um das Objekt nur durch den statischen Factory (get) erzeugen zu können
          * @param $pcID VeranstaltungsID (SeminarID)
          **/
