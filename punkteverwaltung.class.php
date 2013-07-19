@@ -38,7 +38,7 @@
     // http://docs.studip.de/api
 
 
-    /** Basisklasse für das Plugin **/
+    /** Basisklasse für das Plugin nach dem Trails-Framework **/
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin
     {
 
@@ -46,6 +46,7 @@
         {
             parent::__construct();
 
+            
             // Trails Menü Definition
             $loHeadNav = null;
             if (CoursePermission::hasDozentRecht() || CoursePermission::hasTutorRecht())
