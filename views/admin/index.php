@@ -31,6 +31,6 @@
     $loVeranstaltung = Veranstaltung::get();
 
     if (empty($loVeranstaltung))
-        echo "<a href=\"".$controller->url_for("create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
+        echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
 
 ?>
