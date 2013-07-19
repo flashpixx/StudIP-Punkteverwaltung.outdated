@@ -26,7 +26,7 @@
 
     
     require_once(dirname(dirname(__DIR__)) . "/sys/matrikelnummer/factory.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltug.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung.class.php");
 
 
     $loMatrikelNr    = MatrikelNummerFactory::get();
