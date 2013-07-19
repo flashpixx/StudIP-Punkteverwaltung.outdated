@@ -30,7 +30,7 @@
 
 
     $loMatrikelNr    = MatrikelNummerFactory::get();
-    $loVeranstaltung = Veranstaltug::get();
+    $loVeranstaltung = Veranstaltung::get();
 
     echo "UID : ".$userseminar->id."<br/>";
     echo "Matrikelnr : ".$loMatrikelNr->get($userseminar->id)."<br/>";
