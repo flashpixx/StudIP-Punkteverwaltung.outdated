@@ -41,6 +41,7 @@
 
         function index_action() { }
 
+        
         function create_action()
         {
             Veranstaltung::create();
