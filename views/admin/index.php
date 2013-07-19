@@ -29,7 +29,8 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltug.class.php");
 
 
-    $loMatrikelNr = MatrikelNummerFactory::get();
+    $loMatrikelNr    = MatrikelNummerFactory::get();
+    $loVeranstaltung = Veranstaltug::get();
 
     echo "UID : ".$userseminar->id."<br/>";
     echo "Matrikelnr : ".$loMatrikelNr->get($userseminar->id)."<br/>";
@@ -38,7 +39,7 @@
     echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
 
 
-    if (!empty(Veranstaltug::get()))
+    if (!empty($loVeranstaltung))
         echo "<a href=\"".$controller->url_for("punkteverwaltung/create")."\">Für diese Veranstaltung die Punkteverwaltung aktivieren</a>";
 
 ?>
