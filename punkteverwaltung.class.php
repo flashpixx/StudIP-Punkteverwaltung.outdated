@@ -54,7 +54,7 @@
 
             /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
             if (Navigation::hasItem("/course"))
-                if (CoursePermission::hasDozentRechte() || CoursePermission::hasTutorRecht())
+                if (CoursePermission::hasDozentRecht() || CoursePermission::hasTutorRecht())
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
                 else
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
