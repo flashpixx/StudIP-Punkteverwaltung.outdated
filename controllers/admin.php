@@ -37,7 +37,6 @@
 
         function index_action()
         {
-            $this->answer = "admin";
         }
 
 

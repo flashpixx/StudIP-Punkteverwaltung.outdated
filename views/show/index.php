@@ -23,6 +23,13 @@
     @endcond
     **/
 
-    echo "studenten info";
+    require_once(dirname(dirname(__DIR__)) . "/coursepermission.class.php");
+
+    
+    echo "info<br/>";
+    echo "Dozentenrecht: ".(CoursePermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
+    echo "Tutorrecht: ".(CoursePermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
+    echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
+
 
 ?>

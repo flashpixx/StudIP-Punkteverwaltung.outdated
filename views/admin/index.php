@@ -27,9 +27,10 @@
 
     $loMatrikelNr = MatrikelNummerFactory::get();
 
-    echo "test : ".$answer."<br/>";
-    echo "user id : ".$userseminar->id."<br/>";
-    echo "matrikelnr : ".$loMatrikelNr->get($userseminar->id)."<br/>";
-    echo "<pre>".print_r($userseminar, true)."</pre>";
+    echo "UID : ".$userseminar->id."<br/>";
+    echo "Matrikelnr : ".$loMatrikelNr->get($userseminar->id)."<br/>";
+    echo "Dozentenrecht: ".(CoursePermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
+    echo "Tutorrecht: ".(CoursePermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
+    echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
 
 ?>
