@@ -75,7 +75,8 @@
 
             if (is_string($pxUID))
             {
-                $loResult = $loPrepare->execute( array("uid" => $pxUID ) )->fetch(PDO::FETCH_ASSOC);
+                $loPrepare->execute( array("uid" => $pxUID ) );
+                $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
                     return $loResult["num"];
 
@@ -83,7 +84,8 @@
                 $laList = array();
                 foreach ($pxUID as $lcUID)
                 {
-                    $loResult = $loPrepare->execute( array( "uid" => $lcUID ) )->$loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $loPrepare->execute( array( "uid" => $lcUID ) );
+                    $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     if ($loResult)
                         array_push($laList, $loResult["num"]);
                 }

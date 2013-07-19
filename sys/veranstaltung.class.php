@@ -132,8 +132,7 @@
                 if ($pn < 0)
                     throw new Exception("Parameter muss größer gleich null sein");
 
-                $this->moDatabase->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" );
-                $this->moDatabase->execute( array("semid" => $this->id, "anzahl" => intval($pn)) );
+                $this->moDatabase->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->id, "anzahl" => intval($pn)) );
 
                 $ln = $pn;
 
