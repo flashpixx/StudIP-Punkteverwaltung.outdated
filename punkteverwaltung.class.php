@@ -46,15 +46,22 @@
         {
             parent::__construct();
 
-            // Trails Menü Definition wird nicht verwendet
-            if (CoursePermission::hasAutorRecht())
+            // Trails Menü Definition
+            $loHeadNav = null;
+            if (CoursePermission::hasDozentRecht() || CoursePermission::hasTutorRecht())
             {
+                $loHeadNav = new AutoNavigation(_("Punkteverwaltung"));
+                $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "admin"));
+            } else {
                 $loHeadNav = new AutoNavigation(_("Punkte"));
                 $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
-                $loHeadNav->setImage(Assets::image_path("blank.gif"));
-                Navigation::addItem("/punkteverwaltung", $loHeadNav);
             }
 
+            $loHeadNav->setImage(Assets::image_path("blank.gif"));
+            Navigation::addItem("/punkteverwaltung", $loHeadNav);
+
+            
+            
             /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
             if (Navigation::hasItem("/course"))
                 if (CoursePermission::hasDozentRecht() || CoursePermission::hasTutorRecht())
