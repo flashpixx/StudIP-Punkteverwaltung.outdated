@@ -47,10 +47,13 @@
             parent::__construct();
 
             // Trails Menü Definition wird nicht verwendet
-            $loHeadNav = new AutoNavigation(_("Punkte"));
-            $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
-            $loHeadNav->setImage(Assets::image_path("blank.gif"));
-            Navigation::addItem("/punkteverwaltung", $loHeadNav);
+            if (CoursePermission::hasAutorRecht())
+            {
+                $loHeadNav = new AutoNavigation(_("Punkte"));
+                $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
+                $loHeadNav->setImage(Assets::image_path("blank.gif"));
+                Navigation::addItem("/punkteverwaltung", $loHeadNav);
+            }
 
             /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
             if (Navigation::hasItem("/course"))
