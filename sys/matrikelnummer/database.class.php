@@ -28,7 +28,7 @@
     require_once("interface.class.php");
 
 
-    /** Klasse fÃ¼r den Zugriff auf die Matrikelnummer **/
+    /** Klasse für den Zugriff auf die Matrikelnummer **/
     class MatrikelNummerDatabase extends MatrikelNummerInterface
     {
 
@@ -40,12 +40,12 @@
                                             );
 
         
-        /** Datenbankobjekt, wenn null, dann kein Zugriff auf die Matrikelnummer mÃ¶glich **/
+        /** Datenbankobjekt, wenn null, dann kein Zugriff auf die Matrikelnummer möglich **/
         private $moDatabase = null;
 
 
         
-        /** Ctor zur ÃœberprÃ¼fung ob die Tabelle existiert **/
+        /** Ctor zur Überprüfung ob die Tabelle existiert **/
         function __construct()
         {
             if (self::$maConfiguration)
@@ -61,7 +61,7 @@
         }
 
 
-        /** liefert die Matrikelnummer oder einen leeren Wert zurÃ¼ck
+        /** liefert die Matrikelnummer oder einen leeren Wert zurück
          * @overload
          * @param $pxUID BenutzerID oder ein Array mit IDs
          * @return Leerwert, Nummer oder Array mit Nummern

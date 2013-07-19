@@ -25,12 +25,12 @@
 
 
 
-    /** Klasse um Zugriffsrechte zu einer Veranstaltung fÃ¼r einen User zu prÃ¼fen **/
+    /** Klasse um Zugriffsrechte zu einer Veranstaltung für einen User zu prüfen **/
     class CoursePermission
     {
 
-        /** prÃ¼ft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Dozentenrechte hat
-         * @return Boolean fÃ¼r die Rechte
+        /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Dozentenrechte hat
+         * @return Boolean für die Rechte
          **/
         static function hasDozentRecht()
         {
@@ -38,8 +38,8 @@
         }
 
 
-        /** prÃ¼ft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Tutorenrechte hat
-         * @return Boolean fÃ¼r die Rechte
+        /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Tutorenrechte hat
+         * @return Boolean für die Rechte
          **/
         static function hasTutorRecht()
         {
@@ -47,8 +47,8 @@
         }
 
 
-        /* prÃ¼ft, ob der aktuelle User Autorenrechte in der Veranstaltung hat
-         * @return Boolean fÃ¼r die Rechte
+        /* prüft, ob der aktuelle User Autorenrechte in der Veranstaltung hat
+         * @return Boolean für die Rechte
          **/
         static function hasAutorRecht()
         {

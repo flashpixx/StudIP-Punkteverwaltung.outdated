@@ -40,7 +40,7 @@
     // http://docs.studip.de/api
 
 
-    /** Basisklasse fÃ¼r das Plugin nach dem Trails-Framework **/
+    /** Basisklasse für das Plugin nach dem Trails-Framework **/
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin
     {
 
@@ -49,8 +49,8 @@
             parent::__construct();
 
             
-            // Trails MenÃ¼ Definition, einmal als Tab in der Veranstaltung & einmal oben im Hauptmenu
-            // (Dozenten sehen Punkteverwaltung generell um Ãœbungen anzulegen)
+            // Trails Menü Definition, einmal als Tab in der Veranstaltung & einmal oben im Hauptmenu
+            // (Dozenten sehen Punkteverwaltung generell um Übungen anzulegen)
             $loHeadNav = null;
             
             if (CoursePermission::hasDozentRecht())
@@ -63,14 +63,14 @@
 
                 
             } elseif ( (CoursePermission::hasTutorRecht()) && (Veranstaltung::get()) ) {
-                // Tutoren sehen die verwaltung nur, wenn Ãœbungen existieren
+                // Tutoren sehen die verwaltung nur, wenn Übungen existieren
 
                 if (Navigation::hasItem("/course"))
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
                 
             } elseif ( (CoursePermission::hasAutorRecht()) && (Veranstaltung::get()) ) {
 
-                // alle anderen (Studenten) sehen nur ihre Punkte und wenn Ãœbungen vorhanden sind
+                // alle anderen (Studenten) sehen nur ihre Punkte und wenn Übungen vorhanden sind
                 $loHeadNav = new AutoNavigation(_("Punkte"));
                 $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
 

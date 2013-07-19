@@ -29,14 +29,14 @@
 
 
 
-    /** Factoryklasse, die in AbhÃ¤ngigkeit der Konfiguration das passende
-     * Objekt fÃ¼r den Zugriff auf die Matrikelnummer liefert
+    /** Factoryklasse, die in Abhängigkeit der Konfiguration das passende
+     * Objekt für den Zugriff auf die Matrikelnummer liefert
      * @warn aktuell nur Zugriff auf die Datenbank vorhanden
      **/
     class MatrikelNummerFactory
     {
 
-        /** liefert das passende Zugriffobjekt fÃ¼r die Matrikelnummer oder null
+        /** liefert das passende Zugriffobjekt für die Matrikelnummer oder null
          * @return Viewobjekt
          **/
         static function get()

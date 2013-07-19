@@ -25,7 +25,7 @@
 
     
 
-    /** Klasse fÃ¼r die Veranstaltungsdaten **/
+    /** Klasse für die Veranstaltungsdaten **/
     class Veranstaltung
     {
         /** Database Connection **/
@@ -36,8 +36,8 @@
 
 
 
-        /* statische Methode fÃ¼r die ÃœberprÃ¼fung, ob Ãœbungsdaten zu einer Veranstaltung existieren
-         * @param $pcID VeranstaltungsID (SeminarID) [leer fÃ¼r aktuelle ID, sofern vorhanden]
+        /* statische Methode für die Überprüfung, ob Übungsdaten zu einer Veranstaltung existieren
+         * @param $pcID VeranstaltungsID (SeminarID) [leer für aktuelle ID, sofern vorhanden]
          * @return liefert null (false) bei Nicht-Existenz, andernfalls das Veranstaltungsobject
          **/
         static function get( $pcID = null )
@@ -54,8 +54,8 @@
         }
 
 
-        /** erzeugt einen neuen Eintrag fÃ¼r die Veranstaltung
-         * @param $pcID VeranstaltungsID (SeminarID) [leer fÃ¼r aktuelle ID, sofern vorhanden]
+        /** erzeugt einen neuen Eintrag für die Veranstaltung
+         * @param $pcID VeranstaltungsID (SeminarID) [leer für aktuelle ID, sofern vorhanden]
          **/
         static function create( $pcID = null )
         {
@@ -69,7 +69,7 @@
 
         
 
-        /** privater Ctor, um das Objekt nur durch den statischen Factory (get) erzeugen zu kÃ¶nnen
+        /** privater Ctor, um das Objekt nur durch den statischen Factory (get) erzeugen zu können
          * @param $pcID VeranstaltungsID (SeminarID)
          **/
         private function __construct($pcID)
@@ -97,7 +97,7 @@
         }
 
 
-        /** liefert die Prozentzahl (Ã¼ber alle Ãœbungen) ab wann eine Veranstaltung als bestanden gilt
+        /** liefert die Prozentzahl (über alle Übungen) ab wann eine Veranstaltung als bestanden gilt
          * @param $pn Wert zum setzen der Prozentzahl
          * @return Prozentwert
          **/
@@ -109,7 +109,7 @@
             {
                 
                 if (($pn < 0) || ($pn > 100))
-                    throw new Exception("Parameter Prozentzahl fÃ¼r das Bestehen liegt nicht im Interval [0,100]");
+                    throw new Exception("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]");
 
                 $this->moDatabase->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->id, "prozent" => floatval($pn)) );
 
@@ -132,9 +132,9 @@
         }
 
 
-        /** liefert die Anzahl an Ãœbungen, die als nicht-bestanden
-         * gewertet werden dÃ¼rfen, um die Veranstaltung trotzdem zu bestehen
-         * @param $pn Anzahl der Ãœbungen, die als nicht-bestanden akzeptiert werden
+        /** liefert die Anzahl an Übungen, die als nicht-bestanden
+         * gewertet werden dürfen, um die Veranstaltung trotzdem zu bestehen
+         * @param $pn Anzahl der Übungen, die als nicht-bestanden akzeptiert werden
          * @return Anzahl
          **/
         function allowNichtBestanden( $pn = null )
@@ -145,7 +145,7 @@
             {
 
                 if ($pn < 0)
-                    throw new Exception("Parameter muss grÃ¶ÃŸer gleich null sein");
+                    throw new Exception("Parameter muss größer gleich null sein");
 
                 $this->moDatabase->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->id, "anzahl" => intval($pn)) );
 
