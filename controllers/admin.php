@@ -25,6 +25,9 @@
 
 
 
+    require_once(dirname(__DIR__) . "sys/veranstaltung.class.php");
+
+    
     class AdminController extends StudipController
     {
 
@@ -36,8 +39,12 @@
         }
 
 
-        function index_action()
+        function index_action() { }
+
+        function create_action()
         {
+            Veranstaltung::create();
+            $this->redirect("punkteverwaltung/admin/index");
         }
 
 

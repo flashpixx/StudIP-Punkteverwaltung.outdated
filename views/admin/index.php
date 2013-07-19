@@ -28,16 +28,7 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/matrikelnummer/factory.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung.class.php");
 
-
-    $loMatrikelNr    = MatrikelNummerFactory::get();
     $loVeranstaltung = Veranstaltung::get();
-
-    echo "UID : ".$userseminar->id."<br/>";
-    echo "Matrikelnr : ".$loMatrikelNr->get($userseminar->id)."<br/>";
-    echo "Dozentenrecht: ".(CoursePermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
-    echo "Tutorrecht: ".(CoursePermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
-    echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
-
 
     if (empty($loVeranstaltung))
         echo "<a href=\"".$controller->url_for("create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
