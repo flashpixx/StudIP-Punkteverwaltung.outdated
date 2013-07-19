@@ -42,7 +42,7 @@
          **/
         static function hasTutorRecht()
         {
-            return isset($GLOBALS["SessionSeminar"]) ? $GLOBALS["perm"]->have_studip_perm("dozent", $GLOBALS["SessionSeminar"]) : false ;
+            return isset($GLOBALS["SessionSeminar"]) ? $GLOBALS["perm"]->have_studip_perm("tutor", $GLOBALS["SessionSeminar"]) : false ;
         }
 
 
