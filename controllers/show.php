@@ -24,6 +24,7 @@
     **/
 
 
+
     class ShowController extends StudipController
     {
 

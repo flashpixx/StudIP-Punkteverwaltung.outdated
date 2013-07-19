@@ -24,6 +24,7 @@
     **/
 
 
+
     class AdminController extends StudipController
     {
 

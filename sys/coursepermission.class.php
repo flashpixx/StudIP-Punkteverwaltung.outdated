@@ -24,6 +24,7 @@
     **/
 
 
+
     /** Klasse um Zugriffsrechte zu einer Veranstaltung für einen User zu prüfen **/
     class CoursePermission
     {

@@ -23,6 +23,8 @@
     @endcond
     **/
 
+
+
     require_once(dirname(dirname(__DIR__)) . "/coursepermission.class.php");
 
     

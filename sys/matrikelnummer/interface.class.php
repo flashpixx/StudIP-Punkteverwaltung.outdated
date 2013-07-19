@@ -23,25 +23,19 @@
     @endcond
     **/
 
+    
 
-    require_once("database.class.php");
-
-
-
-    /** Factoryklasse, die in Abhängigkeit der Konfiguration das passende
-     * Objekt für den Zugriff auf die Matrikelnummer liefert
-     * @warn aktuell nur Zugriff auf die Datenbank vorhanden
+    /** Interfaceklasse für den Zugriff auf die Matrikelnummer, damit
+     * die Matrikelnummer auch aus anderen Datenquellen gelesen werden kann
      **/
-    class MatrikelNummerFactory
+    abstract class MatrikelNummerInterface
     {
 
-        /** liefert das passende Zugriffobjekt für die Matrikelnummer oder null
-         * @return Viewobjekt
+        /** liefert die Matrikelnummer oder einen leeren Wert zurück
+         * @param $pxUID BenutzerID oder ein Array mit IDs
+         * @return Leerwert, Nummer oder Array mit Nummern
          **/
-        static function get()
-        {
-            return new MatrikelNummerDatabase();
-        }
+        abstract function get( $pxUID );
         
     }
     

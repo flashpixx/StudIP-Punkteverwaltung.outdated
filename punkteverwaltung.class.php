@@ -24,8 +24,9 @@
     **/
 
 
+
     require_once("bootstrap.php");
-    require_once("coursepermission.class.php");
+    require_once("sys/coursepermission.class.php");
 
 
     //ini_set("display_errors", TRUE);
@@ -47,28 +48,42 @@
             parent::__construct();
 
             
-            // Trails Menü Definition
+            // Trails Menü Definition, einmal als Tab in der Veranstaltung & einmal oben im Hauptmenu
+            // (Dozenten sehen Punkteverwaltung generell um Übungen anzulegen)
             $loHeadNav = null;
-            if (CoursePermission::hasDozentRecht() || CoursePermission::hasTutorRecht())
+            
+            if (CoursePermission::hasDozentRecht())
             {
                 $loHeadNav = new AutoNavigation(_("Punkteverwaltung"));
                 $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "admin"));
-            } else {
+
+                if (Navigation::hasItem("/course"))
+                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
+
+                
+            } elseif ( (CoursePermission::hasTutorRecht()) && (Veranstaltung::get()) ) {
+                // Tutoren sehen die verwaltung nur, wenn Übungen existieren
+
+                if (Navigation::hasItem("/course"))
+                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
+                
+            } elseif ( (CoursePermission::hasAutorRecht()) && (Veranstaltung::get()) ) {
+
+                // alle anderen (Studenten) sehen nur ihre Punkte und wenn Übungen vorhanden sind
                 $loHeadNav = new AutoNavigation(_("Punkte"));
                 $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
+
+                if (Navigation::hasItem("/course"))
+                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
             }
 
-            $loHeadNav->setImage(Assets::image_path("blank.gif"));
-            Navigation::addItem("/punkteverwaltung", $loHeadNav);
 
             
-            
-            /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
-            if (Navigation::hasItem("/course"))
-                if (CoursePermission::hasDozentRecht() || CoursePermission::hasTutorRecht())
-                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
-                else
-                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
+            if ($loHeadnac)
+            {
+                $loHeadNav->setImage(Assets::image_path("blank.gif"));
+                Navigation::addItem("/punkteverwaltung", $loHeadNav);
+            }
         }
 
 

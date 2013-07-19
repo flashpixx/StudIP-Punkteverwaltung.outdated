@@ -24,6 +24,7 @@
     **/
 
 
+
     require_once("interface.class.php");
 
 
@@ -51,7 +52,7 @@
             {
 
                 $this->moDatabase = DBManager::get();
-                $loPrepare = $this->moDatabase->prepare("show tables like :tablename",  array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = $this->moDatabase->prepare("show tables like :tablename", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("tablename" => self::$maConfiguration["tablename"]) );
 
                 if ( !(($loPrepare) && ($loPrepare->rowCount() > 0)) )
