@@ -42,7 +42,8 @@
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin
     {
 
-        function __construct() {
+        function __construct()
+        {
             parent::__construct();
 
             // Trails Menü Definition wird nicht verwendet
@@ -52,8 +53,11 @@
             Navigation::addItem("/punkteverwaltung", $navigation);
 
             /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
-            if (Navigation::hasItem("/course"))
-                Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
+            if ((Navigation::hasItem("/course"))
+                if ($this->getUser()->getPermission()->hasTeacherPermissionInPOI() || $this->getUser()->getPermission()->hasTutorPermissionInPOI())
+                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
+                else
+                    Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
         }
 
 

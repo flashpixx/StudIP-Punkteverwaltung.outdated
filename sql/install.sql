@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `ppv_seminar` (
   `id` varchar(32) NOT NULL,
   `bestehenprozent` decimal(3,2) unsigned NOT NULL,
-  `uebungnichtbestanden` int(10) unsigned NOT NULL,
+  `allow_nichtbestanden` int(10) unsigned NOT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`id`)
 );
