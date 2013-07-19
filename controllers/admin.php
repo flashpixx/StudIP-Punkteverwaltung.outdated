@@ -44,7 +44,7 @@
         function create_action()
         {
             Veranstaltung::create();
-            $this->redirect("punkteverwaltung/admin/index");
+            $this->redirect("admin/index");
         }
 
 
