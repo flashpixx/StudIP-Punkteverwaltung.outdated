@@ -62,7 +62,7 @@
             if ( (empty($pcID)) && (isset($GLOBALS["SessionSeminar"])) )
                 $pcID = $GLOBALS["SessionSeminar"];
 
-            $loPrepare = DBManager::get()->prepare( "insert into ppv_seminar (id, bestehenprozent, allow_nichtbestanden) values (:semid, 100, 0)" );
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_seminar (id, bestandenprozent, allow_nichtbestanden) values (:semid, 100, 0)" );
             $loPrepare->execute( array("semid" => $pcID) );
         }
 
