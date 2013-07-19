@@ -64,9 +64,9 @@
 
             $this->moDatabase = DBManager::get();
 
-            $this->moDatabase->prepare("select id from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $this->moDatabase->execute( array("semid" => $pcID) );
-            if ( !(($loPrepare) && ($loPrepare->rowCount() > 0)) )
+            $loPrepare = $this->moDatabase->prepare("select id from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $pcID) );
+            if ($loPrepare->rowCount() != 1)
                 throw new Exception("Veranstaltung nicht gefunden");
 
             $this->mcID       = $pcID;
@@ -96,17 +96,16 @@
                 if (($pn < 0) || ($pn > 100))
                     throw new Exception("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]");
 
-                $this->moDatabase->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" );
-                $this->moDatabase->execute( array("semid" => $this->id, "prozent" => floatval($pn)) );
+                $this->moDatabase->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->id, "prozent" => floatval($pn)) );
 
                 $ln = $pn;
 
             } else {
 
-                $this->moDatabase->prepare("select bestandenprozent from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $this->moDatabase->execute( array("semid" => $this->id) );
+                $loPrepare = $this->moDatabase->prepare("select bestandenprozent from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->id) );
 
-                if ( !(($loPrepare) && ($loPrepare->rowCount() > 0)) )
+                if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     $ln     = $result["bestandenprozent"];
@@ -140,10 +139,10 @@
 
             } else {
 
-                $this->moDatabase->prepare("select allow_nichtbestanden from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $this->moDatabase->execute( array("semid" => $this->id) );
+                $loPrepare = $this->moDatabase->prepare("select allow_nichtbestanden from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->id) );
 
-                if ( !(($loPrepare) && ($loPrepare->rowCount() > 0)) )
+                if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     $ln     = $result["allow_nichtbestanden"];
@@ -166,8 +165,7 @@
 
             if ( (empty($pc)) || (is_string($pc)) )
             {
-                $this->moDatabase->prepare( "update ppv_seminar set bemerkung = :bem where id = :semid" );
-                $this->moDatabase->execute( array("semid" => $this->id, "bem" => $pc) );
+                $this->moDatabase->prepare( "update ppv_seminar set bemerkung = :bem where id = :semid" )->execute( array("semid" => $this->id, "bem" => $pc) );
 
                 $lc = $pc;
             }

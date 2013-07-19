@@ -55,7 +55,7 @@
                 $loPrepare = $this->moDatabase->prepare("show tables like :tablename", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("tablename" => self::$maConfiguration["tablename"]) );
 
-                if ( !(($loPrepare) && ($loPrepare->rowCount() > 0)) )
+                if ($loPrepare->rowCount() != 1)
                     $this->moDatabase = null;
             }
         }
@@ -75,8 +75,7 @@
 
             if (is_string($pxUID))
             {
-                $loPrepare->execute( array("uid" => $pxUID ) );
-                $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $loResult = $loPrepare->execute( array("uid" => $pxUID ) )->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
                     return $loResult["num"];
 
@@ -84,8 +83,7 @@
                 $laList = array();
                 foreach ($pxUID as $lcUID)
                 {
-                    $loPrepare->execute( array( "uid" => $lcUID ) );
-                    $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $loResult = $loPrepare->execute( array( "uid" => $lcUID ) )->$loPrepare->fetch(PDO::FETCH_ASSOC);
                     if ($loResult)
                         array_push($laList, $loResult["num"]);
                 }
