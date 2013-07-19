@@ -39,7 +39,7 @@
     echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
 
 
-    if (!empty($loVeranstaltung))
+    if (empty($loVeranstaltung))
         echo "<a href=\"".$controller->url_for("punkteverwaltung/create")."\">Für diese Veranstaltung die Punkteverwaltung aktivieren</a>";
 
 ?>
