@@ -25,7 +25,7 @@
 
 
 
-    require_once(dirname(dirname(__DIR__)) . "/coursepermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/coursepermission.class.php");
 
     
     echo "info<br/>";
