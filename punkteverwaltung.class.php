@@ -25,6 +25,7 @@
 
 
     require_once("bootstrap.php");
+    require_once("coursepermission.class.php");
 
 
     //ini_set("display_errors", TRUE);
@@ -46,14 +47,14 @@
             parent::__construct();
 
             // Trails Menü Definition wird nicht verwendet
-            $navigation = new AutoNavigation(_("Punkte"));
-            $navigation->setURL(PluginEngine::GetURL($this, array(), "show"));
-            $navigation->setImage(Assets::image_path("blank.gif"));
-            Navigation::addItem("/punkteverwaltung", $navigation);
+            $loHeadNav = new AutoNavigation(_("Punkte"));
+            $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
+            $loHeadNav->setImage(Assets::image_path("blank.gif"));
+            Navigation::addItem("/punkteverwaltung", $loHeadNav);
 
             /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
             if (Navigation::hasItem("/course"))
-                if ($this->getUser()->getPermission()->hasTeacherPermissionInPOI() || $this->getUser()->getPermission()->hasTutorPermissionInPOI())
+                if (CoursePermission::hasDozentRechte() || CoursePermission::hasTutorRecht())
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
                 else
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
