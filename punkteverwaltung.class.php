@@ -25,7 +25,6 @@
 
 
     require_once("bootstrap.php");
-    #require_once("matrikelnummer/factory.class.php");
 
 
     //ini_set("display_errors", TRUE);
@@ -53,7 +52,7 @@
             Navigation::addItem("/punkteverwaltung", $navigation);
 
             /** Admin Menü wird unter die Veranstalung als Tab eingehangen **/
-            if ((Navigation::hasItem("/course"))
+            if (Navigation::hasItem("/course"))
                 if ($this->getUser()->getPermission()->hasTeacherPermissionInPOI() || $this->getUser()->getPermission()->hasTutorPermissionInPOI())
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
                 else
