@@ -27,7 +27,7 @@
 
     require_once("bootstrap.php");
     require_once("sys/veranstaltungpermission.class.php");
-    require_once("sys/veranstaltung.class.php");
+    require_once("sys/veranstaltung/veranstaltung.class.php");
 
 
     //ini_set("display_errors", TRUE);
