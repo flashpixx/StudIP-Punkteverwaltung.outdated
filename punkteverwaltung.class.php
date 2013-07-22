@@ -26,7 +26,7 @@
 
 
     require_once("bootstrap.php");
-    require_once("sys/coursepermission.class.php");
+    require_once("sys/veranstaltungpermission.class.php");
     require_once("sys/veranstaltung.class.php");
 
 
@@ -81,7 +81,7 @@
 
             if ($loHeadNav)
             {
-                $loHeadNav->setImage( Assets::image_path("../../".$this->getPluginPath()."icon.png") );
+                $loHeadNav->setImage( Assets::image_path("../../".$this->getPluginPath()."/icon.png") );
                 Navigation::addItem("/punkteverwaltung", $loHeadNav);
             }
         }
