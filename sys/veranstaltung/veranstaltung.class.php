@@ -87,8 +87,6 @@
          **/
         private function __construct($px)
         {
-            DBManager::get() = DBManager::get();
-
             if ( (empty($px)) && (isset($GLOBALS["SessionSeminar"])) )
                 $px = $GLOBALS["SessionSeminar"];
 
