@@ -52,7 +52,7 @@
             // Trails Menü Definition, einmal als Tab in der Veranstaltung & einmal oben im Hauptmenu
             $loHeadNav = null;
             
-            if (CoursePermission::hasDozentRecht())
+            if (VeranstaltungPermission::hasDozentRecht())
             {
                 // (Dozenten sehen Punkteverwaltung generell um Übungen anzulegen)
                 
@@ -62,13 +62,13 @@
                 if (Navigation::hasItem("/course"))
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
 
-            } elseif ( (CoursePermission::hasTutorRecht()) && (Veranstaltung::get()) ) {
+            } elseif ( (VeranstaltungPermission::hasTutorRecht()) && (Veranstaltung::get()) ) {
                 // Tutoren sehen die Verwaltung nur, wenn Übungen existieren
 
                 if (Navigation::hasItem("/course"))
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
 
-            } elseif ( (CoursePermission::hasAutorRecht()) && (Veranstaltung::get()) ) {
+            } elseif ( (VeranstaltungPermission::hasAutorRecht()) && (Veranstaltung::get()) ) {
                 // alle anderen (Studenten) sehen nur ihre Punkte und wenn Übungen vorhanden sind
                 
                 $loHeadNav = new AutoNavigation(_("Punkte"));
