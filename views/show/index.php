@@ -25,13 +25,13 @@
 
 
 
-    require_once(dirname(dirname(__DIR__)) . "/sys/coursepermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
 
     
     echo "info<br/>";
-    echo "Dozentenrecht: ".(CoursePermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
-    echo "Tutorrecht: ".(CoursePermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
-    echo "Autorrecht: ".(CoursePermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
+    echo "Dozentenrecht: ".(VeranstaltungPermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
+    echo "Tutorrecht: ".(VeranstaltungPermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
+    echo "Autorrecht: ".(VeranstaltungPermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
 
 
 ?>

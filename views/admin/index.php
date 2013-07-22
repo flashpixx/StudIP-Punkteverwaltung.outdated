@@ -26,7 +26,7 @@
 
     
     require_once(dirname(dirname(__DIR__)) . "/sys/matrikelnummer/factory.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
     
     $loVeranstaltung = Veranstaltung::get();

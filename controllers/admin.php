@@ -25,7 +25,7 @@
 
 
 
-    require_once(dirname(__DIR__) . "/sys/veranstaltung.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
     /** Controller für die Administration **/
