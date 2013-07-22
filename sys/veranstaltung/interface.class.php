@@ -23,19 +23,34 @@
     @endcond
     **/
 
-    
 
-    /** Interfaceklasse für den Zugriff auf die Matrikelnummer, damit
+
+    /** Interfaceklasse fÃ¼r den Zugriff auf die Matrikelnummer, damit
      * die Matrikelnummer auch aus anderen Datenquellen gelesen werden kann
      **/
-    interface MatrikelNummerInterface
+    interface VeranstaltungsInterface
     {
 
-        /** liefert die Matrikelnummer oder einen leeren Wert zurück
-         * @param $pxUID BenutzerID oder ein Array mit IDs
-         * @return Leerwert, Nummer oder Array mit Nummern
+        /** liefert die ID des Datensatzes
+         * @return ID
          **/
-        function get( $pxUID );
+        function id();
+
+        
+        /** liefert / setzt die Bemerkung des Datensatzes
+         * @param $pc Bemerkungstext
+         * @return Bemerkung
+         **/
+        function bemerkung( $pc );
+
+
+        /** statische Methode um ein Element zu lÃ¶schen
+         * @param $px1 erster Wert
+         * @param $px2 zweiter Wert
+         **/
+        static function delete( $px1, $px2 );
+
+        
         
     }
     

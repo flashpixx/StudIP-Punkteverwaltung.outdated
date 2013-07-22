@@ -26,10 +26,11 @@
 
 
     require_once("uebung.class.php");
+    require_once("interface.class.php");
 
 
     /** Klasse für die Veranstaltungsdaten **/
-    class Veranstaltung
+    class Veranstaltung implements VeranstaltungsInterface
     {
         
         /** ID der Veranstaltung **/
@@ -67,8 +68,9 @@
 
         /** löscht die Veranstaltung mit allen abhängigen Daten
          * @param $px Veranstaltungsobjekt / -ID
+         * @param $pDummy Dummy Element, um die Interface Methode korrekt zu implementieren
          **/
-        static function delete( $px )
+        static function delete( $px, $pDummy = null )
         {
             $lo = Veranstaltung::get($px);
 
@@ -207,7 +209,7 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $ln     = $result["bemerkung"];
+                    $lc     = $result["bemerkung"];
                 }
 
             }

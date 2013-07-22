@@ -29,7 +29,7 @@
 
 
     /** Klasse für den Zugriff auf die Matrikelnummer **/
-    class MatrikelNummerDatabase extends MatrikelNummerInterface
+    class MatrikelNummerDatabase implements MatrikelNummerInterface
     {
 
         /** Konfiguration **/
