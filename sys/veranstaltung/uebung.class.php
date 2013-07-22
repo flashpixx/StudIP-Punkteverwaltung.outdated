@@ -1,0 +1,223 @@
+<?php
+
+    /**
+     @cond
+     ############################################################################
+     # GPL License                                                              #
+     #                                                                          #
+     # This file is part of the StudIP-Punkteverwaltung.                        #
+     # Copyright (c) 2013, Philipp Kraus, <philipp.kraus@tu-clausthal.de>       #
+     # This program is free software: you can redistribute it and/or modify     #
+     # it under the terms of the GNU General Public License as                  #
+     # published by the Free Software Foundation, either version 3 of the       #
+     # License, or (at your option) any later version.                          #
+     #                                                                          #
+     # This program is distributed in the hope that it will be useful,          #
+     # but WITHOUT ANY WARRANTY; without even the implied warranty of           #
+     # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            #
+     # GNU General Public License for more details.                             #
+     #                                                                          #
+     # You should have received a copy of the GNU General Public License        #
+     # along with this program. If not, see <http://www.gnu.org/licenses/>.     #
+     ############################################################################
+     @endcond
+     **/
+
+
+
+    require_once("veranstaltung.class.php");
+
+
+    /** Klasse für die Übungsdaten **/
+    class Uebung
+    {
+
+        /** Veranstaltungsobjekt auf das sich die Übung bezieht */
+        private $moVeranstaltung = null;
+
+        /** ÜbungsID **/
+        private $mcID = null;
+
+
+
+        /** erzeugt eine neue Übung
+         * @warn der PK der Tabelle wird, wie es in StudIP üblich ist, application-side erzeugt, hier wird aber ein SHA-1 Hash verwendet inkl als Prefix die ID der Veranstaltung
+         * @param $pxVeranstaltung Veranstaltungsobjekt oder -ID
+         * @param $pcName name der Übung
+         **/
+        static function create( $pxVeranstaltung, $pcName )
+        {
+            $lo = Veranstaltung::get( $pxVeranstaltung );
+            $lcID = sha1( uniqueid($lo->id(), true) );
+
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, bestandenprozent, maxpunkte) values (:semid, :id, :prozent, :maxpunkte)" );
+            $loPrepare->execute( array("semid" => $pcID, "id" => $id, "prozent" => 50, "maxpunkte" => 1) );
+
+            $lcClassName = __CLASS__;
+            return new $lcClassName( $pxVeranstaltung, $lcID );
+        }
+
+
+        /** löscht eine Übung mit allen dazugehörigen Daten
+         * @param $pxVeranstaltung Veranstaltungsobjekt oder -ID
+         * @param $pxID Übungsobjekt oder -ID
+         **/
+        static function delete( $pxVeranstaltung, $pxID )
+        {
+            $lcClassName = __CLASS__;
+            $loUebung = new $lcClassName( Veranstaltung::get( $pxVeranstaltung ), $pxID );
+
+            foreach( $loUebung->getStudentenUebung() as $item )
+                StudentUbung::delete( $item );
+
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id => :id" );
+            $loPrepare->execute( array("semid" => $lo->id(), "id" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
+        }
+
+
+
+        /** Ctor für die Übungen
+         * @param $pxVeranstaltung VeranstaltungsID oder Veranstaltungsobjekt (per Default immer
+         * von der aktuell selektierten Veranstaltung
+         * @para $pxUebung Übungsobjekt oder ÜbungsID
+         **/
+        function __construct( $pxVeranstaltung, $pxUebung )
+        {
+            $this->moVeranstaltung = Veranstaltung::get( $px );
+
+            if ($pxUebung instanceof $this)
+                $this->mcID = $pxUebung->id();
+            elseif (is_string($pxUebung))
+            {
+                $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
+                if ($loPrepare->rowCount() != 1)
+                    throw new Exception("Übung nicht gefunden");
+
+                $this->mcID = $pxUebung;
+            }
+            else
+                throw new Exception("Übungsparameter nicht definiert");
+        }
+
+
+        /** liefert die Veranstaltung der Übung 
+         * @return Veranstaltungsobjekt
+         **/
+        function veranstaltung()
+        {
+            return $this->moVeranstaltung;
+        }
+
+
+        /** liefert die ID der Veranstaltung
+         * @return ID
+         **/
+        function id()
+        {
+            return $this->mcID;
+        }
+
+        
+        /** liefert die Prozentzahl (über alle Übungen) ab wann eine Veranstaltung als bestanden gilt
+         * @param $pn Wert zum setzen der Prozentzahl
+         * @return Prozentwert
+         **/
+        function bestandenProzent( $pn = null )
+        {
+            $ln = 0;
+
+            if (is_numeric($pn))
+            {
+
+                if (($pn < 0) || ($pn > 100))
+                    throw new Exception("Parameter Prozentzahl fŸr das Bestehen liegt nicht im Interval [0,100]");
+
+                DBManager::get()->prepare( "update ppv_uebung set bestandenprozent = :prozent where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "prozent" => floatval($pn)) );
+
+                $ln = $pn;
+
+            } else {
+
+                $loPrepare = DBManager::get()->prepare("select bestandenprozent from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $ln     = $result["bestandenprozent"];
+                }
+                
+            }
+            
+            return floatval($ln);
+        }
+
+
+        /** liefert Anzahl an Punkten fŸr die †bung
+         * @param $pn Wert zum setzen der Punkte
+         * @return Punkte
+         **/
+        function maxPunkte( $pn = null )
+        {
+            $ln = 0;
+
+            if (is_numeric($pn))
+            {
+
+                if ($pn < 0)
+                    throw new Exception("Parameter fŸr die Punkte muss grš§er gleich Null sein");
+
+                DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => floatval($pn)) );
+
+                $ln = $pn;
+
+            } else {
+
+                $loPrepare = DBManager::get()->prepare("select maxpunkte from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $ln     = $result["maxpunkte"];
+                }
+                
+            }
+            
+            return floatval($ln);
+        }
+
+
+        /** liefert / setzt die Bemerkung
+         * @param $pc Bemerkung
+         * @return Bemerkungstext
+         **/
+        function bemerkung( $pc = false )
+        {
+            $lc = null;
+
+            if ( (empty($pc)) || (is_string($pc)) )
+            {
+                DBManager::get()->prepare( "update ppv_uebung set bemerkung = :bem where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "bem" => $pc) );
+
+                $lc = $pc;
+            } else {
+                $loPrepare = DBManager::get()->prepare("select bemerkung from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $ln     = $result["bemerkung"];
+                }
+
+            }
+            
+            return $lc;
+        }
+
+
+    }
+
+?>

@@ -23,31 +23,29 @@
     @endcond
     **/
 
-    
+
+
+    require_once("uebung.class.php");
+
 
     /** Klasse für die Veranstaltungsdaten **/
     class Veranstaltung
     {
-        /** Database Connection **/
-        private $moDatabase = null;
-
+        
         /** ID der Veranstaltung **/
         private $mcID = null;
 
 
 
         /* statische Methode für die Überprüfung, ob Übungsdaten zu einer Veranstaltung existieren
-         * @param $pcID VeranstaltungsID (SeminarID) [leer für aktuelle ID, sofern vorhanden]
+         * @param $px VeranstaltungsID (SeminarID) oder Veranstaltungsobjekt [leer für aktuelle ID, sofern vorhanden]
          * @return liefert null (false) bei Nicht-Existenz, andernfalls das Veranstaltungsobject
          **/
         static function get( $pcID = null )
         {
             try
             {
-                if ( (empty($pcID)) && (isset($GLOBALS["SessionSeminar"])) )
-                    return new Veranstaltung($GLOBALS["SessionSeminar"]);
-
-                return new Veranstaltung($pcID);
+                return new Veranstaltung($px);
             } catch (Exception $e) {}
 
             return null;
@@ -62,29 +60,51 @@
             if ( (empty($pcID)) && (isset($GLOBALS["SessionSeminar"])) )
                 $pcID = $GLOBALS["SessionSeminar"];
 
-            $loPrepare = DBManager::get()->prepare( "insert into ppv_seminar (id, bestandenprozent, allow_nichtbestanden) values (:semid, 100, 0)" );
-            $loPrepare->execute( array("semid" => $pcID) );
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_seminar (id, bestandenprozent, allow_nichtbestanden) values (:semid, :prozent, :nichtbestanden)" );
+            $loPrepare->execute( array("semid" => $pcID, "prozent" => 100, "nichtbestanden" => 0) );
+        }
+
+
+        /** löscht die Veranstaltung mit allen abhängigen Daten
+         * @param $px Veranstaltungsobjekt / -ID
+         **/
+        static function delete( $px )
+        {
+            $lo = Veranstaltung::get($px);
+
+            foreach ($lo->uebungen() as $uebung)
+                Uebung::delete( $uebung );
+
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
+            $loPrepare->execute( array("semid" => $lo->id()) );
         }
 
 
         
 
         /** privater Ctor, um das Objekt nur durch den statischen Factory (get) erzeugen zu können
-         * @param $pcID VeranstaltungsID (SeminarID)
+         * @param $px VeranstaltungsID (SeminarID) oder Veranstaltungsobjekt
          **/
-        private function __construct($pcID)
+        private function __construct($px)
         {
-            if (empty($pcID))
-                throw new Exception("Veranstaltungsid nicht gesetzt");
+            DBManager::get() = DBManager::get();
 
-            $this->moDatabase = DBManager::get();
+            if ( (empty($px)) && (isset($GLOBALS["SessionSeminar"])) )
+                $px = $GLOBALS["SessionSeminar"];
 
-            $loPrepare = $this->moDatabase->prepare("select id from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("semid" => $pcID) );
-            if ($loPrepare->rowCount() != 1)
-                throw new Exception("Veranstaltung nicht gefunden");
+            if ($px instanceof $this)
+                $this->mcID = $px->id();
+            elseif (is_string($px))
+            {
+                $loPrepare = DBManager::get()->prepare("select id from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $px) );
+                if ($loPrepare->rowCount() != 1)
+                    throw new Exception("Veranstaltung nicht gefunden");
 
-            $this->mcID       = $pcID;
+                $this->mcID       = $px;
+            }
+            else
+                throw new Exception("Veranstaltungparameter inkrorrekt");
         }
 
 
@@ -93,7 +113,7 @@
          **/
         function id()
         {
-            return $this->id;
+            return $this->mcID;
         }
 
 
@@ -101,7 +121,7 @@
          * @param $pn Wert zum setzen der Prozentzahl
          * @return Prozentwert
          **/
-        function BestandenProzent( $pn = null )
+        function bestandenProzent( $pn = null )
         {
             $ln = 0;
 
@@ -111,14 +131,14 @@
                 if (($pn < 0) || ($pn > 100))
                     throw new Exception("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]");
 
-                $this->moDatabase->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->id, "prozent" => floatval($pn)) );
+                DBManager::get()->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->mcID, "prozent" => floatval($pn)) );
 
                 $ln = $pn;
 
             } else {
 
-                $loPrepare = $this->moDatabase->prepare("select bestandenprozent from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->id) );
+                $loPrepare = DBManager::get()->prepare("select bestandenprozent from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->mcID) );
 
                 if ($loPrepare->rowCount() == 1)
                 {
@@ -147,14 +167,14 @@
                 if ($pn < 0)
                     throw new Exception("Parameter muss größer gleich null sein");
 
-                $this->moDatabase->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->id, "anzahl" => intval($pn)) );
+                DBManager::get()->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->mcID, "anzahl" => intval($pn)) );
 
                 $ln = $pn;
 
             } else {
 
-                $loPrepare = $this->moDatabase->prepare("select allow_nichtbestanden from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->id) );
+                $loPrepare = DBManager::get()->prepare("select allow_nichtbestanden from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->mcID) );
 
                 if ($loPrepare->rowCount() == 1)
                 {
@@ -169,7 +189,7 @@
         }
 
 
-        /** liefert die Bemerkung 
+        /** liefert / setzt die Bemerkung 
          * @param $pc Bemerkung 
          * @return Bemerkungstext
          **/
@@ -179,12 +199,39 @@
 
             if ( (empty($pc)) || (is_string($pc)) )
             {
-                $this->moDatabase->prepare( "update ppv_seminar set bemerkung = :bem where id = :semid" )->execute( array("semid" => $this->id, "bem" => $pc) );
+                DBManager::get()->prepare( "update ppv_seminar set bemerkung = :bem where id = :semid" )->execute( array("semid" => $this->mcID, "bem" => $pc) );
 
                 $lc = $pc;
+            } else {
+                $loPrepare = DBManager::get()->prepare("select bemerkung from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $ln     = $result["bemerkung"];
+                }
+
             }
 
             return $lc;
+        }
+
+
+        /** liefert ein Array mit allen Übungsobjekten
+         * @return Array mit Übungsobjekten
+         **/
+        function uebungen()
+        {
+            $la = array();
+
+            $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where veranstaltung = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->mcID) );
+
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                array_push($la, new Uebung($this, $orw["id"]) );
+
+            return $la;
         }
         
     }

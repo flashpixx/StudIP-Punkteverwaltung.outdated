@@ -25,35 +25,12 @@
 
 
 
-    /** Klasse um Zugriffsrechte zu einer Veranstaltung für einen User zu prüfen **/
-    class CoursePermission
+    require_once("uebung.class.php");
+
+
+    /** Klasse fÃ¼r die Ãœbung-Student-Beziehung **/
+    class UebungStudent
     {
-
-        /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Dozentenrechte hat
-         * @return Boolean für die Rechte
-         **/
-        static function hasDozentRecht()
-        {
-            return isset($GLOBALS["SessionSeminar"]) ? $GLOBALS["perm"]->have_studip_perm("dozent", $GLOBALS["SessionSeminar"]) : false ;
-        }
-
-
-        /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Tutorenrechte hat
-         * @return Boolean für die Rechte
-         **/
-        static function hasTutorRecht()
-        {
-            return isset($GLOBALS["SessionSeminar"]) ? $GLOBALS["perm"]->have_studip_perm("tutor", $GLOBALS["SessionSeminar"]) : false ;
-        }
-
-
-        /* prüft, ob der aktuelle User Autorenrechte in der Veranstaltung hat
-         * @return Boolean für die Rechte
-         **/
-        static function hasAutorRecht()
-        {
-            return isset($GLOBALS["SessionSeminar"]) ? $GLOBALS["perm"]->have_studip_perm("autor", $GLOBALS["SessionSeminar"]) : false ;
-        }
 
     }
 

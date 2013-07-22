@@ -28,7 +28,6 @@
     require_once("database.class.php");
 
 
-
     /** Factoryklasse, die in Abhängigkeit der Konfiguration das passende
      * Objekt für den Zugriff auf die Matrikelnummer liefert
      * @warn aktuell nur Zugriff auf die Datenbank vorhanden

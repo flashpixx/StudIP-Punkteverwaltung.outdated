@@ -40,8 +40,8 @@
                                             );
 
         
-        /** Datenbankobjekt, wenn null, dann kein Zugriff auf die Matrikelnummer möglich **/
-        private $moDatabase = null;
+        /** zeit an, dass die Möglichkeit besteht die Matrikelnummer abzufragen **/
+        private $mlExists = false;
 
 
         
@@ -51,12 +51,9 @@
             if (self::$maConfiguration)
             {
 
-                $this->moDatabase = DBManager::get();
-                $loPrepare = $this->moDatabase->prepare("show tables like :tablename", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("show tables like :tablename", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("tablename" => self::$maConfiguration["tablename"]) );
-
-                if ($loPrepare->rowCount() != 1)
-                    $this->moDatabase = null;
+                $this->mlExists = $loPrepare->rowCount() == 1;
             }
         }
 
@@ -68,10 +65,10 @@
          **/
         function get( $pxUID )
         {
-            if (!$this->moDatabase)
+            if (!$this->mlExists)
                 return null;
 
-            $loPrepare = $this->moDatabase->prepare("select ".self::$maConfiguration["field_number"]." as num from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
 
             if (is_string($pxUID))
             {
