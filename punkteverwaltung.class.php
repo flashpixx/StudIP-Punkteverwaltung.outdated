@@ -50,39 +50,38 @@
 
             
             // Trails Menü Definition, einmal als Tab in der Veranstaltung & einmal oben im Hauptmenu
-            // (Dozenten sehen Punkteverwaltung generell um Übungen anzulegen)
             $loHeadNav = null;
             
             if (CoursePermission::hasDozentRecht())
             {
+                // (Dozenten sehen Punkteverwaltung generell um Übungen anzulegen)
+                
                 $loHeadNav = new AutoNavigation(_("Punkteverwaltung"));
                 $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "admin"));
 
                 if (Navigation::hasItem("/course"))
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
 
-                
             } elseif ( (CoursePermission::hasTutorRecht()) && (Veranstaltung::get()) ) {
-                // Tutoren sehen die verwaltung nur, wenn Übungen existieren
+                // Tutoren sehen die Verwaltung nur, wenn Übungen existieren
 
                 if (Navigation::hasItem("/course"))
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
-                
-            } elseif ( (CoursePermission::hasAutorRecht()) && (Veranstaltung::get()) ) {
 
+            } elseif ( (CoursePermission::hasAutorRecht()) && (Veranstaltung::get()) ) {
                 // alle anderen (Studenten) sehen nur ihre Punkte und wenn Übungen vorhanden sind
+                
                 $loHeadNav = new AutoNavigation(_("Punkte"));
                 $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
 
                 if (Navigation::hasItem("/course"))
                     Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
+
             }
 
-
-            
-            if ($loHeadnac)
+            if ($loHeadNav)
             {
-                $loHeadNav->setImage(Assets::image_path("blank.gif"));
+                $loHeadNav->setImage( Assets::image_path("../../".$this->getPluginPath()."icon.png") );
                 Navigation::addItem("/punkteverwaltung", $loHeadNav);
             }
         }
