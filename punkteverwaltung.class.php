@@ -66,44 +66,28 @@
          **/
         private function setAutorNavigation()
         {
-            if (!Veranstaltung::get())
+            if ( (!Veranstaltung::get()) || (!Navigation::hasItem("/course"))) )
                 return;
 
-
-            $loHeadNav = new AutoNavigation(_("Punkte"));
-            $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "show"));
-
-            if (Navigation::hasItem("/course"))
-                Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
-
-            Navigation::addItem("/punkteverwaltung", $loHeadNav);
-            $loHeadNav->setImage( Assets::image_path("../../".$this->getPluginPath()."/icon.png") );
+            Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
         }
 
 
         /** Administratoren (Dozenten) sehen die Verwaltung generell **/
         private function setAdminNavigation()
         {
+            if (!Navigation::hasItem("/course"))
+                return;
 
-            $loHeadNav = new AutoNavigation(_("Punkteverwaltung"));
-            $loHeadNav->setURL(PluginEngine::GetURL($this, array(), "admin"));
+            $loNav = new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "show"));
 
-            if (Navigation::hasItem("/course"))
-            {
-                $loMainNav = new Navigation(_("Punkteverwaltung"));
-                Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", $loMainNav, PluginEngine::GetURL($this, array(), "admin") );
 
-                $loVeranstaltung = Veranstaltung::get();
-                if ($loVeranstaltung)
-                    foreach($loVeranstaltung->uebungen() as $ueb)
-                    {
-                        $loMainNav->addSubNavigation("uebung", new Navigation($ueb->name(), PluginEngine::GetURL($this, array(), "uebung")) );
-                    }
-                    
-            }
-
-            Navigation::addItem("/punkteverwaltung", $loHeadNav);
-            $loHeadNav->setImage( Assets::image_path("../../".$this->getPluginPath()."/icon.png") );
+            $loVeranstaltung = Veranstaltung::get();
+            if ($loVeranstaltung)
+                foreach($loVeranstaltung->uebungen() as $ueb)
+                    $loNav->addSubNavigation("uebung", new Navigation($ueb->name(), PluginEngine::GetURL($this, array(), "uebung")) );
+        
+            Navigation::addItem("/punkteverwaltung", $loNav);
         }
 
 
