@@ -133,7 +133,7 @@
             {
 
                 if (($pn < 0) || ($pn > 100))
-                    throw new Exception("Parameter Prozentzahl fŸr das Bestehen liegt nicht im Interval [0,100]");
+                    throw new Exception("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]");
 
                 DBManager::get()->prepare( "update ppv_uebung set bestandenprozent = :prozent where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "prozent" => floatval($pn)) );
 
@@ -156,7 +156,7 @@
         }
 
 
-        /** liefert Anzahl an Punkten fŸr die †bung
+        /** liefert Anzahl an Punkten für die Übung
          * @param $pn Wert zum setzen der Punkte
          * @return Punkte
          **/
@@ -168,7 +168,7 @@
             {
 
                 if ($pn < 0)
-                    throw new Exception("Parameter fŸr die Punkte muss grš§er gleich Null sein");
+                    throw new Exception("Parameter für die Punkte muss größer gleich Null sein");
 
                 DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => floatval($pn)) );
 
@@ -224,7 +224,7 @@
          * für diese Übung zurück
          * @return Array mit Objekten von Student-Übung
          **/
-        function studenten()
+        function studentenMitPunkten()
         {
             $la = array();
 
