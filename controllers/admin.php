@@ -53,7 +53,7 @@
 
 
         /** setzt die Einträge der Veranstaltung **/
-        function updateuebung_action()
+        function uebung_action()
         {
 
         }
