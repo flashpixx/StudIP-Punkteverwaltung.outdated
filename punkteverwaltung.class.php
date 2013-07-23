@@ -90,7 +90,7 @@
 
             if (Navigation::hasItem("/course"))
             {
-                $loMainNav = new Navigation(_("Punkteverwaltung");
+                $loMainNav = new Navigation(_("Punkteverwaltung"));
                 Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", $loMainNav, PluginEngine::GetURL($this, array(), "admin")) );
 
                 $loVeranstaltung = Veranstaltung::get();
