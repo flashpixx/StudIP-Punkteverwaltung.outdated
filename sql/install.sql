@@ -6,14 +6,16 @@ CREATE TABLE IF NOT EXISTS `ppv_seminar` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `ppv_uebung` (
-  `seminar` varchar(32) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ppv_uebung` (
+  `seminar` varchar(32)NOT NULL,
   `id` varchar(32) NOT NULL,
   `uebungsname` varchar(200) NOT NULL,
   `bestandenprozent` decimal(5,2) unsigned NOT NULL,
   `maxpunkte` int(10) unsigned NOT NULL,
+  `abgabe` datetime DEFAULT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`seminar`,`id`),
+  UNIQUE KEY `uebungsname` (`uebungsname`),
   UNIQUE KEY `seminar_2` (`seminar`,`uebungsname`),
   KEY `seminar` (`seminar`)
 );

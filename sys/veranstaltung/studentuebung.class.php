@@ -35,8 +35,13 @@
     class UebungStudent implements VeranstaltungsInterface
     {
 
+        /** Übungsobjekt **/
         private $moUebung      = null;
+
+        /** Authentifizierung Hash **/
         private $mcAuth        = null;
+
+        /** Prepare Statement für das Log zu erezugen **/
         private $moLogPrepare  = null;
 
         

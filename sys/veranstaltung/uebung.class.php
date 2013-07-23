@@ -120,6 +120,37 @@
             return $this->mcID;
         }
 
+
+        /** liefert den Namen der Übung zurück bzw. setzt ihn neu
+         * @param $pc neuer Name
+         * @return Name
+         **/
+        function name( $pc = null )
+        {
+            $lc = null;
+            
+            if ((!empty($pc)) && (is_string($pc)) )
+            {
+
+                DBManager::get()->prepare( "update ppv_uebung set uebungname = :name where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
+                $lc = $pc;
+
+            } else {
+
+                $loPrepare = DBManager::get()->prepare("select uebungname from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $ln     = $result["uebungname"];
+                }
+
+            }
+
+            return $lc;
+        }
+
         
         /** liefert die Prozentzahl (über alle Übungen) ab wann eine Veranstaltung als bestanden gilt
          * @param $pn Wert zum setzen der Prozentzahl
