@@ -69,7 +69,7 @@
             if ( (!Veranstaltung::get()) || (!Navigation::hasItem("/course")) )
                 return;
 
-            Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
+            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
         }
 
 
@@ -79,9 +79,9 @@
             if (!Navigation::hasItem("/course"))
                 return;
 
-            Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
-            Navigation::getItem("/course/punkteverwaltung")->addSubNavigation( "mainsettings", new Navigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
-            Navigation::getItem("/course/punkteverwaltung")->addSubNavigation( "createuebung", new Navigation(_("erzeuge neue Übung"), PluginEngine::GetURL($this, array(), "admin")) );
+            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
+            Navigation::addItem( "/course/punkteverwaltung/mainsettings", new Navigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
+            Navigation::addItem( "/course/punkteverwaltung/createuebung", new Navigation(_("erzeuge neue Übung"), PluginEngine::GetURL($this, array(), "uebung")) );
 
             //$loVeranstaltung = Veranstaltung::get();
             //if ($loVeranstaltung)
