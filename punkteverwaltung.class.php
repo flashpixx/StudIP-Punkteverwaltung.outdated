@@ -99,7 +99,7 @@
             if ( (!Navigation::hasItem("/course")) || (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
                 return;
 
-            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebungen")) );
+            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
             foreach($loVeranstaltung->uebungen() as $ueb)
                 Navigation::addItem( "/course/punkteverwaltung/edituebung", new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("id" => $ueb->id()), "uebung")) );
 
