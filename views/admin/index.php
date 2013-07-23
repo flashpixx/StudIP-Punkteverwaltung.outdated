@@ -23,18 +23,35 @@
     @endcond
     **/
 
-
     
-    require_once(dirname(dirname(__DIR__)) . "/sys/matrikelnummer/factory.class.php");
+
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
-    
-    $loVeranstaltung = Veranstaltung::get();
 
-    if (empty($loVeranstaltung))
+    $loVeranstaltung = Veranstaltung::get();
+    if (!$loVeranstaltung)
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
     else {
 
+        echo "<form method=\"post\" action=\"".$controller->url_for("" , $course_id)."\">\n";
+        CSRFProtection::tokenTag();
+
+        echo "<div style=\"text-align:center\" class=\"steel1\">\n";
+        echo "<table width=\"100%\">\n";"
+
+        echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
+        echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"\"/></td></tr>\n";
+
+        echo "<tr><td><label for=\"allow_nichtbestanden\">"._("Anzahl an nicht bestandenen Übungen, um die Veranstaltung trotzdem bei erreichen der Punkte als bestanden zu werten")."</label></td>";
+        echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"bestandenprozent\" value=\"\"/></td></tr>\n";
+
+        echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
+        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\"></textarea></td></tr>\n";
+
+        echo "</table></div>\n";
+        Button::create(_("Übernehmen"))
+        echo "</form>";
     }
 
 ?>
