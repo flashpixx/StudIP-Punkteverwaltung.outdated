@@ -29,7 +29,7 @@
 
 
     /** Controller für die Administration **/
-    class AdminController extends StudipController
+    class UebungController extends StudipController
     {
 
         /** Before-Aufruf zum setzen von Defaultvariablen **/
