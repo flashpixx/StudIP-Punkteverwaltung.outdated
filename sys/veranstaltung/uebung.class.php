@@ -143,7 +143,7 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $lc     = $result["uebungname"];
+                    $lc     = $result["uebungsname"];
                 }
 
             }
