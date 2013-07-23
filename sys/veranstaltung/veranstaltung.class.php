@@ -229,7 +229,7 @@
             $loPrepare->execute( array("semid" => $this->mcID) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push($la, new Uebung($this, $orw["id"]) );
+                array_push($la, new Uebung($this, $row["id"]) );
 
             return $la;
         }
