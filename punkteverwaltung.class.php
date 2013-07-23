@@ -80,13 +80,13 @@
                 return;
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
-            Navigation::addItem( "/course/punkteverwaltung/mainsettings", new AutoNavigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
-            Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("erzeuge neue Übung"), PluginEngine::GetURL($this, array(), "uebung")) );
+            Navigation::addItem( "/course/punkteverwaltung/editsettings", new AutoNavigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
+            Navigation::addItem( "/course/punkteverwaltung/statistik", new AutoNavigation(_("Auswertungen"), PluginEngine::GetURL($this, array(), "admin")) );
 
-            //$loVeranstaltung = Veranstaltung::get();
-            //if ($loVeranstaltung)
-            //    foreach($loVeranstaltung->uebungen() as $ueb)
-        
+            $loVeranstaltung = Veranstaltung::get();
+            if ($loVeranstaltung)
+                foreach($loVeranstaltung->uebungen() as $ueb)
+                    Navigation::addItem( "/course/punkteverwaltung/edit_"+$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array(), "uebung")) );
 
         }
 
