@@ -143,7 +143,7 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $ln     = $result["uebungname"];
+                    $lc     = $result["uebungname"];
                 }
 
             }
@@ -213,7 +213,7 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $lc     = $result["maxpunkte"];
+                    $ln     = $result["maxpunkte"];
                 }
                 
             }
@@ -242,7 +242,7 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $ln     = $result["bemerkung"];
+                    $lc     = $result["bemerkung"];
                 }
 
             }

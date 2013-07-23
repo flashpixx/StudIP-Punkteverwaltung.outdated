@@ -51,9 +51,7 @@
         {
             parent::__construct();
 
-            
-            // Trails Menü Definition, einmal als Tab in der Veranstaltung & einmal oben im Hauptmenu
-            if (VeranstaltungPermission::hasDozentRecht())
+             if (VeranstaltungPermission::hasDozentRecht())
                 $this->setAdminNavigation();
             elseif (VeranstaltungPermission::hasAutorRecht())
                 $this->setAutorNavigation();
@@ -86,7 +84,7 @@
             $loVeranstaltung = Veranstaltung::get();
             if ($loVeranstaltung)
                 foreach($loVeranstaltung->uebungen() as $ueb)
-                    Navigation::addItem( "/course/punkteverwaltung/edit_".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array(), "uebung")) );
+                    Navigation::addItem( "/course/punkteverwaltung/edituebung", new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("id" => $ueb->id()), "uebung")) );
 
         }
 
