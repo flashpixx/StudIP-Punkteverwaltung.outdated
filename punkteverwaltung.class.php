@@ -86,6 +86,7 @@
 
             $loVeranstaltung = Veranstaltung::get();
             if ($loVeranstaltung)
+                // ggf einmal Übung als Navigation + eine Subnavigation für jede einzelne Übung (Tab Struktur)
                 foreach($loVeranstaltung->uebungen() as $ueb)
                     Navigation::addItem( "/course/punkteverwaltung/edituebung", new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("id" => $ueb->id()), "uebung")) );
 
