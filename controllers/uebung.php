@@ -28,7 +28,7 @@
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
-    /** Controller für die Administration **/
+    /** Controller fÃ¼r die Administration **/
     class AdminController extends StudipController
     {
 
@@ -44,14 +44,6 @@
         function index_action() { }
 
 
-        /** erzeugt für eine Veranstaltung einen neuen Eintrag mit Defaultwerten **/
-        function create_action()
-        {
-            Veranstaltung::create();
-            $this->redirect("admin/index");
-        }
-
-
         /** URL Aufruf **/
         function url_for($to)
         {
@@ -65,7 +57,7 @@
             # urlencode all but the first argument
             $args    = array_map("urlencode", $args);
             $args[0] = $to;
-
+            
             return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
         }
         
