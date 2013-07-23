@@ -35,7 +35,7 @@
          **/
         static function showMessage( $paMessage )
         {
-            if ( (!is_array($paMessage)) || (!isset($paMessage["type"])) || (!isset($paMessage["msg"])) )
+            if ( (empty($paMessage)) || (!is_array($paMessage)) || (!isset($paMessage["type"])) || (!isset($paMessage["msg"])) )
                 return true;
 
             $la = array();
