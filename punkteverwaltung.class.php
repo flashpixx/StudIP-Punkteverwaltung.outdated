@@ -51,8 +51,11 @@
         {
             parent::__construct();
 
-             if (VeranstaltungPermission::hasDozentRecht())
+            // Navigation wird in Abhängigkeit der Berechtigungen gesetzt
+            if (VeranstaltungPermission::hasDozentRecht())
                 $this->setAdminNavigation();
+            elseif (VeranstaltungPermission::hasTutorRecht())
+                $this->setTutorNavigation();
             elseif (VeranstaltungPermission::hasAutorRecht())
                 $this->setAutorNavigation();
 
@@ -87,6 +90,21 @@
                     Navigation::addItem( "/course/punkteverwaltung/edituebung", new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("id" => $ueb->id()), "uebung")) );
 
         }
+
+
+        /** Tutoren sehen nur die einzelnen Übungen **/
+        private function setTutorNavigation()
+        {
+            $loVeranstaltung = Veranstaltung::get();
+            if ( (!Navigation::hasItem("/course")) || (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
+                return;
+
+            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebungen")) );
+            foreach($loVeranstaltung->uebungen() as $ueb)
+                Navigation::addItem( "/course/punkteverwaltung/edituebung", new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("id" => $ueb->id()), "uebung")) );
+
+        }
+
 
 
         function initialize () { }
