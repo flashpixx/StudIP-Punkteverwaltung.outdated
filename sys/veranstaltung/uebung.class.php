@@ -26,6 +26,7 @@
 
 
     require_once("veranstaltung.class.php");
+    require_once("studentuebung.class.php");
     require_once("interface.class.php");
 
 
@@ -42,14 +43,14 @@
 
 
         /** erzeugt eine neue Übung
-         * @warn der PK der Tabelle wird, wie es in StudIP üblich ist, application-side erzeugt, hier wird aber ein SHA-1 Hash verwendet inkl als Prefix die ID der Veranstaltung
+         * @warn der PK der Tabelle wird, wie es in StudIP üblich ist, application-side erzeugt, hier wird aber ein MD5 Hash verwendet inkl als Prefix die ID der Veranstaltung
          * @param $pxVeranstaltung Veranstaltungsobjekt oder -ID
          * @param $pcName name der Übung
          **/
         static function create( $pxVeranstaltung, $pcName )
         {
             $lo = Veranstaltung::get( $pxVeranstaltung );
-            $lcID = sha1( uniqueid($lo->id(), true) );
+            $lcID = md5( uniqueid($lo->id(), true) );
 
             $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, bestandenprozent, maxpunkte) values (:semid, :id, :prozent, :maxpunkte)" );
             $loPrepare->execute( array("semid" => $pcID, "id" => $id, "prozent" => 50, "maxpunkte" => 1) );
@@ -217,6 +218,30 @@
             
             return $lc;
         }
+
+
+        /** liefert eine Liste mit allen Studenten und ihren Punkten
+         * für diese Übung zurück
+         * @return Array mit Objekten von Student-Übung
+         **/
+        function studenten()
+        {
+            $la = array();
+
+
+            $loPrepare = DBManager::get()->prepare("select sem.user_id as uid, uebstd.erreichtepunkte, uebstd.zusatzpunkte, uebstd.bemerkung from seminar_user as sem left join ppv_uebungstudent as uebstd on uebstd.student = sem.user_id  where sem.status = :status and sem.Seminar_id = :semid and uebstd.id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "status" => "autor") );
+
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+            {
+                $row["erreichtepunkte"] = floatval($row["erreichtepunkte"]);
+                $row["zusatzpunkte"]    = floatval($row["zusatzpunkte"]);
+                array_push($la, $row);
+            }
+
+            return $la;
+        }
+        
 
 
     }
