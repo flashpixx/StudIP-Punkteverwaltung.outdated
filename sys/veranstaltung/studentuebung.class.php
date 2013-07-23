@@ -90,6 +90,15 @@
             return $this->moUebung;
         }
 
+        
+        /** liefert die IDs des Datensatzes
+         * @return ID als Array
+         **/
+        function id()
+        {
+            return array( "uebung" => $this->moUebung->id(), "uid" => $this->mcAuth );
+        }
+
 
         /** liefert / setzt die erreichten Punkte für den Stundent / Übung
          * und schreibt ggf einen vorhanden Datensatz ins Log
