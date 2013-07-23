@@ -132,12 +132,12 @@
             if ((!empty($pc)) && (is_string($pc)) )
             {
 
-                DBManager::get()->prepare( "update ppv_uebung set uebungname = :name where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
+                DBManager::get()->prepare( "update ppv_uebung set uebungsname = :name where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
                 $lc = $pc;
 
             } else {
 
-                $loPrepare = DBManager::get()->prepare("select uebungname from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("select uebungsname from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
 
                 if ($loPrepare->rowCount() == 1)
