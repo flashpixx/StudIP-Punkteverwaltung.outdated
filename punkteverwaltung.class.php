@@ -66,7 +66,7 @@
          **/
         private function setAutorNavigation()
         {
-            if ( (!Veranstaltung::get()) || (!Navigation::hasItem("/course"))) )
+            if ( (!Veranstaltung::get()) || (!Navigation::hasItem("/course")) )
                 return;
 
             Navigation::getItem("/course")->addSubNavigation( "punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
