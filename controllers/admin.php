@@ -25,6 +25,8 @@
 
 
 
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -47,7 +49,17 @@
         /** erzeugt für eine Veranstaltung einen neuen Eintrag mit Defaultwerten **/
         function create_action()
         {
-            Veranstaltung::create();
+            if (VeranstaltungPermission::hasDozentRecht())
+                try {
+                    Veranstaltung::create();
+                    $this->message = Tools::CreateMessage( "success", _("Übungsverwaltung wurde aktiviert") );
+                } catch (Exception $e) {
+                    $this->message = Tools::CreateMessage( "error", $e->getMessage() );
+                }
+            else
+                $this->message = Tools::CreateMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
+
+            
             $this->redirect("admin/index");
         }
 

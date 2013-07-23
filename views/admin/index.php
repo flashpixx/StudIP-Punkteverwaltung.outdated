@@ -25,8 +25,12 @@
 
     
 
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
+
+
+    Tools::showMessage($message);
 
 
     $loVeranstaltung = Veranstaltung::get();
@@ -38,7 +42,7 @@
         CSRFProtection::tokenTag();
 
         echo "<div style=\"text-align:center\" class=\"steel1\">\n";
-        echo "<table width=\"100%\">\n";"
+        echo "<table width=\"100%\">\n";
 
         echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
         echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"\"/></td></tr>\n";
@@ -50,7 +54,7 @@
         echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\"></textarea></td></tr>\n";
 
         echo "</table></div>\n";
-        Button::create(_("Übernehmen"))
+        Button::create(_("Übernehmen"));
         echo "</form>";
     }
 
