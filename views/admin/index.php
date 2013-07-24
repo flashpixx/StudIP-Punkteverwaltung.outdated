@@ -30,7 +30,7 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
-    Tools::showMessage($message);
+    Tools::showMessage($flash["message"]);
 
     if (!$veranstaltung)
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
