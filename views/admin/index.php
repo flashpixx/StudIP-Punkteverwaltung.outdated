@@ -38,12 +38,12 @@
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
     else {
 
-        echo "<form method=\"post\" action=\"".$controller->url_for("" , "")."\">\n";
+        echo "<form method=\"post\" action=\"".$controller->url_for("/punkteverwaltung/admin")."\">\n";
         CSRFProtection::tokenTag();
 
         echo "<div class=\"steel1\">\n";
 
-        echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierte Bestehensgrenze liegen dürfen, um noch zu einem Bestehen der Veranstaltung zu führen z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen. Die Bemerkung ist optinal und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."</p>";
+        echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierte Bestehensgrenze liegen dürfen, um noch zu einem Bestehen der Veranstaltung zu führen z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen. Die Bemerkung ist optinal und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."<hr width=\"100%\"/></p>";
 
         echo "<table width=\"100%\">\n";
 
