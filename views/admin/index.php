@@ -32,9 +32,7 @@
 
     Tools::showMessage($message);
 
-
-    $loVeranstaltung = Veranstaltung::get();
-    if (!$loVeranstaltung)
+    if (!$veranstaltung)
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
     else {
 
@@ -48,13 +46,13 @@
         echo "<table width=\"100%\">\n";
 
         echo "<tr><td width=\"50%\"><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
-        echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"\" size=\"35\"/></td></tr>\n";
+        echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$veranstaltung->bestandenProzent()."\" size=\"35\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"allow_nichtbestanden\">"._("Anzahl an nicht bestandenen Übungen, um die Veranstaltung trotzdem bei erreichen der Punkte als bestanden zu werten")."</label></td>";
-        echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"bestandenprozent\" value=\"\" size=\"35\"/></td></tr>\n";
+        echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"bestandenprozent\" value=\"".$veranstaltung->allowNichtBestanden()."\" size=\"35\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
-        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\"></textarea></td></tr>\n";
+        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$veranstaltung->bemerkung()."</textarea></td></tr>\n";
 
         echo "</table>\n";
         echo "</div>\n";
