@@ -63,7 +63,7 @@
                 $this->message = Tools::CreateMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
 
             
-            $this->redirect("admin/index");
+            $this->redirect("admin");
         }
 
 
@@ -71,7 +71,7 @@
         {
             $this->message = Tools::CreateMessage( "error", _("blub") );
 
-            $this->redirect("admin/index");
+            $this->redirect("admin");
         }
 
 
