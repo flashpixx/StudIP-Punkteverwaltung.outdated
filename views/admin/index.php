@@ -42,6 +42,9 @@
         CSRFProtection::tokenTag();
 
         echo "<div class=\"steel1\">\n";
+
+        echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierte Bestehensgrenze liegen dürfen, um noch zu einem Bestehen der Veranstaltung zu führen z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen. Die Bemerkung ist optinal und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."</p>";
+
         echo "<table width=\"100%\">\n";
 
         echo "<tr><td width=\"50%\"><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
@@ -51,7 +54,7 @@
         echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"bestandenprozent\" value=\"\" size=\"35\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
-        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"36\" rows=\"10\"></textarea></td></tr>\n";
+        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\"></textarea></td></tr>\n";
 
         echo "</table>\n";
         echo "</div>\n";
