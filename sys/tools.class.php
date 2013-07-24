@@ -25,7 +25,7 @@
 
 
 
-    /** Klasse fÃ¼r zentrale Funktionen **/
+    /** Klasse für zentrale Funktionen **/
     class Tools
     {
 
@@ -45,21 +45,24 @@
 
             if (($paMessage) && (strcasecmp($paMessage["type"], "error") == 0))
             {
-                MessageBox::error($paMessage["msg"], $la);
+                echo MessageBox::error($paMessage["msg"], $la);
                 return false;
-            } elseif (($paMessage) && (strcasecmp($paMessage["type"], "success") == 0))
-                MessageBox::success($paMessage["msg"], $la);
-            elseif (($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
-                MessageBox::info($paMessage["msg"], $la);
+            } elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "success") == 0))
+                echo MessageBox::success($paMessage["msg"], $la);
+            elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
+                echo MessageBox::info($paMessage["msg"], $la);
+            elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
+                // hier fehlt noch bisschen was: siehe http://docs.studip.de/develop/Entwickler/ModalerDialog
+                echo createQuestion($paMessage["msg"], $la));
 
             return true;
         }
 
 
         /** Methode um einen Messagetext zu generieren
-         * @param $pcTyp ist der Messagetyp, Werte sind: error, success, info
+         * @param $pcTyp ist der Messagetyp, Werte sind: error, success, info, question
          * @param $pcText Text der Nachricht
-         * @param $paInfo weitere Texte
+         * @param $paInfo weitere Texte oder für den Question-Dialog das return Array
          * @return Array mit Messagedaten
          **/
 
