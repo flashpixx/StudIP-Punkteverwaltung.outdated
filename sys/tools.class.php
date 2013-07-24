@@ -35,13 +35,18 @@
          **/
         static function showMessage( $paMessage )
         {
+            echo "blub1";
+
             if ( (empty($paMessage)) || (!is_array($paMessage)) || (!isset($paMessage["type"])) || (!isset($paMessage["msg"])) )
                 return true;
+
+            echo "blub2";
 
             $la = array();
             if ( (isset($paMessage["info"])) && (is_array($paMessage["info"])) )
                 $la = $paMessage["info"];
 
+            echo "blub3";
 
             if (($paMessage) && (strcasecmp($paMessage["type"], "error") == 0))
             {

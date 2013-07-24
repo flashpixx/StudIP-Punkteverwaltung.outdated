@@ -61,12 +61,12 @@
                 }
             else
                 $this->message = Tools::CreateMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
-
             
             $this->redirect("admin");
         }
 
 
+        /** Update Aufruf, um die Einstellungen zu setzen **/
         function update_action()
         {
             $this->message = Tools::CreateMessage( "error", _("blub") );
