@@ -36,7 +36,7 @@
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
     else {
 
-        echo "<form method=\"post\" action=\"".$controller->url_for("/punkteverwaltung/admin")."\">\n";
+        echo "<form method=\"post\" action=\"".$controller->url_for("/punkteverwaltung/admin/update")."\">\n";
         CSRFProtection::tokenTag();
 
         echo "<div class=\"steel1\">\n";

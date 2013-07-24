@@ -67,6 +67,14 @@
         }
 
 
+        function update_action()
+        {
+            $this->message = Tools::CreateMessage( "error", _("blub") );
+
+            $this->redirect("admin/index");
+        }
+
+
         /** URL Aufruf **/
         function url_for($to)
         {
