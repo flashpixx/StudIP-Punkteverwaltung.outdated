@@ -55,12 +55,12 @@
             if (VeranstaltungPermission::hasDozentRecht())
                 try {
                     Veranstaltung::create();
-                    $this->message = Tools::CreateMessage( "success", _("Übungsverwaltung wurde aktiviert") );
+                    $this->flash["message"] = Tools::createMessage( "success", _("Übungsverwaltung wurde aktiviert") );
                 } catch (Exception $e) {
-                    $this->message = Tools::CreateMessage( "error", $e->getMessage() );
+                    $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                 }
             else
-                $this->message = Tools::CreateMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
             
             $this->redirect("admin");
         }
@@ -69,7 +69,7 @@
         /** Update Aufruf, um die Einstellungen zu setzen **/
         function update_action()
         {
-            $this->message = Tools::createMessage( "error", _("blub") );
+            $this->flash["message"] = Tools::createMessage( "error", _("blub") );
 
             $this->redirect("admin");
         }
