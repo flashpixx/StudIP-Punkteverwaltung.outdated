@@ -39,7 +39,8 @@
         {
             // PageLayout::setTitle("");
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
-            $this->veranstaltung = Veranstaltung::get();
+            $this->veranstaltung          = Veranstaltung::get();
+            $this->flash["veranstaltung"] = $this->veranstaltung;
         }
 
 
@@ -68,7 +69,6 @@
         function update_action()
         {
             $this->flash["message"] = Tools::createMessage( "error", _("blub") );
-
             $this->redirect("admin");
         }
 
