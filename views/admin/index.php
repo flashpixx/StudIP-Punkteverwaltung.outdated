@@ -38,13 +38,13 @@
         echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
     else {
 
-        echo "<form method=\"post\" action=\"".$controller->url_for("" , $course_id)."\">\n";
+        echo "<form method=\"post\" action=\"".$controller->url_for("" , "")."\">\n";
         CSRFProtection::tokenTag();
 
-        echo "<div style=\"text-align:center\" class=\"steel1\">\n";
+        echo "<div class=\"steel1\">\n";
         echo "<table width=\"100%\">\n";
 
-        echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
+        echo "<tr><td width=\"50%\"><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
         echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"allow_nichtbestanden\">"._("Anzahl an nicht bestandenen Übungen, um die Veranstaltung trotzdem bei erreichen der Punkte als bestanden zu werten")."</label></td>";
@@ -55,7 +55,7 @@
 
         echo "</table>\n";
         echo "</div>\n";
-        Button::create(_("Übernehmen"));
+        echo "<p><input type=\"submit\" value=\""._("Angaben übernehmen")."\"/></p>";
         echo "</form>";
     }
 
