@@ -81,6 +81,10 @@
                 return;
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
+
+            if (!Veranstaltung::get())
+                return;
+
             Navigation::addItem( "/course/punkteverwaltung/editsettings", new AutoNavigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
             Navigation::addItem( "/course/punkteverwaltung/statistik", new AutoNavigation(_("Auswertungen"), PluginEngine::GetURL($this, array(), "admin")) );
 
