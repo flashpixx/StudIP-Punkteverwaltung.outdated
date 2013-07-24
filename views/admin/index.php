@@ -51,7 +51,7 @@
         echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"bestandenprozent\" value=\"\" size=\"35\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
-        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"35\" rows=\"25\"></textarea></td></tr>\n";
+        echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"36\" rows=\"10\"></textarea></td></tr>\n";
 
         echo "</table>\n";
         echo "</div>\n";
