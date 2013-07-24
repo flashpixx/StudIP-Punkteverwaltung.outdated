@@ -53,7 +53,8 @@
         echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
         echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\"></textarea></td></tr>\n";
 
-        echo "</table></div>\n";
+        echo "</table>\n";
+        echo "</div>\n";
         Button::create(_("Übernehmen"));
         echo "</form>";
     }

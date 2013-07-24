@@ -53,7 +53,7 @@
                 echo MessageBox::info($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
                 // hier fehlt noch bisschen was: siehe http://docs.studip.de/develop/Entwickler/ModalerDialog
-                echo createQuestion($paMessage["msg"], $la));
+                echo createQuestion($paMessage["msg"], $la);
 
             return true;
         }
