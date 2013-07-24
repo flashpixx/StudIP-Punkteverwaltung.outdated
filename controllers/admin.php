@@ -69,7 +69,7 @@
         /** Update Aufruf, um die Einstellungen zu setzen **/
         function update_action()
         {
-            $this->message = Tools::CreateMessage( "error", _("blub") );
+            $this->message = Tools::createMessage( "error", _("blub") );
 
             $this->redirect("admin");
         }
