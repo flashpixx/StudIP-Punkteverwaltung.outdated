@@ -85,6 +85,8 @@
                 if ($lo)
                     try {
                         $lo->bemerkung( Request::quoted("bemerkung") );
+                        $lo->bestandenProzent( Request::float("bestandenprozent"), 100 );
+                        $lo->allowNichtBestanden( Request::int("bestandenprozent"), 0 );
                         
                         $this->flash["message"] = Tools::createMessage( "success", _("Einstellung gespeichert") );
                     } catch (Exception $e) {
