@@ -58,7 +58,7 @@
 
         echo "</table>\n";
         echo "</div>\n";
-        echo "<p><input type=\"submit\" value=\""._("Angaben übernehmen")."\"/></p>";
+        echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
         echo "</form>";
     }
 

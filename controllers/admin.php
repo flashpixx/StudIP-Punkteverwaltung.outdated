@@ -58,16 +58,17 @@
         /** erzeugt für eine Veranstaltung einen neuen Eintrag mit Defaultwerten **/
         function create_action()
         {
-            if (VeranstaltungPermission::hasDozentRecht())
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
+
+            else
                 try {
                     Veranstaltung::create();
                     $this->flash["message"] = Tools::createMessage( "success", _("Übungsverwaltung wurde aktiviert") );
                 } catch (Exception $e) {
                     $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                 }
-            else
-                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
-            
+                
             $this->redirect("admin");
         }
 
@@ -75,7 +76,23 @@
         /** Update Aufruf, um die Einstellungen zu setzen **/
         function update_action()
         {
-            $this->flash["message"] = Tools::createMessage( "error", _("blub") );
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen zu ändern") );
+            
+            else (Request::submitted("submitted"))
+            {
+                $lo = Veranstaltung::get();
+                if ($lo)
+                    try {
+                        $lo->bemerkung( Request::quoted("bemerkung") );
+                        
+                        $this->flash["message"] = Tools::createMessage( "success", _("Einstellung gespeichert") );
+                    } catch (Exception $e) {
+                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                    }
+
+            }
+
             $this->redirect("admin");
         }
 
