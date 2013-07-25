@@ -53,7 +53,7 @@
                 throw new Exception(_("Für die Erzeugung der Übung muss ein Name vergeben werden"));
 
             $lo = Veranstaltung::get( $pxVeranstaltung );
-            $lcID = md5( uniqueid($lo->id(), true) );
+            $lcID = md5( uniqid($lo->id(), true) );
 
             $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, bestandenprozent, maxpunkte) values (:semid, :id, :prozent, :maxpunkte)" );
             $loPrepare->execute( array("semid" => $pcID, "id" => $id, "prozent" => 50, "maxpunkte" => 1) );
