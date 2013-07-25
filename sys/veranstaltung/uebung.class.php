@@ -232,7 +232,7 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
-                DBManager::get()->prepare( "update ppv_uebung set bemerkung = :bem where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "bem" => $pc) );
+                DBManager::get()->prepare( "update ppv_uebung set bemerkung = :bem where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "bem" => (empty($pc) ? null, $pc)) );
 
                 $lc = $pc;
             } else {

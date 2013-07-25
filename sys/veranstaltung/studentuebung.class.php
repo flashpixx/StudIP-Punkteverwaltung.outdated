@@ -181,7 +181,7 @@
             {
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
 
-                DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where seminar = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth, "bem" => $pc) );
+                DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where seminar = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth, "bem" => (empty($pc) ? null, $pc)) );
 
                 $lc = $pc;
             } else {
