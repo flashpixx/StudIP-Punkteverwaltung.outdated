@@ -100,7 +100,11 @@
 
 
         /** Aufruf um eine neue Übung zu erzeugen **/
-        function createuebung_action()
+        function createuebung_action() { }
+
+
+        /** führt die Action für das CreateÜbungs Form aus **/
+        function createuebungset_action()
         {
             $this->redirect("admin");
         }

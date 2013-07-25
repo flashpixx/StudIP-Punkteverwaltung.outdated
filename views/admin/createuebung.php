@@ -28,5 +28,16 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
 
 
-    echo "uebung";
+    echo "<form method=\"post\" action=\"".$controller->url_for("admin/createuebungset")."\">\n";
+    CSRFProtection::tokenTag();
+
+    echo "<div class=\"steel1\">\n";
+
+    echo "<label for=\"uebungname\">"._("Bitte geben Sie einen Namen für diese Übung ein (der Name darf nicht mehrfach verwendet werden)")."</label> ";
+    echo "<input type=\"text\" id=\"uebungname\" name=\"uebungname\" size=\"35\"/>\n";
+
+    echo "</div>\n";
+    echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+    echo "</form>";
+    
 ?>
