@@ -25,9 +25,6 @@
 
 
 
-    require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-
-
     echo "<form method=\"post\" action=\"".$controller->url_for("admin/createuebungset")."\">\n";
     CSRFProtection::tokenTag();
 

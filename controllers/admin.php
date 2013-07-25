@@ -59,7 +59,7 @@
         function create_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
-                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen anzulegen") );
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Punkteverwaltung zu aktivieren") );
 
             else
                 try {
@@ -77,7 +77,7 @@
         function updatesettings_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
-                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen zu ändern") );
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Einstellung der Punkteverwaltung zu ändern") );
             
             elseif (Request::submitted("submitted"))
             {
@@ -106,6 +106,17 @@
         /** führt die Action für das CreateÜbungs Form aus **/
         function createuebungset_action()
         {
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung anzulegen") );
+
+            elseif (Request::submitted("submitted"))
+            {
+                var_dump($flash);
+                die(" ");
+            }
+
+
+
             $this->redirect("admin");
         }
 
