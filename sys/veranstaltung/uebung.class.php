@@ -55,8 +55,8 @@
             $lo = Veranstaltung::get( $pxVeranstaltung );
             $lcID = md5( uniqid($lo->id(), true) );
 
-            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, bestandenprozent, maxpunkte) values (:semid, :id, :prozent, :maxpunkte)" );
-            $loPrepare->execute( array("semid" => $lo->id(), "id" => $lcID, "prozent" => 50, "maxpunkte" => 1) );
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, uebungsname, bestandenprozent, maxpunkte) values (:semid, :id, :prozent, :maxpunkte)" );
+            $loPrepare->execute( array("semid" => $lo->id(), "id" => $lcID, "uebungsname" => $pcName, "prozent" => 50, "maxpunkte" => 1) );
 
             $lcClassName = __CLASS__;
             return new $lcClassName( $pxVeranstaltung, $lcID );
