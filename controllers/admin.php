@@ -79,7 +79,7 @@
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen zu ändern") );
             
-            else (Request::submitted("submitted"))
+            elseif (Request::submitted("submitted"))
             {
                 $lo = Veranstaltung::get();
                 if ($lo)
