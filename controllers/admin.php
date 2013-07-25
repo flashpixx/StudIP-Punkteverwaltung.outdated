@@ -28,6 +28,7 @@
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
 
 
     /** Controller für die Administration **/
@@ -111,11 +112,16 @@
 
             elseif (Request::submitted("submitted"))
             {
-                var_dump($flash);
-                die(" ");
+                $lo = Veranstaltung::get();
+                if ($lo)
+                    try {
+                        Uebung::create( $lo, Request::quoted("uebungname") );
+                        $this->flash["message"] = Tools::createMessage( "success", _("neue Übung erstellt") );
+                    } catch (Exception $e) {
+                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                    }
+
             }
-
-
 
             $this->redirect("admin");
         }

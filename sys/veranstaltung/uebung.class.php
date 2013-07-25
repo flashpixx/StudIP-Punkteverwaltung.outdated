@@ -49,6 +49,9 @@
          **/
         static function create( $pxVeranstaltung, $pcName )
         {
+            if ((!is_string($pcName)) || (empty($pcName)))
+                throw new Exception(_("Für die Erzeugung der Übung muss ein Name vergeben werden"));
+
             $lo = Veranstaltung::get( $pxVeranstaltung );
             $lcID = md5( uniqueid($lo->id(), true) );
 
