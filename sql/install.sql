@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS `ppv_uebung` (
   `abgabe` datetime DEFAULT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`seminar`,`id`),
-  UNIQUE KEY `uebungsname` (`uebungsname`),
-  UNIQUE KEY `seminar_2` (`seminar`,`uebungsname`),
+  UNIQUE KEY `uebung` (`seminar`,`uebungsname`),
   KEY `seminar` (`seminar`)
 );
 
