@@ -51,7 +51,7 @@
         echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$loVeranstaltung->bestandenProzent()."\" size=\"35\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"allow_nichtbestanden\">"._("Anzahl an nicht bestandenen Übungen, um die Veranstaltung trotzdem bei erreichen der Punkte als bestanden zu werten")."</label></td>";
-        echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"bestandenprozent\" value=\"".$loVeranstaltung->allowNichtBestanden()."\" size=\"35\"/></td></tr>\n";
+        echo "<td><input type=\"text\" id=\"allow_nichtbestanden\" name=\"allow_nichtbestanden\" value=\"".$loVeranstaltung->allowNichtBestanden()."\" size=\"35\"/></td></tr>\n";
 
         echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
         echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loVeranstaltung->bemerkung()."</textarea></td></tr>\n";
