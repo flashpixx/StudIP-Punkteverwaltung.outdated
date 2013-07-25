@@ -74,7 +74,7 @@
 
 
         /** Update Aufruf, um die Einstellungen zu setzen **/
-        function update_action()
+        function updatesettings_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übungen zu ändern") );
@@ -95,6 +95,13 @@
 
             }
 
+            $this->redirect("admin");
+        }
+
+
+        /** Aufruf um eine neue Übung zu erzeugen **/
+        function createuebung_action()
+        {
             $this->redirect("admin");
         }
 

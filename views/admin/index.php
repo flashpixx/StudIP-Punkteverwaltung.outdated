@@ -26,7 +26,6 @@
     
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -40,7 +39,7 @@
             echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
         else {
 
-            echo "<form method=\"post\" action=\"".$controller->url_for("admin/update")."\">\n";
+            echo "<form method=\"post\" action=\"".$controller->url_for("admin/updatesettings")."\">\n";
             CSRFProtection::tokenTag();
 
             echo "<div class=\"steel1\">\n";
