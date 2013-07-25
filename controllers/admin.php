@@ -34,13 +34,20 @@
     class AdminController extends StudipController
     {
 
-        /** Before-Aufruf zum setzen von Defaultvariablen **/
+        /** Before-Aufruf zum setzen von Defaultvariablen
+         * @warn da der StudIPController keine Session initialisiert, muss die
+         * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
+         * übergeben werden können
+         **/
         function before_filter( &$action, &$args )
         {
             // PageLayout::setTitle("");
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
-            $this->veranstaltung          = Veranstaltung::get();
-            $this->flash["veranstaltung"] = $this->veranstaltung;
+
+            // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
+            // die aktuellen Daten bekommt
+            $this->flash                  = Trails_Flash::instance();
+            $this->flash["veranstaltung"] = Veranstaltung::get();
         }
 
 
