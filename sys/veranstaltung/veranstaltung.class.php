@@ -197,7 +197,7 @@
         {
             $lc = null;
 
-            if ( (empty($pc)) || (is_string($pc)) )
+            if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
                 DBManager::get()->prepare( "update ppv_seminar set bemerkung = :bem where id = :semid" )->execute( array("semid" => $this->mcID, "bem" => $pc) );
 

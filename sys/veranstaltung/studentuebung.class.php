@@ -177,7 +177,7 @@
         {
             $lc = null;
 
-            if ( (empty($pc)) || (is_string($pc)) )
+            if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
 
