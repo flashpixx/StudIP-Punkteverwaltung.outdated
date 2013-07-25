@@ -99,12 +99,12 @@
                 $loPrepare = DBManager::get()->prepare("select id from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $px) );
                 if ($loPrepare->rowCount() != 1)
-                    throw new Exception("Veranstaltung nicht gefunden");
+                    throw new Exception(_("Veranstaltung nicht gefunden"));
 
                 $this->mcID       = $px;
             }
             else
-                throw new Exception("Veranstaltungparameter inkrorrekt");
+                throw new Exception(_("Veranstaltungparameter inkrorrekt"));
         }
 
 
@@ -129,7 +129,7 @@
             {
                 
                 if (($pn < 0) || ($pn > 100))
-                    throw new Exception("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]");
+                    throw new Exception(_("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]"));
 
                 DBManager::get()->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->mcID, "prozent" => floatval($pn)) );
 
@@ -165,7 +165,7 @@
             {
 
                 if ($pn < 0)
-                    throw new Exception("Parameter muss größer gleich null sein");
+                    throw new Exception(_("Der Parameter für die Anzahl der als nicht bestand gewertenden Übungen, die trotzdem akzeptiert werden, muss größer gleich null sein"));
 
                 DBManager::get()->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->mcID, "anzahl" => intval($pn)) );
 

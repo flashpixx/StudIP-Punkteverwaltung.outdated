@@ -71,7 +71,7 @@
         function __construct( $pxUebung, $pcAuth )
         {
             if (!is_string($pcAuth))
-                throw Exception("Keine korrekten Authentifizierungsdaten übergeben");
+                throw Exception(_("Keine korrekten Authentifizierungsdaten übergeben"));
 
             $this->moUebung     = new Uebung( $pxUebung );
             $this->moLogPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudentlog select null, * from ppv_uebungstudentlog where uebung = :uebungid and student = :auth" );

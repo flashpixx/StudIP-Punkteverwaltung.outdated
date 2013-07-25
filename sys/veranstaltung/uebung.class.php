@@ -94,12 +94,12 @@
                 $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
                 if ($loPrepare->rowCount() != 1)
-                    throw new Exception("Übung nicht gefunden");
+                    throw new Exception(_("Übung nicht gefunden"));
 
                 $this->mcID = $pxUebung;
             }
             else
-                throw new Exception("Übungsparameter nicht definiert");
+                throw new Exception(_("Übungsparameter nicht definiert"));
         }
 
 
@@ -164,7 +164,7 @@
             {
 
                 if (($pn < 0) || ($pn > 100))
-                    throw new Exception("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]");
+                    throw new Exception(_("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]"));
 
                 DBManager::get()->prepare( "update ppv_uebung set bestandenprozent = :prozent where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "prozent" => floatval($pn)) );
 
@@ -199,7 +199,7 @@
             {
 
                 if ($pn < 0)
-                    throw new Exception("Parameter für die Punkte muss größer gleich Null sein");
+                    throw new Exception(_("Parameter für die Punkte muss größer gleich Null sein"));
 
                 DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => floatval($pn)) );
 
