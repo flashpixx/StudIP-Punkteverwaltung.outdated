@@ -31,10 +31,15 @@
     /** Klasse um einen Studenten vollständig abzubilden **/
     class Student
     {
+
+        /** speichert die UserID des Studenten **/
         private $mcID = null;
 
-        
 
+        
+        /** Ctor um einen Studenten zu erzeugen
+         * @param $px Studentenobjekt oder AuthentifizierungsID
+         **/
         function __construct( $px )
         {
             if ($px instanceof $this)
