@@ -62,7 +62,7 @@
                 var_dump($px);
                 echo "</pre>";
                 $this->mcName  = $lo->getFullName();
-                $this->mcEmail = 
+                //$this->mcEmail =
             }
             else
                 throw new Exception("Benutzer nicht gefunden");
