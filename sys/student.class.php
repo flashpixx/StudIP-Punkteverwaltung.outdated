@@ -26,7 +26,8 @@
 
 
     require_once("matrikelnummer/factory.class.php");
-    require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
+    if (!class_exists("UserModel"))
+        require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
 
 
     /** Klasse um einen Studenten vollständig abzubilden **/
