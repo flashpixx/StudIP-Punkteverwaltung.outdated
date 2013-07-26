@@ -59,7 +59,7 @@
             {
                 $lo            = new User($px);
                 echo "<pre>";
-                var_dump(UserModel::geUser($px));
+                var_dump(User::find($px)->email);
                 echo "</pre>";
                 $this->mcName  = $lo->getFullName();
                 //$this->mcEmail =
