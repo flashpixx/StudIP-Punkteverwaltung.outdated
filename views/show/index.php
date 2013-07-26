@@ -26,6 +26,7 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/student.class.php");
 
     
     echo "info<br/>";
@@ -33,5 +34,8 @@
     echo "Tutorrecht: ".(VeranstaltungPermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
     echo "Autorrecht: ".(VeranstaltungPermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
 
+    
+    $x = new Student();
+    var_dump($x);
 
 ?>

@@ -33,7 +33,14 @@
     {
 
         /** speichert die UserID des Studenten **/
-        private $mcID = null;
+        private $mcID     = null;
+
+        /** speichert den Namen des Users **/
+        private $mcName   = null;
+
+        /** speichert die EMail des users **/
+        private $mcEmail  = null;
+        
 
 
         
@@ -43,10 +50,15 @@
         function __construct( $px )
         {
             if ($px instanceof $this)
-                $this->mcID = $px->id();
+            {
+                $this->mcID    = $px->mcID;
+                $this->mcName  = $px->mcName;
+                $this->mcEmail = $px->mcEmail;
+            }
             elseif (is_string($px))
             {
-
+                $lo = new User($px);
+                $this->mcName = $lo->getFullName();
             }
             else
                 throw new Exception("Benutzer nicht gefunden");
@@ -84,6 +96,15 @@
          * @return Name
          **/
         function name()
+        {
+
+        }
+
+
+        /** liefert die EMail Adresse des Users 
+         * @return EMail
+         **/
+        function email()
         {
 
         }
