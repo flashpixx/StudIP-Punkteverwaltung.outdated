@@ -79,7 +79,7 @@
          **/
         function studiengang()
         {
-            abschluss ziehen aus: studiengänge, studiengänge_abschluss und user_studiengang ggf user_studiengang_back
+            // abschluss ziehen aus: studiengänge, studiengänge_abschluss und user_studiengang ggf user_studiengang_back
         }
 
 
