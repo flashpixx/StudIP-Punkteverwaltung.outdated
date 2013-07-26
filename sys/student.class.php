@@ -26,6 +26,7 @@
 
 
     require_once("matrikelnummer/factory.class.php");
+    require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
 
 
     /** Klasse um einen Studenten vollständig abzubilden **/
