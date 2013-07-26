@@ -57,8 +57,12 @@
             }
             elseif (is_string($px))
             {
-                $lo = new User($px);
-                $this->mcName = $lo->getFullName();
+                $lo            = new User($px);
+                echo "<pre>";
+                var_dump($px);
+                echo "</pre>";
+                $this->mcName  = $lo->getFullName();
+                $this->mcEmail = 
             }
             else
                 throw new Exception("Benutzer nicht gefunden");
@@ -88,7 +92,7 @@
          **/
         function matrikelnummer()
         {
-            return MatrikelNummerFactory::get()->get( $this->id );
+            return MatrikelNummerFactory::get()->get( $this->mcID );
         }
 
 

@@ -33,9 +33,8 @@
     echo "Dozentenrecht: ".(VeranstaltungPermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
     echo "Tutorrecht: ".(VeranstaltungPermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
     echo "Autorrecht: ".(VeranstaltungPermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
-
     
-    $x = new Student();
+    $x = new Student( $GLOBALS["user"]->id );
     var_dump($x);
 
 ?>
