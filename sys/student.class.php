@@ -66,6 +66,10 @@
              }
             else
                 throw new Exception("Benutzer nicht gefunden");
+
+
+            if (!UserModel::check($this->mcID))
+                throw new Exception(_("Benutzer existiert nicht"));
         }
 
 
@@ -111,15 +115,6 @@
         function email()
         {
             return $this->mcEmail;
-        }
-
-
-        /** liefert die Fachsemesteranzahl des Users
-         * @return Semesteranzahl
-         **/
-        function semesteranzahl()
-        {
-
         }
 
     }

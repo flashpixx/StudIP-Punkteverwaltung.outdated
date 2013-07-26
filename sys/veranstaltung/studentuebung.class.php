@@ -27,6 +27,8 @@
 
     require_once("uebung.class.php");
     require_once("interface.class.php");
+    require_once(dirname(__DIR__) . "/student.class.php");
+
 
 
     /** Klasse für die Übung-Student-Beziehung
@@ -38,8 +40,8 @@
         /** Übungsobjekt **/
         private $moUebung      = null;
 
-        /** Authentifizierung Hash **/
-        private $mcAuth        = null;
+        /** Studentenobjekt **/
+        private $moStudent     = null;
 
         /** Prepare Statement für das Log zu erezugen **/
         private $moLogPrepare  = null;
@@ -68,12 +70,14 @@
          * @param $pxUebung Übung
          * @param $pcAuth Authentifizierung
          **/
-        function __construct( $pxUebung, $pcAuth )
+        function __construct( $pxUebung, $pxAuth )
         {
-            if (!is_string($pcAuth))
+            if (is_string($pxAuth))
+                $this->moStudent = new Student($pxAuth);
+            elseif ($pxAuth instanceof Student)
+                $this->moStudent = $pxAuth;
+            else
                 throw new Exception(_("Keine korrekten Authentifizierungsdaten übergeben"));
-            if (!UserModel::check($pcAuth))
-                throw new Exception(_("Benutzer existiert nicht"));
 
             $this->moUebung     = new Uebung( $pxUebung );
             $this->moLogPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudentlog select null, * from ppv_uebungstudentlog where uebung = :uebungid and student = :auth" );
@@ -83,9 +87,9 @@
         /** liefert die Authentifizierung
          * @return AuthString
          **/
-        function auth()
+        function student()
         {
-            return $this->mcAuth;
+            return $this->moStudent;
         }
 
 
@@ -103,7 +107,7 @@
          **/
         function id()
         {
-            return array( "uebung" => $this->moUebung->id(), "uid" => $this->mcAuth );
+            return array( "uebung" => $this->moUebung->id(), "uid" => $this->moStudent->id() );
         }
 
 
@@ -120,13 +124,13 @@
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte) values (:uebungid, :auth, :punkte) on duplicate key update erreichtepunkte = :punkte" );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth, "punkte" => float($pn)) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => float($pn)) );
 
                 $ln = $pn;
 
             } else {
                 $loPrepare = DBManager::get()->prepare( "select erreichtepunkte from ppv_uebungstudent where uebung = :uebungid and student = :auth" );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
                 if ($loPrepare->rowCount() == 1)
                 {
@@ -152,13 +156,13 @@
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte) values (:uebungid, :auth, :punkte) on duplicate key update zusatzpunkte = :punkte" );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth, "punkte" => float($pn)) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => float($pn)) );
 
                 $ln = $pn;
 
             } else {
                 $loPrepare = DBManager::get()->prepare( "select zusatzpunkte from ppv_uebungstudent where uebung = :uebungid and student = :auth" );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
                 if ($loPrepare->rowCount() == 1)
                 {
@@ -183,12 +187,12 @@
             {
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
 
-                DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where seminar = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth, "bem" => (empty($pc) ? null : $pc)) );
+                DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where seminar = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bem" => (empty($pc) ? null : $pc)) );
 
                 $lc = $pc;
             } else {
                 $loPrepare = DBManager::get()->prepare("select bemerkung from ppv_uebungstudent where seminar = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
                 if ($loPrepare->rowCount() == 1)
                 {
@@ -211,7 +215,7 @@
             $la = array();
 
             $loPrepare = DBManager::get()->prepare("select erreichtepunkte, zusatzpunkte, bemerkung from ppv_uebungstudentlog where uebung = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->mcAuth) );
+            $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 array_push($la, $row );
