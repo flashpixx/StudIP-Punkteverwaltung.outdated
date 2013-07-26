@@ -81,15 +81,7 @@
          **/
         function studiengang()
         {
-            $la = array();
-
-            $loPrepare = DBManager::get()->prepare("select g.name as studiengang, a.name as abschluss from user_studiengang as u join studiengaenge as g on g.studiengang_id = u.studiengang_id join abschluss as a on a.abschluss_id = u.abschluss_id where u.user_id = :uid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("uid" => $this->mcID) );
-
-            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push( $la,  $row["abschluss"]." ".$row["studiengang"] );
-
-            return $la;
+            return UserModel::getUserStudycourse($this->mcID);
         }
 
 
