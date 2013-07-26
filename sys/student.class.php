@@ -58,12 +58,9 @@
             elseif (is_string($px))
             {
                 $lo            = new User($px);
-                echo "<pre>";
-                var_dump(User::find($px)->email);
-                echo "</pre>";
                 $this->mcName  = $lo->getFullName();
-                //$this->mcEmail =
-            }
+                $this->mcEmail = User::find($px)->email;
+             }
             else
                 throw new Exception("Benutzer nicht gefunden");
         }
@@ -79,11 +76,19 @@
 
 
         /** liefert den Studiengang des Users inkl. dem Abschluss
-         * @return Studiengang
+         * @return Studiengang als Array
          **/
         function studiengang()
         {
-            // abschluss ziehen aus: studiengänge, studiengänge_abschluss und user_studiengang ggf user_studiengang_back
+            $la = array;
+
+            $loPrepare = DBManager::get()->prepare("select g.name as studiengang, a.name as abschluss from user_studiengang as u join studiengaenge as g on g.studiengang_id = u.studiengang_id join abschluss as a on a.abschluss_id = u.abschluss_id where u.user_id = :uid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("uid" => $this->mcID) );
+
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                array_push( $la,  $row["abschluss"]." ".$row["studiengang"] );
+
+            return $la;
         }
 
 
@@ -101,7 +106,7 @@
          **/
         function name()
         {
-
+            return $this->mcName;
         }
 
 
@@ -110,7 +115,7 @@
          **/
         function email()
         {
-
+            return $this->mcEmail;
         }
 
 

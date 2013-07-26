@@ -35,6 +35,6 @@
     echo "Autorrecht: ".(VeranstaltungPermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
     
     $x = new Student( $GLOBALS["user"]->id );
-    var_dump($x);
+    var_dump( $x->studiengang() );
 
 ?>
