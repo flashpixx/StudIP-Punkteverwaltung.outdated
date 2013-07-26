@@ -60,6 +60,7 @@
                 $lo            = new User($px);
                 $this->mcName  = $lo->getFullName();
                 $this->mcEmail = User::find($px)->email;
+                $this->mcID    = $px;
              }
             else
                 throw new Exception("Benutzer nicht gefunden");
