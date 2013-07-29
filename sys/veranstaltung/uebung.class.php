@@ -70,10 +70,10 @@
         static function delete( $pxVeranstaltung, $pxID )
         {
             $lcClassName = __CLASS__;
-            $loUebung = new $lcClassName( Veranstaltung::get( $pxVeranstaltung ), $pxID );
+            $loUebung = new $lcClassName( $pxVeranstaltung, $pxID );
 
             foreach( $loUebung->getStudentenUebung() as $item )
-                StudentUbung::delete( $item );
+                StudentUebung::delete( $item->uebung(), $item->student() );
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id => :id" );
             $loPrepare->execute( array("semid" => $lo->id(), "id" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );

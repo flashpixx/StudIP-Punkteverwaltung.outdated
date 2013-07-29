@@ -50,17 +50,19 @@
 
         /** löscht den Eintrag von einem Studenten zur Übung mit einem ggf vorhandenen Log
          * @param $pxUebung Übung
-         * @param $pcAuth Authentifizierungsschlüssel des Users
+         * @param $pxAuth Authentifizierungsschlüssel des Users oder Studentenobjekt
          **/
-        static function delete( $pxUebung, $pcAuth )
+        static function delete( $pxUebung, $pxAuth )
         {
-            $loUebung = new uebung( $pxUebung );
+            $loUebung  = new Uebung( $pxUebung );
+            $loStudent = new Student( $pxAuth );
+
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudentlog where uebung = :uebungid and student = :auth" );
-            $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
+            $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudent where uebung = :uebungid and student = :auth" );
-            $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
+            $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
 
         }
 
