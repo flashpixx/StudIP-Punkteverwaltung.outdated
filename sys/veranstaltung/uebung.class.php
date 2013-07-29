@@ -262,7 +262,7 @@
         {
             $la = array();
 
-            $loPrepare = DBManager::get()->prepare("select sem.user_id as uid from seminar_user as sem left join ppv_uebungstudent as uebstd on uebstd.student = sem.user_id  where sem.status = :status and sem.Seminar_id = :semid and uebstd.id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare = DBManager::get()->prepare("select sem.user_id as uid from seminar_user as sem left join ppv_uebungstudent as uebstd on uebstd.student = sem.user_id  where sem.status = :status and sem.Seminar_id = :semid and uebstd.student = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "status" => "autor") );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
