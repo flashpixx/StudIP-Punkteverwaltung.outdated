@@ -28,7 +28,7 @@
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
-    /** Controller fÃ¼r die Administration der Ãœbungen **/
+    /** Controller für die Administration der Übungen **/
     class UebungController extends StudipController
     {
 
@@ -45,8 +45,8 @@
 
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
-         * Eigenschaft "flash" hÃ¤ndisch initialisiert werden, damit persistent die Werte
-         * Ã¼bergeben werden kÃ¶nnen
+         * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
+         * übergeben werden können
          **/
         function before_filter( &$action, &$args )
         {
@@ -63,23 +63,27 @@
         /** Default Action **/
         function index_action()
         {
-            // setze URLs fÃ¼r jTable 
+            // setze URLs für jTable 
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen fÃ¼r die entsprechende Ajax-Anbindung
+            // setze Variablen für die entsprechende Ajax-Anbindung
             $this->listaction   = $this->url_for( "uebung/list",   array("ueid" => Request::quoted("ueid")) );
             $this->updateaction = $this->url_for( "uebung/update", array("ueid" => Request::quoted("ueid")) );
         }
 
 
+        /** liefert die korrekten Json Daten für den jTable **/
         function list_action()
         {
-            $this->set_layout(false);
+            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
+            $this->set_layout(null);
+            $this->response->add_header("Content-Type", "application/json"));
+
             $this->tabelle = array(
                                    "Result"  => "OK",
-                                   "Records" => array ()
+                                   "Records" => array()
             );
 
         }
