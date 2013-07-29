@@ -79,7 +79,7 @@
         {
             // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
             $this->set_layout(null);
-            $this->response->add_header("Content-Type", "application/json"));
+            $this->response->add_header("Content-Type", "application/json");
 
             $this->tabelle = array(
                                    "Result"  => "OK",
