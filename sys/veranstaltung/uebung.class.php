@@ -76,7 +76,7 @@
                 StudentUebung::delete( $item->uebung(), $item->student() );
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id => :id" );
-            $loPrepare->execute( array("semid" => $lo->id(), "id" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
+            $loPrepare->execute( array("semid" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
         }
 
 
