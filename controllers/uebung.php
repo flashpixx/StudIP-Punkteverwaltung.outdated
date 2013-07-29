@@ -81,10 +81,12 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-            $this->tabelle = array(
-                                   "Result"  => "OK",
-                                   "Records" => array()
-            );
+
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $this->tabelle = array( "Result"  => "ERROR", "Records" => $data );
+
+            // Daten holen und setzen
+            
 
         }
 
