@@ -90,7 +90,7 @@
             // Daten holen und der View erzeugt dann das Json Objekt
             try {
                 
-                $lo = Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
                 if ($lo)
                 {
                     foreach( $lo->studentenuebung() as $item )
