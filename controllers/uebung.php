@@ -46,14 +46,17 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
+
+            // eine Referenz auf das Plugin wird benötigt, um die korrekten URLs für jTable zu erzeugen, d.h. aus dem dispatcher holen
+            $this->plugin = $this->dispatcher->plugin;
         }
 
 
         /** Default Action **/
         function index_action()
         {
-            PageLayout::addStylesheet( PluginEngine::getPlugin()->getPluginUrl() . "/extension/jtable/themes/lightcolor/blue/jtable.min.css" );
-            PageLayout::addScript( PluginEngine::getPlugin()->getPluginUrl() . "/extension/jtable/jquery.jtable.min.js" );
+            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/extension/jtable/themes/lightcolor/blue/jtable.min.css" );
+            PageLayout::addScript( $this->plugin->getPluginUrl() . "/extension/jtable/jquery.jtable.min.js" );
         }
 
 
