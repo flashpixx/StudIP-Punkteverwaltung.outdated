@@ -75,7 +75,7 @@
             $lo = Veranstaltung::get($px);
 
             foreach ($lo->uebungen() as $uebung)
-                Uebung::delete( $uebung );
+                Uebung::delete( $lo, $uebung );
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
