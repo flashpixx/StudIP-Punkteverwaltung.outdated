@@ -75,7 +75,7 @@
             foreach( $loUebung->studentenuebung() as $item )
                 StudentUebung::delete( $item->uebung(), $item->student() );
 
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id => :id" );
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id = :id" );
             $loPrepare->execute( array("semid" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
         }
 
