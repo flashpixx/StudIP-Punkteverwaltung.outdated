@@ -91,7 +91,7 @@
             try {
                 
                 $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                if ($lo)
+                if ( ($lo) && ($lo->studentenuebung()) )
                 {
                     foreach( $lo->studentenuebung() as $item )
                     {
