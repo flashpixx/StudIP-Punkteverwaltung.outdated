@@ -52,8 +52,8 @@
         /** Default Action **/
         function index_action()
         {
-            PageLayout::addStylesheet( $this->getPluginURL() . "/extension/jtable/themes/lightcolor/blue/jtable.min.css" );
-            PageLayout::addScript( $this->getPluginURL() . "/extension/jtable/jquery.jtable.min.js" );
+            PageLayout::addStylesheet( $this->plugin->getPluginURL() . "/extension/jtable/themes/lightcolor/blue/jtable.min.css" );
+            PageLayout::addScript( $this->plugin->getPluginURL() . "/extension/jtable/jquery.jtable.min.js" );
         }
 
 
