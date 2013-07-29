@@ -78,8 +78,8 @@
         {
 
             $this->tabelle = array(
-                                   "Result"  : "OK",
-                                   "Records" : array ()
+                                   "Result"  => "OK",
+                                   "Records" => array ()
             );
 
         }
