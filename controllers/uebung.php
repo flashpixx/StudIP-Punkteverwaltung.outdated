@@ -27,6 +27,7 @@
 
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
 
 
     /** Controller für die Administration der Übungen **/
@@ -83,19 +84,24 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-
             // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->tabelle = array( "Result"  => "ERROR", "Records" => array() );
 
-            // Daten holen und der View erzeugt dann das Json Objekt
+
+
+            // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
             try {
                 
                 $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                
+                // Session muss noch hineingreicht werden VeranstaltungPermission::hasTutorRecht( $lo )
+
                 if ( ($lo) && ($lo->studentenuebung()) )
                 {
                     foreach( $lo->studentenuebung() as $item )
                     {
-                        //array_push( )$this->tabelle["Records"], );
+                        // studip_utf8encode()
+                        // array_push( $this->tabelle["Records"], );
                     }
                     $this->tabelle["Result"] = "OK";
                 }
@@ -103,7 +109,8 @@
             } catch (Exception $e) { }
         }
 
-        
+
+        /** erzeugt das Update, für den jTable **/
         function update_action()
         {
             
