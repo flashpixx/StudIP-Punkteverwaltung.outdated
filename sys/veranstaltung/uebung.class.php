@@ -258,7 +258,7 @@
          * für diese Übung zurück
          * @return Array mit Objekten von Student-Übung
          **/
-        function studentuebung()
+        function studentenuebung()
         {
             $la = array();
 
