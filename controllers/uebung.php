@@ -26,6 +26,7 @@
 
 
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
 
 
     /** Controller für die Administration der Übungen **/
@@ -68,7 +69,7 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen für die entsprechende Ajax-Anbindung
+            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
             $this->listaction   = $this->url_for( "uebung/list",   array("ueid" => Request::quoted("ueid")) );
             $this->updateaction = $this->url_for( "uebung/update", array("ueid" => Request::quoted("ueid")) );
         }
@@ -77,17 +78,29 @@
         /** liefert die korrekten Json Daten für den jTable **/
         function list_action()
         {
+            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
             // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
 
             // Daten für das Json Objekt holen und ein Default Objekt setzen
-            $this->tabelle = array( "Result"  => "ERROR", "Records" => $data );
+            $this->tabelle = array( "Result"  => "ERROR", "Records" => array() );
 
-            // Daten holen und setzen
-            
+            // Daten holen und der View erzeugt dann das Json Objekt
+            try {
+                
+                $lo = Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                if ($lo)
+                {
+                    foreach( $lo->studentenuebung() as $item )
+                    {
+                        //array_push( )$this->tabelle["Records"], );
+                    }
+                    $this->tabelle["Result"] = "OK";
+                }
 
+            } catch (Exception $e) { }
         }
 
         
