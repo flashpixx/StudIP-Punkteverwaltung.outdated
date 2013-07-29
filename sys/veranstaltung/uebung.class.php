@@ -72,8 +72,8 @@
             $lcClassName = __CLASS__;
             $loUebung = new $lcClassName( $pxVeranstaltung, $pxID );
 
-            foreach( $loUebung->getStudentenUebung() as $item )
-                StudentUebung::delete( $item->uebung(), $item->student() );
+            foreach( $loUebung->studentenuebung() as $item )
+                StudentUebung::delete( $item->uebung, $item->student() );
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id => :id" );
             $loPrepare->execute( array("semid" => $lo->id(), "id" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
@@ -254,23 +254,19 @@
         }
 
 
-        /** liefert eine Liste mit allen Studenten und ihren Punkten
+        /** liefert eine Liste mit allen Studenten
          * für diese Übung zurück
          * @return Array mit Objekten von Student-Übung
          **/
-        function studentenMitPunkten()
+        function studentuebung()
         {
             $la = array();
 
-            $loPrepare = DBManager::get()->prepare("select sem.user_id as uid, uebstd.erreichtepunkte, uebstd.zusatzpunkte, uebstd.bemerkung from seminar_user as sem left join ppv_uebungstudent as uebstd on uebstd.student = sem.user_id  where sem.status = :status and sem.Seminar_id = :semid and uebstd.id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare = DBManager::get()->prepare("select sem.user_id as uid from seminar_user as sem left join ppv_uebungstudent as uebstd on uebstd.student = sem.user_id  where sem.status = :status and sem.Seminar_id = :semid and uebstd.id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "status" => "autor") );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-            {
-                $row["erreichtepunkte"] = floatval($row["erreichtepunkte"]);
-                $row["zusatzpunkte"]    = floatval($row["zusatzpunkte"]);
-                array_push($la, $row);
-            }
+                array_push($la, new StudentUebung( $this, $row["uid"] ) );
 
             return $la;
         }
