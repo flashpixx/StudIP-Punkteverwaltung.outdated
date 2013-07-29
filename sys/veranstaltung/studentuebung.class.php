@@ -34,7 +34,7 @@
     /** Klasse für die Übung-Student-Beziehung
      * @note Die Klasse legt bei Änderungen automatisiert ein Log an
      **/
-    class UebungStudent implements VeranstaltungsInterface
+    class StudentUebung implements VeranstaltungsInterface
     {
 
         /** Übungsobjekt **/
