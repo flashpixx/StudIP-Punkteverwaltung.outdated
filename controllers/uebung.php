@@ -76,7 +76,7 @@
 
         function list_action()
         {
-
+            $this->set_layout(false);
             $this->tabelle = array(
                                    "Result"  => "OK",
                                    "Records" => array ()
