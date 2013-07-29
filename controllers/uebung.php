@@ -69,8 +69,8 @@
             PageLayout::addScript( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
             // setze Variablen für die entsprechende Ajax-Anbindung
-            $this->listaction   =  $this->url_for("uebung/list");
-            $this->updateaction =  $this->url_for("uebung/update");
+            $this->listaction   =  $this->url_for("uebung/list", array("ueid" => Request::quoted("ueid")));
+            $this->updateaction =  $this->url_for("uebung/update", array("ueid" => Request::quoted("ueid")));
         }
 
 
