@@ -24,6 +24,7 @@
     **/
 
 
+    
     echo <<<EOT
         <script type="text/javascript">
 
@@ -37,8 +38,8 @@
                 sorting        : true,
                 defaultSorting : "Name ASC",
                 actions: {
-                    listAction   : "/Demo/StudentList",
-                    updateAction : "/Demo/UpdateStudent",
+                    listAction   : ".$listaction.",
+                    updateAction : ".$updateaction.",
                 },
 
                 fields: {
