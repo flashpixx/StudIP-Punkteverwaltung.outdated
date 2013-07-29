@@ -36,7 +36,7 @@
 
         
         if (!$loVeranstaltung)
-            echo "<a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a>";
+            echo "<p><a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a></p>";
         else {
 
             echo "<form method=\"post\" action=\"".$controller->url_for("admin/updatesettings")."\">\n";
