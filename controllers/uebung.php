@@ -64,8 +64,8 @@
         function index_action()
         {
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
-            PageLayout::addScript( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
             PageLayout::addScript( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
+            PageLayout::addScript( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
         }
 
 
