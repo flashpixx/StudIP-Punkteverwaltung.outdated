@@ -38,8 +38,8 @@
                 sorting        : true,
                 defaultSorting : "Name ASC",
                 actions: {
-                    listAction   : ".$listaction.",
-                    updateAction : ".$updateaction.",
+                    listAction   : "$listaction",
+                    updateAction : "$updateaction",
                 },
 
                 fields: {

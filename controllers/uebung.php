@@ -28,7 +28,7 @@
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
-    /** Controller für die Administration **/
+    /** Controller für die Administration der Übungen **/
     class UebungController extends StudipController
     {
 
@@ -69,8 +69,8 @@
             PageLayout::addScript( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
             // setze Variablen für die entsprechende Ajax-Anbindung
-            $this->listaction   =  $this->plugin->getPluginUrl() . "/uebung/list";
-            $this->updateaction =  $this->plugin->getPluginUrl() . "/uebung/uebung";
+            $this->listaction   =  $this->url_for("uebung/list");
+            $this->updateaction =  $this->url_for("uebung/update");
         }
 
 
