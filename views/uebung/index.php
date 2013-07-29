@@ -24,4 +24,75 @@
     **/
 
 
+    echo <<<EOT
+        <script type="text/javascript">
+
+        jQuery(document).ready(function() {
+
+            jQuery("#punktetabelle").jtable({
+
+                title          : "Punktetabelle",
+                paging         : true,
+                pageSize       : 30,
+                sorting        : true,
+                defaultSorting : "Name ASC",
+                actions: {
+                    listAction   : "/Demo/StudentList",
+                    updateAction : "/Demo/UpdateStudent",
+                },
+
+                fields: {
+
+                    Auth : {
+                        key    : true,
+                        create : false,
+                        edit   : false,
+                        list   : false
+                    },
+
+                    Matrikelnummer : {
+                        edit   : false,
+                        title  : "Matrikelnummer",
+                        width  : "10%"
+                    },
+
+                    Name : {
+                        edit  : false,
+                        title : "Name",
+                        width : "25%"
+                    },
+
+                    EmailAddress : {
+                        edit  : false,
+                        title : "EMail Adresse",
+                        width : "15%"
+                    },
+                                                           
+                    ErreichtePunkte : {
+                        title : "erreichte Punkte",
+                        width : "10%"
+                    },
+                                                           
+                    ZusatzPunkte : {
+                        title : "Zusatzpunkte",
+                        width : "10%"
+                    },
+                                                           
+                    Bemerkung : {
+                        title : "Bemerkung",
+                        width : "30%"
+                    }
+                                                           
+                }
+            });
+                           
+            jQuery("#punktetabelle").jtable("load");
+                           
+    });
+    </script>
+EOT;
+
+    echo "<div id=\"punktetabelle\"></div>";
+
+
 ?>

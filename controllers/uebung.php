@@ -50,7 +50,11 @@
 
 
         /** Default Action **/
-        function index_action() { }
+        function index_action()
+        {
+            PageLayout::addStylesheet( $this->getPluginURL() . "/extension/jtable/themes/lightcolor/blue/jtable.min.css" );
+            PageLayout::addScript( $this->getPluginURL() . "/extension/jtable/jquery.jtable.min.js" );
+        }
 
 
         /** URL Aufruf **/
