@@ -100,6 +100,28 @@
         }
 
 
+        /** löscht alle Daten zu der Veranstaltung **/
+        function delete_action()
+        {
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
+            else {
+                $lo = Veranstaltung::get();
+                if ($lo)
+                    try {
+                        Veranstaltung::delete( $lo );
+                        $this->flash["message"] = Tools::createMessage( "success", _("Daten gelöscht") );
+                    } catch (Exception $e) {
+                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                    }
+            }
+
+            $this->redirect("admin");
+        }
+
+        
+
+
         /** Aufruf um eine neue Übung zu erzeugen **/
         function createuebung_action() { }
 

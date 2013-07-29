@@ -56,6 +56,7 @@
 
             echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
             echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loVeranstaltung->bemerkung()."</textarea></td></tr>\n";
+            echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
 
             echo "</table>\n";
             echo "</div>\n";
