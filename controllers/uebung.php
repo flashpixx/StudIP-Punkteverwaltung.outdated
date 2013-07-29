@@ -32,6 +32,17 @@
     class UebungController extends StudipController
     {
 
+        /** Ctor, um aus dem Dispatcher die Referenz auf das Pluginobjekt 
+         * zu bekommen
+         * @param $poDispatch
+         **/
+        function __construct( $poDispatch )
+        {
+            parent::__construct($poDispatch);
+            $this->plugin = $poDispatch->plugin;
+        }
+
+
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
          * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
@@ -46,9 +57,6 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-
-            // eine Referenz auf das Plugin wird benötigt, um die korrekten URLs für jTable zu erzeugen, d.h. aus dem dispatcher holen
-            $this->plugin = $this->dispatcher->plugin;
         }
 
 
