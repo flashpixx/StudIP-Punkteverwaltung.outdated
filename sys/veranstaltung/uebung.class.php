@@ -88,7 +88,7 @@
          **/
         function __construct( $pxVeranstaltung, $pxUebung )
         {
-            $this->moVeranstaltung = Veranstaltung::get( $px );
+            $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
 
             if ($pxUebung instanceof $this)
                 $this->mcID = $pxUebung->id();
