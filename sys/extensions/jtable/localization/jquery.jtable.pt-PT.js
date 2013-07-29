@@ -1,16 +1,16 @@
-ï»¿/*
+/*
     jTable localization file for 'Portuguese - Portugal' language.
 */
 (function ($) {
 
     $.extend(true, $.hik.jtable.prototype.options.messages, {
-        serverCommunicationError: 'Erro na ligaÃ§Ã£o ao servidor.',
+        serverCommunicationError: 'Erro na ligação ao servidor.',
         loadingMessage: 'A ler dados ...',
-        noDataAvailable: 'NÃ£o existem dados!',
+        noDataAvailable: 'Não existem dados!',
         addNewRecord: 'Novo',
         editRecord: 'Editar',
         areYouSure: 'Tem a certeza?',
-        deleteConfirmation: 'Confirma eliminaÃ§Ã£o?',
+        deleteConfirmation: 'Confirma eliminação?',
         save: 'Salvar',
         saving: 'A salvar ...',
         cancel: 'Cancelar',
@@ -18,9 +18,9 @@
         deleting: 'A eliminar ...',
         error: 'Erro',
         close: 'Fechar',
-        cannotLoadOptionsFor: 'NÃ£o foi possivel carregar opÃ§Ãµes para o campo {0}!',
+        cannotLoadOptionsFor: 'Não foi possivel carregar opções para o campo {0}!',
         pagingInfo: 'Registos {0} a {1} de {2}',
-        canNotDeletedRecords: 'NÃ£o foi possÃ­vel eliminar o(s) registo(s) {0} de {1}!',
+        canNotDeletedRecords: 'Não foi possível eliminar o(s) registo(s) {0} de {1}!',
         deleteProggress: 'A eliminar {0} de {1} registos ...',
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.

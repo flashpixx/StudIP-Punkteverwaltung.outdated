@@ -1,4 +1,4 @@
-﻿/*
+/*
    jTable localization file for 'Dutch - The Netherlands' language.
    Author: Bert Janssen
 */
