@@ -100,6 +100,11 @@
                     $laData = $lo->studentenuebung();
                     if ($laData)
                     {
+
+                        // hole Query Parameter, um die Datenmenge passend auszuwählen
+                        $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
+                        
+
                         foreach( $laData as $item )
                             // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
                             array_push( $this->tabelle["Records"],
