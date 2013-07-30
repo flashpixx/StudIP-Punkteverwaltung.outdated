@@ -189,11 +189,11 @@
             {
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
 
-                DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where seminar = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bem" => (empty($pc) ? null : $pc)) );
+                DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where uebung = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bem" => (empty($pc) ? null : $pc)) );
 
                 $lc = $pc;
             } else {
-                $loPrepare = DBManager::get()->prepare("select bemerkung from ppv_uebungstudent where seminar = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("select bemerkung from ppv_uebungstudent where uebung = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
                 if ($loPrepare->rowCount() == 1)
