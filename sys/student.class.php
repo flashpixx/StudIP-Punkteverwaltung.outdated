@@ -63,6 +63,7 @@
             elseif (is_string($px))
             {
                 $lo            = new User($px);
+                // der Name wird in der Form "Nachname, Vorname" ausgegeben
                 $this->mcName  = $lo->getFullName("full_rev");
                 $this->mcEmail = User::find($px)->email;
                 $this->mcID    = $px;
