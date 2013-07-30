@@ -75,8 +75,8 @@
             $this->updateaction = $this->url_for( "uebung/update", array("ueid" => Request::quoted("ueid")) );
 
             // setze Metainfos
-            $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-            $this->uebungname   = $lo->name();
+            $lo               = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+            $this->uebungname = $lo->name();
         }
 
 
