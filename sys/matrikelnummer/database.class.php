@@ -75,7 +75,7 @@
                 $loPrepare->execute( array("uid" => $pxUID ) );
                 $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
-                    return $loResult["num"];
+                    return intval($loResult["num"]);
 
             } elseif (is_array($pxUID)) {
                 $laList = array();
@@ -84,7 +84,7 @@
                     $loPrepare->execute( array( "uid" => $lcUID ) );
                     $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     if ($loResult)
-                        array_push($laList, $loResult["num"]);
+                        array_push($laList, intval($loResult["num"]));
                 }
 
                 return $laList;

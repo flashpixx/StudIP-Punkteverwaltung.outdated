@@ -116,7 +116,7 @@
                                 return 0;
 
                               elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
-                                $ln = intval($a->student()->matrikelnummer()) - intval($b->student()->matrikelnummer());
+                                $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
 
                               elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
                                 $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
