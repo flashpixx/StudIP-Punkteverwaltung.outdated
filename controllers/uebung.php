@@ -105,7 +105,7 @@
                             array_push( $this->tabelle["Records"],
                                 array(
                                       "Auth"            => studip_utf8encode( $item->student()->id() ),
-                                      "MatrikelNummer"  => $item->student()->matrikelnummer(),
+                                      "Matrikelnummer"  => $item->student()->matrikelnummer(),
                                       "Name"            => studip_utf8encode( $item->student()->name() ),
                                       "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
                                       "ErreichtePunkte" => $item->erreichtePunkte(),
