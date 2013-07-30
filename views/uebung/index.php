@@ -32,9 +32,9 @@
 
             jQuery("#punktetabelle").jtable({
 
-                title          : "Punktetabelle",
+                title          : "Punktetabelle für "$uebungname,
                 paging         : true,
-                pageSize       : 30,
+                pageSize       : 25,
                 sorting        : true,
                 defaultSorting : "Matrikelnummer ASC",
                 actions: {
