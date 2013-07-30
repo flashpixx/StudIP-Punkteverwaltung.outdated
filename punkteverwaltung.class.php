@@ -52,12 +52,13 @@
             parent::__construct();
 
             // Navigation wird in Abhängigkeit der Berechtigungen gesetzt
-            if (VeranstaltungPermission::hasDozentRecht())
-                $this->setAdminNavigation();
-            elseif (VeranstaltungPermission::hasTutorRecht())
-                $this->setTutorNavigation();
-            elseif (VeranstaltungPermission::hasAutorRecht())
-                $this->setAutorNavigation();
+            if ($this->isActivated())
+                if (VeranstaltungPermission::hasDozentRecht())
+                    $this->setAdminNavigation();
+                elseif (VeranstaltungPermission::hasTutorRecht())
+                    $this->setTutorNavigation();
+                elseif (VeranstaltungPermission::hasAutorRecht())
+                    $this->setAutorNavigation();
 
         }
 
