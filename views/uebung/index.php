@@ -80,8 +80,8 @@
                     },
                                                            
                     Bemerkung : {
-                        type  : "textarea",
                         title : "Bemerkung",
+                        type  : "textarea",
                         width : "20%"
                     }
                                                            
