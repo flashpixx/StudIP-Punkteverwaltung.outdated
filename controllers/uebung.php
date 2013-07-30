@@ -95,17 +95,18 @@
 
             // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
             try {
-                
+
+                // hole die Übung und prüfe die Berechtigung
                 $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                
-                // Session muss noch hineingreicht werden VeranstaltungPermission::hasTutorRecht( $lo )
+                if (!VeranstaltungPermission::hasTutorRecht( $lo ) )
+                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+
                 if ($lo)
                 {
                     $laData = $lo->studentenuebung();
                     if ($laData)
                     {
                         // setze Defaultwerte für jTable
-                        $this->result["Result"]           = "OK";
                         $this->result["TotalRecordCount"] = count($laData);
 
                         // sortiere Daten anhand des Kriteriums
@@ -160,7 +161,11 @@
                     }
                 }
 
-            } catch (Exception $e) { $this->result["Message"] = $e->getMessage(); }
+                // alles fehlerfrei durchlaufen, setze Result
+                $this->result["Result"] = "OK";
+
+            // fange Exception und liefer Exceptiontext passend codiert in das Json-Result 
+            } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
         }
 
 
@@ -176,8 +181,14 @@
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
-                throw new Exception("blub blub");
-            } catch (Exception $e) { $this->result["Message"] = $e->getMessage(); }
+
+                $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+
+                // alles fehlerfrei durchlaufen, setze Result
+                $this->result["Result"]           = "OK";
+
+            // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
             
         }
 

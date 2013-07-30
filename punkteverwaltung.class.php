@@ -47,11 +47,14 @@
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin
     {
 
+        /** Ctor des Plugins zur Erzeugung der Navigation **/
         function __construct()
         {
             parent::__construct();
 
-            // Navigation wird in Abhängigkeit der Berechtigungen gesetzt
+            // Navigation wird in Abhängigkeit der Berechtigungen und des Kontextes gesetzt,
+            // nur wenn Plugin aktiviert ist und es es sich um eine Veranstaltung handelt wird
+            // es aktiviert
             if ( ($this->isActivated()) && (Navigation::hasItem("/course")) )
                 if (VeranstaltungPermission::hasDozentRecht())
                     $this->setAdminNavigation();
