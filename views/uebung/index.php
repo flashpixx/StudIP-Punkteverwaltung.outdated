@@ -71,18 +71,18 @@
                                                            
                     ErreichtePunkte : {
                         title : "erreichte Punkte",
-                        width : "10%"
+                        width : "15%"
                     },
                                                            
                     ZusatzPunkte : {
                         title : "Zusatzpunkte",
-                        width : "10%"
+                        width : "15%"
                     },
                                                            
                     Bemerkung : {
                         title : "Bemerkung",
                         type  : "textarea",
-                        width : "20%"
+                        width : "10%"
                     }
                                                            
                 }
