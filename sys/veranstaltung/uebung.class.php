@@ -82,26 +82,30 @@
 
 
         /** Ctor für die Übungen
-         * @param $pxVeranstaltung VeranstaltungsID oder Veranstaltungsobjekt (per Default immer
-         * von der aktuell selektierten Veranstaltung
-         * @para $pxUebung Übungsobjekt oder ÜbungsID
+         * @param $pxVeranstaltung VeranstaltungsID oder Veranstaltungsobjekt oder Übungsobjekt um Copy-Ctor abzubilden
+         * @param $pxUebung Übungsobjekt oder ÜbungsID
          **/
-        function __construct( $pxVeranstaltung, $pxUebung )
+        function __construct( $pxVeranstaltungUebung, $pxUebung = null )
         {
-            $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
-
-            if ($pxUebung instanceof $this)
-                $this->mcID = $pxUebung->id();
-            elseif (is_string($pxUebung))
+            if ($pxVeranstaltungUebung instanceof $this)
             {
-                $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
-                if ($loPrepare->rowCount() != 1)
-                    throw new Exception(_("Übung nicht gefunden"));
+                $this->moVeranstaltung = $pxVeranstaltungUebung->moVeranstaltung;
+                $this->mcID            = $pxVeranstaltungUebung->mcID;
+            } else {
+                $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
 
-                $this->mcID = $pxUebung;
+                if (is_string($pxUebung))
+                {
+                    $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                    $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
+                    if ($loPrepare->rowCount() != 1)
+                        throw new Exception(_("Übung nicht gefunden"));
+
+                    $this->mcID = $pxUebung;
+                }
             }
-            else
+
+            if (!$this->mcID)
                 throw new Exception(_("Übungsparameter nicht definiert"));
         }
 
