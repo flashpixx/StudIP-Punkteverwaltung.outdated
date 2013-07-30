@@ -89,7 +89,7 @@
             $this->response->add_header("Content-Type", "application/json");
 
             // Daten für das Json Objekt holen und ein Default Objekt setzen
-            $this->tabelle = array( "Result"  => "ERROR", "Records" => array() );
+            $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
 
 
@@ -105,8 +105,8 @@
                     if ($laData)
                     {
                         // setze Defaultwerte für jTable
-                        $this->tabelle["Result"]           = "OK";
-                        $this->tabelle["TotalRecordCount"] = count($laData);
+                        $this->result["Result"]           = "OK";
+                        $this->result["TotalRecordCount"] = count($laData);
 
                         // sortiere Daten anhand des Kriteriums
                         usort($laData, function($a, $b) {
@@ -146,7 +146,7 @@
 
                         foreach( $laData as $item )
                             // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
-                            array_push( $this->tabelle["Records"],
+                            array_push( $this->result["Records"],
                                 array(
                                       "Auth"            => studip_utf8encode( $item->student()->id() ),
                                       "Matrikelnummer"  => $item->student()->matrikelnummer(),
@@ -160,13 +160,24 @@
                     }
                 }
 
-            } catch (Exception $e) { }
+            } catch (Exception $e) { $this->result["Message"] = $e->getMessage(); }
         }
 
 
         /** erzeugt das Update, für den jTable **/
         function update_action()
         {
+            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
+            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
+            $this->set_layout(null);
+            $this->response->add_header("Content-Type", "application/json");
+
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $this->result = array( "Result"  => "ERROR", "Records" => array() );
+
+            try {
+                throw new Exception("blub blub");
+            } catch (Exception $e) { $this->result["Message"] = $e->getMessage(); }
             
         }
 
