@@ -109,7 +109,7 @@
                         $this->tabelle["TotalRecordCount"] = count($laData);
 
                         // sortiere Daten anhand des Kriteriums
-                        usort($laData, function($a, $b) { if ($a == $b) return 0; return intval($a->matrikelnummer())-intval($b->matrikelnummer()); } );
+                        usort($laData, function($a, $b) { if ($a == $b) return 0; return intval($a->student()->matrikelnummer())-intval($b->student()->matrikelnummer()); } );
 
                         // hole Query Parameter, um die Datenmenge passend auszuwählen
                         $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
