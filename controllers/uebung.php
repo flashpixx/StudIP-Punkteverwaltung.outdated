@@ -113,7 +113,8 @@
                                       "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
                                 )
                             );
-                        $this->tabelle["Result"] = "OK";
+                        $this->tabelle["TotalRecordCount"] = count($laData);
+                        $this->tabelle["Result"]           = "OK";
                     }
                 }
 
