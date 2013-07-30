@@ -32,7 +32,7 @@
 
             jQuery("#punktetabelle").jtable({
 
-                title          : "Punktetabelle für $uebungname",
+                title          : "Punktetabelle - $uebungname",
                 paging         : true,
                 pageSize       : 25,
                 sorting        : true,
