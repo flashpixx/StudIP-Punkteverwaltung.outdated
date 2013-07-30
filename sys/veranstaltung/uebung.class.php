@@ -274,7 +274,16 @@
 
             return $la;
         }
-        
+
+
+        /** liefert / setzt das Abgabedatum 
+         * @param $pc Abgabedatum order null
+         * @return Datum
+         **/
+        function abgabe()
+        {
+
+        }
 
 
     }

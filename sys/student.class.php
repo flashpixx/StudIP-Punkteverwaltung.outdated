@@ -63,8 +63,8 @@
             elseif (is_string($px))
             {
                 $lo            = new User($px);
-                $this->mcName  = $lo->getFullName();
-                $this->mcEmail = User::find($px)->email;
+                $this->mcName  = $lo->getFullName("full_rev");
+                $this->mcEmail = ->email;
                 $this->mcID    = $px;
              }
             else
