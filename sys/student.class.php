@@ -40,8 +40,11 @@
         /** speichert den Namen des Users **/
         private $mcName   = null;
 
-        /** speichert die EMail des users **/
+        /** speichert die EMail des Users **/
         private $mcEmail  = null;
+
+        /** speichert die Matrikelnummer des users **/
+        private $mnMatrikelnummer = null;
         
 
 
@@ -70,6 +73,8 @@
 
             if (!UserModel::check($this->mcID))
                 throw new Exception(_("Benutzer existiert nicht"));
+
+            $this->mnMatrikelnummer = MatrikelNummerFactory::get()->get( $this->mcID );
         }
 
 
@@ -96,7 +101,7 @@
          **/
         function matrikelnummer()
         {
-            return MatrikelNummerFactory::get()->get( $this->mcID );
+            return $this->mnMatrikelnummer;
         }
 
 
