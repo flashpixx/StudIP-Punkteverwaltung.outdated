@@ -100,6 +100,8 @@
                     $laData = $lo->studentenuebung();
                     if ($laData)
                     {
+                        $this->tabelle["Result"]           = "OK";
+                        $this->tabelle["TotalRecordCount"] = count($laData);
 
                         // hole Query Parameter, um die Datenmenge passend auszuwählen
                         $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
@@ -118,8 +120,6 @@
                                       "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
                                 )
                             );
-                        $this->tabelle["TotalRecordCount"] = count($laData);
-                        $this->tabelle["Result"]           = "OK";
                     }
                 }
 
