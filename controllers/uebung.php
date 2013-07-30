@@ -118,6 +118,22 @@
                               elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
                                 $ln = intval($a->student()->matrikelnummer()) - intval($b->student()->matrikelnummer());
 
+                              elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
+                                $ln = strcasecmp($a->student()->name(), $b->student()->name());
+
+                              elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
+                                $ln = strcasecmp($a->student()->email(), $b->student()->email());
+
+                              elseif (stripos(Request::quoted("jtSorting"), "bemerkung") !== false)
+                                $ln = strcasecmp($a->bemerkung(), $b->bemerkung());
+
+                              elseif (stripos(Request::quoted("jtSorting"), "erreichtepunkte") !== false)
+                                $ln = strcasecmp($a->erreichtePunkte(), $b->erreichtePunkte());
+
+                              elseif (stripos(Request::quoted("jtSorting"), "zusatzpunkte") !== false)
+                                $ln = strcasecmp($a->zusatzPunkte(), $b->zusatzPunkte());
+
+                              
                               if (stripos(Request::quoted("jtSorting"), "asc") === false)
                                 $ln = -1 * $ln;
 
