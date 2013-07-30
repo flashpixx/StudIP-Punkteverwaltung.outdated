@@ -60,13 +60,13 @@
                     Name : {
                         edit  : false,
                         title : "Name",
-                        width : "25%"
+                        width : "30%"
                     },
 
                     EmailAdresse : {
                         edit  : false,
                         title : "EMail Adresse",
-                        width : "15%"
+                        width : "20%"
                     },
                                                            
                     ErreichtePunkte : {
@@ -81,7 +81,7 @@
                                                            
                     Bemerkung : {
                         title : "Bemerkung",
-                        width : "30%"
+                        width : "20%"
                     }
                                                            
                 }
