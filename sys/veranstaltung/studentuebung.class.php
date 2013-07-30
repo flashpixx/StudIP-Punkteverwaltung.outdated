@@ -126,7 +126,7 @@
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte) values (:uebungid, :auth, :punkte) on duplicate key update erreichtepunkte = :punkte" );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => float($pn)) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn)) );
 
                 $ln = $pn;
 
@@ -141,7 +141,7 @@
                 }
             }
 
-            return float($ln);
+            return floatval($ln);
         }
 
 
@@ -158,7 +158,7 @@
                 $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte) values (:uebungid, :auth, :punkte) on duplicate key update zusatzpunkte = :punkte" );
-                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => float($pn)) );
+                $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn)) );
 
                 $ln = $pn;
 
@@ -173,7 +173,7 @@
                 }
             }
             
-            return float($ln);
+            return floatval($ln);
         }
 
 
