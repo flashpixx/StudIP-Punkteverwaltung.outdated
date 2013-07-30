@@ -95,15 +95,26 @@
                 $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
                 
                 // Session muss noch hineingreicht werden VeranstaltungPermission::hasTutorRecht( $lo )
-
-                if ( ($lo) && ($lo->studentenuebung()) )
+                if ($lo)
                 {
-                    foreach( $lo->studentenuebung() as $item )
+                    $laData = $lo->studentenuebung();
+                    if ($laData)
                     {
-                        // studip_utf8encode()
-                        // array_push( $this->tabelle["Records"], );
+                        foreach( $laData as $item )
+                            // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
+                            array_push( $this->tabelle["Records"],
+                                array(
+                                      "Auth"            => studip_utf8encode( $item->student()->id() ),
+                                      "MatrikelNummer"  => $item->student()->matrikelnummer(),
+                                      "Name"            => studip_utf8encode( $item->student()->name() ),
+                                      "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                                      "ErreichtePunkte" => $item->erreichtePunkte(),
+                                      "ZusatzPunkte"    => $item->zusatzPunkte(),
+                                      "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
+                                )
+                            );
+                        $this->tabelle["Result"] = "OK";
                     }
-                    $this->tabelle["Result"] = "OK";
                 }
 
             } catch (Exception $e) { }

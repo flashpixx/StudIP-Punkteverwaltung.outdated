@@ -63,7 +63,7 @@
                         width : "25%"
                     },
 
-                    EmailAddress : {
+                    EmailAdresse : {
                         edit  : false,
                         title : "EMail Adresse",
                         width : "15%"
