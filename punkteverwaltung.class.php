@@ -52,7 +52,7 @@
             parent::__construct();
 
             // Navigation wird in Abhängigkeit der Berechtigungen gesetzt
-            if ($this->isActivated())
+            if ( ($this->isActivated()) && (Navigation::hasItem("/course")) )
                 if (VeranstaltungPermission::hasDozentRecht())
                     $this->setAdminNavigation();
                 elseif (VeranstaltungPermission::hasTutorRecht())
@@ -68,7 +68,7 @@
          **/
         private function setAutorNavigation()
         {
-            if ( (!Veranstaltung::get()) || (!Navigation::hasItem("/course")) )
+            if (!Veranstaltung::get())
                 return;
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
@@ -78,9 +78,6 @@
         /** Administratoren (Dozenten) sehen die Verwaltung generell **/
         private function setAdminNavigation()
         {
-            if (!Navigation::hasItem("/course"))
-                return;
-
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "admin")) );
 
             if (!Veranstaltung::get())
@@ -103,7 +100,7 @@
         private function setTutorNavigation()
         {
             $loVeranstaltung = Veranstaltung::get();
-            if ( (!Navigation::hasItem("/course")) || (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
+            if ( (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
                 return;
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
