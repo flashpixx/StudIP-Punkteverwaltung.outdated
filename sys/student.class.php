@@ -64,7 +64,7 @@
             {
                 $lo            = new User($px);
                 $this->mcName  = $lo->getFullName("full_rev");
-                $this->mcEmail = ->email;
+                $this->mcEmail = User::find($px)->email;
                 $this->mcID    = $px;
              }
             else
