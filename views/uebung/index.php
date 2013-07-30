@@ -36,7 +36,7 @@
                 paging         : true,
                 pageSize       : 30,
                 sorting        : true,
-                defaultSorting : "Name ASC",
+                defaultSorting : "Matrikelnummer ASC",
                 actions: {
                     listAction   : "$listaction",
                     updateAction : "$updateaction",
