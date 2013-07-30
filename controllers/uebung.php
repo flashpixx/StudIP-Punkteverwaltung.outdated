@@ -98,7 +98,7 @@
 
                 // hole die Übung und prüfe die Berechtigung
                 $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                if (!VeranstaltungPermission::hasTutorRecht( $lo ) )
+                if ( (!VeranstaltungPermission::hasTutorRecht( $lo )) && (!VeranstaltungPermission::hasDozentRecht( $lo )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 if ($lo)
