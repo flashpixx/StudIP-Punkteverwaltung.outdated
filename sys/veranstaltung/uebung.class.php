@@ -261,7 +261,7 @@
         {
             $lc = null;
 
-            if ((empty($pc)) || (is_string($pc)) )
+            if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
                 throw new Exception("not working yet");
             } else {
