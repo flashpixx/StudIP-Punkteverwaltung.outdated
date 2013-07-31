@@ -46,7 +46,6 @@
                 CSRFProtection::tokenTag();
 
                 echo "<div class=\"steel1\">\n";
-
                 echo "<table width=\"100%\">\n";
 
                 echo "<tr><td width=\"50%\"><label for=\"uebungname\">"._("Name der Übung")."</label></td>";
@@ -63,7 +62,7 @@
 
                 echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
                 echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$bemerkung."</textarea></td></tr>\n";
-                echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete")."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></t
+                echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete")."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
 
                 echo "</table>";
                 echo "</div>\n";
