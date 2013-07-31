@@ -33,14 +33,14 @@
     Tools::showMessage($flash["message"]);
     
     try {
-        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
+        $loUebung = isset($flash["uebung"]) ? $flash["uebung"] : null;
 
-        if ( (!$loVeranstaltung) || ((!VeranstaltungPermission::hasDozentRecht($loVeranstaltung)) && (!VeranstaltungPermission::hasTutorRecht($loVeranstaltung))) )
+        if ( (!$loVeranstaltung) || ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung()))) )
             throw new Exception(_("Sie haen nicht die notwendigen Rechte, um die Daten einzusehen"));
 
         else {
 
-            if (VeranstaltungPermission::hasDozentRecht($loVeranstaltung))
+            if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
                 echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting")."\">\n";
                 CSRFProtection::tokenTag();
@@ -49,19 +49,19 @@
                 echo "<table width=\"100%\">\n";
 
                 echo "<tr><td width=\"50%\"><label for=\"uebungname\">"._("Name der Übung")."</label></td>";
-                echo "<td><input type=\"text\" id=\"uebungname\" name=\"uebungname\" value=\"".$uebungname."\" size=\"35\"/></td></tr>\n";
+                echo "<td><input type=\"text\" id=\"uebungname\" name=\"uebungname\" value=\"".$loUebung->name()."\" size=\"35\"/></td></tr>\n";
 
                 echo "<tr><td><label for=\"maxpunkte\">"._("maximal zu erreichende Punkte der Übung")."</label></td>";
-                echo "<td><input type=\"text\" id=\"maxpunkte\" name=\"maxpunkte\" value=\"".$maxpunkte."\" size=\"35\"/></td></tr>\n";
+                echo "<td><input type=\"text\" id=\"maxpunkte\" name=\"maxpunkte\" value=\"".$loUebung->maxPunkte()."\" size=\"35\"/></td></tr>\n";
 
                 echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl, mit der die Übung bestanden ist")."</label></td>";
-                echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$bestandenprozent."\" size=\"35\"/></td></tr>\n";
+                echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$loUebung->bestandenprozent()."\" size=\"35\"/></td></tr>\n";
 
-                echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form dd.mm.yyyy hh:mm, dd.mm.yyyy oder leer)")."</label></td>";
+                echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form 'dd.mm.yyyy hh:mm', 'dd.mm.yyyy' oder leer)")."</label></td>";
                 echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$abgabedatum."\" size=\"35\"/></td></tr>\n";
 
                 echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
-                echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$bemerkung."</textarea></td></tr>\n";
+                echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
                 echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete")."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
 
                 echo "</table>";
@@ -71,14 +71,14 @@
                 echo "</div>";
             }
             elseif (!empty($bemerkung))
-                echo "<div class=\"steel1\">".$bemerkung."</div>";
+                echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div>";
 
 
             echo "<script type=\"text/javascript\">";
             echo "jQuery(document).ready(function() {";
             echo "jQuery(\"#punktetabelle\").jtable({";
 
-            echo "title          : \"Punktetabelle - ".$uebungname.(empty($abgabedatum) ? null : " (".$abgabedatum.")")."\",";
+            echo "title          : \"Punktetabelle - ".$loUebung->name().(empty($loUebung->abgabeDatum()) ? null : " (".$loUebung->abgabeDatum().")")."\",";
             echo "paging         : true,";
             echo "pageSize       : 25,";
             echo "sorting        : true,";

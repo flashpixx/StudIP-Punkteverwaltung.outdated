@@ -253,6 +253,33 @@
         }
 
 
+        /** liefert / setzt das Abgabedatum
+         * @param $pc Abgabedatum order null
+         * @return Datum
+         **/
+        function abgabeDatum( $pc = false )
+        {
+            $lc = null;
+
+            if ((empty($pc)) || (is_string($pc)) )
+            {
+                throw new Exception("not working yet");
+            } else {
+                $loPrepare = DBManager::get()->prepare("select abgabe from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $lc     = $result["abgabe"];
+                }
+
+            }
+
+            return $lc;
+        }
+
+
         /** liefert eine Liste mit allen Studenten
          * für diese Übung zurück
          * @return Array mit Objekten von Student-Übung
@@ -270,15 +297,6 @@
             return $la;
         }
 
-
-        /** liefert / setzt das Abgabedatum 
-         * @param $pc Abgabedatum order null
-         * @return Datum
-         **/
-        function abgabeDatum( $pn = false )
-        {
-            return null;
-        }
 
 
     }

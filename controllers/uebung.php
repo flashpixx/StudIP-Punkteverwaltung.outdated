@@ -60,6 +60,7 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
+            $this->flash["uebung"]        = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
         }
 
 
@@ -74,15 +75,6 @@
             // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
             $this->listaction   = $this->url_for( "uebung/jsonlist",   array("ueid" => Request::quoted("ueid")) );
             $this->updateaction = $this->url_for( "uebung/jsonupdate", array("ueid" => Request::quoted("ueid")) );
-
-            // setze Metainfos
-            $lo                     = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-            $this->uebungname       = $lo->name();
-            $this->maxpunkte        = $lo->maxPunkte();
-            $this->bestandenprozent = $lo->bestandenprozent();
-            $this->abgabedatum      = $lo->abgabeDatum();
-            $this->bemerkung        = $lo->bemerkung();
-            
         }
 
 
