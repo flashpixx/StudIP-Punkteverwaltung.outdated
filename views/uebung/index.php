@@ -70,7 +70,7 @@
                 echo "</form>";
                 echo "</div>";
             }
-            elseif (!empty($bemerkung))
+            elseif ($loUebung->bemerkung())
                 echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div>";
 
 
@@ -79,8 +79,8 @@
             echo "jQuery(\"#punktetabelle\").jtable({";
 
             $abgabe = $loUebung->abgabeDatum();
-            if (!empty($abgabe))
-                $abgabe = _("Abgabe").": ".$abgabe.")";
+            if ($abgabe)
+                $abgabe = "("._("Abgabe").": ".$abgabe.")";
 
             echo "title          : \"Punktetabelle - ".$loUebung->name().$abgabe."\",";
             echo "paging         : true,";
