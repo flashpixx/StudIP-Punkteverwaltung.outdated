@@ -112,7 +112,7 @@
                 elseif ($pxUebung instanceof $this)
                 {
                     $this->mcID            = $pxUebung->mcID;
-                    $this->mnMaxPunkte     = $pxUebung->mnMaxPunkte;
+                    $this->mnMaxPunkte     = floatval($pxUebung->mnMaxPunkte);
                 }
             }
 
