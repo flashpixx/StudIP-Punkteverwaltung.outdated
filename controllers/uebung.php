@@ -63,7 +63,10 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
 
             // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
-            $this->flash["uebung"] = empty(Request::quoted("ueid")) ? reset($this->flash["veranstaltung"]->uebungen()) : new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
+            if (Request::quoted("ueid"))
+                $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
+            else
+                $this->flash["uebung"] = reset($this->flash["veranstaltung"]->uebungen());
 
         }
 
