@@ -107,7 +107,7 @@
                     $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
                 else {
                     $loVeranstaltung = Veranstaltung::get( Request::quoted("cid") );
-                    $lo = reset($loVeranstaltung->uebungen())
+                    $lo = reset($loVeranstaltung->uebungen());
                 }
 
                 if ( (!VeranstaltungPermission::hasTutorRecht( $lo->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $lo->veranstaltung() )) )
