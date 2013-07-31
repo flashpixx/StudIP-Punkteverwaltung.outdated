@@ -27,6 +27,7 @@
 
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltung/studentuebung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
 
 
@@ -182,10 +183,21 @@
 
             try {
 
-                $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                // hole die Übung und prüfe die Rechte
+                $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid")):
+                if ( (!VeranstaltungPermission::hasTutorRecht( $loUebung->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() )) )
+                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+
+                // hole die Zuordnung von Übung und Student und setze die Daten
+                $lo = StudentUebung( $loUebung, Request::quoted("Auth") );
+
+                $lo->bemerkung( Request::quoted("Bemerkung") );
+                $lo->zusatzPunkte( Request::float("ZusatzPunkte") );
+                $lo->zusatzPunkte( Request::float("ErreichtePunkte") );
+               
 
                 // alles fehlerfrei durchlaufen, setze Result
-                $this->result["Result"]           = "OK";
+                $this->result["Result"] = "OK";
 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
             } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
