@@ -109,6 +109,11 @@
                     $this->mnMaxPunkte = $result["maxpunkte"];
                     $this->mcID        = $result["id"];
                 }
+                elseif ($pxUebung instanceof $this)
+                {
+                    $this->mcID            = $pxUebung->mcID;
+                    $this->mnMaxPunkte     = $pxUebung->mnMaxPunkte;
+                }
             }
 
             if (!$this->mcID)
