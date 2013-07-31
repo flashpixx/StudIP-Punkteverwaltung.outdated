@@ -189,7 +189,7 @@
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // hole die Zuordnung von Übung und Student und setze die Daten
-                $lo = StudentUebung( $loUebung, Request::quoted("Auth") );
+                $lo = new StudentUebung( $loUebung, Request::quoted("Auth") );
 
                 $lo->bemerkung( Request::quoted("Bemerkung") );
                 $lo->zusatzPunkte( Request::float("ZusatzPunkte") );
