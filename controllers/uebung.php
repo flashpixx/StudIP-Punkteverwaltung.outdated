@@ -60,7 +60,14 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-            $this->flash["uebung"]        = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
+
+            // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
+            $lcUID = Request::quoted("ueid");
+
+            if (empty($lcUID))
+                $this->flash["uebung"] = new Uebung( reset($this->flash["veranstaltung"]->uebungen()) );
+            else
+                $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], $lcUID);
         }
 
 
