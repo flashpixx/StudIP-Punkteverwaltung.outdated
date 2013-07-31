@@ -33,6 +33,8 @@
     Tools::showMessage($flash["message"]);
     
     try {
+
+        // Übung aus dem Flash holen und Zugriffsrechte prüfen
         $loUebung = isset($flash["uebung"]) ? $flash["uebung"] : null;
 
         if ( (!$loUebung) || ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung()))) )
@@ -40,6 +42,7 @@
 
         else {
 
+            // der Dozent kann die Daten der Übung ändern
             if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
                 echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting")."\">\n";
@@ -70,10 +73,13 @@
                 echo "</form>";
                 echo "</div>";
             }
+
+            // Tutoren bekommen nur die Bemerkung angezeigt
             elseif ($loUebung->bemerkung())
                 echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div>";
 
 
+            // jTable für die Punkte erzeugen
             echo "<script type=\"text/javascript\">";
             echo "jQuery(document).ready(function() {";
             echo "jQuery(\"#punktetabelle\").jtable({";
