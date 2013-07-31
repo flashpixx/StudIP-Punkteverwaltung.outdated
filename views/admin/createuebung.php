@@ -25,7 +25,7 @@
 
 
 
-    echo "<form method=\"post\" action=\"".$controller->url_for("admin/createuebungset")."\">\n";
+    echo "<form method=\"post\" action=\"".$controller->url_for("admin/createuebungsetting")."\">\n";
     CSRFProtection::tokenTag();
 
     echo "<div class=\"steel1\">\n";

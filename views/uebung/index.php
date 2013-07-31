@@ -24,77 +24,75 @@
     **/
 
 
+
+    require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
+
+
+    Tools::showMessage($flash["message"]);
     
-    echo <<<EOT
-        <script type="text/javascript">
+    try {
+        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
 
-        jQuery(document).ready(function() {
+        if ( (!$loVeranstaltung) || ((!VeranstaltungPermission::hasDozentRecht($loVeranstaltung)) && (!VeranstaltungPermission::hasTutorRecht($loVeranstaltung))) )
+            throw new Exception(_("Sie haen nicht die notwendigen Rechte, um die Daten einzusehen"));
 
-            jQuery("#punktetabelle").jtable({
+        else {
 
-                title          : "Punktetabelle - $uebungname",
-                paging         : true,
-                pageSize       : 25,
-                sorting        : true,
-                defaultSorting : "Matrikelnummer ASC",
-                actions: {
-                    listAction   : "$listaction",
-                    updateAction : "$updateaction",
-                },
+            if (VeranstaltungPermission::hasDozentRecht($loVeranstaltung))
+            {
+                echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting")."\">\n";
+                CSRFProtection::tokenTag();
 
-                fields: {
+                echo "<div class=\"steel1\">\n";
 
-                    Auth : {
-                        key    : true,
-                        create : false,
-                        edit   : false,
-                        list   : false
-                    },
+                echo "<table width=\"100%\">\n";
 
-                    Matrikelnummer : {
-                        edit   : false,
-                        title  : "Matrikelnummer",
-                        width  : "10%"
-                    },
+                echo "</table>";
+                echo "</div>\n";
+                echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben ¸bernehmen")."\"/></p>";
+                echo "</form>";
+                echo "</div>";
+            }
 
-                    Name : {
-                        edit  : false,
-                        title : "Name",
-                        width : "30%"
-                    },
 
-                    EmailAdresse : {
-                        edit  : false,
-                        title : "EMail Adresse",
-                        width : "20%"
-                    },
-                                                           
-                    ErreichtePunkte : {
-                        title : "erreichte Punkte",
-                        width : "15%"
-                    },
-                                                           
-                    ZusatzPunkte : {
-                        title : "Zusatzpunkte",
-                        width : "15%"
-                    },
-                                                           
-                    Bemerkung : {
-                        title : "Bemerkung",
-                        type  : "textarea",
-                        width : "10%"
-                    }
-                                                           
-                }
-            });
-                           
-            jQuery("#punktetabelle").jtable("load");
-                           
-    });
-    </script>
-EOT;
+            echo "<script type=\"text/javascript\">";
+            echo "jQuery(document).ready(function() {";
+            echo "jQuery(\"#punktetabelle\").jtable({";
 
-    echo "<div id=\"punktetabelle\"></div>";
+            echo "title          : \"Punktetabelle - ".$uebungname."\",";
+            echo "paging         : true,";
+            echo "pageSize       : 25,";
+            echo "sorting        : true,";
+            echo "defaultSorting : \"Matrikelnummer ASC\",";
+            echo "actions: {";
+            echo "listAction   : \"".$listaction."\",";
+            echo "updateAction : \"".$updateaction."\",";
+            echo "},";
 
+            echo "fields: {";
+
+            echo "Auth : { key : true, create : false, edit : false, list : false },";
+            echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
+            echo "Name : { edit : false, title : \"Name\", width : \"30%\" },";
+            echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
+            echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"15%\" },";
+            echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"15%\" },";
+            echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"10%\" }";
+
+            echo "}";
+            echo "});";
+
+            echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+            echo "});";
+            echo "</script>";
+
+            echo "<div id=\"punktetabelle\"></div>";
+        }
+
+    } catch (Exception $e) {
+        Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
+    }
 
 ?>

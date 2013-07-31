@@ -127,7 +127,7 @@
 
 
         /** führt die Action für das CreateÜbungs Form aus **/
-        function createuebungset_action()
+        function createuebungsetting_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung anzulegen") );

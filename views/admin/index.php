@@ -29,12 +29,12 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
+    Tools::showMessage($flash["message"]);
+    
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
-        Tools::showMessage($flash["message"]);
 
-        
         if (!$loVeranstaltung)
             echo "<p><a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a></p>";
         else {
