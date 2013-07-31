@@ -123,7 +123,7 @@
             $ln = 0;
             if (is_numeric($pn))
             {
-                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $pcAuth) );
+                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update erreichtepunkte = :punkte" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn), "korrektor" => $GLOBALS["user"]->id) );
@@ -155,7 +155,7 @@
             $ln = 0;
             if (is_numeric($pn))
             {
-                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $pcAuth) );
+                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update zusatzpunkte = :punkte" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn), "korrektor" => $GLOBALS["user"]->id) );
@@ -187,7 +187,7 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
-                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $pcAuth) );
+                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor) values (:uebungid, :auth, :bemerkung, :korrektor) on duplicate key update bemerkung = :bemerkung" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bemerkung" => (empty($pc) ? null : $pc), "korrektor" => $GLOBALS["user"]->id) );
