@@ -40,6 +40,9 @@
         /** ÜbungsID **/
         private $mcID = null;
 
+        /** maximale Punktanzahl der Übung (für schnelles Caching) **/
+        private $mnMaxPunkte = 0;
+
 
 
         /** erzeugt eine neue Übung
@@ -91,17 +94,20 @@
             {
                 $this->moVeranstaltung = $pxVeranstaltungUebung->moVeranstaltung;
                 $this->mcID            = $pxVeranstaltungUebung->mcID;
+                $this->mnMaxPunkte     = $pxVeranstaltungUebung->mnMaxPunkte;
             } else {
                 $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
 
                 if (is_string($pxUebung))
                 {
-                    $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                    $loPrepare = DBManager::get()->prepare("select id, maxpunkte from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                     $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
                     if ($loPrepare->rowCount() != 1)
                         throw new Exception(_("Übung nicht gefunden"));
 
-                    $this->mcID = $pxUebung;
+                    $result            = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $this->mnMaxPunkte = $result["maxpunkte"];
+                    $this->mcID        = $result["id"];
                 }
             }
 
@@ -200,32 +206,16 @@
          **/
         function maxPunkte( $pn = null )
         {
-            $ln = 0;
-
             if (is_numeric($pn))
             {
-
                 if ($pn < 0)
                     throw new Exception(_("Parameter für die Punkte muss größer gleich Null sein"));
 
-                DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => floatval($pn)) );
-
-                $ln = $pn;
-
-            } else {
-
-                $loPrepare = DBManager::get()->prepare("select maxpunkte from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
-
-                if ($loPrepare->rowCount() == 1)
-                {
-                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $ln     = $result["maxpunkte"];
-                }
-                
+                $this->mnMaxPunkte = floatval($pn);
+                DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => $this->mnMaxPunkte) );
             }
-            
-            return floatval($ln);
+
+            return $this->mnMaxPunkte;
         }
 
 

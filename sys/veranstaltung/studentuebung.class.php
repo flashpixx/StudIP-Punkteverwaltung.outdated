@@ -123,6 +123,9 @@
             $ln = 0;
             if (is_numeric($pn))
             {
+                if ($pn > $this->moUebung->maxPunkte())
+                    throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
+
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update erreichtepunkte = :punkte" );
@@ -155,6 +158,9 @@
             $ln = 0;
             if (is_numeric($pn))
             {
+                if ($pn < 0)
+                    throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
+
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update zusatzpunkte = :punkte" );
@@ -222,6 +228,13 @@
                 throw new Exception(_("zusätzliche Punkte sind nicht numerisch"));
             if ( (!empty($pcBemerkung)) && (!is_string($pcBemerkung)) )
                 throw new Exception(_("Bemerkung ist nicht leer oder ist kein Text"));
+
+            if ($pnErreichtePunkte > $this->moUebung->maxPunkte())
+                throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
+            if ($pnZusatzPunkte < 0)
+                throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
+
+
 
             $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
