@@ -193,8 +193,16 @@
                 $lo->update( Request::float("ErreichtePunkte"), Request::float("ZusatzPunkte"), Request::quoted("Bemerkung") );
                
 
-                // alles fehlerfrei durchlaufen, setze Result
+                // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
                 $this->result["Result"] = "OK";
+                $this->result["Record"] = array(
+                      "Auth"            => studip_utf8encode( $lo->student()->id() ),
+                      "ErreichtePunkte" => $lo->erreichtePunkte(),
+                      "ZusatzPunkte"    => $lo->zusatzPunkte(),
+                      "Bemerkung"       => studip_utf8encode( $lo->bemerkung() )
+                );
+
+
 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
             } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
