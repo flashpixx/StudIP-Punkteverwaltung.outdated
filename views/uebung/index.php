@@ -78,7 +78,11 @@
             echo "jQuery(document).ready(function() {";
             echo "jQuery(\"#punktetabelle\").jtable({";
 
-            echo "title          : \"Punktetabelle - ".$loUebung->name().(empty($loUebung->abgabeDatum()) ? null : " (".$loUebung->abgabeDatum().")")."\",";
+            $abgabe = $loUebung->abgabeDatum();
+            if (!empty($abgabe))
+                $abgabe = _("Abgabe").": ".$abgabe.")";
+
+            echo "title          : \"Punktetabelle - ".$loUebung->name().$abgabe."\",";
             echo "paging         : true,";
             echo "pageSize       : 25,";
             echo "sorting        : true,";
