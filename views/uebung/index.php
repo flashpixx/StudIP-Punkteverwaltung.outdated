@@ -35,8 +35,8 @@
     try {
         $loUebung = isset($flash["uebung"]) ? $flash["uebung"] : null;
 
-        if ( (!$loVeranstaltung) || ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung()))) )
-            throw new Exception(_("Sie haen nicht die notwendigen Rechte, um die Daten einzusehen"));
+        if ( (!$loUebung) || ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung()))) )
+            throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
 
         else {
 
