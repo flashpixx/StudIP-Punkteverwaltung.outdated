@@ -184,7 +184,7 @@
             try {
 
                 // hole die Übung und prüfe die Rechte
-                $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid")):
+                $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
                 if ( (!VeranstaltungPermission::hasTutorRecht( $loUebung->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
@@ -193,7 +193,7 @@
 
                 $lo->bemerkung( Request::quoted("Bemerkung") );
                 $lo->zusatzPunkte( Request::float("ZusatzPunkte") );
-                $lo->zusatzPunkte( Request::float("ErreichtePunkte") );
+                $lo->erreichtePunkte( Request::float("ErreichtePunkte") );
                
 
                 // alles fehlerfrei durchlaufen, setze Result
