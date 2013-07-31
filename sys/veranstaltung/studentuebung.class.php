@@ -123,7 +123,7 @@
             $ln = 0;
             if (is_numeric($pn))
             {
-                $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
+                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $pcAuth) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte) values (:uebungid, :auth, :punkte) on duplicate key update erreichtepunkte = :punkte" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn)) );
@@ -155,7 +155,7 @@
             $ln = 0;
             if (is_numeric($pn))
             {
-                $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
+                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $pcAuth) );
                 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte) values (:uebungid, :auth, :punkte) on duplicate key update zusatzpunkte = :punkte" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn)) );
@@ -187,7 +187,7 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
-                $this->moLogPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $pcAuth) );
+                $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $pcAuth) );
 
                 DBManager::get()->prepare( "update ppv_uebungstudent set bemerkung = :bem where uebung = :uebungid and student = :auth" )->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bem" => (empty($pc) ? null : $pc)) );
 
