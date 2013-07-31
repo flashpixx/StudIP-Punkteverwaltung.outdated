@@ -35,6 +35,7 @@
     class UebungController extends StudipController
     {
 
+
         /** Ctor, um aus dem Dispatcher die Referenz auf das Pluginobjekt 
          * zu bekommen
          * @param $poDispatch
@@ -62,12 +63,8 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
 
             // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
-            $lcUeID = Request::quoted("ueid");
+            $this->flash["uebung"] = empty(Request::quoted("ueid")) ? reset($this->flash["veranstaltung"]->uebungen()) : new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
 
-            if (empty($lcUeID))
-                $this->flash["uebung"] = reset($this->flash["veranstaltung"]->uebungen());
-            else
-                $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], $lcUeID);
         }
 
 
@@ -101,8 +98,15 @@
             // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
             try {
 
-                // hole die Übung und prüfe die Berechtigung
-                $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                $lo = null;
+                if (Request::quoted("ueid"))
+                    $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                else {
+                    $loVeranstaltung = Veranstaltung::get( Request::quoted("cid") );
+                    $lo = reset($loVeranstaltung->uebungen())
+                }
+
                 if ( (!VeranstaltungPermission::hasTutorRecht( $lo->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $lo->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
