@@ -125,6 +125,8 @@
             {
                 if ($pn > $this->moUebung->maxPunkte())
                     throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
+                if ($pn < 0)
+                    throw new Exception(_("Erreichte Punkte müssen größer gleich Null sein"));
 
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
@@ -233,6 +235,8 @@
                 throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
             if ($pnZusatzPunkte < 0)
                 throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
+            if ($pnErreichtePunkte < 0)
+                throw new Exception(_("Erreichte Punkte müssen größer gleich Null sein"));
 
 
 
