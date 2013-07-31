@@ -207,6 +207,27 @@
             
             return $lc;
         }
+
+
+        /** updated den Datensatz für alle drei Felder
+         * @param $pnErreichtePunkte numerischer Wert der erreichten Punkte
+         * @param $pnZusatzPunkte numerischer Wert der zusätzlichen Punkte
+         * @param $pcBemerkung Stringwert für die Bemerkung
+         **/
+        function update( $pnErreichtePunkte, $pnZusatzPunkte, $pcBemerkung )
+        {
+            if (!is_numeric($pnErreichtePunkte))
+                throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
+            if (!is_numeric($pnZusatzPunkte))
+                throw new Exception(_("zusätzliche Punkte sind nicht numerisch"));
+            if ( (!empty($pcBemerkung)) && (!is_string($pcBemerkung)) )
+                throw new Exception(_("Bemerkung ist nicht leer oder ist kein Text"));
+
+            $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
+
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor, zusatzpunkte, erreichtepunkte) values (:uebungid, :auth, :bemerkung, :korrektor, :zusatzpunkte, :erreichtepunkte) on duplicate key update bemerkung = :bemerkung" );
+            $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bemerkung" => (empty($pcBemerkung) ? null : $pcBemerkung), "korrektor" => $GLOBALS["user"]->id, "zusatzpunkte" => $pnZusatzPunkte, "erreichtepunkte" => $pnErreichtePunkte) );
+        }
         
 
         /** liefert alle Logeinträge für diese Student-Übungsbeziehung

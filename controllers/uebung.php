@@ -190,10 +190,7 @@
 
                 // hole die Zuordnung von Übung und Student und setze die Daten
                 $lo = new StudentUebung( $loUebung, Request::quoted("Auth") );
-
-                $lo->bemerkung( Request::quoted("Bemerkung") );
-                $lo->zusatzPunkte( Request::float("ZusatzPunkte") );
-                $lo->erreichtePunkte( Request::float("ErreichtePunkte") );
+                $lo->update( Request::float("ErreichtePunkte"), Request::float("ZusatzPunkte"), Request::quoted("Bemerkung") );
                
 
                 // alles fehlerfrei durchlaufen, setze Result
