@@ -275,9 +275,9 @@
          * @param $pc Abgabedatum order null
          * @return Datum
          **/
-        function abgabe()
+        function abgabeDatum( $pn = false )
         {
-
+            return null;
         }
 
 

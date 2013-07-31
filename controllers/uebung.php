@@ -76,8 +76,13 @@
             $this->updateaction = $this->url_for( "uebung/jsonupdate", array("ueid" => Request::quoted("ueid")) );
 
             // setze Metainfos
-            $lo               = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-            $this->uebungname = $lo->name();
+            $lo                     = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+            $this->uebungname       = $lo->name();
+            $this->maxpunkte        = $lo->maxPunkte();
+            $this->bestandenprozent = $lo->bestandenprozent();
+            $this->abgabedatum      = $lo->abgabeDatum();
+            $this->bemerkung        = $lo->bemerkung();
+            
         }
 
 

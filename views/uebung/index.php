@@ -49,19 +49,37 @@
 
                 echo "<table width=\"100%\">\n";
 
+                echo "<tr><td width=\"50%\"><label for=\"uebungname\">"._("Name der Übung")."</label></td>";
+                echo "<td><input type=\"text\" id=\"uebungname\" name=\"uebungname\" value=\"".$uebungname."\" size=\"35\"/></td></tr>\n";
+
+                echo "<tr><td><label for=\"maxpunkte\">"._("maximal zu erreichende Punkte der Übung")."</label></td>";
+                echo "<td><input type=\"text\" id=\"maxpunkte\" name=\"maxpunkte\" value=\"".$maxpunkte."\" size=\"35\"/></td></tr>\n";
+
+                echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl, mit der die Übung bestanden ist")."</label></td>";
+                echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$bestandenprozent."\" size=\"35\"/></td></tr>\n";
+
+                echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form dd.mm.yyyy hh:mm, dd.mm.yyyy oder leer)")."</label></td>";
+                echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$abgabedatum."\" size=\"35\"/></td></tr>\n";
+
+                echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
+                echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$bemerkung."</textarea></td></tr>\n";
+                echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete")."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></t
+
                 echo "</table>";
                 echo "</div>\n";
-                echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben Â¸bernehmen")."\"/></p>";
+                echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
                 echo "</form>";
                 echo "</div>";
             }
+            elseif (!empty($bemerkung))
+                echo "<div class=\"steel1\">".$bemerkung."</div>";
 
 
             echo "<script type=\"text/javascript\">";
             echo "jQuery(document).ready(function() {";
             echo "jQuery(\"#punktetabelle\").jtable({";
 
-            echo "title          : \"Punktetabelle - ".$uebungname."\",";
+            echo "title          : \"Punktetabelle - ".$uebungname.(empty($abgabedatum) ? null : " (".$abgabedatum.")")."\",";
             echo "paging         : true,";
             echo "pageSize       : 25,";
             echo "sorting        : true,";
