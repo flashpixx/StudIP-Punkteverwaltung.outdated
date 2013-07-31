@@ -72,8 +72,8 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
             // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
-            $this->listaction   = $this->url_for( "uebung/list",   array("ueid" => Request::quoted("ueid")) );
-            $this->updateaction = $this->url_for( "uebung/update", array("ueid" => Request::quoted("ueid")) );
+            $this->listaction   = $this->url_for( "uebung/jsonlist",   array("ueid" => Request::quoted("ueid")) );
+            $this->updateaction = $this->url_for( "uebung/jsonupdate", array("ueid" => Request::quoted("ueid")) );
 
             // setze Metainfos
             $lo               = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
@@ -82,7 +82,7 @@
 
 
         /** liefert die korrekten Json Daten für den jTable **/
-        function list_action()
+        function jsonlist_action()
         {
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
             // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
@@ -171,7 +171,7 @@
 
 
         /** erzeugt das Update, für den jTable **/
-        function update_action()
+        function jsonupdate_action()
         {
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
             // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
