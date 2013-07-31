@@ -65,7 +65,7 @@
             $lcUID = Request::quoted("ueid");
 
             if (empty($lcUID))
-                $this->flash["uebung"] = new Uebung( reset($this->flash["veranstaltung"]->uebungen()) );
+                $this->flash["uebung"] = reset($this->flash["veranstaltung"]->uebungen());
             else
                 $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], $lcUID);
         }
