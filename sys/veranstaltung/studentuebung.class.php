@@ -82,7 +82,7 @@
                 throw new Exception(_("Keine korrekten Authentifizierungsdaten übergeben"));
 
             $this->moUebung     = new Uebung( $pxUebung );
-            $this->moLogPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudentlog select null, * from ppv_uebungstudentlog where uebung = :uebungid and student = :auth" );
+            $this->moLogPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudentlog select NULL as id, d.* from ppv_uebungstudent as d where uebung = :uebungid and student = :auth" );
         }
 
 
