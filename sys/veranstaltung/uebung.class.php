@@ -334,7 +334,7 @@
             $la = array();
 
             $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("id" => $this->mcID );
+            $loPrepare->execute( array("id" => $this->mcID) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 array_push($la, new StudentUebung( $this, $row["student"] ) );
