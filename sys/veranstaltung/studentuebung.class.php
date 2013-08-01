@@ -232,7 +232,7 @@
                 $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
 
                 $lo     = new User($result["korrektor"]);
-                $lc     = $lo->getFullName("full_rev") ." (".User::find($result["korrektor"])->email.")"
+                $lc     = $lo->getFullName("full_rev") ." (".User::find($result["korrektor"])->email.")";
             }
 
 
