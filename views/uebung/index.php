@@ -61,7 +61,7 @@
                 echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$loUebung->bestandenprozent()."\" size=\"35\"/></td></tr>\n";
 
                 echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form 'dd.mm.yyyy hh:mm', 'dd.mm.yyyy' oder leer)")."</label></td>";
-                echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$abgabedatum."\" size=\"35\"/></td></tr>\n";
+                echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$loUebung->abgabeDatum()."\" size=\"35\"/></td></tr>\n";
 
                 echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung (für die Tutoren sichtbar)")."</label></td>";
                 echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
