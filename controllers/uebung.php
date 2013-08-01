@@ -58,16 +58,20 @@
             // PageLayout::setTitle("");
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
-            // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
-            // die aktuellen Daten bekommt
-            $this->flash                  = Trails_Flash::instance();
-            $this->flash["veranstaltung"] = Veranstaltung::get();
+            try {
 
-            // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
-            if (Request::quoted("ueid"))
-                $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-            else
-                $this->flash["uebung"] = reset($this->flash["veranstaltung"]->uebungen());
+                // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
+                // die aktuellen Daten bekommt
+                $this->flash                  = Trails_Flash::instance();
+                $this->flash["veranstaltung"] = Veranstaltung::get();
+
+                // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
+                if (Request::quoted("ueid"))
+                    $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
+                else
+                    $this->flash["uebung"] = reset($this->flash["veranstaltung"]->uebungen());
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
         }
 
@@ -96,17 +100,15 @@
         function updatesetting_action()
         {
             try {
-                $loUebung = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-
-                if (!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                if (!VeranstaltungPermission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
                     $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu verändern") );
                 elseif (Request::submitted("submitted"))
                 {
-                    $loUebung->name( Request::quoted("uebungname") );
-                    $loUebung->bestandenProzent( Request::float("bestandenprozent") );
-                    $loUebung->maxPunkte( Request::float("maxpunkte") );
-                    $loUebung->bemerkung( Request::quoted("bemerkung") );
-                    $loUebung->abgabeDatum( Request::quoted("abgabedatum") );
+                    $this->flash["uebung"]->name( Request::quoted("uebungname") );
+                    $this->flash["uebung"]->bestandenProzent( Request::float("bestandenprozent") );
+                    $this->flash["uebung"]->maxPunkte( Request::float("maxpunkte") );
+                    $this->flash["uebung"]->bemerkung( Request::quoted("bemerkung") );
+                    $this->flash["uebung"]->abgabeDatum( Request::quoted("abgabedatum") );
 
                     $this->flash["message"] = Tools::createMessage( "success", _("Einstellung der Übung geändert") );
                 }
@@ -121,24 +123,23 @@
         /** löscht eine Übung **/
         function delete_action()
         {
-            if (Request::int("dialogyes"))
-            {
-                try {
-                    $loUebung = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-
-                    if (!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+            try {
+                if (Request::int("dialogyes"))
+                {
+                    if (!VeranstaltungPermission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
                         $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu löschen") );
                     else
-                        Uebung::delete( $loUebung );
+                        Uebung::delete( $this->flash["uebung"] );
 
-                } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+                }
+                elseif (Request::int("dialogno")) { $this->redirect("admin"); return; }
 
-            }
-            elseif (Request::int("dialogno")) { $this->redirect("admin"); return; }
+                else
+                    $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("uebung/delete", array()) );
 
-            else
-                $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("uebung/delete") );
-            
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+
             $this->redirect("uebung");
         }
 
@@ -155,14 +156,11 @@
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
-
-                $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                
-                if (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() ))
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // hole Student und Logdaten
-                $loStudentUebung = new StudentUebung($loUebung, Request::quoted("aid"));
+                $loStudentUebung = new StudentUebung($this->flash["uebung"], Request::quoted("aid"));
 
                 // wir brauchen einen Pseudoindex, da sonst die Childtabelle die Daten nicht anzeigt
                 // hier einfach eine inkrementelle Nummer verwenden
@@ -206,78 +204,69 @@
             try {
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                $loUebung = null;
-                if (Request::quoted("ueid"))
-                    $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                else
-                    $loUebung = $this->flash["uebung"];
-
-                if ( (!VeranstaltungPermission::hasTutorRecht( $loUebung->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() )) )
+                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
-                if ($loUebung)
+                $laData = $this->flash["uebung"]->studentenuebung();
+                if ($laData)
                 {
-                    $laData = $loUebung->studentenuebung();
-                    if ($laData)
+                    // setze Defaultwerte für jTable
+                    $this->result["TotalRecordCount"] = count($laData);
+
+                    // sortiere Daten anhand des Kriteriums
+                    usort($laData, function($a, $b) {
+                          $ln = 0;
+
+                          if ($a == $b)
+                            return 0;
+
+                          elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
+                            $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
+
+                          elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
+                            $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
+
+                          elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
+                            $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
+
+                          elseif (stripos(Request::quoted("jtSorting"), "bemerkung") !== false)
+                            $ln = strcasecmp(studip_utf8encode($a->bemerkung()), studip_utf8encode($b->bemerkung()));
+
+                          elseif (stripos(Request::quoted("jtSorting"), "erreichtepunkte") !== false)
+                            $ln = strcasecmp($a->erreichtePunkte(), $b->erreichtePunkte());
+
+                          elseif (stripos(Request::quoted("jtSorting"), "zusatzpunkte") !== false)
+                            $ln = strcasecmp($a->zusatzPunkte(), $b->zusatzPunkte());
+
+                          
+                          if (stripos(Request::quoted("jtSorting"), "asc") === false)
+                            $ln = -1 * $ln;
+
+                          return $ln;
+                    });
+
+                    // hole Query Parameter, um die Datenmenge passend auszuwählen
+                    $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
+                    
+
+                    foreach( $laData as $item )
                     {
-                        // setze Defaultwerte für jTable
-                        $this->result["TotalRecordCount"] = count($laData);
+                        // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
+                        $laItem = array(
+                                    "Auth"            => studip_utf8encode( $item->student()->id() ),
+                                    "Matrikelnummer"  => $item->student()->matrikelnummer(),
+                                    "Name"            => studip_utf8encode( $item->student()->name() ),
+                                    "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                                    "ErreichtePunkte" => $item->erreichtePunkte(),
+                                    "ZusatzPunkte"    => $item->zusatzPunkte(),
+                                    "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
+                        );
 
-                        // sortiere Daten anhand des Kriteriums
-                        usort($laData, function($a, $b) {
-                              $ln = 0;
-
-                              if ($a == $b)
-                                return 0;
-
-                              elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
-                                $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
-
-                              elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
-                                $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
-
-                              elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
-                                $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
-
-                              elseif (stripos(Request::quoted("jtSorting"), "bemerkung") !== false)
-                                $ln = strcasecmp(studip_utf8encode($a->bemerkung()), studip_utf8encode($b->bemerkung()));
-
-                              elseif (stripos(Request::quoted("jtSorting"), "erreichtepunkte") !== false)
-                                $ln = strcasecmp($a->erreichtePunkte(), $b->erreichtePunkte());
-
-                              elseif (stripos(Request::quoted("jtSorting"), "zusatzpunkte") !== false)
-                                $ln = strcasecmp($a->zusatzPunkte(), $b->zusatzPunkte());
-
-                              
-                              if (stripos(Request::quoted("jtSorting"), "asc") === false)
-                                $ln = -1 * $ln;
-
-                              return $ln;
-                        });
-
-                        // hole Query Parameter, um die Datenmenge passend auszuwählen
-                        $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
-                        
-
-                        foreach( $laData as $item )
-                        {
-                            // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
-                            $laItem = array(
-                                        "Auth"            => studip_utf8encode( $item->student()->id() ),
-                                        "Matrikelnummer"  => $item->student()->matrikelnummer(),
-                                        "Name"            => studip_utf8encode( $item->student()->name() ),
-                                        "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
-                                        "ErreichtePunkte" => $item->erreichtePunkte(),
-                                        "ZusatzPunkte"    => $item->zusatzPunkte(),
-                                        "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
-                            );
-
-                            if (VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() ))
-                                $laItem["Korrektor"] = studip_utf8encode( $item->korrektor() );
+                        if (VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
+                            $laItem["Korrektor"] = studip_utf8encode( $item->korrektor() );
 
 
-                            array_push( $this->result["Records"], $laItem );
-                        }
+                        array_push( $this->result["Records"], $laItem );
                     }
                 }
 
@@ -303,12 +292,11 @@
             try {
 
                 // hole die Übung und prüfe die Rechte
-                $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                if ( (!VeranstaltungPermission::hasTutorRecht( $loUebung->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() )) )
+                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // hole die Zuordnung von Übung und Student und setze die Daten
-                $lo = new StudentUebung( $loUebung, Request::quoted("Auth") );
+                $lo = new StudentUebung( $this->flash["uebung"], Request::quoted("Auth") );
                 $lo->update( Request::float("ErreichtePunkte"), Request::float("ZusatzPunkte"), Request::quoted("Bemerkung") );
                
 
