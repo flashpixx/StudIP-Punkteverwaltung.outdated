@@ -76,7 +76,7 @@
 
             // Tutoren bekommen nur die Bemerkung angezeigt
             elseif ($loUebung->bemerkung())
-                echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div>";
+                echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div><br/><br/>";
 
 
             // jTable für die Punkte erzeugen
