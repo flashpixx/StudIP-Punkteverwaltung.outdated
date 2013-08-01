@@ -67,10 +67,10 @@
 
 
         /** löscht eine Übung mit allen dazugehörigen Daten
-         * @param $pxVeranstaltung Veranstaltungsobjekt oder -ID
-         * @param $pxID Übungsobjekt oder -ID
+         * @param $pxVeranstaltung Veranstaltungsobjekt oder -ID oder Übungsobjekt
+         * @param $pxID Übungsobjekt oder -ID (oder null, falls im ersten Parameter ein Übungsobjekt übergeben wurde)
          **/
-        static function delete( $pxVeranstaltung, $pxID )
+        static function delete( $pxVeranstaltung, $pxID = null )
         {
             $lcClassName = __CLASS__;
             $loUebung = new $lcClassName( $pxVeranstaltung, $pxID );
