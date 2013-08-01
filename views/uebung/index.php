@@ -69,7 +69,7 @@
 
                 echo "</table>";
                 echo "</div>\n";
-                echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+                echo "<p><input type=\"hidden\" name=\"ueid\" value=\"".$loUebung->id()."\" /><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
                 echo "</form>";
                 echo "</div>";
             }

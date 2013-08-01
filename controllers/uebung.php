@@ -85,6 +85,32 @@
         }
 
 
+        /** setzt die Einstellungen für die Übung **/
+        function updatesetting_action()
+        {
+            try {
+                $loUebung = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
+
+                if (!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung zu verändern") );
+                elseif (Request::submitted("submitted"))
+                {
+                    $loUebung->name( Request::quoted("uebungname") );
+                    $loUebung->bestandenProzent( Request::float("bestandenprozent") );
+                    $loUebung->maxPunkte( Request::float("maxpunkte") );
+                    $loUebung->bemerkung( Request::quoted("bemerkung") );
+                    $loUebung->abgabeDatum( Request::quoted("abgabedatum") );
+
+                    $this->flash["message"] = Tools::createMessage( "success", _("Einstellung der Übung geändert") );
+                }
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+
+            
+            $this->redirect("uebung");
+        }
+
+
         /** liefert die korrekten Json Daten für den jTable **/
         function jsonlist_action()
         {
