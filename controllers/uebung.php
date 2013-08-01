@@ -100,7 +100,7 @@
                     $loUebung->bestandenProzent( Request::float("bestandenprozent") );
                     $loUebung->maxPunkte( Request::float("maxpunkte") );
                     $loUebung->bemerkung( Request::quoted("bemerkung") );
-                    $loUebung->abgabeDatum( Request::quoted("abgabedatum") );
+                    //$loUebung->abgabeDatum( Request::quoted("abgabedatum") );
 
                     $this->flash["message"] = Tools::createMessage( "success", _("Einstellung der Übung geändert") );
                 }
