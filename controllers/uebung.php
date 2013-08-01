@@ -133,10 +133,12 @@
 
                 } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
-            } elseif (Request::int("dialogno")) { $this->redirect("admin"); }
+            }
+            elseif (Request::int("dialogno")) { $this->redirect("admin"); return; }
+
             else
                 $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("uebung/delete") );
-
+            
             $this->redirect("uebung");
         }
 
