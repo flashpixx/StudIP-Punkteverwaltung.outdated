@@ -150,7 +150,7 @@
             if ((!empty($pc)) && (is_string($pc)) )
             {
 
-                DBManager::get()->prepare( "update ppv_uebung set uebungsname = :name where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
+                DBManager::get()->prepare( "update ppv_uebung set uebungsname = :name where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
                 $lc = $pc;
 
             } else {
@@ -184,7 +184,7 @@
                 if (($pn < 0) || ($pn > 100))
                     throw new Exception(_("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]"));
 
-                DBManager::get()->prepare( "update ppv_uebung set bestandenprozent = :prozent where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "prozent" => floatval($pn)) );
+                DBManager::get()->prepare( "update ppv_uebung set bestandenprozent = :prozent where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "prozent" => floatval($pn)) );
 
                 $ln = $pn;
 
@@ -217,7 +217,7 @@
                     throw new Exception(_("Parameter für die Punkte muss größer gleich Null sein"));
 
                 $this->mnMaxPunkte = floatval($pn);
-                DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :i" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => $this->mnMaxPunkte) );
+                DBManager::get()->prepare( "update ppv_uebung set maxpunkte = :pt where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "pt" => $this->mnMaxPunkte) );
             }
 
             return $this->mnMaxPunkte;
