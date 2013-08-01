@@ -25,6 +25,7 @@
 
 
 
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/studentuebung.class.php");
