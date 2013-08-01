@@ -86,7 +86,7 @@
 
             $abgabe = $loUebung->abgabeDatum();
             if ($abgabe)
-                $abgabe = "("._("Abgabe").": ".$abgabe.")";
+                $abgabe = " ("._("Abgabe").": ".$abgabe.")";
 
             echo "title          : \"Punktetabelle - ".$loUebung->name().$abgabe."\",";
             echo "paging         : true,";
