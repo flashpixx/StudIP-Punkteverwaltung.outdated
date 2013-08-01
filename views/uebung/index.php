@@ -117,7 +117,7 @@
                 echo "Bemerkung : { title : \"Bemerkung\", edit : false },";
                 echo "Korrektor : { title : \"Korrektor\", edit : false },";
 
-                echo "}}, function(data) { data.childTable.jtable(\"load\"); });"
+                echo "}}, function(data) { data.childTable.jtable(\"load\"); });";
                 echo "});";
                 echo "return $item;";
                 echo "}},";
