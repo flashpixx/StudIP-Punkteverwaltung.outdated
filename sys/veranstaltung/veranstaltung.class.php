@@ -36,6 +36,9 @@
         /** ID der Veranstaltung **/
         private $mcID = null;
 
+        /** Cache ob die Veranstaltung geschlossen ist **/
+        private $mlClose = false;
+
 
 
         /* statische Methode für die Überprüfung, ob Übungsdaten zu einer Veranstaltung existieren
@@ -96,12 +99,14 @@
                 $this->mcID = $px->id();
             elseif (is_string($px))
             {
-                $loPrepare = DBManager::get()->prepare("select id from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("select id, close from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $px) );
                 if ($loPrepare->rowCount() != 1)
                     throw new Exception(_("Veranstaltung nicht gefunden"));
 
-                $this->mcID       = $px;
+                $result      = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $this->mcID  = $result["id"];
+                $this->close = !empty($result["close"]);
             }
             else
                 throw new Exception(_("Veranstaltungparameter inkrorrekt"));
@@ -127,7 +132,9 @@
 
             if (is_numeric($pn))
             {
-                
+                if ($this->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
                 if (($pn < 0) || ($pn > 100))
                     throw new Exception(_("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]"));
 
@@ -163,6 +170,8 @@
 
             if (is_numeric($pn))
             {
+                if ($this->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
                 if ($pn < 0)
                     throw new Exception(_("Der Parameter für die Anzahl der als nicht bestand gewertenden Übungen, die trotzdem akzeptiert werden, muss größer gleich null sein"));
@@ -199,6 +208,10 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
+                if ($this->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
+
                 DBManager::get()->prepare( "update ppv_seminar set bemerkung = :bem where id = :semid" )->execute( array("semid" => $this->mcID, "bem" => (empty($pc) ? null : $pc)) );
 
                 $lc = $pc;
@@ -216,6 +229,26 @@
 
             return $lc;
         }
+
+
+        /** schließt die Veranstaltung für Änderungen
+         * @todo es fehlt der Übertrag der Studiengänge
+         **/
+        function close()
+        {
+            $this->mlClose = true;
+            DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => true) );
+        }
+
+        
+        /** liefert ob die Veranstaltung geschlossen ist
+         * @return boolean
+         **/
+        function isClosed()
+        {
+            return $this->mlClose;
+        }
+
 
 
         /** liefert ein Array mit allen Übungsobjekten
