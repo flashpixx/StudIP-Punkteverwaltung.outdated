@@ -107,7 +107,7 @@
                 echo "display : function(row) {";
                 echo "var $item = jQuery(\"<span>Log</span>\");";
                 echo "$item.click(function() {";
-                echo "jQuery(\"#punktetabelle\").jtable(\"openlog\", $item.closest(\"tr\", {
+                echo "jQuery(\"#punktetabelle\").jtable(\"openlog\", $item.closest(\"tr\", {";
 
                 echo "title : \"Log für \" + row.record.Name, actions { listAction : \"".$childlistaction."?aid=\" + row.record.Auth },";
                 echo "fields {";
