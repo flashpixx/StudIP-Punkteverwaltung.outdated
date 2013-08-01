@@ -141,10 +141,10 @@
 
                 foreach( $loStudentUebung->log() as $item )
                     array_push( $this->result["Records"], array(
-                                "ErreichtePunkte" => $item["erreichtepunkte"]),
-                                "ZusatzPunkte"    => $item["zusatzpunkte"]),
-                                "Bemerkung"       => studip_utf8encode( $item["bemerkung"]) ),
-                                "Korrektor"       => studip_utf8encode( $item["korrektor"]) );
+                                "ErreichtePunkte" => $item["erreichtepunkte"],
+                                "ZusatzPunkte"    => $item["zusatzpunkte"],
+                                "Bemerkung"       => studip_utf8encode( $item["bemerkung"] ),
+                                "Korrektor"       => studip_utf8encode( $item["korrektor"] )
                     ));
 
 
