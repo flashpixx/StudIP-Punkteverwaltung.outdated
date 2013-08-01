@@ -65,6 +65,12 @@
             $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, uebungsname, bestandenprozent, maxpunkte) values (:semid, :id, :name, :prozent, :maxpunkte)" );
             $loPrepare->execute( array("semid" => $lo->id(), "id" => $lcID, "name" => $pcName, "prozent" => 50, "maxpunkte" => 1) );
 
+            
+            // erzeuge die Default Liste der Studenten aus der Liste der angemeldeten
+            $loPrepare = DBManager::get()->prepare("insert into ppv_uebungstudent select \":uebung\" as uebung, user_id as student, \":korrektor\" as korrektor, 0 as erreichtepunkte, 0 as zusatzpunkte, null as bemerkung from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "status" => "autor", "uebung" => $lcID, "korrektor" => $GLOBALS["user"]->id) );
+            
+
             $lcClassName = __CLASS__;
             return new $lcClassName( $pxVeranstaltung, $lcID );
         }
@@ -327,11 +333,11 @@
         {
             $la = array();
 
-            $loPrepare = DBManager::get()->prepare("select user_id from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "status" => "autor") );
+            $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("id" => $this->mcID );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push($la, new StudentUebung( $this, $row["user_id"] ) );
+                array_push($la, new StudentUebung( $this, $row["student"] ) );
 
             return $la;
         }
