@@ -33,10 +33,9 @@
          * @see http://docs.studip.de/develop/Entwickler/ModalerDialog
          * @see http://docs.studip.de/develop/Entwickler/Messagebox
          * @param $paMessage Message-Array
-         * @param $pcURL URL auf die geleitet werden soll
          * @return Booleanwert, ob die Nachricht eine Information / Success war
          **/
-        static function showMessage( $paMessage, $pcURL = null )
+        static function showMessage( $paMessage, $pcURL = "?" )
         {
             if ( (empty($paMessage)) || (!is_array($paMessage)) || (!isset($paMessage["type"])) || (!isset($paMessage["msg"])) )
                 return true;
@@ -54,7 +53,7 @@
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
                 echo MessageBox::info($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
-                echo createQuestion($paMessage["msg"], $la, array(), $pcURL);
+                echo createQuestion($paMessage["msg"], $la, array(), $paMessage["url"] );
 
             return true;
         }
@@ -64,12 +63,13 @@
          * @param $pcTyp ist der Messagetyp, Werte sind: error, success, info, question
          * @param $pcText Text der Nachricht
          * @param $paInfo weitere Texte oder für den Question-Dialog das return Array
+         * @param $pcURL URL auf die geleitet werden soll
          * @return Array mit Messagedaten
          **/
 
-        static function createMessage( $pcType, $pcText, $paInfo = array() )
+        static function createMessage( $pcType, $pcText, $paInfo = array(), $pcURL = "?" )
         {
-            return array("type" => $pcType, "msg" => $pcText, "info" => $paInfo );
+            return array("type" => $pcType, "msg" => $pcText, "info" => $paInfo, "url" => $pcURL );
         }
         
     }
