@@ -67,7 +67,7 @@
 
             
             // erzeuge die Default Liste der Studenten aus der Liste der angemeldeten
-            $loPrepare = DBManager::get()->prepare("insert into ppv_uebungstudent select \":uebung\" as uebung, user_id as student, \":korrektor\" as korrektor, 0 as erreichtepunkte, 0 as zusatzpunkte, null as bemerkung from seminar_user where status = :status and Seminar_id = :semid" );
+            $loPrepare = DBManager::get()->prepare("insert into ppv_uebungstudent select :uebung as uebung, user_id as student, :korrektor as korrektor, 0 as erreichtepunkte, 0 as zusatzpunkte, null as bemerkung from seminar_user where status = :status and Seminar_id = :semid" );
             $loPrepare->execute( array("semid" => $lo->id(), "status" => "autor", "uebung" => $lcID, "korrektor" => $GLOBALS["user"]->id) );
             
 
