@@ -285,9 +285,11 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-
-                    $lxDate = DateTime::createFromFormat("d.m.Y H:i", $result["abgabe"]);
-                    $lc     = $lxDate->format("d.m.Y H:i");
+                    if ($result["abgabe"])
+                    {
+                        $lxDate = DateTime::createFromFormat("d.m.Y H:i", $result["abgabe"]);
+                        $lc     = $lxDate->format("d.m.Y H:i");
+                    }
                 }
 
             }
