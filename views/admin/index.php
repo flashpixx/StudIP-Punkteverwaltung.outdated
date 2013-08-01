@@ -57,17 +57,20 @@
             echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
             echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loVeranstaltung->bemerkung()."</textarea></td></tr>\n";
 
-            echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
-            echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/close")."\">Veranstaltung schliessen</a></td></tr>\n";
+            if (!$loVeranstaltung()->isClosed())
+            {
+                echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
+                echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/close")."\">Veranstaltung schliessen</a></td></tr>\n";
 
-            echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
-            echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
-
+                echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
+                echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
+            }
 
 
             echo "</table>\n";
             echo "</div>\n";
-            echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+            if (!$loVeranstaltung()->isClosed())
+                echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
             echo "</form>";
         }
         

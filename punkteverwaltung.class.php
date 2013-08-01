@@ -88,14 +88,17 @@
 
             Navigation::addItem( "/course/punkteverwaltung/editsettings", new AutoNavigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
             Navigation::addItem( "/course/punkteverwaltung/statistik", new AutoNavigation(_("Auswertungen"), PluginEngine::GetURL($this, array(), "admin")) );
-            Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
 
             $loVeranstaltung = Veranstaltung::get();
             if ($loVeranstaltung)
+            {
+                if (!$loVeranstaltung->isClosed())
+                    Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
+
                 // ggf einmal Übung als Navigation + eine Subnavigation für jede einzelne Übung (Tab Struktur)
                 foreach($loVeranstaltung->uebungen() as $ueb)
                     Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
-
+            }
         }
 
 

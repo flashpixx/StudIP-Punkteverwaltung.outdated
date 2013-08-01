@@ -65,11 +65,14 @@
 
                 echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung (für die Tutoren sichtbar)")."</label></td>";
                 echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
-                echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete", array("ueid" => $loUebung->id()))."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
+
+                if (!$loUebung->veranstaltung()->isClosed())
+                    echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete", array("ueid" => $loUebung->id()))."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
 
                 echo "</table>";
                 echo "</div>\n";
-                echo "<p><input type=\"hidden\" name=\"ueid\" value=\"".$loUebung->id()."\" /><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+                if (!$loUebung->veranstaltung()->isClosed())
+                    echo "<p><input type=\"hidden\" name=\"ueid\" value=\"".$loUebung->id()."\" /><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
                 echo "</form>";
                 echo "</div>";
             }
