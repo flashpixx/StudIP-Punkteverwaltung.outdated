@@ -104,9 +104,9 @@
                 if ($loPrepare->rowCount() != 1)
                     throw new Exception(_("Veranstaltung nicht gefunden"));
 
-                $result      = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                $this->mcID  = $result["id"];
-                $this->close = !empty($result["close"]);
+                $result        = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $this->mcID    = $result["id"];
+                $this->mlClose = !empty($result["close"]);
             }
             else
                 throw new Exception(_("Veranstaltungparameter inkrorrekt"));
