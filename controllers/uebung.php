@@ -139,6 +139,8 @@
                 // hole Student und Logdaten
                 $loStudentUebung = new StudentUebung($loUebung, Request::quoted("aid"));
 
+                // wir brauchen einen Pseudoindex, da sonst die Childtabelle die Daten nicht anzeigt
+                // hier einfach eine inkrementelle Nummer verwenden
                 $n = 0;
                 foreach( $loStudentUebung->log() as $item )
                 {
