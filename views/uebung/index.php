@@ -108,7 +108,7 @@
             echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"15%\" },";
             if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
-                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"7%\" }";
+                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"7%\" },";
                 echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"3%\" }";
             } else
                 echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"10%\" }";
