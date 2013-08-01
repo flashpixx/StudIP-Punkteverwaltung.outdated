@@ -102,16 +102,16 @@
 
             echo "Auth : { key : true, create : false, edit : false, list : false },";
             echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
-            echo "Name : { edit : false, title : \"Name\", width : \"30%\" },";
+            echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
             echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
-            echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"5%\" },";
+            echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";
             echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"5%\" },";
             if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
                 echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"15%\" },";
-                echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"15%\" }";
+                echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"20%\" }";
             } else
-                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"30%\" }";
+                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"35%\" }";
 
             echo "}";
             echo "});";
