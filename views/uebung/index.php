@@ -105,7 +105,6 @@
             {
                 echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
                 echo "display : function(row) {";
-                echo " alert(\"".$childlistaction."&aid=\" + row.record.Auth);";
                 echo "var \$item = jQuery('<img src=\"".$childiconpath."\" title=\"Log anzeigen\" />');";
                 echo "\$item.click(function() {";
 
