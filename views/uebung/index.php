@@ -107,8 +107,8 @@
                 echo "display : function(row) {";
                 echo "var \$item = jQuery('<img src=\"".$childiconpath."\" title=\"Log anzeigen\" />');";
                 echo "\$item.click(function() {";
-                echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
 
+                echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
                 echo "title : \"Log für \" + row.record.Name, actions { listAction : \"".$childlistaction."&aid=\" + row.record.Auth },";
 
                 echo "fields {";
@@ -118,7 +118,8 @@
                 echo "Korrektor : { title : \"Korrektor\", edit : false }";
                 echo "}";
 
-                echo "}, function(data) { data.childTable.jtable(\"load\"); });";
+                echo "}, function(data) { data.childTable.jtable(\"load\"); }";
+                echo ");";
 
                 echo "});";
                 echo "return \$item;";
