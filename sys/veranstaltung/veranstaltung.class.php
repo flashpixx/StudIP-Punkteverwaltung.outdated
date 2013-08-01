@@ -76,6 +76,8 @@
         static function delete( $px, $pDummy = null )
         {
             $lo = Veranstaltung::get($px);
+            if ($lo->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr gelöscht werden"));
 
             foreach ($lo->uebungen() as $uebung)
                 Uebung::delete( $lo, $uebung );
