@@ -80,9 +80,13 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
-            $this->listaction   = $this->url_for( "uebung/jsonlist",   array("ueid" => Request::quoted("ueid")) );
-            $this->updateaction = $this->url_for( "uebung/jsonupdate", array("ueid" => Request::quoted("ueid")) );
+            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung, falls keine ÜbungsID gesetzt ist nehmen wir die Default Einstellung
+            $lcUeID = Request::quoted("ueid");
+            if (!$lcUeID)
+                $lcUeID = $this->flash["uebung"]->id();
+
+            $this->listaction   = $this->url_for( "uebung/jsonlist",   array("ueid" => $lcUeID) );
+            $this->updateaction = $this->url_for( "uebung/jsonupdate", array("ueid" => $lcUeID) );
         }
 
 
@@ -132,10 +136,8 @@
                 $lo = null;
                 if (Request::quoted("ueid"))
                     $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
-                else {
-                    $loVeranstaltung = Veranstaltung::get( Request::quoted("cid") );
-                    $lo = reset($loVeranstaltung->uebungen());
-                }
+                else
+                    $lo = $this->flash["uebung"];
 
                 if ( (!VeranstaltungPermission::hasTutorRecht( $lo->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $lo->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
