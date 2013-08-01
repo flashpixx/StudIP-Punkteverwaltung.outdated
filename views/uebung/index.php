@@ -98,7 +98,8 @@
             echo "defaultSorting : \"Matrikelnummer ASC\",";
             echo "actions: {";
             echo "listAction   : \"".$listaction."\",";
-            echo "updateAction : \"".$updateaction."\",";
+            if (!$loUebung->veranstaltung()->isClosed())
+                echo "updateAction : \"".$updateaction."\",";
             echo "},";
 
             echo "fields: {";
