@@ -85,8 +85,9 @@
             if (!$lcUeID)
                 $lcUeID = $this->flash["uebung"]->id();
 
-            $this->listaction   = $this->url_for( "uebung/jsonlist",   array("ueid" => $lcUeID) );
-            $this->updateaction = $this->url_for( "uebung/jsonupdate", array("ueid" => $lcUeID) );
+            $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $lcUeID) );
+            $this->updateaction     = $this->url_for( "uebung/jsonupdate", array("ueid" => $lcUeID) );
+            $this->childlistaction  = $this->url_for( "uebung/jsonchildlist", array("ueid" => $lcUeID) );
         }
 
 
@@ -116,6 +117,20 @@
         }
 
 
+        /** liefert die Daten zu einem Eintrag (Log Auswertung) **/
+        function jsonchildlist_action()
+        {
+            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
+            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
+            $this->set_layout(null);
+            $this->response->add_header("Content-Type", "application/json");
+
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $this->result = array( "Result"  => "ERROR", "Records" => array() );
+            
+        }
+
+        
         /** liefert die korrekten Json Daten für den jTable **/
         function jsonlist_action()
         {

@@ -101,6 +101,29 @@
             echo "fields: {";
 
             echo "Auth : { key : true, create : false, edit : false, list : false },";
+            if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+            {
+                echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
+                echo "display : function(row) {";
+                echo "var $item = jQuery(\"<span>Log</span>\");";
+                echo "$item.click(function() {";
+                echo "jQuery(\"#punktetabelle\").jtable(\"openlog\", $item.closest(\"tr\", {
+
+                echo "title : \"Log für \" + row.record.Name, actions { listAction : \"".$childlistaction."?aid=\" + row.record.Auth },";
+                echo "fields {";
+
+                echo "ErreichtePunkte : { title : \"erreichte Punkte\", edit : false },";
+                echo "ZusatzPunkte : { title : \"Zusatzpunkte\", edit : false },";
+                echo "Bemerkung : { title : \"Bemerkung\", edit : false },";
+                echo "Korrektor : { title : \"Korrektor\", edit : false },";
+
+                echo "}}, function(data) { data.childTable.jtable(\"load\"); });"
+                echo "});";
+                echo "return $item;";
+                echo "}},";
+            }
+
+
             echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
             echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
             echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
@@ -109,7 +132,7 @@
             if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
                 echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"15%\" },";
-                echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"20%\" }";
+                echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"15%\" }";
             } else
                 echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"35%\" }";
 
