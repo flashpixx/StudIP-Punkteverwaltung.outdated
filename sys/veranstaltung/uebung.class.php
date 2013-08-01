@@ -273,7 +273,7 @@
                             throw new Exception(_("Datum entspricht nicht dem geforderten Format"));
                     }
 
-                    $lc = $lcDate->format("Y-m-d H:i:s");
+                    $lc = $lxDate->format("Y-m-d H:i:s");
                 }
 
                 DBManager::get()->prepare( "update ppv_uebung set abgabe = :datum where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "datum" => $lc) );
