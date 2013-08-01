@@ -69,7 +69,7 @@
 
             echo "</table>\n";
             echo "</div>\n";
-            if (!$loVeranstaltung()->isClosed())
+            if (!$loVeranstaltung->isClosed())
                 echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
             echo "</form>";
         }
