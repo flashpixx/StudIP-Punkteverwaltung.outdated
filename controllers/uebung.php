@@ -128,6 +128,32 @@
 
             // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
+
+            try {
+
+                $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                
+                if (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() ))
+                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+
+                // hole Student und Logdaten
+                $loStudentUebung = new StudentUebung($loUebung, Request::quoted("aid"));
+
+                foreach( $loStudentUebung->log() as $item )
+                    array_push( $this->result["Records"], array(
+                                "ErreichtePunkte" => $item["erreichtepunkte"]),
+                                "ZusatzPunkte"    => $item["zusatzpunkte"]),
+                                "Bemerkung"       => studip_utf8encode( $item["bemerkung"]) ),
+                                "Korrektor"       => studip_utf8encode( $item["korrektor"]) );
+                    ));
+
+
+
+                // alles fehlerfrei durchlaufen, setze Result
+                $this->result["Result"] = "OK";
+
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
             
         }
 
