@@ -110,14 +110,16 @@
                 echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
 
                 echo "title : \"Log für \" + row.record.Name, actions { listAction : \"".$childlistaction."&aid=\" + row.record.Auth },";
-                echo "fields {";
 
+                echo "fields {";
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", edit : false },";
                 echo "ZusatzPunkte : { title : \"Zusatzpunkte\", edit : false },";
                 echo "Bemerkung : { title : \"Bemerkung\", edit : false },";
-                echo "Korrektor : { title : \"Korrektor\", edit : false },";
+                echo "Korrektor : { title : \"Korrektor\", edit : false }";
+                echo "}";
 
-                echo "}}, function(data) { data.childTable.jtable(\"load\"); });";
+                echo "}, function(data) { data.childTable.jtable(\"load\"); });";
+
                 echo "});";
                 echo "return \$item;";
                 echo "}},";
