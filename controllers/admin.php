@@ -100,6 +100,31 @@
         }
 
 
+        /** schließt eine Veranstaltung **/
+        function close_action()
+        {
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
+
+            elseif (Request::int("dialogyes"))
+            {
+                $lo = Veranstaltung::get();
+                if ($lo)
+                    try {
+                        $lo->close();
+                        $this->flash["message"] = Tools::createMessage( "success", _("Veranstaltung geschlossen") );
+                    } catch (Exception $e) {
+                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                    }
+            }
+            elseif (Request::int("dialogno")) { }
+            else
+                $this->flash["message"] = Tools::createMessage( "question", _("Sollen die Veranstaltung geschlossen werden, danach sind keine Änderungen mehr möglich?"), array(), $this->url_for("admin/close") );
+
+            $this->redirect("admin");
+        }
+
+
         /** löscht alle Daten zu der Veranstaltung **/
         function delete_action()
         {

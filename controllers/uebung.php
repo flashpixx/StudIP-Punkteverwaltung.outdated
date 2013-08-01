@@ -127,6 +127,7 @@
                     else
                         Uebung::delete( $this->flash["uebung"] );
 
+                    $this->flash["message"] = Tools::createMessage( "success", _("Übung gelöscht") );
                     $this->redirect("admin");
                     return;
                 }
