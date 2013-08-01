@@ -30,6 +30,8 @@
     {
 
         /** Methode, die eine Messagebox generiert, sofern Daten vorhanden sind
+         * @see http://docs.studip.de/develop/Entwickler/ModalerDialog
+         * @see http://docs.studip.de/develop/Entwickler/Messagebox
          * @param $paMessage Message-Array
          * @return Booleanwert, ob die Nachricht eine Information / Success war
          **/
@@ -51,7 +53,6 @@
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
                 echo MessageBox::info($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
-                // hier fehlt noch bisschen was: siehe http://docs.studip.de/develop/Entwickler/ModalerDialog
                 echo createQuestion($paMessage["msg"], $la);
 
             return true;

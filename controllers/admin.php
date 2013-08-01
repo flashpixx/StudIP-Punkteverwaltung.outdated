@@ -105,7 +105,8 @@
         {
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
-            else {
+            elseif (Request::int("delete"))
+            {
                 $lo = Veranstaltung::get();
                 if ($lo)
                     try {
@@ -115,6 +116,8 @@
                         $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                     }
             }
+            else
+                $this->flash["message"] = Tools::createMessage( "question", _("Sollen alle Übungen inkl aller Punkte gelöscht werden?"), array("delete" => true) );
 
             $this->redirect("admin");
         }
