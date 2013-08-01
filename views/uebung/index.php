@@ -63,7 +63,7 @@
                 echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form 'dd.mm.yyyy hh:mm', 'dd.mm.yyyy' oder leer)")."</label></td>";
                 echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$abgabedatum."\" size=\"35\"/></td></tr>\n";
 
-                echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
+                echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung (für die Tutoren sichtbar)")."</label></td>";
                 echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
                 echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete")."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
 
@@ -105,6 +105,7 @@
             {
                 echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
                 echo "display : function(row) {";
+                echo " alert(\"".$childlistaction."&aid=\" + row.record.Auth);";
                 echo "var \$item = jQuery('<img src=\"".$childiconpath."\" title=\"Log anzeigen\" />');";
                 echo "\$item.click(function() {";
 
