@@ -263,7 +263,21 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
-                throw new Exception("not working yet");
+                if ($pc)
+                {
+                    $lxDate = DateTime::createFromFormat("d.m.Y H:i", $pc);
+                    if (!$lxDate)
+                    {
+                        $lxDate = DateTime::createFromFormat("d.m.Y", $pc);
+                        if (!$lxDate)
+                            throw new Exception(_("Datum entspricht nicht dem geforderten Format"));
+                    }
+
+                    $lc = $lcDate->format("Y-m-d H:i:s");
+                }
+
+                DBManager::get()->prepare( "update ppv_uebung set abgabe = :datum where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "datum" => $lc) );
+                
             } else {
                 $loPrepare = DBManager::get()->prepare("select abgabe from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
@@ -271,7 +285,9 @@
                 if ($loPrepare->rowCount() == 1)
                 {
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $lc     = $result["abgabe"];
+
+                    $lxDate = DateTime::createFromFormat("d.m.Y H:i", $result["abgabe"]);
+                    $lc     = $lxDate->format("d.m.Y H:i");
                 }
 
             }
