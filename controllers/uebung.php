@@ -88,6 +88,7 @@
             $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $lcUeID) );
             $this->updateaction     = $this->url_for( "uebung/jsonupdate", array("ueid" => $lcUeID) );
             $this->childlistaction  = $this->url_for( "uebung/jsonchildlist", array("ueid" => $lcUeID) );
+            $this->childiconpath    = $this->plugin->getPluginUrl() . "/img/log.png";
         }
 
 

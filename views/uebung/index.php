@@ -105,7 +105,7 @@
             {
                 echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
                 echo "display : function(row) {";
-                echo "var \$item = jQuery(\"<span>Log</span>\");";
+                echo "var \$item = jQuery('<img src=\"".$childiconpath."\" title=\"Log anzeigen\" />');";
                 echo "\$item.click(function() {";
                 echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
 
