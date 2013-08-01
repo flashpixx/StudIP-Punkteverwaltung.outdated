@@ -52,8 +52,8 @@
                 echo MessageBox::success($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
                 echo MessageBox::info($paMessage["msg"], $la);
-            elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
-                echo createQuestion($paMessage["msg"], $la, array(), $paMessage["url"] );
+            elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) )
+                echo createQuestion($paMessage["msg"], array("dialog" = true), array("dialog" => false), $paMessage["url"] );
 
             return true;
         }
