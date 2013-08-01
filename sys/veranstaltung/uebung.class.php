@@ -287,7 +287,7 @@
                     $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     if ($result["abgabe"])
                     {
-                        $lxDate = DateTime::createFromFormat("d.m.Y H:i", $result["abgabe"]);
+                        $lxDate = DateTime::createFromFormat("Y-m-d H:i:s", $result["abgabe"]);
                         $lc     = $lxDate->format("d.m.Y H:i");
                     }
                 }
