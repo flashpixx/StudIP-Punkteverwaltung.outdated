@@ -109,7 +109,7 @@
                 echo "\$item.click(function() {";
                 echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
 
-                echo "title : \"Log für \" + row.record.Name, actions { listAction : \"".$childlistaction."?aid=\" + row.record.Auth },";
+                echo "title : \"Log für \" + row.record.Name, actions { listAction : \"".$childlistaction."&aid=\" + row.record.Auth },";
                 echo "fields {";
 
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", edit : false },";
