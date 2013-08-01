@@ -133,7 +133,7 @@
                 }
                 elseif (Request::int("dialogno")) { }
                 else
-                    $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("admin/delete") );
+                    $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("uebung/delete") );
 
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
