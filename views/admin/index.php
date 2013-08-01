@@ -59,7 +59,7 @@
             echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
 
             echo "<tr><td width=\"50%\"><label>"._("Veranstaltung abschließen (mit dem Schliessen der Veranstaltung können keine Änderungen mehr durchgeführt werden und die von den Studenten ausgewählten Studiengänge werden fest eingetragen. Falls ein Student nicht explizit einen Studiengang ausgewählt hat, für den die Veranstaltung anerkannt werden soll, wird der erste im System hintelergte Studiengang gewählt)")."</label></td>";
-            echo "<td><a href="\".$controller->url_for("admin/close")."\">Veranstaltung schliessen</a></td></tr>\n";
+            echo "<td><a href=\"".$controller->url_for("admin/close")."\">Veranstaltung schliessen</a></td></tr>\n";
 
             echo "</table>\n";
             echo "</div>\n";
