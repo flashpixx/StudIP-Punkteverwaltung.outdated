@@ -105,7 +105,7 @@
         {
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
-            elseif (Request::int("dialog"))
+            elseif (Request::int("dialogyes"))
             {
                 $lo = Veranstaltung::get();
                 if ($lo)
@@ -116,7 +116,7 @@
                         $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                     }
             }
-            elseif (!Request::int("dialog")) { }
+            elseif (!Request::int("dialogfalse")) { }
             else
                 $this->flash["message"] = Tools::createMessage( "question", _("Sollen alle Übungen inkl aller Punkte gelöscht werden?"), array("delete" => true), $this->url_for("admin/delete") );
 
