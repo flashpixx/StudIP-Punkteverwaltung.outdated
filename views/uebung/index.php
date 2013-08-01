@@ -118,7 +118,7 @@
                 echo "Korrektor : { title : \"Korrektor\", edit : false }";
                 echo "}";
 
-                echo "}, function(data) { data.childTable.jtable(\"load\"); }";
+                echo "}, function (data) { data.childTable.jtable('load'); }";
                 echo ");";
 
                 echo "});";
