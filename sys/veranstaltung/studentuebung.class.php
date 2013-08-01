@@ -265,7 +265,7 @@
 
             $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
-            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor, zusatzpunkte, erreichtepunkte) values (:uebungid, :auth, :bemerkung, :korrektor, :zusatzpunkte, :erreichtepunkte) on duplicate key update bemerkung = :bemerkung" );
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor, zusatzpunkte, erreichtepunkte) values (:uebungid, :auth, :bemerkung, :korrektor, :zusatzpunkte, :erreichtepunkte) on duplicate key update bemerkung = :bemerkung, zusatzpunkte = :zusatzpunkte, erreichtepunkte = :erreichtepunkte" );
             $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bemerkung" => (empty($pcBemerkung) ? null : $pcBemerkung), "korrektor" => $GLOBALS["user"]->id, "zusatzpunkte" => $pnZusatzPunkte, "erreichtepunkte" => $pnErreichtePunkte) );
         }
         
