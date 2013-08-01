@@ -118,6 +118,13 @@
         }
 
 
+        /** löscht eine Übung **/
+        function delete_action()
+        {
+            $this->redirect("uebung");
+        }
+
+
         /** liefert die Daten zu einem Eintrag (Log Auswertung) **/
         function jsonchildlist_action()
         {
