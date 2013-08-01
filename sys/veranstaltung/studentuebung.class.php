@@ -259,8 +259,6 @@
          **/
         function update( $pnErreichtePunkte, $pnZusatzPunkte, $pcBemerkung )
         {
-
-
             if (!is_numeric($pnErreichtePunkte))
                 throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
             if (!is_numeric($pnZusatzPunkte))
