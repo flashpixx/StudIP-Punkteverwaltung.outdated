@@ -33,9 +33,10 @@
          * @see http://docs.studip.de/develop/Entwickler/ModalerDialog
          * @see http://docs.studip.de/develop/Entwickler/Messagebox
          * @param $paMessage Message-Array
+         * @param $pcURL URL auf die geleitet werden soll
          * @return Booleanwert, ob die Nachricht eine Information / Success war
          **/
-        static function showMessage( $paMessage )
+        static function showMessage( $paMessage, $pcURL = null )
         {
             if ( (empty($paMessage)) || (!is_array($paMessage)) || (!isset($paMessage["type"])) || (!isset($paMessage["msg"])) )
                 return true;
@@ -53,7 +54,7 @@
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
                 echo MessageBox::info($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
-                echo createQuestion($paMessage["msg"], $la);
+                echo createQuestion($paMessage["msg"], $la, null, $pcURL);
 
             return true;
         }

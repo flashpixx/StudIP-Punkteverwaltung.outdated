@@ -117,7 +117,7 @@
                     }
             }
             else
-                $this->flash["message"] = Tools::createMessage( "question", _("Sollen alle Übungen inkl aller Punkte gelöscht werden?"), array("delete" => true) );
+                $this->flash["message"] = Tools::createMessage( "question", _("Sollen alle Übungen inkl aller Punkte gelöscht werden?"), array("delete" => true), $this->url_for("admin/delete") );
 
             $this->redirect("admin");
         }
