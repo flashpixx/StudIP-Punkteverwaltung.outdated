@@ -133,18 +133,18 @@
             try {
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                $lo = null;
+                $loUebung = null;
                 if (Request::quoted("ueid"))
-                    $lo = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
+                    $loUebung = new Uebung(Request::quoted("cid"), Request::quoted("ueid"));
                 else
-                    $lo = $this->flash["uebung"];
+                    $loUebung = $this->flash["uebung"];
 
-                if ( (!VeranstaltungPermission::hasTutorRecht( $lo->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $lo->veranstaltung() )) )
+                if ( (!VeranstaltungPermission::hasTutorRecht( $loUebung->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
-                if ($lo)
+                if ($loUebung)
                 {
-                    $laData = $lo->studentenuebung();
+                    $laData = $loUebung->studentenuebung();
                     if ($laData)
                     {
                         // setze Defaultwerte für jTable
@@ -187,18 +187,24 @@
                         
 
                         foreach( $laData as $item )
+                        {
                             // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
-                            array_push( $this->result["Records"],
-                                array(
-                                      "Auth"            => studip_utf8encode( $item->student()->id() ),
-                                      "Matrikelnummer"  => $item->student()->matrikelnummer(),
-                                      "Name"            => studip_utf8encode( $item->student()->name() ),
-                                      "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
-                                      "ErreichtePunkte" => $item->erreichtePunkte(),
-                                      "ZusatzPunkte"    => $item->zusatzPunkte(),
-                                      "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
-                                )
+                            $laItem = array(
+                                        "Auth"            => studip_utf8encode( $item->student()->id() ),
+                                        "Matrikelnummer"  => $item->student()->matrikelnummer(),
+                                        "Name"            => studip_utf8encode( $item->student()->name() ),
+                                        "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                                        "ErreichtePunkte" => $item->erreichtePunkte(),
+                                        "ZusatzPunkte"    => $item->zusatzPunkte(),
+                                        "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
                             );
+
+                            if (VeranstaltungPermission::hasDozentRecht( $loUebung->veranstaltung() ))
+                                $laItem["Korrektor"] = studip_utf8encode( $item->korrektor() );
+
+
+                            array_push( $this->result["Records"], $laItem );
+                        }
                     }
                 }
 

@@ -217,6 +217,29 @@
         }
 
 
+        /** liefert den Korrektor des Eintrages
+         * @return Korrektorname & EMail oder null, wenn nicht vorhanden
+         **/
+        function korrektor()
+        {
+            $lc = null;
+
+            $loPrepare = DBManager::get()->prepare("select korrektor from ppv_uebungstudent where uebung = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
+
+            if ($loPrepare->rowCount() == 1)
+            {
+                $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+
+                $lo     = new User($result["korrektor"]);
+                $lc     = $lo->getFullName("full_rev") ." (".User::find($result["korrektor"])->email.")"
+            }
+
+
+            return $lc;
+        }
+
+
         /** updated den Datensatz für alle drei Felder
          * @param $pnErreichtePunkte numerischer Wert der erreichten Punkte
          * @param $pnZusatzPunkte numerischer Wert der zusätzlichen Punkte

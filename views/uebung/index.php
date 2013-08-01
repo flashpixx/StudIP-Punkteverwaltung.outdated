@@ -106,7 +106,12 @@
             echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
             echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"15%\" },";
             echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"15%\" },";
-            echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"10%\" }";
+            if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+            {
+                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"7%\" }";
+                echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"3%\" }";
+            } else
+                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"10%\" }";
 
             echo "}";
             echo "});";
