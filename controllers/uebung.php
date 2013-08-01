@@ -85,13 +85,9 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
             // setze Variablen (URLs) für die entsprechende Ajax-Anbindung, falls keine ÜbungsID gesetzt ist nehmen wir die Default Einstellung
-            $lcUeID = Request::quoted("ueid");
-            if (!$lcUeID)
-                $lcUeID = $this->flash["uebung"]->id();
-
-            $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $lcUeID) );
-            $this->updateaction     = $this->url_for( "uebung/jsonupdate", array("ueid" => $lcUeID) );
-            $this->childlistaction  = $this->url_for( "uebung/jsonchildlist", array("ueid" => $lcUeID) );
+            $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $this->flash["uebung"]->id()) );
+            $this->updateaction     = $this->url_for( "uebung/jsonupdate", array("ueid" => $this->flash["uebung"]->id()) );
+            $this->childlistaction  = $this->url_for( "uebung/jsonchildlist", array("ueid" => $this->flash["uebung"]->id()) );
             $this->childiconpath    = $this->plugin->getPluginUrl() . "/img/log.png";
         }
 
