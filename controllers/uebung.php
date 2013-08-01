@@ -99,7 +99,7 @@
                 $loUebung = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
 
                 if (!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
-                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung zu verändern") );
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu verändern") );
                 elseif (Request::submitted("submitted"))
                 {
                     $loUebung->name( Request::quoted("uebungname") );
@@ -121,6 +121,24 @@
         /** löscht eine Übung **/
         function delete_action()
         {
+            try {
+
+                $loUebung = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
+
+                if (!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu löschen") );
+                elseif (Request::int("dialogyes"))
+                {
+                    Uebung::delete( $loUebung );
+                }
+                elseif (Request::int("dialogno")) { }
+                else
+                    $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("admin/delete") );
+
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+
+
             $this->redirect("uebung");
         }
 
