@@ -278,11 +278,16 @@
         {
             $la = array();
 
-            $loPrepare = DBManager::get()->prepare("select erreichtepunkte, zusatzpunkte, bemerkung from ppv_uebungstudentlog where uebung = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare = DBManager::get()->prepare("select erreichtepunkte, zusatzpunkte, bemerkung, korrektor from ppv_uebungstudentlog where uebung = :uebungid and student = :auth", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+            {
+                $lo               = new User($row["korrektor"]);
+                $row["korrektor"] = $lo->getFullName("full_rev") ." (".User::find($row["korrektor"])->email.")";
+                
                 array_push($la, $row );
+            }
 
             return $la;
         }
