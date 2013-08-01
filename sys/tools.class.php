@@ -53,7 +53,7 @@
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
                 echo MessageBox::info($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) )
-                echo createQuestion($paMessage["msg"], array("dialogyes" => true), array("dialogfalse" => true), $paMessage["url"] );
+                echo createQuestion($paMessage["msg"], array("dialogyes" => true), array("dialogno" => true), $paMessage["url"] );
 
             return true;
         }

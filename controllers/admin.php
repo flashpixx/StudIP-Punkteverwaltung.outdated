@@ -116,7 +116,7 @@
                         $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                     }
             }
-            elseif (!Request::int("dialogfalse")) { }
+            elseif (Request::int("dialogno")) { }
             else
                 $this->flash["message"] = Tools::createMessage( "question", _("Sollen alle Übungen inkl aller Punkte gelöscht werden?"), array("delete" => true), $this->url_for("admin/delete") );
 
