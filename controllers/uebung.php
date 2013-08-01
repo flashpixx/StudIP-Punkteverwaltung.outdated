@@ -139,14 +139,18 @@
                 // hole Student und Logdaten
                 $loStudentUebung = new StudentUebung($loUebung, Request::quoted("aid"));
 
+                $n = 0;
                 foreach( $loStudentUebung->log() as $item )
+                {
                     array_push( $this->result["Records"], array(
+                                "ID"              => $n,
                                 "ErreichtePunkte" => $item["erreichtepunkte"],
                                 "ZusatzPunkte"    => $item["zusatzpunkte"],
                                 "Bemerkung"       => studip_utf8encode( $item["bemerkung"] ),
                                 "Korrektor"       => studip_utf8encode( $item["korrektor"] )
                     ));
-
+                    $n++;
+                }
 
 
                 // alles fehlerfrei durchlaufen, setze Result

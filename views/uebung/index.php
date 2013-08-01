@@ -112,6 +112,7 @@
                 echo "title : \"Log für \" + row.record.Name, actions : { listAction : \"".$childlistaction."&aid=\" + row.record.Auth },";
 
                 echo "fields : {";
+                echo "ID : { key : true, edit : false, list : false }, ";
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", edit : false },";
                 echo "ZusatzPunkte : { title : \"Zusatzpunkte\", edit : false },";
                 echo "Bemerkung : { title : \"Bemerkung\", edit : false },";
