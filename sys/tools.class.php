@@ -54,7 +54,7 @@
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "info") == 0))
                 echo MessageBox::info($paMessage["msg"], $la);
             elseif ( ($paMessage) && (strcasecmp($paMessage["type"], "question") == 0) && (!empty($la)) )
-                echo createQuestion($paMessage["msg"], $la, null, $pcURL);
+                echo createQuestion($paMessage["msg"], $la, array(), $pcURL);
 
             return true;
         }
