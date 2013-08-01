@@ -57,6 +57,9 @@
             $loUebung  = new Uebung( $pxUebung );
             $loStudent = new Student( $pxAuth );
 
+            if ($loUebung->veranstaltung()->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudentlog where uebung = :uebungid and student = :auth" );
             $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
@@ -123,6 +126,9 @@
             $ln = 0;
             if (is_numeric($pn))
             {
+                if ($this->moUebung->veranstaltung()->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
                 if ($pn > $this->moUebung->maxPunkte())
                     throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
                 if ($pn < 0)
@@ -160,6 +166,9 @@
             $ln = 0;
             if (is_numeric($pn))
             {
+                if ($this->moUebung->veranstaltung()->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                
                 if ($pn < 0)
                     throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
 
@@ -195,6 +204,9 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
+                if ($this->moUebung->veranstaltung()->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor) values (:uebungid, :auth, :bemerkung, :korrektor) on duplicate key update bemerkung = :bemerkung" );
@@ -247,6 +259,8 @@
          **/
         function update( $pnErreichtePunkte, $pnZusatzPunkte, $pcBemerkung )
         {
+
+
             if (!is_numeric($pnErreichtePunkte))
                 throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
             if (!is_numeric($pnZusatzPunkte))
@@ -261,6 +275,8 @@
             if ($pnErreichtePunkte < 0)
                 throw new Exception(_("Erreichte Punkte müssen größer gleich Null sein"));
 
+            if ($this->moUebung->veranstaltung()->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
 
             $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );

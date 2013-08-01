@@ -56,6 +56,10 @@
                 throw new Exception(_("Für die Erzeugung der Übung muss ein Name vergeben werden"));
 
             $lo = Veranstaltung::get( $pxVeranstaltung );
+            if ($lo->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
+
             $lcID = md5( uniqid($lo->id(), true) );
 
             $loPrepare = DBManager::get()->prepare( "insert into ppv_uebung (seminar, id, uebungsname, bestandenprozent, maxpunkte) values (:semid, :id, :name, :prozent, :maxpunkte)" );
@@ -74,6 +78,9 @@
         {
             $lcClassName = __CLASS__;
             $loUebung = new $lcClassName( $pxVeranstaltung, $pxID );
+
+            if ($loUebung->veranstaltung()->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
             foreach( $loUebung->studentenuebung() as $item )
                 StudentUebung::delete( $item->uebung(), $item->student() );
@@ -149,6 +156,9 @@
             
             if ((!empty($pc)) && (is_string($pc)) )
             {
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
 
                 DBManager::get()->prepare( "update ppv_uebung set uebungsname = :name where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
                 $lc = $pc;
@@ -180,7 +190,9 @@
 
             if (is_numeric($pn))
             {
-
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                
                 if (($pn < 0) || ($pn > 100))
                     throw new Exception(_("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]"));
 
@@ -213,6 +225,9 @@
         {
             if (is_numeric($pn))
             {
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                
                 if ($pn < 0)
                     throw new Exception(_("Parameter für die Punkte muss größer gleich Null sein"));
 
@@ -234,6 +249,9 @@
 
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                
                 DBManager::get()->prepare( "update ppv_uebung set bemerkung = :bem where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "bem" => (empty($pc) ? null : $pc)) );
 
                 $lc = $pc;
@@ -275,6 +293,9 @@
 
                     $lc = $lxDate->format("Y-m-d H:i:s");
                 }
+
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
                 DBManager::get()->prepare( "update ppv_uebung set abgabe = :datum where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "datum" => $lc) );
                 
