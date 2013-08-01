@@ -44,7 +44,7 @@
 
             echo "<div class=\"steel1\">\n";
 
-            echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierte Bestehensgrenze liegen dürfen, um noch zu einem Bestehen der Veranstaltung zu führen z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen. Die Bemerkung ist optinal und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."<hr width=\"100%\"/></p>";
+            echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierte Bestehensgrenze liegen dürfen, um noch zu einem Bestehen der Veranstaltung zu führen z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen. Die Bemerkung ist optinal und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."</p><p>"._("Die Veranstaltung muss abgeschlossen werden, um Listen generieren zu können. Durch das Abschließen werden die, von den Studenten ausgewählten Studiengänge, übernommen, damit erscheint dieser Studiengang in der Auswertung für diese Veranstaltung. Sollte kein expliziter Studiengang ausgewählt worden sein, wird der erste verfügbare Studiengang verwendet.")."</p><hr width=\"100%\"/>";
 
             echo "<table width=\"100%\">\n";
 
@@ -57,8 +57,8 @@
             echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung")."</label></td>";
             echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loVeranstaltung->bemerkung()."</textarea></td></tr>\n";
 
-            echo "<tr><td width=\"50%\"><label>"._("Veranstaltung abschließen (mit dem Schliessen der Veranstaltung können keine Änderungen mehr durchgeführt werden und die von den Studenten ausgewählten Studiengänge werden fest eingetragen. Falls ein Student nicht explizit einen Studiengang ausgewählt hat, für den die Veranstaltung anerkannt werden soll, wird der erste im System hintelergte Studiengang gewählt)")."</label></td>";
-            echo "<td><a href=\"".$controller->url_for("admin/close")."\">Veranstaltung schliessen</a></td></tr>\n";
+            echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
+            echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/close")."\">Veranstaltung schliessen</a></td></tr>\n";
 
             echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
             echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
