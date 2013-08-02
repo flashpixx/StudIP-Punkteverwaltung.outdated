@@ -87,6 +87,7 @@
                 foreach ($uebung->studentenuebung() as $student)
                 {
                     $studentdata = array(
+                        "auth"            => $student->student()->id(),
                         "name"            => $student->student()->name(),
                         "matrikelnummer"  => $student->student()->matrikelnummer(),
                         "email"           => $student->student()->email(),
