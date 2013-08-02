@@ -24,6 +24,9 @@
     **/
 
 
+
+    require_once(dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph.php");
+
     echo "Auswertung";
 
 ?>

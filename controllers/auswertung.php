@@ -74,6 +74,19 @@
         }
 
 
+        /** erzeugt den PDF Export der Veranstaltung
+         * @see http://docs.studip.de/develop/Entwickler/PDFExport
+         **/
+        function pdfexport_action()
+        {
+            try {
+
+                
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+        }
+
+
         /** URL Aufruf **/
         function url_for($to)
         {

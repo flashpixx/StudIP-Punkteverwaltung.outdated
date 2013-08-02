@@ -82,18 +82,15 @@
             
             elseif (Request::submitted("submitted"))
             {
-                $lo = Veranstaltung::get();
-                if ($lo)
-                    try {
-                        $lo->bemerkung( Request::quoted("bemerkung") );
-                        $lo->bestandenProzent( Request::float("bestandenprozent"), 100 );
-                        $lo->allowNichtBestanden( Request::int("allow_nichtbestanden"), 0 );
-                        
-                        $this->flash["message"] = Tools::createMessage( "success", _("Einstellung gespeichert") );
-                    } catch (Exception $e) {
-                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
-                    }
-
+                try {
+                    $this->flash["veranstaltung"]->bemerkung( Request::quoted("bemerkung") );
+                    $this->flash["veranstaltung"]->bestandenProzent( Request::float("bestandenprozent"), 100 );
+                    $this->flash["veranstaltung"]->allowNichtBestanden( Request::int("allow_nichtbestanden"), 0 );
+                    
+                    $this->flash["message"] = Tools::createMessage( "success", _("Einstellung gespeichert") );
+                } catch (Exception $e) {
+                    $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                }
             }
 
             $this->redirect("admin");
@@ -108,14 +105,12 @@
 
             elseif (Request::int("dialogyes"))
             {
-                $lo = Veranstaltung::get();
-                if ($lo)
-                    try {
-                        $lo->close();
-                        $this->flash["message"] = Tools::createMessage( "success", _("Veranstaltung geschlossen") );
-                    } catch (Exception $e) {
-                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
-                    }
+                try {
+                    $this->flash["veranstaltung"]->close();
+                    $this->flash["message"] = Tools::createMessage( "success", _("Veranstaltung geschlossen") );
+                } catch (Exception $e) {
+                    $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                }
             }
             elseif (Request::int("dialogno")) { }
             else
@@ -132,14 +127,12 @@
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
             elseif (Request::int("dialogyes"))
             {
-                $lo = Veranstaltung::get();
-                if ($lo)
-                    try {
-                        Veranstaltung::delete( $lo );
-                        $this->flash["message"] = Tools::createMessage( "success", _("Daten gelöscht") );
-                    } catch (Exception $e) {
-                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
-                    }
+                try {
+                    Veranstaltung::delete( $this->flash["veranstaltung"] );
+                    $this->flash["message"] = Tools::createMessage( "success", _("Daten gelöscht") );
+                } catch (Exception $e) {
+                    $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                }
             }
             elseif (Request::int("dialogno")) { }
             else
@@ -163,15 +156,12 @@
 
             elseif (Request::submitted("submitted"))
             {
-                $lo = Veranstaltung::get();
-                if ($lo)
-                    try {
-                        Uebung::create( $lo, Request::quoted("uebungname") );
-                        $this->flash["message"] = Tools::createMessage( "success", _("neue Übung erstellt") );
-                    } catch (Exception $e) {
-                        $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
-                    }
-
+                try {
+                    Uebung::create( $this->flash["veranstaltung"], Request::quoted("uebungname") );
+                    $this->flash["message"] = Tools::createMessage( "success", _("neue Übung erstellt") );
+                } catch (Exception $e) {
+                    $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                }
             }
 
             $this->redirect("admin");
