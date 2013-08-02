@@ -68,6 +68,12 @@
         }
 
 
+        /** Default Action **/
+        function index_action()
+        {
+        }
+
+
         /** URL Aufruf **/
         function url_for($to)
         {
