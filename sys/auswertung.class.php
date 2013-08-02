@@ -140,7 +140,7 @@
             // enthalten ist und die globalen statistischen Infos werden berechnet
 
 
-            return $result;
+            return $main;
         }
 
 
