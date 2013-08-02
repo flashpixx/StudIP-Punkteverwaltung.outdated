@@ -78,7 +78,7 @@
 
 
                 // prüfe jeden Eintrag jedes Studenten
-                $min                 = infinity;
+                $min                 = INF;
                 $max                 = 0;
                 $sum                 = 0;
                 $countbestanden      = 0;
