@@ -31,7 +31,7 @@
 
     echo "<pre>";
 
-    $x = Auswertung( (isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null) );
+    $x = new Auswertung( (isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null) );
     var_dump( $x->studenttabelle() );
 
     echo "</pre>";
