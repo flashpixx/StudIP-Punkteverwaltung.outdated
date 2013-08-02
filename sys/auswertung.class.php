@@ -99,7 +99,7 @@
          * @param $poUebung Übungsobjekt
          * @return Array
          **/
-        private function createUebungsDaten( $poUebung )
+        private function createUebungsArray( $poUebung )
         {
             $data = array(
                 "id"               => $poUebung->id(),
