@@ -39,6 +39,9 @@
         /** Cache ob die Veranstaltung geschlossen ist **/
         private $mlClose = false;
 
+        /** Datum wann die Veranstaltung geschlossen wurde **/
+        private $mcCloseDateTime = null;
+
 
 
         /* statische Methode für die Überprüfung, ob Übungsdaten zu einer Veranstaltung existieren
@@ -106,9 +109,12 @@
                 if ($loPrepare->rowCount() != 1)
                     throw new Exception(_("Veranstaltung nicht gefunden"));
 
-                $result        = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                $this->mcID    = $result["id"];
-                $this->mlClose = !empty($result["close"]);
+                $result             = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $this->mcID         = $result["id"];
+                $this->mlClose      = !empty($result["close"]);
+
+                if ($this->mlClose)
+                    $this->mcCloseDateTime = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"])->format("d.m.Y H:i");
             }
             else
                 throw new Exception(_("Veranstaltungparameter inkrorrekt"));
@@ -238,8 +244,9 @@
          **/
         function close()
         {
-            $this->mlClose = true;
-            DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => true) );
+            $this->mlClose         = true;
+            $this->mcCloseDateTime = date("Y-m-d H:i:s");
+            DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => $this->mcCloseDateTime) );
         }
 
         
@@ -249,6 +256,14 @@
         function isClosed()
         {
             return $this->mlClose;
+        }
+
+        /** liefert Datum & Uhrzeit zurück, wann die Veranstaltung geschlossen wurde
+         * @return String mit Datum & Uhrzeit oder null
+         **/
+        function closedDateTime()
+        {
+            return $this->mcCloseDateTime;
         }
 
 

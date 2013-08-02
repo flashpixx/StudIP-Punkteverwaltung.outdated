@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `ppv_seminar` (
   `id` varchar(32) NOT NULL,
-  `close` tinyint(1),
+  `close` datetime DEFAULT NULL,
   `bestandenprozent` decimal(5,2) unsigned NOT NULL,
   `allow_nichtbestanden` int(10) unsigned NOT NULL,
   `bemerkung` longtext,
