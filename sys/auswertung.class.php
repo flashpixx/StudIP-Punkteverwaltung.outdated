@@ -57,15 +57,6 @@
         }
 
 
-        /** liefert die Anzahl der Übungen zurück
-         * @return Anzahl
-         **/
-        function anzahlUebungen()
-        {
-            return count($this->moVeranstaltung->uebungen());
-        }
-
-
         /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt
          * erzeugt und gleichzeitig min / max / median / arithm. Mittel bestimmt
          * @return assoc. Array
@@ -87,9 +78,12 @@
 
 
                 // prüfe jeden Eintrag jedes Studenten
-                $min    = infinity;
-                $max    = 0;
-                $sum    = 0;
+                $min                 = infinity;
+                $max                 = 0;
+                $sum                 = 0;
+                $countbestanden      = 0;
+                $countnichtbestanden = 0;
+                
                 foreach ($uebung->studentenuebung() as $student)
                 {
                     $studentdata = array(
@@ -109,12 +103,22 @@
                     $max                        = max($max, $studentdata["punktesumme"]);
                     $sum                        = $sum + $studentdata["punktesumme"];
 
+                    if ($studentdata["bestanden"])
+                        $countbestanden++;
+                    else
+                        $countnichtbestanden++;
+
                     array_push($uebungdata["studenten"], $studentdata);
                 }
 
-                $uebungdata["punkteminimum"] = $min;
-                $uebungdata["punktemaximum"] = $max;
-                $uebungdata["punktemittel"]  = round($sum / count($uebungdata["studenten"], 2));
+                $uebungdata["punktemittel"]          = round($sum / count($uebungdata["studenten"], 2));
+                $uebungdata["punkteminimum"]         = $min;
+                $uebungdata["punktemaximum"]         = $max;
+
+                $uebungdata["anzahlbestanden"]       = $countbestanden;
+                $uebungdata["anzahlnichtbestanden"]  = $countnichtbestanden;
+                $uebungdata["prozentbestanden"]      = round($uebungdata["anzahlbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
+                $uebungdata["prozentnichtbestanden"] = round($uebungdata["anzahlnichtbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
 
 
                 // füge Daten der Hauptarray hinzu
