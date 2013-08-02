@@ -26,7 +26,15 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
 
-    echo "Auswertung";
+
+    echo "<pre>";
+
+    $x = Auswertung( (isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null) );
+    var_dump( $x->studenttabelle() );
+
+    echo "</pre>";
+
 
 ?>
