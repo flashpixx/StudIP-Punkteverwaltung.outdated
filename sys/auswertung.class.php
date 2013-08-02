@@ -83,7 +83,7 @@
                      "bestandenProzent" => $uebung->bestandenProzent(),
                      "studenten"        => array(),
                 );
-                $uebungdata["bestandenpunkte"] = $uebungdata["maxPunkte"] / 100 * $uebungdata["bestandenProzent"];
+                $uebungdata["bestandenpunkte"] = round($uebungdata["maxPunkte"] / 100 * $uebungdata["bestandenProzent"], 2);
 
 
                 // prüfe jeden Eintrag jedes Studenten
@@ -106,7 +106,7 @@
                     $studentdata["erreichteprozent"] = round($studentdata["punktesumme"] / $uebungdata["maxPunkte"] * 100, 2);
 
                     $min                        = min($min, $studentdata["punktesumme"]);
-                    $max                        = min($max, $studentdata["punktesumme"]);
+                    $max                        = max($max, $studentdata["punktesumme"]);
                     $sum                        = $sum + $studentdata["punktesumme"];
 
                     array_push($uebungdata["studenten"], $studentdata);
