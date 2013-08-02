@@ -26,6 +26,7 @@
 
 
     require_once("veranstaltung/veranstaltung.class.php");
+    require_once("veranstaltung/studentuebung.class.php");
 
 
     /** Klasse um die Auswertung zentral zu behandeln **/
@@ -57,6 +58,61 @@
         }
 
 
+        /** erzeugt ein Array mit den informationen eines Studenten
+         * @param $poStudent Studentenobjekt
+         * @return Array
+         **/
+        private function createStudentenArray( $poStudent )
+        {
+            return array(
+                "name"            => $poStudent->name(),
+                "matrikelnummer"  => $poStudent->matrikelnummer(),
+                "email"           => $poStudent->email(),
+                // Studiengang für die Anerkennung fehlt noch
+            );
+        }
+
+
+        /** erzeugt aus einem StudentÜbungsobjekt das passende
+         * Array mit den Informationen 
+         * @param $poUebungStudent ÜbungStudent Objekt
+         * @param $pnBestandenPunkte Punkteanzahl, die für das Bestehen notwendig sind
+         * @param $pnUebungMaxPunkte maximal zu erreichende Punkte der Übung
+         * @return Array mit Daten
+         **/
+        private function createStudentenPunkteArray( $poUebungStudent, $pnBestandenPunkte, $pnUebungMaxPunkte )
+        {
+            $data = array(
+                 "erreichtepunkte" => $poUebungStudent->erreichtePunkte(),
+                 "zusatzpunkte"    => $poUebungStudent->zusatzPunkte()
+            );
+
+            $data["punktesumme"]      = $data["erreichtepunkte"] + $data["zusatzpunkte"];
+            $data["bestanden"]        = $data["punktesumme"] >= $pnBestandenPunkte;
+            $data["erreichteprozent"] = round($data["punktesumme"] / $pnUebungMaxPunkte * 100, 2);
+
+            return $data;
+        }
+
+
+        /** erzeugt aus einem Übungsobjekt den passenden Eintrag für das Array
+         * @param $poUebung Übungsobjekt
+         * @return Array
+         **/
+        private function createUebungsDaten( $poUebung )
+        {
+            $data = array(
+                "id"               => $poUebung->id(),
+                "maxPunkte"        => $poUebung->maxPunkte(),
+                "bestandenProzent" => $poUebung->bestandenProzent(),
+                "studenten"        => array(),
+            );
+            $data["bestandenpunkte"] = round($data["maxPunkte"] / 100 * $data["bestandenProzent"], 2);
+
+            return $data;
+        }
+
+
         /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt
          * erzeugt und gleichzeitig min / max / median / arithm. Mittel bestimmt
          * @return assoc. Array
@@ -66,78 +122,77 @@
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
             $main = array( "studenten" => array(), "uebungen" => array() );
 
+
+            // Iteration über jede Übung und über jeden Teilnehmer
             foreach ( $this->moVeranstaltung->uebungen() as $uebung)
             {
-                // Basis Infos zu jeder Übung
-                $uebungdata = array(
-                     "maxPunkte"        => $uebung->maxPunkte(),
-                     "bestandenProzent" => $uebung->bestandenProzent(),
-                     "studenten"        => array(),
-                );
-                $uebungdata["bestandenpunkte"] = round($uebungdata["maxPunkte"] / 100 * $uebungdata["bestandenProzent"], 2);
+                $uebungarray = $this->createUebungsArray( $uebung );
 
-
-                /*
-                $min                 = INF;
-                $max                 = 0;
-                $sum                 = 0;
-                $countbestanden      = 0;
-                $countnichtbestanden = 0;
-                */
-
-                // iteriere über alle Teilnehmer der Übung
-                foreach ($uebung->studentenuebung() as $student)
+                foreach ($uebung->studentenuebung() as $studentuebung )
                 {
-                    // Student der globalen Namensliste hinzufügen bzw. überschreiben
-                    $main["studenten"][$student->student()->id()] = array(
-                        "name"            => $student->student()->name(),
-                        "matrikelnummer"  => $student->student()->matrikelnummer(),
-                        "email"           => $student->student()->email(),
-                        // Studiengang für die Anerkennung fehlt noch
-                    );
-
-                    
-                    // nun die Daten jedes Studenten auswerten, wobei die Referenzierung zum Namen über den User-Hash geht
-                    $studentdata = array(
-                        "erreichtepunkte" => $student->erreichtePunkte(),
-                        "zusatzpunkte"    => $student->zusatzPunkte()
-                    );
-
-                    $studentdata["punktesumme"]      = $studentdata["erreichtepunkte"] + $studentdata["zusatzpunkte"];
-                    $studentdata["bestanden"]        = $studentdata["punktesumme"] >= $uebungdata["bestandenpunkte"];
-                    $studentdata["erreichteprozent"] = round($studentdata["punktesumme"] / $uebungdata["maxPunkte"] * 100, 2);
-/*
-                    $min                        = min($min, $studentdata["punktesumme"]);
-                    $max                        = max($max, $studentdata["punktesumme"]);
-                    $sum                        = $sum + $studentdata["punktesumme"];
-
-                    if ($studentdata["bestanden"])
-                        $countbestanden++;
-                    else
-                        $countnichtbestanden++;
-*/
-                    //$uebungdata["studenten"][$student->student()->id()] = $studentdata;
+                    // Student der globalen Namensliste hinzufügen bzw. überschreiben und Punktedaten erzeugen
+                    $main["studenten"][$studentuebung->student()->id()]       = $this->createStudentenArray( $studentuebung->student() );
+                    $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
-/*
-                $uebungdata["punktemittel"]          = round($sum / count($uebungdata["studenten"], 2));
-                $uebungdata["punkteminimum"]         = $min;
-                $uebungdata["punktemaximum"]         = $max;
-
-                $uebungdata["anzahlbestanden"]       = $countbestanden;
-                $uebungdata["anzahlnichtbestanden"]  = $countnichtbestanden;
-                $uebungdata["prozentbestanden"]      = round($uebungdata["anzahlbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
-                $uebungdata["prozentnichtbestanden"] = round($uebungdata["anzahlnichtbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
-*/
-
-                // füge Daten der Hauptarray hinzu
-                $main["uebungen"][$uebung->name()] = $uebungdata;
-                
+                $main["uebungen"][$uebung->name()] = $uebungarray;
             }
 
 
-            // das Array muss nun zusammen gefasst werden, so dass in jeder Übung ein Datensatz für jeden Studenten
-            // enthalten ist und die globalen statistischen Infos werden berechnet
+
+            // nun existiert ein Array mit den Basis Informationen zu jedem Studenten & jeder Übung
+            // da ein Student sich während des Semesters aus der Veranstaltung austragen kann, in
+            // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die übungen so angepasst
+            // werden, dass sie gleich viele Elemente erhalten, d.h. falls Studenten nicht in allen Übungen
+            // enthalten sind, werden sie Default mit Null-Werten eingefügt
+
+            foreach ($main["uebungen"] as $item)
+            {
+                $uebung       = new Uebung( $item["id"] );
+                $lcUebungName = $uebung->name();
+                $uebungarray  = $this->createUebungsArray( $uebung );
+
+                foreach( array_diff_key($main["studenten"], $item["studenten"]) as $key )
+                {
+                    $loStudentUebung = new StudentUebung( $uebung, $key );
+                    $main["uebungen"][$lcUebungName]["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                }
+                    
+            }
+
+
+
+
+            /*
+             $min                        = min($min, $studentdata["punktesumme"]);
+             $max                        = max($max, $studentdata["punktesumme"]);
+             $sum                        = $sum + $studentdata["punktesumme"];
+
+             if ($studentdata["bestanden"])
+             $countbestanden++;
+             else
+             $countnichtbestanden++;
+             */
+
+
+            /*
+             $min                 = INF;
+             $max                 = 0;
+             $sum                 = 0;
+             $countbestanden      = 0;
+             $countnichtbestanden = 0;
+             */
+
+            /*
+             $uebungdata["punktemittel"]          = round($sum / count($uebungdata["studenten"], 2));
+             $uebungdata["punkteminimum"]         = $min;
+             $uebungdata["punktemaximum"]         = $max;
+
+             $uebungdata["anzahlbestanden"]       = $countbestanden;
+             $uebungdata["anzahlnichtbestanden"]  = $countnichtbestanden;
+             $uebungdata["prozentbestanden"]      = round($uebungdata["anzahlbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
+             $uebungdata["prozentnichtbestanden"] = round($uebungdata["anzahlnichtbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
+             */
 
 
             return $main;
