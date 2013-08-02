@@ -64,9 +64,8 @@
         function studenttabelle()
         {
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
-            $result = array( "studenten" => array(), "uebungen" => array() );
+            $main = array( "studenten" => array(), "uebungen" => array() );
 
-            $sum = 0;
             foreach ( $this->moVeranstaltung->uebungen() as $uebung)
             {
                 // Basis Infos zu jeder Übung
@@ -90,7 +89,7 @@
                 foreach ($uebung->studentenuebung() as $student)
                 {
                     // Student der globalen Namensliste hinzufügen bzw. überschreiben
-                    $result["studenten"][$student->student()->id()] = array(
+                    $main["studenten"][$student->student()->id()] = array(
                         "name"            => $student->student()->name(),
                         "matrikelnummer"  => $student->student()->matrikelnummer(),
                         "email"           => $student->student()->email(),
@@ -117,7 +116,7 @@
                     else
                         $countnichtbestanden++;
 */
-                    $uebungdata["studenten"][$student->student()->id()] = $studentdata;
+                    //$uebungdata["studenten"][$student->student()->id()] = $studentdata;
                 }
 
 /*
@@ -132,7 +131,7 @@
 */
 
                 // füge Daten der Hauptarray hinzu
-                $result["uebungen"][$uebung->name()] = $uebungdata;
+                $main["uebungen"][$uebung->name()] = $uebungdata;
                 
             }
 
