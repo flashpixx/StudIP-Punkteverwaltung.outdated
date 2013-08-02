@@ -101,8 +101,9 @@
                         "zusatzpunkte"    => $student->zusatzPunkte()
                     );
 
-                    $studentdata["punktesumme"] = $studentdata["erreichtepunkte"] + $studentdata["zusatzpunkte"];
-                    $studentdata["bestanden"]   = $studentdata["punktesumme"] >= $uebungdata["bestandenpunkte"];
+                    $studentdata["punktesumme"]      = $studentdata["erreichtepunkte"] + $studentdata["zusatzpunkte"];
+                    $studentdata["bestanden"]        = $studentdata["punktesumme"] >= $uebungdata["bestandenpunkte"];
+                    $studentdata["erreichteprozent"] = round($studentdata["punktesumme"] / $uebungdata["maxPunkte"] * 100, 2);
 
                     $min                        = min($min, $studentdata["punktesumme"]);
                     $max                        = min($max, $studentdata["punktesumme"]);
