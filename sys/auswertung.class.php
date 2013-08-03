@@ -151,7 +151,7 @@
                 $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
-                foreach( array_diff_key($main["studenten"], $item["studenten"]) as $key )
+                foreach( array_diff_key($main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key )
                 {
                     $loStudentUebung = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$lcUebungName]["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
