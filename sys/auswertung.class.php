@@ -142,7 +142,7 @@
 
             // nun existiert ein Array mit den Basis Informationen zu jedem Studenten & jeder Übung
             // da ein Student sich während des Semesters aus der Veranstaltung austragen kann, in
-            // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die übungen so angepasst
+            // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die Übungen so angepasst
             // werden, dass sie gleich viele Elemente erhalten, d.h. falls Studenten nicht in allen Übungen
             // enthalten sind, werden sie Default mit Null-Werten eingefügt
             foreach ($main["uebungen"] as $item)
@@ -151,16 +151,15 @@
                 $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
-                foreach( array_diff_key($main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key )
+                foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
                     $loStudentUebung = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$lcUebungName]["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
-                    var_dump($loStudentUebung);
-                    die(" ");
                 }
-                    
             }
 
+
+            
 
 
             /*
