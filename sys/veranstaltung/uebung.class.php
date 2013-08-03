@@ -324,9 +324,10 @@
 
         /** liefert eine Liste mit allen Studenten
          * für diese Übung zurück
+         * @param $resultarray liefert nur die Auth-Hashes der Studenten als Array
          * @return Array mit Objekten von Student-Übung
          **/
-        function studentenuebung()
+        function studentenuebung( $resultarray = false )
         {
             $la = array();
 
@@ -334,7 +335,10 @@
             $loPrepare->execute( array("id" => $this->mcID) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push($la, new StudentUebung( $this, $row["student"] ) );
+                if ($resultarray)
+                    array_push($la, $row["student"]);
+                else
+                    array_push($la, new StudentUebung( $this, $row["student"] ) );
 
             return $la;
         }
