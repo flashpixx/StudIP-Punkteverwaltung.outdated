@@ -155,9 +155,11 @@
                 {
                     $loStudentUebung = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$lcUebungName]["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    var_dump($loStudentUebung);
                 }
                     
             }
+            die(" ");
 
 
 
