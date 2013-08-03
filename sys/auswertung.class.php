@@ -145,10 +145,9 @@
             // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die übungen so angepasst
             // werden, dass sie gleich viele Elemente erhalten, d.h. falls Studenten nicht in allen Übungen
             // enthalten sind, werden sie Default mit Null-Werten eingefügt
-/*
             foreach ($main["uebungen"] as $item)
             {
-                $uebung       = new Uebung( $item["id"] );
+                $uebung       = new Uebung( $this->moVeranstaltung, $item["id"] );
                 $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
@@ -159,7 +158,6 @@
                 }
                     
             }
-*/
 
 
 
