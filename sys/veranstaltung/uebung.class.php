@@ -129,7 +129,7 @@
                 }
             }
 
-            if (!$this->mcID)
+            if ( (!$this->mcID) || (!$this->moVeranstaltung) )
                 throw new Exception(_("Übungsparameter nicht definiert"));
         }
 
