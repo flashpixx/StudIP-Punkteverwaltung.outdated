@@ -44,7 +44,7 @@
 
 
 
-        echo "<table width=\"100%\">";
+        echo "<table width=\"100%\" style=\"border-width:thin;border-left-style:solid;border-left-color:black;\">";
         echo "<tr><th>Name (EMail)</th><th>Matrikelnummer</th>";
 
         foreach($laUebungen as $name)
