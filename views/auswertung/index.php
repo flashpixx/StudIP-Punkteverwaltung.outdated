@@ -35,14 +35,41 @@
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
+        $loAuswertung    = new Auswertung( $loVeranstaltung );
+
+        $laListe         = $loAuswertung->studenttabelle();
+        $laUebungen      = array();
+        foreach($loVeranstaltung->uebungen() as $uebung)
+        array_push($laUebungen, $uebung->name());
+
+
 
         echo "<table width=\"100%\">";
         echo "<tr><th>Name (EMail)</th><th>Matrikelnummer</th>";
 
-        foreach($loVeranstaltung->uebungen() as $uebung)
-            echo "<th>".$uebung->name()."</th>";
+        foreach($laUebungen as $name)
+            echo "<th>".$name."  (bestanden)</th>";
 
         echo "<th>bestanden</th><th>Bonuspunkte</th></tr>";
+
+        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+        {
+            echo "<tr>";
+            echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
+            echo "</td>".$laStudent["matrikelnummer"]."</td>";
+
+            foreach($laUebungen as $lcUebung)
+            {
+                echo "<td>";
+                echo $laListe["uebungen"][$lcUebung][$laStudent["id"]]["erreichtepunkte"]." (".($laListe["uebungen"][$lcUebung][$laStudent["id"]]["bestanden"] ? "ja" : "nein").")";
+                echo "</td>";
+            }
+            echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
+            echo "<td>&nbsp;</td>";
+            echo "</tr>";
+        }
+
+        
 
         echo "</table>";
 
@@ -51,13 +78,13 @@
     }
 
 
-
+/*
     echo "<pre>";
 
     $x = new Auswertung( (isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null) );
     var_dump( $x->studenttabelle() );
 
     echo "</pre>";
-
+*/
 
 ?>
