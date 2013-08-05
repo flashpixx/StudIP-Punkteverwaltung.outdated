@@ -38,6 +38,10 @@
         $loAuswertung    = new Auswertung( $loVeranstaltung );
 
         $laListe         = $loAuswertung->studenttabelle();
+        // Sortierung hart nach Matrikelnummern
+        uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
+
+
         $laUebungen      = array();
         foreach($loVeranstaltung->uebungen() as $uebung)
         array_push($laUebungen, $uebung->name());
