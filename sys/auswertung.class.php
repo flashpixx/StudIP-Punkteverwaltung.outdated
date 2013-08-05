@@ -153,12 +153,41 @@
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
-                    $loStudentUebung                                                               = new StudentUebung( $uebung, $key );
+                    $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
             }
 
 
+            // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average)
+            foreach ($main["uebungen"] as $key => $val)
+            {
+                $main["uebung"][$key]["statistik"] = array(
+                    "minpunkte"            => INF,
+                    "maxpunkte"            => 0,
+                    "mittelwert"           => 0,
+                    "median"               => array(),
+                    "anzahlbestanden"      => 0,
+                    "anzahlnichtbestanden" => 0
+
+                );
+
+                foreach ($val["studenten"] as $laStudent)
+                {
+                    if ($laStudent["bestanden"])
+                        $main["uebung"][$key]["statistik"]["anzahlbestanden"]++;
+                    else
+                        $main["uebung"][$key]["statistik"]["anzahlnichtbestanden"]++;
+
+                    $main["uebung"][$key]["statistik"]["minpunkte"] = min($laStudent["erreichtepunkte"], $main["uebung"][$key]["statistik"]["minpunkte"]);
+                    $main["uebung"][$key]["statistik"]["maxpunkte"] = max($laStudent["erreichtepunkte"], $main["uebung"][$key]["statistik"]["maxpunkte"]);
+                    $main["uebung"][$key]["statistik"]["mittelwert"] += $laStudent["erreichtepunkte"];
+                    array_push($main["uebung"][$key]["statistik"]["median"], $laStudent["erreichtepunkte"]);
+                }
+
+                $main["uebung"][$key]["statistik"]["mittelwert"] = round($main["uebung"][$key]["statistik"]["mittelwert"] / count($val), 2);
+                $main["uebung"][$key]["statistik"]["median"]     = $main["uebung"][$key]["statistik"]["median"][intval(count($val)/2)];
+            }
             
 
 
