@@ -42,6 +42,12 @@
         /** Datum wann die Veranstaltung geschlossen wurde **/
         private $mcCloseDateTime = null;
 
+        /** Cache für die Bestanden-Prozent-Zahl **/
+        private $mnBestandenProzent = 0;
+
+        /** Cache für Übungsanzahl, die als nicht-bestanden erlaubt ist **/
+        private $mnAllowNichtBestanden = 0;
+
 
 
         /* statische Methode für die Überprüfung, ob Übungsdaten zu einer Veranstaltung existieren
@@ -101,17 +107,25 @@
                 $px = $GLOBALS["SessionSeminar"];
 
             if ($px instanceof $this)
-                $this->mcID = $px->id();
+            {
+                $this->mcID                  = $px->id();
+                $this->mlClose               = $px->mlClose;
+                $this->mcCloseDateTime       = $px->mcCloseDateTime;
+                $this->mnBestandenProzent    = $px->mnBestandenProzent;
+                $this->mnAllowNichtBestanden = $px->mnAllowNichtBestanden;
+            }
             elseif (is_string($px))
             {
-                $loPrepare = DBManager::get()->prepare("select id, close from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("select id, close, bestandenprozent, allow_nichtbestanden from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $px) );
                 if ($loPrepare->rowCount() != 1)
                     throw new Exception(_("Veranstaltung nicht gefunden"));
 
-                $result             = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                $this->mcID         = $result["id"];
-                $this->mlClose      = !empty($result["close"]);
+                $result                       = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $this->mcID                   = $result["id"];
+                $this->mlClose                = !empty($result["close"]);
+                $this->mnBestandenProzent     = floatval($result["bestandenprozent"]);
+                $this->mnAllowNichtBestanden  = intval($result["allow_nichtbestanden"]);
 
                 if ($this->mlClose)
                     $this->mcCloseDateTime = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"])->format("d.m.Y H:i");
@@ -146,24 +160,11 @@
                 if (($pn < 0) || ($pn > 100))
                     throw new Exception(_("Parameter Prozentzahl für das Bestehen liegt nicht im Interval [0,100]"));
 
-                DBManager::get()->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->mcID, "prozent" => floatval($pn)) );
-
-                $ln = $pn;
-
-            } else {
-
-                $loPrepare = DBManager::get()->prepare("select bestandenprozent from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->mcID) );
-
-                if ($loPrepare->rowCount() == 1)
-                {
-                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $ln     = $result["bestandenprozent"];
-                }
-
+                $this->mnBestandenProzent = floatval($pn);
+                DBManager::get()->prepare( "update ppv_seminar set bestandenprozent = :prozent where id = :semid" )->execute( array("semid" => $this->mcID, "prozent" => $this->mnBestandenProzent) );
             }
                 
-            return floatval($ln);
+            return $this->mnBestandenProzent;
         }
 
 
@@ -184,25 +185,11 @@
                 if ($pn < 0)
                     throw new Exception(_("Der Parameter für die Anzahl der als nicht bestand gewertenden Übungen, die trotzdem akzeptiert werden, muss größer gleich null sein"));
 
-                DBManager::get()->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->mcID, "anzahl" => intval($pn)) );
-
-                $ln = $pn;
-
-            } else {
-
-                $loPrepare = DBManager::get()->prepare("select allow_nichtbestanden from ppv_seminar where id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->mcID) );
-
-                if ($loPrepare->rowCount() == 1)
-                {
-                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $ln     = $result["allow_nichtbestanden"];
-                }
-                
+                $this->mnAllowNichtBestanden = intval($pn);
+                DBManager::get()->prepare( "update ppv_seminar set allow_nichtbestanden = :anzahl where id = :semid" )->execute( array("semid" => $this->mcID, "anzahl" => $this->mnAllowNichtBestanden) );
             }
             
-            return intval($ln);
-
+            return $this->mnAllowNichtBestanden;
         }
 
 

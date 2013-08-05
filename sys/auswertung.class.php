@@ -65,12 +65,14 @@
         private function createStudentenArray( $poStudent )
         {
             return array(
-                "name"                   => $poStudent->name(),
-                "matrikelnummer"         => $poStudent->matrikelnummer(),
-                "email"                  => $poStudent->email(),
+                "name"                     => $poStudent->name(),                                       // Name des Studenten
+                "matrikelnummer"           => $poStudent->matrikelnummer(),                             // Matrikelnummer des Studenten
+                "email"                    => $poStudent->email(),                                      // EMail des Studenten
                 // Studiengang für die Anerkennung fehlt noch
-                "uebungenbestanden"      => 0,
-                "uebungennichtbestanden" => 0
+                "uebungenbestanden"        => 0,                                                        // Anzahl der Übungen, die bestanden wurden
+                "uebungennichtbestanden"   => 0,                                                        // Anzahl der Übungen, die nicht bestanden wurden
+                "uebungenpunkte"           => 0,                                                        // Summe über alle erreichten Übungspunkte
+                "veranstaltungenbestanden" => false                                                     // Boolean, ob die Veranstaltung als komplett bestanden gilt
             );
         }
 
@@ -85,13 +87,13 @@
         private function createStudentenPunkteArray( $poUebungStudent, $pnBestandenPunkte, $pnUebungMaxPunkte )
         {
             $data = array(
-                 "erreichtepunkte" => $poUebungStudent->erreichtePunkte(),
-                 "zusatzpunkte"    => $poUebungStudent->zusatzPunkte()
+                 "erreichtepunkte" => $poUebungStudent->erreichtePunkte(),                              // Punkte, die erreicht wurden
+                 "zusatzpunkte"    => $poUebungStudent->zusatzPunkte()                                  // Zusatzpunkte
             );
 
-            $data["punktesumme"]      = $data["erreichtepunkte"] + $data["zusatzpunkte"];
-            $data["bestanden"]        = $data["punktesumme"] >= $pnBestandenPunkte;
-            $data["erreichteprozent"] = round($data["punktesumme"] / $pnUebungMaxPunkte * 100, 2);
+            $data["punktesumme"]      = $data["erreichtepunkte"] + $data["zusatzpunkte"];               // Summe aus Zusatzpunkte + erreichte Punkte
+            $data["bestanden"]        = $data["punktesumme"] >= $pnBestandenPunkte;                     // Boolean, ob die Übung bestanden wurde
+            $data["erreichteprozent"] = round($data["punktesumme"] / $pnUebungMaxPunkte * 100, 2);      // Prozentzahl der Punktesumme
 
             return $data;
         }
@@ -104,19 +106,19 @@
         private function createUebungsArray( $poUebung )
         {
             $data = array(
-                "id"               => $poUebung->id(),
-                "maxPunkte"        => $poUebung->maxPunkte(),
-                "bestandenProzent" => $poUebung->bestandenProzent(),
-                "studenten"        => array(),
+                "id"               => $poUebung->id(),                                                  // Hash der Übung
+                "maxPunkte"        => $poUebung->maxPunkte(),                                           // maximale Punkteanzahl
+                "bestandenProzent" => $poUebung->bestandenProzent(),                                    // Prozentzahl, damit die Übung als bestanden gilt
+                "studenten"        => array()                                                           // Array mit Studenten-Punkte-Daten
             );
-            $data["bestandenpunkte"] = round($data["maxPunkte"] / 100 * $data["bestandenProzent"], 2);
+            $data["bestandenpunkte"] = round($data["maxPunkte"] / 100 * $data["bestandenProzent"], 2);  // Punkte zum Bestehen
 
             return $data;
         }
 
 
         /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt
-         * erzeugt und gleichzeitig min / max / median / arithm. Mittel bestimmt
+         * erzeugt und erzeugt die Statistik der Veranstaltung
          * @return assoc. Array
          **/
         function studenttabelle()
@@ -185,9 +187,11 @@
                         $main["studenten"][$lcStudentKey]["uebungennichtbestanden"]++;
                     }
 
-                    $main["uebungen"][$key]["statistik"]["minpunkte"] = min($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
-                    $main["uebungen"][$key]["statistik"]["maxpunkte"] = max($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
-                    $main["uebungen"][$key]["statistik"]["mittelwert"] += $laStudent["erreichtepunkte"];
+                    $main["studenten"][$lcStudentKey]["uebungenpunkte"] += $laStudent["erreichtepunkte"];
+                    $main["uebungen"][$key]["statistik"]["minpunkte"]    = min($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
+                    $main["uebungen"][$key]["statistik"]["maxpunkte"]    = max($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
+                    $main["uebungen"][$key]["statistik"]["mittelwert"]  += $laStudent["erreichtepunkte"];
+                    
                     array_push($main["uebungen"][$key]["statistik"]["median"], $laStudent["erreichtepunkte"]);
                 }
 
@@ -196,37 +200,11 @@
             }
             
 
-
-            /*
-             $min                        = min($min, $studentdata["punktesumme"]);
-             $max                        = max($max, $studentdata["punktesumme"]);
-             $sum                        = $sum + $studentdata["punktesumme"];
-
-             if ($studentdata["bestanden"])
-             $countbestanden++;
-             else
-             $countnichtbestanden++;
-             */
-
-
-            /*
-             $min                 = INF;
-             $max                 = 0;
-             $sum                 = 0;
-             $countbestanden      = 0;
-             $countnichtbestanden = 0;
-             */
-
-            /*
-             $uebungdata["punktemittel"]          = round($sum / count($uebungdata["studenten"], 2));
-             $uebungdata["punkteminimum"]         = $min;
-             $uebungdata["punktemaximum"]         = $max;
-
-             $uebungdata["anzahlbestanden"]       = $countbestanden;
-             $uebungdata["anzahlnichtbestanden"]  = $countnichtbestanden;
-             $uebungdata["prozentbestanden"]      = round($uebungdata["anzahlbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
-             $uebungdata["prozentnichtbestanden"] = round($uebungdata["anzahlnichtbestanden"] / ($uebungdata["anzahlbestanden"]+$uebungdata["anzahlnichtbestanden"]) * 100, 2);
-             */
+            // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
+            foreach ($main["studenten"] as $lcStudentKey => $laStudent)
+            {
+                
+            }
 
 
             return $main;
