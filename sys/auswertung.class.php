@@ -190,15 +190,15 @@
                         $main["studenten"][$lcStudentKey]["uebungennichtbestanden"]++;
                     }
 
-                    $main["studenten"][$lcStudentKey]["uebungenpunkte"] += $laStudent["erreichtepunkte"];
-                    $main["uebungen"][$key]["statistik"]["minpunkte"]    = min($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
-                    $main["uebungen"][$key]["statistik"]["maxpunkte"]    = max($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
-                    $main["uebungen"][$key]["statistik"]["mittelwert"]  += $laStudent["erreichtepunkte"];
+                    $main["studenten"][$lcStudentKey]["uebungenpunkte"] += $laStudent["punktesumme"];
+                    $main["uebungen"][$key]["statistik"]["minpunkte"]    = min($laStudent["punktesumme"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
+                    $main["uebungen"][$key]["statistik"]["maxpunkte"]    = max($laStudent["punktesumme"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
+                    $main["uebungen"][$key]["statistik"]["mittelwert"]  += $laStudent["punktesumme"];
                     
-                    array_push($main["uebungen"][$key]["statistik"]["median"], $laStudent["erreichtepunkte"]);
+                    array_push($main["uebungen"][$key]["statistik"]["median"], $laStudent["punktesumme"]);
                 }
 
-                $main["uebungen"][$key]["statistik"]["mittelwert"] = round($main["uebungen"][$key]["statistik"]["mittelwert"] / count($val), 2);
+                $main["uebungen"][$key]["statistik"]["mittelwert"] = round($main["uebungen"][$key]["statistik"]["mittelwert"] / count($val["studenten"]), 2);
                 $main["uebungen"][$key]["statistik"]["median"]     = $main["uebungen"][$key]["statistik"]["median"][intval(count($val)/2)];
             }
             
