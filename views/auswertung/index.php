@@ -56,7 +56,7 @@
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
             echo "<tr>";
-            echo "<td>".$laStudent["name"]." (".$laStudent["id"].")</td>";
+            echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
             echo "<td>".$laStudent["matrikelnummer"]."</td>";
 
             foreach($laUebungen as $lcUebung)
@@ -73,9 +73,9 @@
         echo "</table>";
 
 
-        echo "<pre>";
-        var_dump( $laListe );
-        echo "</pre>";
+        //echo "<pre>";
+        //var_dump( $laListe );
+        //echo "</pre>";
 
 
     } catch (Exception $e) {
