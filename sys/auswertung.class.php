@@ -162,7 +162,7 @@
             // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average)
             foreach ($main["uebungen"] as $key => $val)
             {
-                $main["uebung"][$key]["statistik"] = array(
+                $main["uebungen"][$key]["statistik"] = array(
                     "minpunkte"            => INF,
                     "maxpunkte"            => 0,
                     "mittelwert"           => 0,
@@ -175,18 +175,18 @@
                 foreach ($val["studenten"] as $laStudent)
                 {
                     if ($laStudent["bestanden"])
-                        $main["uebung"][$key]["statistik"]["anzahlbestanden"]++;
+                        $main["uebungen"][$key]["statistik"]["anzahlbestanden"]++;
                     else
-                        $main["uebung"][$key]["statistik"]["anzahlnichtbestanden"]++;
+                        $main["uebungen"][$key]["statistik"]["anzahlnichtbestanden"]++;
 
-                    $main["uebung"][$key]["statistik"]["minpunkte"] = min($laStudent["erreichtepunkte"], $main["uebung"][$key]["statistik"]["minpunkte"]);
-                    $main["uebung"][$key]["statistik"]["maxpunkte"] = max($laStudent["erreichtepunkte"], $main["uebung"][$key]["statistik"]["maxpunkte"]);
-                    $main["uebung"][$key]["statistik"]["mittelwert"] += $laStudent["erreichtepunkte"];
-                    array_push($main["uebung"][$key]["statistik"]["median"], $laStudent["erreichtepunkte"]);
+                    $main["uebungen"][$key]["statistik"]["minpunkte"] = min($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
+                    $main["uebungen"][$key]["statistik"]["maxpunkte"] = max($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
+                    $main["uebungen"][$key]["statistik"]["mittelwert"] += $laStudent["erreichtepunkte"];
+                    array_push($main["uebungen"][$key]["statistik"]["median"], $laStudent["erreichtepunkte"]);
                 }
 
-                $main["uebung"][$key]["statistik"]["mittelwert"] = round($main["uebung"][$key]["statistik"]["mittelwert"] / count($val), 2);
-                $main["uebung"][$key]["statistik"]["median"]     = $main["uebung"][$key]["statistik"]["median"][intval(count($val)/2)];
+                $main["uebungen"][$key]["statistik"]["mittelwert"] = round($main["uebungen"][$key]["statistik"]["mittelwert"] / count($val), 2);
+                $main["uebungen"][$key]["statistik"]["median"]     = $main["uebungen"][$key]["statistik"]["median"][intval(count($val)/2)];
             }
             
 
