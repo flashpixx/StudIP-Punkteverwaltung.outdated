@@ -55,22 +55,22 @@
         $i=0;
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
-            echo "<tr style=\"".( $i++ % 2 ? "background=#dddddd" : "background=#aaaaaa")."\">";
-            echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
-            echo "<td>".$laStudent["matrikelnummer"]."</td>";
+            $lcStyle = $i++ % 2 ? "background=#dddddd" : "background=#aaaaaa";
+
+            echo "<tr>";
+            echo "<td style=\"".$lcStyle."\">".$laStudent["name"]." (".$laStudent["email"].")</td>";
+            echo "<td style=\"".$lcStyle."\">".$laStudent["matrikelnummer"]."</td>";
 
             foreach($laUebungen as $lcUebung)
             {
-                echo "<td>";
+                echo "<td style=\"".$lcStyle."\">";
                 echo $laListe["uebungen"][$lcUebung][$laStudent["id"]]["erreichtepunkte"]." (".($laListe["uebungen"][$lcUebung][$laStudent["id"]]["bestanden"] ? "ja" : "nein").")";
                 echo "</td>";
             }
-            echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
-            echo "<td>&nbsp;</td>";
+            echo "<td style=\"".$lcStyle."\">".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
+            echo "<td style=\"".$lcStyle."\">&nbsp;</td>";
             echo "</tr>";
         }
-
-        
 
         echo "</table>";
 
