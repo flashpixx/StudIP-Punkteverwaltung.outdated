@@ -154,9 +154,7 @@
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
                     $loStudentUebung                                                               = new StudentUebung( $uebung, $key );
-                    $main["uebungen"][$lcUebungName]["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
-                    var_dump($main["uebungen"]);
-                    die(" ");
+                    $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
             }
 
