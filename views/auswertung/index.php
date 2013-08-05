@@ -24,10 +24,11 @@
     **/
 
 
-
+    // BoxPlot fehlt noch http://jpgraph.net/download/manuals/chunkhtml/ch15s04.html
     //require_once(dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph.php");
     //require_once (dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph_stock.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
 
 
     
@@ -36,9 +37,13 @@
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
-        $loAuswertung    = new Auswertung( $loVeranstaltung );
+        if (!VeranstaltungPermission::hasDozentRecht())
+            throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
+
+        $loAuswertung    = new Auswertung( $loVeranstaltung );
         $laListe         = $loAuswertung->studenttabelle();
+        
         // Sortierung hart nach Matrikelnummern
         uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
 
@@ -47,6 +52,7 @@
         $laBoxPlot       = array();
         foreach($loVeranstaltung->uebungen() as $uebung)
             array_push($laUebungen, $uebung->name());
+
 
 
         // erzeuge Ausgabe
@@ -58,8 +64,6 @@
             echo "<th>".$name."  ("._("bestanden").")</th>";
 
         echo "<th>"._("bestanden")."</th><th>"._("Bonuspunkte")."</th></tr>";
-
-
 
 
 
@@ -83,11 +87,6 @@
         }
 
         echo "</table>";
-
-
-        //echo "<pre>";
-        //var_dump( $laListe );
-        //echo "</pre>";
 
 
     } catch (Exception $e) {

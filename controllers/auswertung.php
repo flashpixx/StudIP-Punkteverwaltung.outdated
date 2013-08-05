@@ -80,11 +80,10 @@
          **/
         function pdfexport_action()
         {
-            try {
-
-                
-
-            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+            $doc = new ExportPDF();
+            $doc->addPage();
+            $doc->addContent('Hallo, %%wir%% benutzen :studip: -Formatierung.');
+            $doc->dispatch("test_pdf");
         }
 
 
