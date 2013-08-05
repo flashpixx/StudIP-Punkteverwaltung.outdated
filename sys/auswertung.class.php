@@ -166,7 +166,7 @@
             }
 
 
-            // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average / Anzahl)
+            // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average / Anzahlen)
             foreach ($main["uebungen"] as $key => $val)
             {
                 $main["uebungen"][$key]["statistik"] = array(
@@ -205,10 +205,7 @@
 
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
-            {
-                //$main["studenten"][$lcStudentkey]
-            }
-
+                $main["studenten"][$lcStudentkey]["veranstaltungbestaden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestande"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
 
             return $main;
         }
