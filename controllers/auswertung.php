@@ -88,7 +88,7 @@
             $loPDF        = new ExportPDF();
             $loPDF->addPage("L");
 
-            $loAuswertung = new Auswertung( $loVeranstaltung );
+            $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
             $laListe      = $loAuswertung->studenttabelle();
             
             // Sortierung hart nach Matrikelnummern
