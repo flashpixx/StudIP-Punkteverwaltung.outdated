@@ -124,18 +124,19 @@
         function studenttabelle()
         {
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
-            $main = array( "studenten" => array(), "uebungen" => array() );
+            $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" = 0 );
 
 
             // Iteration über jede Übung und über jeden Teilnehmer
             foreach ( $this->moVeranstaltung->uebungen() as $uebung)
             {
+                $main["gesamtpunkte"] += $uebung->maxPunkte();
                 $uebungarray = $this->createUebungsArray( $uebung );
 
                 foreach ($uebung->studentenuebung() as $studentuebung )
                 {
                     // Student der globalen Namensliste hinzufügen bzw. überschreiben und Punktedaten erzeugen
-                    $main["studenten"][$studentuebung->student()->id()]       = $this->createStudentenArray( $studentuebung->student() );
+                    $main["studenten"][$studentuebung->student()->id()]        = $this->createStudentenArray( $studentuebung->student() );
                     $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
@@ -203,7 +204,6 @@
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
-                
             }
 
 
