@@ -62,7 +62,7 @@
             foreach($laUebungen as $lcUebung)
             {
                 echo "<td>";
-                echo $laListe["uebungen"][$lcUebung][$laStudent["id"]]["erreichtepunkte"]." (".($laListe["uebungen"][$lcUebung][$laStudent["id"]]["bestanden"] ? "ja" : "nein").")";
+                echo $laListe["uebungen"][$lcUebung][$laStudent["id"]]["punktesumme"]." (".($laListe["uebungen"][$lcUebung][$laStudent["id"]]["bestanden"] ? "ja" : "nein").")";
                 echo "</td>";
             }
             echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
