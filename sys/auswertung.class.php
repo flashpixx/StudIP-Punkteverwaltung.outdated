@@ -124,7 +124,7 @@
         function studenttabelle()
         {
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
-            $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" = 0 );
+            $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" => 0 );
 
 
             // Iteration über jede Übung und über jeden Teilnehmer
