@@ -72,18 +72,15 @@
 
         echo "</table>";
 
+
+        echo "<pre>";
+        var_dump( $laListe );
+        echo "</pre>";
+
+
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
     }
 
-
-/*
-    echo "<pre>";
-
-    $x = new Auswertung( (isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null) );
-    var_dump( $x->studenttabelle() );
-
-    echo "</pre>";
-*/
 
 ?>
