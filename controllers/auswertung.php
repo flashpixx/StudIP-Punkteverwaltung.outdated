@@ -96,7 +96,7 @@
 
             // erzeuge Array für die Namen der Übungen
             $laUebungen      = array();
-            foreach($loVeranstaltung->uebungen() as $uebung)
+            foreach($this->flash["veranstaltung"]->uebungen() as $uebung)
                 array_push($laUebungen, $uebung->name());
 
 
