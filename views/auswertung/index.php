@@ -36,13 +36,13 @@
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
 
-        echo "<table>";
+        echo "<table width=\"100%\">";
         echo "<tr><th>Name (EMail)</th><th>Matrikelnummer</th>";
 
         foreach($loVeranstaltung->uebungen() as $uebung)
             echo "<th>".$uebung->name()."</th>";
 
-        echo "<th>bestanden</th></tr>";
+        echo "<th>bestanden</th><th>Bonuspunkte</th></tr>";
 
         echo "</table>";
 
