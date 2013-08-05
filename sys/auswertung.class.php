@@ -174,6 +174,8 @@
                     "maxpunkte"            => 0,
                     "mittelwert"           => 0,
                     "median"               => array(),
+                    "quartil25"            => 0,
+                    "quartil75"            => 0,
                     "anzahlbestanden"      => 0,
                     "anzahlnichtbestanden" => 0
 
@@ -199,7 +201,10 @@
                 }
 
                 $main["uebungen"][$key]["statistik"]["mittelwert"] = round($main["uebungen"][$key]["statistik"]["mittelwert"] / count($val["studenten"]), 2);
+                $main["uebungen"][$key]["statistik"]["quartil25"]  = $main["uebungen"][$key]["statistik"]["median"][intval(count($val)/4)];
+                $main["uebungen"][$key]["statistik"]["quartil75"]  = $main["uebungen"][$key]["statistik"]["median"][intval(3*count($val)/4)];
                 $main["uebungen"][$key]["statistik"]["median"]     = $main["uebungen"][$key]["statistik"]["median"][intval(count($val)/2)];
+                
             }
             
 

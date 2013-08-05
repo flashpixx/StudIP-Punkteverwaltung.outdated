@@ -25,7 +25,8 @@
 
 
 
-    require_once(dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph.php");
+    //require_once(dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph.php");
+    //require_once (dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph_stock.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
 
 
@@ -41,15 +42,15 @@
         // Sortierung hart nach Matrikelnummern
         uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
 
-
+        // erzeuge Array für die Namen der Übungen
         $laUebungen      = array();
+        $laBoxPlot       = array();
         foreach($loVeranstaltung->uebungen() as $uebung)
-        array_push($laUebungen, $uebung->name());
+            array_push($laUebungen, $uebung->name());
 
 
+        // erzeuge Ausgabe
         echo "<a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("Liste als PDF exportieren")."</a></p>";
-
-
         echo "<table width=\"100%\">";
         echo "<tr><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
 
@@ -58,6 +59,11 @@
 
         echo "<th>"._("bestanden")."</th><th>"._("Bonuspunkte")."</th></tr>";
 
+
+
+
+
+        // erzeuge Tabelle
         $i=0;
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
