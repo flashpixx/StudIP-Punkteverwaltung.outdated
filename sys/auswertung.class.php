@@ -124,7 +124,7 @@
         function studenttabelle()
         {
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
-            $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" => 0 );
+            $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0 );
 
 
             // Iteration über jede Übung und über jeden Teilnehmer
@@ -142,6 +142,8 @@
 
                 $main["uebungen"][$uebung->name()] = $uebungarray;
             }
+            // berechne wie viel Gesamtpunkte zum Bestehen notwendig sind
+            $main["gesamtpunktebestanden"] = round( $main["gesamtpunkte"] / 100 * $this->moVeranstaltung->bestandenProzent(), 2);
 
 
 
@@ -204,6 +206,7 @@
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
+                //$main["studenten"][$lcStudentkey]
             }
 
 
