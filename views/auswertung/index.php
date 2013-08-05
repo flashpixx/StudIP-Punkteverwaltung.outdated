@@ -56,7 +56,7 @@
         {
             echo "<tr>";
             echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
-            echo "</td>".$laStudent["matrikelnummer"]."</td>";
+            echo "<td>".$laStudent["matrikelnummer"]."</td>";
 
             foreach($laUebungen as $lcUebung)
             {
