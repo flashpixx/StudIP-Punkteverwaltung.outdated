@@ -54,7 +54,7 @@
 
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
-            echo "<tr>";
+            echo "<tr style=\"border-width:thin;border-style:solid;border-left-color:black;\">";
             echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
             echo "<td>".$laStudent["matrikelnummer"]."</td>";
 
