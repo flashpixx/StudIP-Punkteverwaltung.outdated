@@ -44,7 +44,7 @@
 
 
 
-        echo "<table width=\"100%\" style=\"border-width:thin;border-style:solid;border-left-color:black;\">";
+        echo "<table width=\"100%\">";
         echo "<tr><th>Name (EMail)</th><th>Matrikelnummer</th>";
 
         foreach($laUebungen as $name)
@@ -52,9 +52,10 @@
 
         echo "<th>bestanden</th><th>Bonuspunkte</th></tr>";
 
+        $i=0;
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
-            echo "<tr style=\"border-width:thin;border-style:solid;border-left-color:black;\">";
+            echo "<tr style=\"".( $i++ % 2 ? "background=#dddddd" : "background=#aaaaaa")."\">";
             echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
             echo "<td>".$laStudent["matrikelnummer"]."</td>";
 
