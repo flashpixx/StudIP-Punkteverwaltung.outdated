@@ -28,7 +28,7 @@
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
-    require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocuments/ExportPDF.class.php");
+    require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocument/ExportPDF.class.php");
 
 
     /** Controller für die Auswertungen **/
