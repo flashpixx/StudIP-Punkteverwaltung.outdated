@@ -71,7 +71,7 @@
         /** Default Action **/
         function index_action()
         {
-            PageLayout::addStyle("tr:nth-child(even) {background: #aaa} tr:nth-child(odd) {background: #eee});
+            PageLayout::addStyle("tr:nth-child(even) {background: #aaa} tr:nth-child(odd) {background: #eee}");
         }
 
 
