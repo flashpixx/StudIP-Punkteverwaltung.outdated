@@ -65,10 +65,12 @@
         private function createStudentenArray( $poStudent )
         {
             return array(
-                "name"            => $poStudent->name(),
-                "matrikelnummer"  => $poStudent->matrikelnummer(),
-                "email"           => $poStudent->email(),
+                "name"                   => $poStudent->name(),
+                "matrikelnummer"         => $poStudent->matrikelnummer(),
+                "email"                  => $poStudent->email(),
                 // Studiengang für die Anerkennung fehlt noch
+                "uebungenbestanden"      => 0,
+                "uebungennichtbestanden" => 0
             );
         }
 
@@ -159,7 +161,7 @@
             }
 
 
-            // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average)
+            // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average / Anzahl)
             foreach ($main["uebungen"] as $key => $val)
             {
                 $main["uebungen"][$key]["statistik"] = array(
@@ -172,12 +174,16 @@
 
                 );
 
-                foreach ($val["studenten"] as $laStudent)
+                foreach ($val["studenten"] as $lcStudentKey => $laStudent)
                 {
                     if ($laStudent["bestanden"])
+                    {
                         $main["uebungen"][$key]["statistik"]["anzahlbestanden"]++;
-                    else
+                        $main["studenten"][$lcStudentKey]["uebungenbestanden"]++;
+                    } else {
                         $main["uebungen"][$key]["statistik"]["anzahlnichtbestanden"]++;
+                        $main["studenten"][$lcStudentKey]["uebungennichtbestanden"]++;
+                    }
 
                     $main["uebungen"][$key]["statistik"]["minpunkte"] = min($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
                     $main["uebungen"][$key]["statistik"]["maxpunkte"] = max($laStudent["erreichtepunkte"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
