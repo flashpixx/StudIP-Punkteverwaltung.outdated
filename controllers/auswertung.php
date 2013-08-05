@@ -65,7 +65,6 @@
                 $this->flash["veranstaltung"] = Veranstaltung::get();
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
-            
         }
 
 
@@ -81,10 +80,39 @@
          **/
         function pdfexport_action()
         {
-            $doc = new ExportPDF();
-            $doc->addPage();
-            $doc->addContent('Hallo, %%wir%% benutzen :studip: -Formatierung.');
-            $doc->dispatch("test_pdf");
+            if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
+
+
+            $loPDF        = new ExportPDF();
+            $loPDF->addPage("L");
+
+            $loAuswertung = new Auswertung( $loVeranstaltung );
+            $laListe      = $loAuswertung->studenttabelle();
+            
+            // Sortierung hart nach Matrikelnummern
+            uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
+
+            // erzeuge Array für die Namen der Übungen
+            $laUebungen      = array();
+            foreach($loVeranstaltung->uebungen() as $uebung)
+                array_push($laUebungen, $uebung->name());
+
+
+            
+
+
+
+
+
+
+            
+            $loPDF->addContent('Hallo, %%wir%% benutzen :studip: -Formatierung.');
+            $loPDF->addContent('<table border="1"><tr><td>xxxx</td></tr></table>');
+
+
+
+            $loPDF->dispatch("test_pdf");
         }
 
 

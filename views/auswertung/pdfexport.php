@@ -23,4 +23,9 @@
     @endcond
     **/
 
+
+    // blank file for PDF export
+
+    Tools::showMessage($flash["message"]);
+
 ?>

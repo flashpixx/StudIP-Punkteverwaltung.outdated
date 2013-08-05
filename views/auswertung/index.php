@@ -37,7 +37,7 @@
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
-        if (!VeranstaltungPermission::hasDozentRecht())
+        if (!VeranstaltungPermission::hasDozentRecht($loVeranstaltung))
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
@@ -49,7 +49,6 @@
 
         // erzeuge Array für die Namen der Übungen
         $laUebungen      = array();
-        $laBoxPlot       = array();
         foreach($loVeranstaltung->uebungen() as $uebung)
             array_push($laUebungen, $uebung->name());
 
