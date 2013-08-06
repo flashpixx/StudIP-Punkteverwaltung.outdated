@@ -65,7 +65,7 @@
                 echo $laStudiengang["abschluss"]." ".$laStudiengang["fach"];
 
             else {
-                $laStudiengaenge = $loStudent->studiengang()
+                $laStudiengaenge = $loStudent->studiengang();
 
                 if (count($laStudiengaenge) > 1)
                 {
