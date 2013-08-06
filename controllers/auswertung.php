@@ -125,6 +125,8 @@
                 $loPDF->addContent( $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | |" );
             }
 
+            // beim PDF senden wir kein Layout
+            $this->set_layout(null);
             $loPDF->dispatch("punkteliste");
         }
 
