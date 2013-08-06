@@ -105,9 +105,10 @@
 
             // Tabelle mit Punkten erstellen
             $loPDF->addContent("| **"._("Name (EMail)")."** | **"._("Matrikelnummer")."** ");
+            $lcHead = "";
             foreach($laUebungen as $name)
-                $loPDF->addContent("| **".$name."  ("._("bestanden").")** ");
-            $loPDF->addContent("| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n");
+                $lcHead .= "| **".$name."  ("._("bestanden").")** ";
+            $loPDF->addContent($lcHead."| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n");
 
             /*
             foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
