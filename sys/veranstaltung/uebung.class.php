@@ -109,7 +109,7 @@
                 $this->mcID            = $pxVeranstaltungUebung->mcID;
                 $this->mnMaxPunkte     = $pxVeranstaltungUebung->mnMaxPunkte;
             } else {
-                $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
+                $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltungUebung );
 
                 if (is_string($pxUebung))
                 {
@@ -119,7 +119,7 @@
                         throw new Exception(_("Übung nicht gefunden"));
 
                     $result            = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $this->mnMaxPunkte = $result["maxpunkte"];
+                    $this->mnMaxPunkte = floatval($result["maxpunkte"]);
                     $this->mcID        = $result["id"];
                 }
                 elseif ($pxUebung instanceof $this)
