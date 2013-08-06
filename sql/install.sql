@@ -40,6 +40,13 @@ CREATE TABLE IF NOT EXISTS `ppv_studiengang` (
   KEY `studiengang` (`studiengang`)
 );
 
+CREATE TABLE IF NOT EXISTS `ppv_bonuspunkte` (
+  `seminar` varchar(32) NOT NULL,
+  `bonusprozent` decimal(5,2) unsigned NOT NULL,
+  `zusatzpunkte` decimal(5,2) unsigned NOT NULL,
+  PRIMARY KEY (`seminar`,`bonusprozent`)
+);
+
 CREATE TABLE IF NOT EXISTS `ppv_uebungstudentlog` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uebung` varchar(32) NOT NULL,
