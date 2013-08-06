@@ -36,6 +36,12 @@
          **/
         function id();
 
+
+        /** liefert den Namen
+         * @param Name
+         **/
+        function name();
+
         
         /** liefert / setzt die Bemerkung des Datensatzes
          * @param $pc Bemerkungstext

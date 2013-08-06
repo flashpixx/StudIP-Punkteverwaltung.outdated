@@ -144,6 +144,14 @@
         }
 
 
+        /** liefert den Namen der Veranstaltung **/
+        function name()
+        {
+            $loSeminar = new Seminar($this->mcID);
+            return $loSeminar->getName();
+        }
+
+
         /** liefert die Prozentzahl (über alle Übungen) ab wann eine Veranstaltung als bestanden gilt
          * @param $pn Wert zum setzen der Prozentzahl
          * @return Prozentwert
