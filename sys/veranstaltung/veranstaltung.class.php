@@ -144,11 +144,23 @@
         }
 
 
-        /** liefert den Namen der Veranstaltung **/
+        /** liefert den Namen der Veranstaltung
+         * @return Semester
+         **/
         function name()
         {
             $loSeminar = new Seminar($this->mcID);
             return $loSeminar->getName();
+        }
+
+
+        /** liefert den Semesternamen der Veranstaltung
+         * @return Semester
+         **/
+        function semester()
+        {
+            $loSeminar  = new Seminar($this->mcID);
+            return $lo->getStartSemesterName();
         }
 
 
