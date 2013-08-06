@@ -38,7 +38,7 @@
         /** löscht alle Bonuspunkte zu einer Veranstaltung
          * @param $po Veranstaltung
          **/
-        function static delete( $po )
+        static function delete( $po )
         {
             $lo = Veranstaltung::get( $pxVeranstaltung );
             if ($lo->isClosed())
