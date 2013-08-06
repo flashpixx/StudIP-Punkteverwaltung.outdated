@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `ppv_seminar` (
 );
 
 CREATE TABLE IF NOT EXISTS `ppv_uebung` (
-  `seminar` varchar(32)NOT NULL,
+  `seminar` varchar(32) NOT NULL,
   `id` varchar(32) NOT NULL,
   `uebungsname` varchar(200) NOT NULL,
   `bestandenprozent` decimal(5,2) unsigned NOT NULL,
@@ -28,6 +28,16 @@ CREATE TABLE IF NOT EXISTS `ppv_uebungstudent` (
   `zusatzpunkte` decimal(5,2) unsigned NOT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`uebung`,`student`)
+);
+
+CREATE TABLE IF NOT EXISTS `ppv_studiengang` (
+  `seminar` varchar(32) NOT NULL,
+  `student` varchar(32) NOT NULL,
+  `abschluss` varchar(32) NOT NULL,
+  `studiengang` varchar(32) NOT NULL,
+  PRIMARY KEY (`seminar`,`student`),
+  KEY `abschluss` (`abschluss`),
+  KEY `studiengang` (`studiengang`)
 );
 
 CREATE TABLE IF NOT EXISTS `ppv_uebungstudentlog` (

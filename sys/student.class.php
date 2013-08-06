@@ -91,7 +91,7 @@
         /** liefert den Studiengang des Users inkl. dem Abschluss
          * @return Studiengang als Array
          **/
-        function studiengang()
+        function studiengang( $po = null, $pcStudiengang = null, $pcAbschlussID = null )
         {
             return UserModel::getUserStudycourse($this->mcID);
         }
