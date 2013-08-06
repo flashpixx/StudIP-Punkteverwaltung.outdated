@@ -38,7 +38,7 @@
             throw new Exception(_("keine Veranstaltung gefunden"));
 
 
-        echo "<ul>";
+        echo "<p><ul>";
 
         $loStudent = null;
         foreach( $loVeranstaltung->uebungen() as $loUebung )
@@ -53,10 +53,38 @@
                 echo "<li><strong>".$item->uebung()->name().": </strong> ".$lnPunkte." "._("Punkt(e)")." / ".$lnProzent."%</li>";
             }
 
-        if ($loStudent)
-            echo "<li>Anerkennung für den Studiengang:</li>";
+        echo "</ul></p>";
 
-        echo "</ul>";
+
+        if ($loStudent)
+        {
+            echo "<p>Anerkennung für den Studiengang: ";
+
+            $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
+            if ($loVeranstaltung->isClosed())
+                echo $laStudiengang["abschluss"]." ".$laStudiengang["fach"];
+
+            else {
+                $laStudiengaenge = $loStudent->studiengang()
+
+                if (count($laStudiengaenge) > 1)
+                {
+
+                    echo "<form method=\"post\" action=\"".$controller->url_for("admin/createuebungsetting")."\">\n";
+                    CSRFProtection::tokenTag();
+
+                    echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
+                    echo "</form>";
+
+                } else {
+                    $laStudiengaenge = reset($laStudiengaenge);
+                    echo $laStudiengaenge["abschluss"]." ".$laStudiengaenge["fach"];
+                }
+
+            }
+
+            echo "</p>";
+        }
         
 
     } catch (Exception $e) {

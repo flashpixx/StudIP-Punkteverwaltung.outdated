@@ -117,8 +117,7 @@
             {
                 $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
                 array_push($la, array("fach" => $result["studiengangname"], "abschluss" => $result["abschlussname"], "abschluss_id" => $pcAbschluss, "fach_id" => $pcStudiengang, "semester" => null) );
-            } else
-                $la = UserModel::getUserStudycourse($this->mcID);
+            }
 
             return $la;
         }
