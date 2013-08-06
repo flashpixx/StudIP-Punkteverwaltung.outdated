@@ -26,6 +26,7 @@
 
 
     require_once("matrikelnummer/factory.class.php");
+    require_once("veranstaltung/veranstaltung.class.php");
     if (!class_exists("UserModel"))
         require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
 
@@ -89,11 +90,37 @@
 
 
         /** liefert den Studiengang des Users inkl. dem Abschluss
-         * @return Studiengang als Array
+         * @param $poVeranstaltung Veranstaltungsobjekt
+         * @param $pcStudiengang StudiengangsID
+         * @param $pcAbschluss AbschlussID
+         * @return Studiengang als Array oder den Eintrag des Studiengangs für die Veranstaltung
          **/
-        function studiengang( $po = null, $pcStudiengang = null, $pcAbschlussID = null )
+        function studiengang( $poVeranstaltung = null, $pcStudiengang = null, $pcAbschluss = null )
         {
-            return UserModel::getUserStudycourse($this->mcID);
+            if (!($poVeranstaltung instanceof Veranstaltung))
+                return UserModel::getUserStudycourse($this->mcID);
+
+            $la = array();
+            if (($pcStudiengang) && ($pcAbschluss))
+            {
+                if ($poVeranstaltung->isClosed())
+                    throw new Exception(_("Veranstaltung ist geschlossen, eine Änderung des Studiengangs ist nicht möglich."));
+
+                $loPrepare = DBManager::get()->prepare( "insert into ppv_studiengang values (:semid, :student, :abschluss, :studiengang) on duplicate key update abschluss = :abschluss, studiengang = :studiengang" );
+                $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID, "abschluss" => $pcAbschluss, "studiengang" => $pcStudiengang) );
+            }
+
+            $loPrepare = DBManager::get()->prepare( "select s.abschluss, s.studiengang, a.name as abschlussname, g.name as studiengangname from ppv_studiengang as s left join abschluss as a on a.abschluss_id = s.abschluss left join studiengaenge as g on g.studiengang_id = s.studiengang where student = :student and seminar = :semid" );
+            $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID) );
+
+            if ($loPrepare->rowCount() == 1)
+            {
+                $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                array_push($la, array("fach" => $result["studiengangname"], "abschluss" => $result["abschlussname"], "abschluss_id" => $pcAbschluss, "fach_id" => $pcStudiengang, "semester" => null) );
+            } else
+                $la = UserModel::getUserStudycourse($this->mcID);
+
+            return $la;
         }
 
 
