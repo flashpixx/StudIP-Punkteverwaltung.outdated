@@ -160,7 +160,7 @@
         function semester()
         {
             $loSeminar  = new Seminar($this->mcID);
-            return $lo->getStartSemesterName();
+            return $loSeminar->getStartSemesterName();
         }
 
 
