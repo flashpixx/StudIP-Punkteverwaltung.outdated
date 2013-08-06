@@ -117,7 +117,7 @@
                 foreach($laUebungen as $lcUebung)
                     $lcLine .= " | ".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein"));
 
-                $loPDF->addContent( $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | | \n" );
+                $loPDF->addContent( $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | |" );
             }
 
             $loPDF->dispatch("punkteliste");
