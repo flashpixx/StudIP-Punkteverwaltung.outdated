@@ -87,6 +87,7 @@
                 return;
 
             Navigation::addItem( "/course/punkteverwaltung/editsettings", new AutoNavigation(_("globale Einstellungen"), PluginEngine::GetURL($this, array(), "admin")) );
+            Navigation::addItem( "/course/punkteverwaltung/bonuspunkte", new AutoNavigation(_("Bonuspunkte"), PluginEngine::GetURL($this, array(), "bonuspunkte")) );
             Navigation::addItem( "/course/punkteverwaltung/statistik", new AutoNavigation(_("Auswertungen"), PluginEngine::GetURL($this, array(), "auswertung")) );
 
             $loVeranstaltung = Veranstaltung::get();
