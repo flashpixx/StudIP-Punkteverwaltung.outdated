@@ -48,7 +48,7 @@
                     $loStudent = $item->student();
 
                 $lnPunkte  = round($item->erreichtePunkte()+$item->zusatzPunkte(), 2);
-                $lnProzent = round($item->uebung()->maxPunkte() / $lnPunkte * 100, 2);
+                $lnProzent = round($lnPunkte / $item->uebung()->maxPunkte() * 100, 2);
 
                 echo "<li><strong>".$item->uebung()->name().": </strong> ".$lnPunkte." "._("Punkt(e)")." / ".$lnProzent."%</li>";
             }
