@@ -25,16 +25,27 @@
 
 
 
-    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/student.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
-    
-    echo "info<br/>";
-    echo "Dozentenrecht: ".(VeranstaltungPermission::hasDozentRecht() ? "ja" : "nein")."<br/>";
-    echo "Tutorrecht: ".(VeranstaltungPermission::hasTutorRecht() ? "ja" : "nein")."<br/>";
-    echo "Autorrecht: ".(VeranstaltungPermission::hasAutorRecht() ? "ja" : "nein")."<br/>";
-    
-    $x = new Student( $GLOBALS["user"]->id );
-    var_dump( $x->studiengang() );
+
+    Tools::showMessage($flash["message"]);
+
+    try {
+
+        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
+        if (!$loVeranstaltung)
+            throw new Exception(_("keine Veranstaltung gefunden"));
+
+
+        foreach( $loVeranstaltung->uebungen() as $loUebung )
+            var_dump( $loUebung->studentenuebung( true, $GLOBALS["user"]->id) );
+
+        
+        
+
+    } catch (Exception $e) {
+        Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
+    }
 
 ?>

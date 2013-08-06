@@ -325,15 +325,23 @@
         /** liefert eine Liste mit allen Studenten
          * für diese Übung zurück
          * @param $resultarray liefert nur die Auth-Hashes der Studenten als Array
+         * @param $pcAuth liefert nur den Datensatz für einen Studenten zurück
          * @return Array mit Objekten von Student-Übung
          **/
-        function studentenuebung( $resultarray = false )
+        function studentenuebung( $resultarray = false, $pcAuth = null )
         {
             $la = array();
 
-            $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("id" => $this->mcID) );
-
+            $loPrepare = null;
+            if (is_string($pcAuth))
+            {
+                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id where student = :student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("id" => $this->mcID, "student" => $pcAuth) );
+            } else {
+                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("id" => $this->mcID) );
+            }
+            
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 if ($resultarray)
                     array_push($la, $row["student"]);
