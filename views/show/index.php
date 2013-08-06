@@ -38,13 +38,19 @@
             throw new Exception(_("keine Veranstaltung gefunden"));
 
 
+        echo "<ul>";
+
+        $loStudent = null;
         foreach( $loVeranstaltung->uebungen() as $loUebung )
-        {
-            $loData = $loUebung->studentenuebung( false, $GLOBALS["user"]->id );
-            if ($loData)
-                foreach ($loData as $item )
-                    var_dump( $item->student()->studiengang() );
-        }
+            foreach ( $loUebung->studentenuebung( false, $GLOBALS["user"]->id ) as $item )
+            {
+                if (!$loStudent)
+                    $loStudent = $item->student();
+
+                echo "<li><strong>".$item->uebung()->name()."</strong> ".($item->erreichtePunkte()+$item->zusatzPunkte())."</li>";
+            }
+
+        echo "</ul>";
         
 
     } catch (Exception $e) {
