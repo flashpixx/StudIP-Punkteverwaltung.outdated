@@ -58,7 +58,7 @@
 
         if ($loStudent)
         {
-            echo "<p>Anerkennung für den Studiengang: ";
+            echo "<p><strong>"._("Anerkennung für den Studiengang:")."</strong> ";
 
             $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
             if ($loVeranstaltung->isClosed())
@@ -79,6 +79,10 @@
                 } else {
                     $laStudiengaenge = reset($laStudiengaenge);
                     echo $laStudiengaenge["abschluss"]." ".$laStudiengaenge["fach"];
+
+                    echo "<pre>";
+                    var_dump($laStudiengaenge);
+                    echo "</pre>";
                 }
 
             }
