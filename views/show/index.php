@@ -47,11 +47,14 @@
                 if (!$loStudent)
                     $loStudent = $item->student();
 
-                echo "<li><strong>".$item->uebung()->name().": </strong> ".($item->erreichtePunkte()+$item->zusatzPunkte())." "._("Punkt(e)")."</li>";
+                $lnPunkte  = round($item->erreichtePunkte()+$item->zusatzPunkte(), 2);
+                $lnProzent = round($item->uebung()->maxPunkte() / $lnPunkte * 100, 2);
+
+                echo "<li><strong>".$item->uebung()->name().": </strong> ".$lnPunkte." "._("Punkt(e)")." / ".$lnProzent."%</li>";
             }
 
         if ($loStudent)
-            echo "<li><strong>Anerkennung für den Studiengang:</strong></li>";
+            echo "<li>Anerkennung für den Studiengang:</li>";
 
         echo "</ul>";
         
