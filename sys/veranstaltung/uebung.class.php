@@ -335,7 +335,7 @@
             $loPrepare = null;
             if (is_string($pcAuth))
             {
-                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id where student = :student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id and student = :student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("id" => $this->mcID, "student" => $pcAuth) );
             } else {
                 $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
