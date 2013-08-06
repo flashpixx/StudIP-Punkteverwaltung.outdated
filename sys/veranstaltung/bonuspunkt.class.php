@@ -56,7 +56,7 @@
         /** löscht einen Punktedatensatz
          * @param $pn Prozentzahl
          **/
-        function delete( $pn )
+        function remove( $pn )
         {
 
         }
