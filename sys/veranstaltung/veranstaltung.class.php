@@ -27,7 +27,7 @@
 
     require_once("uebung.class.php");
     require_once("interface.class.php");
-    require_once("bonuspunkt.class..")
+    require_once("bonuspunkt.class.php")
 
 
     /** Klasse für die Veranstaltungsdaten **/
