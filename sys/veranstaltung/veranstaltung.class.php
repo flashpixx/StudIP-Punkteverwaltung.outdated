@@ -27,6 +27,7 @@
 
     require_once("uebung.class.php");
     require_once("interface.class.php");
+    require_once("bonuspunkt.class..")
 
 
     /** Klasse für die Veranstaltungsdaten **/
@@ -90,6 +91,8 @@
 
             foreach ($lo->uebungen() as $uebung)
                 Uebung::delete( $lo, $uebung );
+
+            Bonuspunkte::delete( $lo );
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
