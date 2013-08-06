@@ -88,7 +88,7 @@
 
             $loPDF        = new ExportPDF();
             $loPDF->addPage("L");
-            $loPDF->setHeaderTitle
+            $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name());
 
             $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
             $laListe      = $loAuswertung->studenttabelle();
