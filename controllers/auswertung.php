@@ -86,9 +86,9 @@
                 throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
-            $loPDF        = new ExportPDF();
-            $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name());
-            $loPDF->addPage("L");
+            $loPDF        = new ExportPDF("L");
+            $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name()); // hier fehlt noch das Semester
+            $loPDF->addPage();
 
             $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
             $laListe      = $loAuswertung->studenttabelle();
