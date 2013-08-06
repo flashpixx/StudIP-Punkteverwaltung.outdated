@@ -49,6 +49,12 @@
         /** Default Action **/
         function index_action() { }
 
+        /** setzt den Studiengang des Users **/
+        function studiengang_action()
+        {
+            $this->redirect("show");
+        }
+
 
         /** URL Aufruf **/
         function url_for($to)

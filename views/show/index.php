@@ -70,8 +70,10 @@
                 if (count($laStudiengaenge) > 1)
                 {
 
-                    echo "<form method=\"post\" action=\"".$controller->url_for("admin/createuebungsetting")."\">\n";
+                    echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
                     CSRFProtection::tokenTag();
+
+
 
                     echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
                     echo "</form>";
@@ -79,10 +81,6 @@
                 } else {
                     $laStudiengaenge = reset($laStudiengaenge);
                     echo $laStudiengaenge["abschluss"]." ".$laStudiengaenge["fach"];
-
-                    echo "<pre>";
-                    var_dump($laStudiengaenge);
-                    echo "</pre>";
                 }
 
             }
