@@ -47,8 +47,11 @@
                 if (!$loStudent)
                     $loStudent = $item->student();
 
-                echo "<li><strong>".$item->uebung()->name()."</strong> ".($item->erreichtePunkte()+$item->zusatzPunkte())."</li>";
+                echo "<li><strong>".$item->uebung()->name().": </strong> ".($item->erreichtePunkte()+$item->zusatzPunkte())." "._("Punkt(e)")."</li>";
             }
+
+        if ($loStudent)
+            echo "<li><strong>Anerkennung für den Studiengang:</strong></li>";
 
         echo "</ul>";
         
