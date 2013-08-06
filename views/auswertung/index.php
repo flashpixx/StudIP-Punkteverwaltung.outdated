@@ -55,7 +55,7 @@
 
 
         // erzeuge Ausgabe
-        echo "<p>PDF Export: <ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestanden" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
+        echo "<p>PDF Export: <ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
         echo "<table width=\"100%\">";
         echo "<tr><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
 

@@ -113,6 +113,10 @@
 
             foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
             {
+                if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
+                    continue;
+
+
                 $lcLine = "| ".$laStudent["name"]." | ".$laStudent["matrikelnummer"]." | ";
 
                 foreach($laUebungen as $lcUebung)

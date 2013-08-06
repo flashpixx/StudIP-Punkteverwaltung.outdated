@@ -210,7 +210,7 @@
 
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
-            $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
+                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
 
             return $main;
         }
