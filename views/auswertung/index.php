@@ -67,7 +67,6 @@
 
 
         // erzeuge Tabelle
-        $i=0;
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
             echo "<tr>";

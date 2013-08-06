@@ -78,6 +78,7 @@
 
         /** erzeugt den PDF Export der Veranstaltung
          * @see http://docs.studip.de/develop/Entwickler/PDFExport
+         * @see http://hilfe.studip.de/index.php/Basis/VerschiedenesFormat
          **/
         function pdfexport_action()
         {
@@ -102,14 +103,30 @@
 
             
 
+            // Tabelle mit Punkten erstellen
+            $loPDF->addContent("|**"._("Name (EMail)")."**|**"._("Matrikelnummer"))."**";
+            foreach($laUebungen as $name)
+                $loPDF->addContent("|**".$name."  ("._("bestanden").")**");
+            $loPDF->addContent("|**"._("bestanden")."**|**"._("Bonuspunkte")."**|\n");
 
+            /*
+            foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+            {
+                echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
+                echo "<td>".$laStudent["matrikelnummer"]."</td>";
 
+                foreach($laUebungen as $lcUebung)
+                {
+                    echo "<td>";
+                    echo $laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                    echo "</td>";
+                }
+                echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
+                echo "<td>&nbsp;</td>";
+                echo "</tr>";
+            }
 
-
-
-            
-            $loPDF->addContent('Hallo, %%wir%% benutzen :studip: -Formatierung.');
-            $loPDF->addContent('<table border="1"><tr><td>xxxx</td></tr></table>');
+             */
 
 
 
