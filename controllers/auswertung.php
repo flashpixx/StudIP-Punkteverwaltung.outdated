@@ -87,7 +87,7 @@
 
 
             $loPDF        = new ExportPDF("L");
-            $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "_("im")." ". $this->flash["veranstaltung"]->semester()); // hier fehlt noch das Semester
+            $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester()); // hier fehlt noch das Semester
             $loPDF->addPage();
 
             $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
