@@ -104,33 +104,24 @@
             
 
             // Tabelle mit Punkten erstellen
-            $lcHead = "| **"._("Name (EMail)")."** | **"._("Matrikelnummer")."** ";
+            $lcHead = "| **"._("Name (EMail)")."** | **"._("Matrikelnummer")."** | **"._("Studiengang")."** ";
             foreach($laUebungen as $name)
                 $lcHead .= "| **".$name."  ("._("bestanden").")** ";
             $loPDF->addContent($lcHead."| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n");
 
-            /*
+
             foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
             {
-                echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
-                echo "<td>".$laStudent["matrikelnummer"]."</td>";
+                $lcLine = "| ".$laStudent["name"]." (".$laStudent["email"].") | ".$laStudent["matrikelnummer"]." | ";
 
                 foreach($laUebungen as $lcUebung)
-                {
-                    echo "<td>";
-                    echo $laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
-                    echo "</td>";
-                }
-                echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
-                echo "<td>&nbsp;</td>";
-                echo "</tr>";
+                    $lcLine .= " | ".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein"));
+
+                $lcLine .= " | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | | \n"
             }
 
-             */
 
-
-
-            $loPDF->dispatch("test_pdf");
+            $loPDF->dispatch("punkteliste");
         }
 
 
