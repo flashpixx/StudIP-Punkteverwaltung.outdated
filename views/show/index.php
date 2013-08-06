@@ -39,9 +39,11 @@
 
 
         foreach( $loVeranstaltung->uebungen() as $loUebung )
-            var_dump( $loUebung->studentenuebung( true, $GLOBALS["user"]->id) );
-
-        
+        {
+            $loData = $loUebung->studentenuebung( true, $GLOBALS["user"]->id);
+            if ($loData)
+                var_dump( $loData->student()->studiengang() );
+        }
         
 
     } catch (Exception $e) {

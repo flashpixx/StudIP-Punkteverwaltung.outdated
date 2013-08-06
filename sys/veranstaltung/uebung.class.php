@@ -96,7 +96,6 @@
         }
 
 
-
         /** Ctor für die Übungen
          * @param $pxVeranstaltung VeranstaltungsID oder Veranstaltungsobjekt oder Übungsobjekt um Copy-Ctor abzubilden
          * @param $pxUebung Übungsobjekt oder ÜbungsID
