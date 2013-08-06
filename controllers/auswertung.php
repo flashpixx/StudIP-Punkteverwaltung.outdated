@@ -104,7 +104,7 @@
             
 
             // Tabelle mit Punkten erstellen
-            $loPDF->addContent("| **"._("Name (EMail)")."** | **"._("Matrikelnummer"))."** ";
+            $loPDF->addContent("| **"._("Name (EMail)")."** | **"._("Matrikelnummer")."** ");
             foreach($laUebungen as $name)
                 $loPDF->addContent("| **".$name."  ("._("bestanden").")** ");
             $loPDF->addContent("| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n");
