@@ -51,7 +51,7 @@
             }
 
         if ($loStudent)
-            echo "<li><strong>Anerkennung fÃ¼r den Studiengang:</strong></li>";
+            echo "<li><strong>Anerkennung für den Studiengang:</strong></li>";
 
         echo "</ul>";
         
