@@ -40,7 +40,7 @@
 
         foreach( $loVeranstaltung->uebungen() as $loUebung )
         {
-            $loData = $loUebung->studentenuebung( true, $GLOBALS["user"]->id);
+            $loData = $loUebung->studentenuebung( false, $GLOBALS["user"]->id);
             if ($loData)
                 var_dump( $loData->student()->studiengang() );
         }
