@@ -293,6 +293,15 @@
 
             return $la;
         }
+
+
+        /** liefert ein Bonuspunkteobjekt für die Veranstaltung
+         * @return Bonuspunkteobjekt
+         **/
+        function bonuspunkte()
+        {
+            return new Bonuspunkt( $this );
+        }
         
     }
     

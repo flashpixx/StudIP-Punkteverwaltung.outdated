@@ -29,7 +29,7 @@
 
 
     /** Klasse für die Bonuspunkte zu einer Veranstaltung **/
-    class Bonuspunkte
+    class Bonuspunkt
     {
         /** Veranstaltung **/
         private $moVeranstaltung = null;
