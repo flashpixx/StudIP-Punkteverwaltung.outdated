@@ -42,7 +42,7 @@
         CSRFProtection::tokenTag();
 
         echo "<div class=\"steel1\">\n";
-        echo "<table width=\"65%\">\n";
+        echo "<table width=\"100%\">\n";
         echo "<tr><th>"._("löschen")."</th><th>"._("von Prozent")."</th><th>"._("Punkte")."</th></tr>\n";
         
 
