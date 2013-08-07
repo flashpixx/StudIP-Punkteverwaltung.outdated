@@ -61,8 +61,9 @@
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
 
-                if ( (!empty(Request::float("prozentnew"))) && (!empty(Request::float("punktenew"))) )
-                    $this->flash["veranstaltung"]->bonuspunkte()->set(Request::float("prozentnew"), Request::float("punktenew"));
+                $newitem = array("prozent" => Request::float("prozentnew"), "punkte" => Request::float("punktenew"));
+                if ( (!empty($newitem["prozent"])) && (!empty($newitem["punkte"])) )
+                    $this->flash["veranstaltung"]->bonuspunkte()->set($newitem["prozent"], $newitem["punkte"]);
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         
