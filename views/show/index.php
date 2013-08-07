@@ -73,7 +73,9 @@
                     echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
                     CSRFProtection::tokenTag();
 
-
+                    echo "<pre>";
+                    var_dump($laStudiengaenge);
+                    echo "</pre>";
 
                     echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
                     echo "</form>";
