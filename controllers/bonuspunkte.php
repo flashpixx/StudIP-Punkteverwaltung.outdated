@@ -67,7 +67,7 @@
                 if ( (!empty($newitem["prozent"])) && (!empty($newitem["punkte"])) )
                     $loBonusPunkte->set($newitem["prozent"], $newitem["punkte"]);
 
-                die‚(Request::int("count"));
+                die(Request::int("count"));
 
                 for($i=0; $i < Request::int("count"); $i++)
                 {
