@@ -43,7 +43,7 @@
 
         echo "<div class=\"steel1\">\n";
         echo "<table width=\"65%\">\n";
-        echo "<tr><th>"._("lÃ¶schen")."</th><th>"._("von Prozent")."</th><th>"._("Punkte")."</th></tr>\n";
+        echo "<tr><th>"._("löschen")."</th><th>"._("von Prozent")."</th><th>"._("Punkte")."</th></tr>\n";
         
 
         $i=0;
@@ -69,7 +69,7 @@
         echo "</div>\n";
 
         if (!$loVeranstaltung->isClosed())
-            echo "<p><inpute type=\"hidden\" value=\"".$i."\" name=\"count\"/><input type=\"submit\" name=\"submitted\" value=\""._("Angaben Ã¼bernehmen")."\"/></p>";
+            echo "<p><inpute type=\"hidden\" value=\"".$i."\" name=\"count\"/><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
 
         echo "</form>";
 
