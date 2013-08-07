@@ -58,7 +58,8 @@
             $i++;
         }
 
-        echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
+        if ($i > 0)
+            echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
         echo "<tr>";
         echo "<td><label for=\"prozentnew\">"._("neuer Datensatz")."</label></td>";
         echo "<td><input type=\"text\" name=\"prozentnew\" /></td>";
