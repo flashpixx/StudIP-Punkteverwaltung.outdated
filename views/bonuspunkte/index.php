@@ -73,7 +73,7 @@
         echo "</div>\n";
 
         if (!$loVeranstaltung->isClosed())
-            echo "<p><inpute type=\"hidden\" value=\"".$i."\" name=\"count\"/><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+            echo "<p><input type=\"hidden\" value=\"".$i."\" name=\"count\"/><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
 
         echo "</form>";
 
