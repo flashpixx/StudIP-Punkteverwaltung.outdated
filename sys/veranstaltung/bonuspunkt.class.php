@@ -46,7 +46,7 @@
         {
             $lo = Veranstaltung::get( $pxVeranstaltung );
             if ($lo->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr gelöscht werden"));
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
@@ -81,6 +81,9 @@
          **/
         function remove( $pn )
         {
+            if ($this->moVeranstaltung->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+
             if (!is_numeric($pn))
                 throw new Exception(_("Der übergebene Parameter muss numerisch sein"));
 
@@ -95,6 +98,9 @@
          **/
         function set( $pn, $pnPunkte )
         {
+            if ($this->moVeranstaltung->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+
             if ( (!is_numeric($pn)) || (!is_numeric($pnPunkte)) )
                 throw new Exception(_("Der übergebenen Parameter müssen numerisch sein"));
             if ( ($pn < 0) || ($pn > 100) )

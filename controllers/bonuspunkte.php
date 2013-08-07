@@ -53,6 +53,23 @@
         }
 
 
+        /** Update Action **/
+        function update_action()
+        {
+            try {
+
+                if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
+
+                if ( (!empty(Request::float("prozentnew"))) && (!empty(Request::float("punktenew"))) )
+                    $this->flash["veranstaltung"]->bonuspunkte()->set(Request::float("prozentnew"), Request::float("punktenew"));
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+        
+            $this->redirect("bonuspunkte");
+        }
+
+
         /** URL Aufruf **/
         function url_for($to)
         {
