@@ -70,7 +70,7 @@
             $loPrepare->execute( array("semid" => $this->moVeranstaltung->id()) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                $this->maPunkte[ floatval($result["prozent"]) ] = floatval($row["punkte"]);
+                $this->maPunkte[ floatval($row["prozent"]) ] = floatval($row["punkte"]);
 
             asort($this->maPunkte);
         }
