@@ -68,7 +68,7 @@
 
                 for($i=0; $i < Request::int("count"); $i++)
                 {
-                    if (Request::int("del".$i)
+                    if (Request::int("del".$i))
                         $this->flash["veranstaltung"]->bonuspunkte()->remove( Request::float("prozent".$i) );
                     else
                         $this->flash["veranstaltung"]->bonuspunkte()->set( Request::float("prozent".$i), Request::float("punkte".$i) );
