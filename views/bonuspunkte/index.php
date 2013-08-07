@@ -46,7 +46,7 @@
         echo "<p>"._("Die Bonuspunkte werden auf der Basis der Gesamtpunkte (Summe aller erreichten Punkte) berechnet und gesondert in der Auswertung ausgeführt. Damit können z.B. Bonuspunkte für eine Klausur automatisch generiert werden")."</p><hr width=\"100%\"/>";
 
         echo "<table width=\"100%\">\n";
-        echo "<tr><th>"._("löschen")."</th><th>"._("von Prozent")."</th><th>"._("Punkte")."</th></tr>\n";
+        echo "<tr><th>"._("löschen")."</th><th>"._("Prozentzahl, ab der die Bonuspunkte vergeben werden")."</th><th>"._("Punkte")."</th></tr>\n";
         
 
         $i=0;
