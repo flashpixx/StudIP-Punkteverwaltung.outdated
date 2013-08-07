@@ -76,6 +76,15 @@
         }
 
 
+        /** liefert die Veranstaltung für die die Bonuspunkte erzeugt wurden
+         * @return Veranstaltung
+         **/
+        function veranstaltung()
+        {
+            return $this->moVeranstaltung;
+        }
+
+
         /** löscht einen Punktedatensatz
          * @param $pn Prozentzahl
          **/
