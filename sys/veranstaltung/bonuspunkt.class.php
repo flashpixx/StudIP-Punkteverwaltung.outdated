@@ -35,7 +35,7 @@
         private $moVeranstaltung = null;
 
         /** Array mit Punktedaten **/
-        private maPunkte = array();
+        private $maPunkte = array();
         
 
 
