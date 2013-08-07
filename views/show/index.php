@@ -73,9 +73,12 @@
                     echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
                     CSRFProtection::tokenTag();
 
-                    echo "<pre>";
-                    var_dump($laStudiengaenge);
-                    echo "</pre>";
+                    echo "<select name=\"studiengang\" size=\"1\">
+                    foreach ($laStudiengaenge as $item)
+                        echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\">".$item["abschluss"]." ".$item["fach"]."</option>";
+                    echo "</select>";
+
+
 
                     echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
                     echo "</form>";
