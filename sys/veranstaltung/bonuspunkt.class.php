@@ -96,6 +96,8 @@
             if (!is_numeric($pn))
                 throw new Exception(_("Der übergebene Parameter muss numerisch sein"));
 
+die("xxx");
+
             DBManager::get()->prepare("delete from ppv_bonuspunkte where seminar = :semid and prozent = :prozent", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) )->execute( array("semid" => $this->moVeranstaltung->id(), "prozent" => $pn) );
             $this->readData();
         }

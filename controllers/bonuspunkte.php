@@ -67,13 +67,13 @@
                 if ( (!empty($newitem["prozent"])) && (!empty($newitem["punkte"])) )
                     $loBonusPunkte->set($newitem["prozent"], $newitem["punkte"]);
 
-
+                var:dump(‚‚)Request::int("count"));
                 for($i=0; $i < Request::int("count"); $i++)
                 {
-                    if (Request::int("del".$i))
+//                    if (Request::int("del".$i))
                         $loBonusPunkte->remove( Request::float("prozent".$i) );
-                    else
-                        $loBonusPunkte->set( Request::float("prozent".$i), Request::float("punkte".$i) );
+//                    else
+//                      $loBonusPunkte->set( Request::float("prozent".$i), Request::float("punkte".$i) );
                 }
 
 
