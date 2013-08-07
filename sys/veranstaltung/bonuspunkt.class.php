@@ -131,7 +131,7 @@
         /** liefert die Prozentliste zurück
          * @return Array mit Punkteverteilung
          **/
-        function getList()
+        function liste()
         {
             return $this->maPunkte;
         }

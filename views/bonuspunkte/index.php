@@ -26,13 +26,53 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
     Tools::showMessage($flash["message"]);
 
     try {
+
+        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
+        if (!VeranstaltungPermission::hasDozentRecht($loVeranstaltung))
+            throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
+
+        echo "<form method=\"post\" action=\"".$controller->url_for("bonuspunkte/update")."\">\n";
+        CSRFProtection::tokenTag();
+
+        echo "<div class=\"steel1\">\n";
+        echo "<table width=\"65%\">\n";
+        echo "<tr><th>"._("löschen")."</th><th>"._("von Prozent")."</th><th>"._("Punkte")."</th></tr>\n";
         
+
+        $i=0;
+        foreach($loVeranstaltung->bonuspunkte()->liste() as $key => $val)
+        {
+            echo "<tr>";
+            echo "<td><input type=\"checkbox\" value=\"1\" name=\"del".$i."\" /></td>
+            echo "<td><input type=\"text\" value=\"".$key."\" name=\"prozent".$i."\" /></td>";
+            echo "<td><input type=\"text\" value=\"".$val."\" name=\"punkte".$i."\" /></td>";
+            echo "</tr>";
+        }
+
+        echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
+        echo "<tr>";
+        echo "<td><label for=\"prozentnew\">"._("neuer Datensatz")."</label></td>
+        echo "<td><input type=\"text\" name=\"prozentnew\" /></td>";
+        echo "<td><input type=\"text\" name=\"punktenew\" /></td>";
+        echo "</tr>";
+
+        echo "</table>\n";
+        echo "</div>\n";
+
+        if (!$loVeranstaltung->isClosed()
+            echo "<p><inpute type=\"hidden\" value=\"".$i."\" name=\"count\"/><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+
+        echo "</form>";
+
+
+
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
     }
