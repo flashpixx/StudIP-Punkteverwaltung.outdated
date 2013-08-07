@@ -34,6 +34,10 @@
         /** Veranstaltung **/
         private $moVeranstaltung = null;
 
+        /** Array mit Punktedaten **/
+        private maPunkte = array();
+        
+
 
         /** löscht alle Bonuspunkte zu einer Veranstaltung
          * @param $po Veranstaltung
@@ -43,6 +47,9 @@
             $lo = Veranstaltung::get( $pxVeranstaltung );
             if ($lo->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr gelöscht werden"));
+
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
+            $loPrepare->execute( array("semid" => $lo->id()) );
         }
 
 
@@ -50,6 +57,22 @@
         function __construct( $pxVeranstaltung )
         {
             $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
+            $this->readData();
+        }
+
+
+        /** liest die Datenbanktabelle und setzt die Daten in das Cachearray **/
+        private function readData()
+        {
+            $this->maPunkte = array();
+
+            $loPrepare = DBManager::get()->prepare("select prozent, punkte from ppv_bonuspunkte where seminar = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->moVeranstaltung->id()) );
+
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                $this->maPunkte[ floatval($result["prozent"]) ] = floatval($row["punkte"]);
+
+            asort($this->maPunkte);
         }
 
 
@@ -58,7 +81,11 @@
          **/
         function remove( $pn )
         {
+            if (!is_numeric($pn))
+                throw new Exception(_("Der übergebene Parameter muss numerisch sein"));
 
+            DBManager::get()->prepare("delete from ppv_bonuspunkte where seminar = :semid and prozent = :prozent", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) )->execute( array("semid" => $this->moVeranstaltung->id(), "prozent" => $pn) );
+            $this->readData();
         }
 
 
@@ -68,7 +95,14 @@
          **/
         function set( $pn, $pnPunkte )
         {
+            if ( (!is_numeric($pn)) || (!is_numeric($pnPunkte)) )
+                throw new Exception(_("Der übergebenen Parameter müssen numerisch sein"));
+            if ( ($pn < 0) || ($pn > 100) )
+                throw new Exception(_("Der übergebenen Prozentwert muss im Intervall [0,100] liegen"));
+
             
+            DBManager::get()->prepare("insert into ppv_bonuspunkte values ( :semid, :prozent, :punkte) on duplicate key update punkte = :punkte", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) )->execute( array("semid" => $this->moVeranstaltung->id(), "prozent" => $pn, "punkte" => $pnPunkte) );
+            $this->readData();
         }
 
 
@@ -78,7 +112,28 @@
          **/
         function get( $pn )
         {
-            return 0;
+            if (!is_numeric($pn))
+                throw new Exception(_("Der übergebene Parameter muss numerisch sein"));
+
+            $punkte = 0;
+            foreach($this->maPunkte as $key => $value)
+            {
+                if ($key <= $pn)
+                    $punkte = $value;
+                else
+                    break;
+            }
+
+            return $punkte;
+        }
+
+
+        /** liefert die Prozentliste zurück
+         * @return Array mit Punkteverteilung
+         **/
+        function getList()
+        {
+            return $this->maPunkte;
         }
 
     }
