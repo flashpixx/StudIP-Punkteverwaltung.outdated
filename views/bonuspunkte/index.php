@@ -50,10 +50,12 @@
         foreach($loVeranstaltung->bonuspunkte()->liste() as $key => $val)
         {
             echo "<tr>";
-            echo "<td><input type=\"checkbox\" value=\"1\" name=\"del".$i."\" /></td>
+            echo "<td><input type=\"checkbox\" value=\"1\" name=\"del".$i."\" /></td>";
             echo "<td><input type=\"text\" value=\"".$key."\" name=\"prozent".$i."\" /></td>";
             echo "<td><input type=\"text\" value=\"".$val."\" name=\"punkte".$i."\" /></td>";
             echo "</tr>";
+
+            $i++;
         }
 
         echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
