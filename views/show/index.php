@@ -75,7 +75,8 @@
 
                     echo "<select name=\"studiengang\" size=\"1\">";
                     foreach ($laStudiengaenge as $item)
-                        echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\">".$item["abschluss"]." ".$item["fach"]."</option>";
+                        if ( ($item["abschluss_id"]) && ($item["fach_id"]) )
+                            echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\">".$item["abschluss"]." ".$item["fach"]."</option>";
                     echo "</select>";
 
 
