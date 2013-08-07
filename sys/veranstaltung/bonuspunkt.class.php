@@ -48,7 +48,7 @@
             if ($lo->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
 
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_bonuspunkte where seminar = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
         }
 
