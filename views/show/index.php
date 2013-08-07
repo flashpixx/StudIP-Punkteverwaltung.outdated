@@ -38,7 +38,7 @@
             throw new Exception(_("keine Veranstaltung gefunden"));
 
 
-        echo "<p><ul>";
+        echo "<table width=\"100%\">";
 
         $loStudent = null;
         foreach( $loVeranstaltung->uebungen() as $loUebung )
@@ -50,15 +50,13 @@
                 $lnPunkte  = round($item->erreichtePunkte()+$item->zusatzPunkte(), 2);
                 $lnProzent = round($lnPunkte / $item->uebung()->maxPunkte() * 100, 2);
 
-                echo "<li><strong>".$item->uebung()->name().": </strong> ".$lnPunkte." "._("Punkt(e)")." / ".$lnProzent."%</li>";
+                echo "<tr><td>".$item->uebung()->name()."</td><td> ".$lnPunkte."</td><td>".$lnProzent."%</td></tr>";
             }
-
-        echo "</ul></p>";
 
 
         if ($loStudent)
         {
-            echo "<p><strong>"._("Anerkennung für den Studiengang:")."</strong> ";
+            echo "<tr><td>"._("Anerkennung für den Studiengang:")."</td><td colspan=\"2\">";
 
             $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
             if ($loVeranstaltung->isClosed())
@@ -79,8 +77,6 @@
                             echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\">".$item["abschluss"]." ".$item["fach"]."</option>";
                     echo "</select>";
 
-
-
                     echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
                     echo "</form>";
 
@@ -90,10 +86,12 @@
                 }
 
             }
+            echo "</td></tr>";
 
-            echo "</p>";
         }
-        
+
+        echo "</table>";
+
 
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );

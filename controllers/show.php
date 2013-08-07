@@ -47,7 +47,10 @@
 
 
         /** Default Action **/
-        function index_action() { }
+        function index_action()
+        {
+            PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
+        }
 
         /** setzt den Studiengang des Users **/
         function studiengang_action()
