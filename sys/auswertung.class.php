@@ -72,7 +72,8 @@
                 "uebungenbestanden"        => 0,                                                        // Anzahl der Übungen, die bestanden wurden
                 "uebungennichtbestanden"   => 0,                                                        // Anzahl der Übungen, die nicht bestanden wurden
                 "uebungenpunkte"           => 0,                                                        // Summe über alle erreichten Übungspunkte
-                "veranstaltungenbestanden" => false                                                     // Boolean, ob die Veranstaltung als komplett bestanden gilt
+                "veranstaltungenbestanden" => false,                                                    // Boolean, ob die Veranstaltung als komplett bestanden gilt
+                "bonuspunkte"              => 0                                                         // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
             );
         }
 
@@ -209,8 +210,12 @@
             
 
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
+            $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
+            {
                 $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
+                $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
+            }
 
             return $main;
         }

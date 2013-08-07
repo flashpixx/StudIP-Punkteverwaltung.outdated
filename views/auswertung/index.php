@@ -80,7 +80,7 @@
                 echo "</td>";
             }
             echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
-            echo "<td>&nbsp;</td>";
+            echo "<td>".$laStudent["bonuspunkte"]."</td>";
             echo "</tr>";
         }
 
