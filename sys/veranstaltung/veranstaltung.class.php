@@ -49,9 +49,6 @@
         /** Cache für Übungsanzahl, die als nicht-bestanden erlaubt ist **/
         private $mnAllowNichtBestanden = 0;
 
-        /** Cache für das Bonuspunkteobjet **/
-        private $moBonuspunkte = null;
-
 
 
         /* statische Methode für die Überprüfung, ob Übungsdaten zu einer Veranstaltung existieren
@@ -119,7 +116,6 @@
                 $this->mcCloseDateTime       = $px->mcCloseDateTime;
                 $this->mnBestandenProzent    = $px->mnBestandenProzent;
                 $this->mnAllowNichtBestanden = $px->mnAllowNichtBestanden;
-                $this->moBonuspunkte         = $px->moBonuspunkte;
             }
             elseif (is_string($px))
             {
@@ -133,7 +129,6 @@
                 $this->mlClose                = !empty($result["close"]);
                 $this->mnBestandenProzent     = floatval($result["bestandenprozent"]);
                 $this->mnAllowNichtBestanden  = intval($result["allow_nichtbestanden"]);
-                $this->moBonuspunkte          = new Bonuspunkt( $this );
 
                 if ($this->mlClose)
                     $this->mcCloseDateTime = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"])->format("d.m.Y H:i");
@@ -305,7 +300,7 @@
          **/
         function bonuspunkte()
         {
-            return $this->moBonuspunkte;
+            return new Bonuspunkt( $this );
         }
         
     }
