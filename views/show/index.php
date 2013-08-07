@@ -39,6 +39,7 @@
 
 
         echo "<table width=\"100%\">";
+        echo "<tr><th>"._("Übung")."</th><th>"._("erreichte Punkte")."</th><th>"._("erreichte Prozent")."</th></tr>";
 
         $loStudent = null;
         foreach( $loVeranstaltung->uebungen() as $loUebung )
@@ -56,6 +57,7 @@
 
         if ($loStudent)
         {
+            echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
             echo "<tr><td>"._("Anerkennung für den Studiengang:")."</td><td colspan=\"2\">";
 
             $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
