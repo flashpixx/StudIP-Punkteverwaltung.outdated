@@ -266,7 +266,7 @@
                     $loStudent = new Student( $row["student"] );
                     if (!$loStudent->studiengang($this))
                     {
-                        $laStudiengang = reset( $loStudent->studiengang() );
+                        $laStudiengang = end( $loStudent->studiengang() );
                         $loStudent->studiengang( $this, $laStudiengang["abschluss_id"], $laStudiengang["fach_id"], $loDB);
                     }
                 }

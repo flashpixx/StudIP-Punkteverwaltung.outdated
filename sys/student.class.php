@@ -93,15 +93,10 @@
          * @param $poVeranstaltung Veranstaltungsobjekt
          * @param $pcAbschluss AbschlussID
          * @param $pcStudiengang StudiengangsID
-         * @param $poDB Datenbankobjekt, um die Operationen innerhalb einer Transaktion auszuführen
          * @return Studiengang als Array oder den Eintrag des Studiengangs für die Veranstaltung
          **/
-        function studiengang( $poVeranstaltung = null, $pcAbschluss = null, $pcStudiengang = null, $poDB = null )
+        function studiengang( $poVeranstaltung = null, $pcAbschluss = null, $pcStudiengang = null )
         {
-            if (!$poDB)
-                $poDB = DBManager::get();
-
-
             $laStudiengaenge = UserModel::getUserStudycourse($this->mcID);
             if (!($poVeranstaltung instanceof Veranstaltung))
                 return $laStudiengaenge;
@@ -124,11 +119,11 @@
                 if (!$llFound)
                     throw new Exception(_("Der Studiengang / Abschluss wurde nicht in der Liste der eingetragenen Studiengänge gefunden"));
 
-                $loPrepare = $poDB->prepare( "insert into ppv_studiengang values (:semid, :student, :abschluss, :studiengang) on duplicate key update abschluss = :abschluss, studiengang = :studiengang" );
+                $loPrepare = DBManager::get()->prepare( "insert into ppv_studiengang values (:semid, :student, :abschluss, :studiengang) on duplicate key update abschluss = :abschluss, studiengang = :studiengang" );
                 $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID, "abschluss" => $pcAbschluss, "studiengang" => $pcStudiengang) );
             }
 
-            $loPrepare = $poDB->prepare( "select s.abschluss, s.studiengang, a.name as abschlussname, g.name as studiengangname from ppv_studiengang as s left join abschluss as a on a.abschluss_id = s.abschluss left join studiengaenge as g on g.studiengang_id = s.studiengang where student = :student and seminar = :semid" );
+            $loPrepare = DBManager::get()->prepare( "select s.abschluss, s.studiengang, a.name as abschlussname, g.name as studiengangname from ppv_studiengang as s left join abschluss as a on a.abschluss_id = s.abschluss left join studiengaenge as g on g.studiengang_id = s.studiengang where student = :student and seminar = :semid" );
             $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID) );
 
             if ($loPrepare->rowCount() == 1)
@@ -150,7 +145,7 @@
         }
 
 
-        /** liefert den vollstÃ¤ndigen Namen des Users
+        /** liefert den vollständigen Namen des Users
          * @return Name
          **/
         function name()
