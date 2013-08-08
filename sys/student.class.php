@@ -127,7 +127,7 @@
             if ($loPrepare->rowCount() == 1)
             {
                 $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                array_push($la, array("fach" => $result["studiengangname"], "abschluss" => $result["abschlussname"], "abschluss_id" => $pcAbschluss, "fach_id" => $pcStudiengang, "semester" => null) );
+                array_push($la, array("fach" => $result["studiengangname"], "abschluss" => $result["abschlussname"], "abschluss_id" => $result["abschluss"], "fach_id" => $result["studiengang"], "semester" => null) );
             }
 
             return $la;

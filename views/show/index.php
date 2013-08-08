@@ -69,7 +69,7 @@
 
                 if (count($laStudiengaenge) > 1)
                 {
-                    $laStudiengang = $loStudent->studiengang($loVeranstaltung);
+                    $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
 
 
                     echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
