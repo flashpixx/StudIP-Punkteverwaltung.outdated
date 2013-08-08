@@ -70,7 +70,7 @@
             if ($laStudiengang)
             {
                 $laStudiengang = reset($laStudiengang);
-                $lcStudiengang = trim($laStudiengang["abschlussname"]." ".$laStudiengang["fach"]);
+                $lcStudiengang = trim($laStudiengang["abschluss"]." ".$laStudiengang["fach"]);
             }
 
             return array(
