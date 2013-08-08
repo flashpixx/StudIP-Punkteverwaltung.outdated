@@ -264,13 +264,13 @@
                     $loStudent = new Student( $row["student"] );
                     if (!$loStudent->studiengang($this))
                     {
-                        $laStudiengaenge = $loStudent->studiengang()
+                        $laStudiengaenge = $loStudent->studiengang();
 
                         // der Datenstand ist nicht immer konsistent, d.h. es existieren Studenten, bei denen der Studiengang
                         // und/oder Abschluss fehlt, wir holen somit den ersten Studiengang in der Liste, fehlt dort etwas
                         // nehmen wir den letzten und wir hoffen, dass es dann klappt...
                         $laStudiengang   = reset( $laStudiengaenge );
-                        if ((!$laStudiengang["abschluss_id"]) || (!$laStudiengang["fach_id"]))
+                        if ( (!$laStudiengang["abschluss_id"]) || (!$laStudiengang["fach_id"]) )
                             $laStudiengang = end($laStudiengaenge);
                         $loStudent->studiengang( $this, $laStudiengang["abschluss_id"], $laStudiengang["fach_id"]);
                     }
