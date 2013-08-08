@@ -267,13 +267,7 @@
                     if (!$loStudent->studiengang($this))
                     {
                         $laStudiengang = reset( $loStudent->studiengang() );
-                        try {
-                        
-                        $loStudent->studiengang( $this, $laStudiengan["abschluss_id"], $laStudiengang["fach_id"], $loDB);
-                        } catch (Exception $e) {
-                            var_dump($laStudiengang);
-                            die($e->getMessage());
-                        }
+                        $loStudent->studiengang( $this, $laStudiengang["abschluss_id"], $laStudiengang["fach_id"], $loDB);
                     }
                 }
 
