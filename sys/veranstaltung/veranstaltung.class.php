@@ -255,25 +255,39 @@
          **/
         function close()
         {
-            // Studiengänge der Teilnehmer setzen, sofern sie es nicht selbstständig gemacht haben
-            $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung =  ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-            $loPrepare->execute( array("semid" => $this->mcID) );
+            $loDB = DBManager::get();
+            try {
+                $loDB->beginTransaction();
+
+                // Studiengänge der Teilnehmer setzen, sofern sie es nicht selbstständig gemacht haben
+                $loPrepare = $loDB->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung =  ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->mcID) );
             
-            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-            {
-                $loStudent = new Student( $row["student"] );
-                if (!$loStudent->studiengang($this))
+                foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 {
-                    $laStudiengang = reset( $loStudent->studiengang() );
-                    $loStudent->studiengang( $this, $laStudiengan["abschluss_id"], $laStudiengang["fach_id"]);
+                    $loStudent = new Student( $row["student"] );
+                    if (!$loStudent->studiengang($this))
+                    {
+                        $laStudiengang = reset( $loStudent->studiengang() );
+                        $loStudent->studiengang( $this, $laStudiengan["abschluss_id"], $laStudiengang["fach_id"], $loDB);
+                    }
                 }
+
+
+                // Veranstaltung schließen
+                $this->mlClose         = true;
+                $this->mcCloseDateTime = date("Y-m-d H:i:s");
+                $loDB->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => $this->mcCloseDateTime) );
+                $loDB->commit();
+
+            } catch (Exception $e) {
+                $this->mlClose         = false;
+                $this->mcCloseDateTime = null;
+                $loDB->rollBack();
+                
+                throw new Exception(_("veranstaltung konnte nicht geschlossen werden, da ein Fehler aufgetreten ist: ".$e->getMessage()));
             }
 
-
-            // Veranstaltung schließen
-            $this->mlClose         = true;
-            $this->mcCloseDateTime = date("Y-m-d H:i:s");
-            DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => $this->mcCloseDateTime) );
         }
 
         
