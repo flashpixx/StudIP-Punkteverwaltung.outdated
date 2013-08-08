@@ -69,14 +69,21 @@
 
                 if (count($laStudiengaenge) > 1)
                 {
+                    $laStudiengang = $loStudent->studiengang($loVeranstaltung);
+
 
                     echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
                     CSRFProtection::tokenTag();
 
                     echo "<select name=\"studiengang\" size=\"1\">";
                     foreach ($laStudiengaenge as $item)
-                        if ( ($item["abschluss_id"]) && ($item["fach_id"]) )
-                            echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\">".$item["abschluss"]." ".$item["fach"]."</option>";
+                        if ( ($item["abschluss_id"]) && ($item["fach_id"]) ) {
+                            $lcSelect = null;
+                            if ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) )
+                                $lcSelect = "selected=\"selected\"";
+
+                            echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".$item["abschluss"]." ".$item["fach"]."</option>";
+                        }
                     echo "</select>";
 
                     echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
