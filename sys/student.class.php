@@ -98,8 +98,6 @@
          **/
         function studiengang( $poVeranstaltung = null, $pcAbschluss = null, $pcStudiengang = null, $poDB = null )
         {
-            if ( (($pcStudiengang) && (!$pcAbschluss)) || ((!$pcStudiengang) && ($pcAbschluss)) )
-                throw new Exception(_("Für den StudentenIn ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
             if (!$poDB)
                 $poDB = DBManager::get();
 
@@ -107,6 +105,9 @@
             $laStudiengaenge = UserModel::getUserStudycourse($this->mcID);
             if (!($poVeranstaltung instanceof Veranstaltung))
                 return $laStudiengaenge;
+
+            if ( (($pcStudiengang) && (!$pcAbschluss)) || ((!$pcStudiengang) && ($pcAbschluss)) )
+                throw new Exception(_("Für den StudentenIn ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
 
             $la = array();
             if (($pcStudiengang) && ($pcAbschluss))
