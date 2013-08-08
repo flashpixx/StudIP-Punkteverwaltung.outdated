@@ -102,29 +102,28 @@
                 array_push($laUebungen, $uebung->name());
 
 
-            
+            //str_replace(" ", "&#160;",
 
             // Tabelle mit Punkten erstellen
-            $lcTabData = "| **"._("Name")."** | **"._("Matrikelnummer")."** | **"._("Studiengang")."** ";
+            $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnummer")."** |&#160;**"._("Studiengang")."** ";
             foreach($laUebungen as $name)
-                $lcTabData .= "| **".$name."  ("._("bestanden").")** ";
-            $lcTabData .= "| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n";
+                $lcTabData .= "|&#160;**".$name."  ("._("bestanden").")** ";
+            $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
 
             foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
             {
                 if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
                     continue;
 
-
-                $lcLine = "| ".$laStudent["name"]." | ".$laStudent["matrikelnummer"]." | ".$laStudent["studiengang"];
+                $lcLine = "|&#160;".$laStudent["name"]." |&#160;".$laStudent["matrikelnummer"]." |&#160;".$laStudent["studiengang"];
 
                 foreach($laUebungen as $lcUebung)
-                    $lcLine .= " | ".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                    $lcLine .= " |&#160;".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
 
-                $lcTabData .= $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | ".$laStudent["bonuspunkte"]." |\n";
+                $lcTabData .= $lcLine." |&#160;".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." |&#160;".$laStudent["bonuspunkte"]." |\n";
             }
 
-            $loPDF->addContent( str_replace(" ", "&#160;", $lcTabData) );
+            $loPDF->addContent( $lcTabData );
 
             // beim PDF senden wir kein Layout
             $this->set_layout(null);
