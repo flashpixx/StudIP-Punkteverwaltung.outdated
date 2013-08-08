@@ -105,7 +105,7 @@
             //str_replace(" ", "&#160;",
 
             // Tabelle mit Punkten erstellen
-            $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnummer")."** |&#160;**"._("Studiengang")."** ";
+            $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
             foreach($laUebungen as $name)
                 $lcTabData .= "|&#160;**".$name."  ("._("bestanden").")** ";
             $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
