@@ -65,11 +65,19 @@
          **/
         private function createStudentenArray( $poStudent )
         {
+            $lcStudiengang = null;
+            $laStudiengang = $poStudent->studiengang( $this->moVeranstaltung );
+            if ($laStudiengang)
+            {
+                $laStudiengang = reset($laStudiengang);
+                $lcStudiengang = trim($laStudiengang["abschlussname"]." ".$laStudiengang["fach"]);
+            }
+
             return array(
                 "name"                     => $poStudent->name(),                                       // Name des Studenten
                 "matrikelnummer"           => $poStudent->matrikelnummer(),                             // Matrikelnummer des Studenten
                 "email"                    => $poStudent->email(),                                      // EMail des Studenten
-                "studiengang"              => $poStudent->studiengang( $this->moVeranstaltung ),        // Studiengang (wenn nicht gesetzt, dann null)
+                "studiengang"              => $lcStudiengang,                                           // Studiengang (wenn nicht gesetzt, dann null)
                 "uebungenbestanden"        => 0,                                                        // Anzahl der Übungen, die bestanden wurden
                 "uebungennichtbestanden"   => 0,                                                        // Anzahl der Übungen, die nicht bestanden wurden
                 "uebungenpunkte"           => 0,                                                        // Summe über alle erreichten Übungspunkte

@@ -66,7 +66,7 @@
                 if (count($laData) == 2)
                 {
                     $loStudent = new Student( $GLOBALS["user"]->id );
-                    $loStudent->studiengang($this->flash["veranstaltung"], $laData[0], $laData[1]);
+                    $loStudent->studiengang($this->flash["veranstaltung"], trim($laData[0]), trim($laData[1]));
 
                     $this->flash["message"] = Tools::createMessage( "success", _("Anerkennung für den Studiengang für diese Veranstaltung geändert") );
                 }
