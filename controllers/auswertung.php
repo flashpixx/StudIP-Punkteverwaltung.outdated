@@ -105,12 +105,11 @@
             
 
             // Tabelle mit Punkten erstellen
-            $lcHead = "| **"._("Name")."** | **"._("Matrikelnummer")."** | **"._("Studiengang")."** ";
+            $lcTabData = "| **"._("Name")."** | **"._("Matrikelnummer")."** | **"._("Studiengang")."** ";
             foreach($laUebungen as $name)
-                $lcHead .= "| **".$name."  ("._("bestanden").")** ";
-            $lcHead .= "| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n";
+                $lcTabData .= "| **".$name."  ("._("bestanden").")** ";
+            $lcTabData .= "| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n";
 
-            $lcTabData = "";
             foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
             {
                 if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
@@ -125,7 +124,7 @@
                 $lcTabData .= $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | ".$laStudent["bonuspunkte"]." |\n";
             }
 
-            $loPDF->addContent( $lcHead.$lcTabData );
+            $loPDF->addContent( str_replace(" ", "&#160;", $lcTabData) );
 
             // beim PDF senden wir kein Layout
             $this->set_layout(null);
