@@ -69,7 +69,7 @@
                 "name"                     => $poStudent->name(),                                       // Name des Studenten
                 "matrikelnummer"           => $poStudent->matrikelnummer(),                             // Matrikelnummer des Studenten
                 "email"                    => $poStudent->email(),                                      // EMail des Studenten
-                // Studiengang für die Anerkennung fehlt noch
+                "studiengang"              => $poStudent->studiengang( $this->moVeranstaltung ),        // Studiengang (wenn nicht gesetzt, dann null)
                 "uebungenbestanden"        => 0,                                                        // Anzahl der Übungen, die bestanden wurden
                 "uebungennichtbestanden"   => 0,                                                        // Anzahl der Übungen, die nicht bestanden wurden
                 "uebungenpunkte"           => 0,                                                        // Summe über alle erreichten Übungspunkte

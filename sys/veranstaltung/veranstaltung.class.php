@@ -250,9 +250,7 @@
         }
 
 
-        /** schließt die Veranstaltung für Änderungen
-         * @todo es fehlt der Übertrag der Studiengänge
-         **/
+        /** schließt die Veranstaltung für Änderungen **/
         function close()
         {
             $loDB = DBManager::get();

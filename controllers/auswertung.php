@@ -117,7 +117,7 @@
                     continue;
 
 
-                $lcLine = "| ".$laStudent["name"]." | ".$laStudent["matrikelnummer"]." | ";
+                $lcLine = "| ".$laStudent["name"]." | ".$laStudent["matrikelnummer"]." | ".$laStudent["studiengang"];
 
                 foreach($laUebungen as $lcUebung)
                     $lcLine .= " | ".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
