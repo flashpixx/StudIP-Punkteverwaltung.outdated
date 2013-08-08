@@ -108,9 +108,9 @@
             $lcHead = "| **"._("Name")."** | **"._("Matrikelnummer")."** | **"._("Studiengang")."** ";
             foreach($laUebungen as $name)
                 $lcHead .= "| **".$name."  ("._("bestanden").")** ";
-            $loPDF->addContent($lcHead."| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n");
+            $lcHead .= "| **"._("bestanden")."** | **"._("Bonuspunkte")."** |\n";
 
-
+            $lcTabData = "";
             foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
             {
                 if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
@@ -122,8 +122,10 @@
                 foreach($laUebungen as $lcUebung)
                     $lcLine .= " | ".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
 
-                $loPDF->addContent( $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | ".$laStudent["bonuspunkte"]." |" );
+                $lcTabData .= $lcLine." | ".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." | ".$laStudent["bonuspunkte"]." |\n";
             }
+
+            $loPDF->addContent( $lcHead.$lcTabData );
 
             // beim PDF senden wir kein Layout
             $this->set_layout(null);
