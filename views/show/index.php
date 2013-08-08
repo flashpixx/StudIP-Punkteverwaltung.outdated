@@ -86,7 +86,7 @@
                         }
                     echo "</select>";
 
-                    echo "<input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/>";
+                    echo "<input type=\"submit\" name=\"submitted\" value=\""._("übernehmen")."\"/>";
                     echo "</form>";
 
                 } else {
