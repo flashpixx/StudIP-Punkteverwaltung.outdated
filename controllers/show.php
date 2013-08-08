@@ -67,11 +67,10 @@
                 {
                     $loStudent = new Student( $GLOBALS["user"]->id );
                     $loStudent->studiengang($this->flash["veranstaltung"], $laData[0], $laData[1]);
+
+                    $this->flash["message"] = Tools::createMessage( "success", _("Anerkennung für den Studiengang für diese Veranstaltung geändert") );
                 }
                 
-
-                
-
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
