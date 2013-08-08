@@ -28,7 +28,7 @@
     require_once("uebung.class.php");
     require_once("interface.class.php");
     require_once("bonuspunkt.class.php");
-    require_once(dirname(__DIR__) . "/student.php.class");
+    require_once(dirname(__DIR__) . "/student.class.php");
 
 
     /** Klasse für die Veranstaltungsdaten **/
