@@ -285,7 +285,7 @@
                 $this->mcCloseDateTime = null;
                 $loDB->rollBack();
                 
-                throw new Exception(_("veranstaltung konnte nicht geschlossen werden, da ein Fehler aufgetreten ist: ".$e->getMessage()));
+                throw new Exception(_("Veranstaltung konnte nicht geschlossen werden, da ein Fehler aufgetreten ist: ".$e->getMessage()));
             }
 
         }
