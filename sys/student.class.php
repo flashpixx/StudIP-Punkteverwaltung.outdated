@@ -97,6 +97,10 @@
          **/
         function studiengang( $poVeranstaltung = null, $pcAbschluss = null, $pcStudiengang = null )
         {
+            if ( (($pcStudiengang) && (!$pcAbschluss)) || ((!$pcStudiengang) && ($pcAbschluss)) )
+                throw new Exception(_("Für den Eintrag eines Studiengangs werden sowohl Abschluss wie auch Studiengang benötigt"));
+
+
             $laStudiengaenge = UserModel::getUserStudycourse($this->mcID);
             if (!($poVeranstaltung instanceof Veranstaltung))
                 return $laStudiengaenge;
