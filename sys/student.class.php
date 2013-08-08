@@ -98,7 +98,7 @@
         function studiengang( $poVeranstaltung = null, $pcAbschluss = null, $pcStudiengang = null )
         {
             if ( (($pcStudiengang) && (!$pcAbschluss)) || ((!$pcStudiengang) && ($pcAbschluss)) )
-                throw new Exception(_("Für den Studenten ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
+                throw new Exception(_("Für den StudentenIn ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
 
 
             $laStudiengaenge = UserModel::getUserStudycourse($this->mcID);
