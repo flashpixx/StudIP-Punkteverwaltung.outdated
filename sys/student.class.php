@@ -91,20 +91,31 @@
 
         /** liefert den Studiengang des Users inkl. dem Abschluss
          * @param $poVeranstaltung Veranstaltungsobjekt
-         * @param $pcStudiengang StudiengangsID
          * @param $pcAbschluss AbschlussID
+         * @param $pcStudiengang StudiengangsID
          * @return Studiengang als Array oder den Eintrag des Studiengangs für die Veranstaltung
          **/
-        function studiengang( $poVeranstaltung = null, $pcStudiengang = null, $pcAbschluss = null )
+        function studiengang( $poVeranstaltung = null, $pcAbschluss = null, $pcStudiengang = null )
         {
+            $laStudiengaenge = UserModel::getUserStudycourse($this->mcID);
             if (!($poVeranstaltung instanceof Veranstaltung))
-                return UserModel::getUserStudycourse($this->mcID);
+                return $laStudiengaenge;
 
             $la = array();
             if (($pcStudiengang) && ($pcAbschluss))
             {
                 if ($poVeranstaltung->isClosed())
                     throw new Exception(_("Veranstaltung ist geschlossen, eine Änderung des Studiengangs ist nicht möglich."));
+
+                $llFound = false;
+                foreach ( $laStudiengaenge as $item )
+                    if ( ($item["abschluss_id"] == $pcAbschluss) && ($item["fach_id"] == $pcStudiengang) )
+                    {
+                        $llFound = true;
+                        break;
+                    }
+                if (!$llFound)
+                    throw new Exception(_("Der Studiengang / Abschluss wurde nicht in der Liste der eingetragenen Studiengänge gefunden"));
 
                 $loPrepare = DBManager::get()->prepare( "insert into ppv_studiengang values (:semid, :student, :abschluss, :studiengang) on duplicate key update abschluss = :abschluss, studiengang = :studiengang" );
                 $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID, "abschluss" => $pcAbschluss, "studiengang" => $pcStudiengang) );

@@ -27,6 +27,7 @@
 
     require_once("veranstaltung/veranstaltung.class.php");
     require_once("veranstaltung/studentuebung.class.php");
+    require_once("student.class.php");
 
 
     /** Klasse um die Auswertung zentral zu behandeln **/
@@ -117,6 +118,15 @@
             return $data;
         }
 
+
+        /** liefert die Daten für einen Studenten
+         * @param $po Studentenobjekt
+         * @return Array mit den Daten eines Studenten
+         **/
+        function studentdaten( $po )
+        {
+            
+        }
 
         /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt
          * erzeugt und erzeugt die Statistik der Veranstaltung

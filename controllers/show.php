@@ -25,6 +25,10 @@
 
 
 
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
+    require_once(dirname(__DIR__) . "/sys/student.class.php");
+
+
     /** Controller für die Sicht eines Studenten **/
     class ShowController extends StudipController
     {
@@ -55,6 +59,22 @@
         /** setzt den Studiengang des Users **/
         function studiengang_action()
         {
+
+            try {
+                $laData    = explode("#", Request::quoted("studiengang"));
+
+                if (count($laData) == 2)
+                {
+                    $loStudent = new Student( $GLOBALS["user"]->id );
+                    $loStudent->studiengang($this->flash["veranstaltung"], $laData[0], $laData[1]);
+                }
+                
+
+                
+
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+
             $this->redirect("show");
         }
 
