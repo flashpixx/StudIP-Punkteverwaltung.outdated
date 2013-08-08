@@ -28,6 +28,7 @@
     require_once("uebung.class.php");
     require_once("interface.class.php");
     require_once("bonuspunkt.class.php");
+    require_once(dirname(__DIR__) . "/student.php.class");
 
 
     /** Klasse für die Veranstaltungsdaten **/
@@ -254,6 +255,22 @@
          **/
         function close()
         {
+            // Studiengänge der Teilnehmer setzen, sofern sie es nicht selbstständig gemacht haben
+            $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung =  ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->mcID) );
+            
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+            {
+                $loStudent = new Student( $row["student"] );
+                if (!$loStudent->studiengang($this))
+                {
+                    $laStudiengang = reset( $loStudent->studiengang() );
+                    $loStudent->studiengang( $this, $laStudiengan["abschluss_id"], $laStudiengang["fach_id"]);
+                }
+            }
+
+
+            // Veranstaltung schließen
             $this->mlClose         = true;
             $this->mcCloseDateTime = date("Y-m-d H:i:s");
             DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => $this->mcCloseDateTime) );
