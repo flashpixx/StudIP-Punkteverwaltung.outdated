@@ -24,9 +24,7 @@
     **/
 
 
-    // BoxPlot fehlt noch http://jpgraph.net/download/manuals/chunkhtml/ch15s04.html
-    //require_once(dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph.php");
-    //require_once (dirname(dirname(__DIR__)) . "/sys/extensions/jpgraph/jpgraph_stock.php");
+
     require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
 
