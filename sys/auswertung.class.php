@@ -74,6 +74,7 @@
             }
 
             return array(
+                "id"                       => $poStudent->id(),                                         // Auth Hash des Studenten
                 "name"                     => $poStudent->name(),                                       // Name des Studenten
                 "matrikelnummer"           => $poStudent->matrikelnummer(),                             // Matrikelnummer des Studenten
                 "email"                    => $poStudent->email(),                                      // EMail des Studenten
@@ -127,13 +128,21 @@
         }
 
 
+
+
         /** liefert die Daten für einen Studenten
          * @param $po Studentenobjekt
          * @return Array mit den Daten eines Studenten
          **/
-        function studentdaten( $po )
+        function studentdaten( $px )
         {
+            $loStudent = new Student( $px );
+            $data      = array( "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0, "uebungen" => array(), "student" => $this->createStudentenArray($loStudent) );
+
             
+
+
+            return $data;
         }
 
         /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt
