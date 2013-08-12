@@ -59,15 +59,12 @@
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
         echo "json.punkteliste.forEach(function(x) {";
-        //echo "var e = Math.floor(x.Expt - 1), r = Math.floor(x.Run - 1), s = Math.floor(x.Speed), d = data[e]; ";
-        //echo "if (!d) d = data[e] = [s]; ";
-        //echo "else d.push(s); ";
-        //echo "if (s > max) max = s; ";
-        //echo "if (s < min) min = s; ";
-        echo "console.log(x);";
+        echo "data.push(x);";
+        echo "min = x.min();";
+        echo "max = x.max();";
         echo "});";
         echo "});";
-        //echo "chart.domain([min, max]);";
+        echo "chart.domain([min, max]);";
 
         // Returns a function to compute the interquartile range.
         echo "function iqr(k) {";
