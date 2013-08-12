@@ -118,6 +118,7 @@
         {
             $data = array(
                 "id"               => $poUebung->id(),                                                  // Hash der Übung
+                "name"             => $poUebung->name(),                                                // Name der Übung
                 "maxPunkte"        => $poUebung->maxPunkte(),                                           // maximale Punkteanzahl
                 "bestandenProzent" => $poUebung->bestandenProzent(),                                    // Prozentzahl, damit die Übung als bestanden gilt
                 "studenten"        => array()                                                           // Array mit Studenten-Punkte-Daten

@@ -78,56 +78,92 @@
         }
 
 
+        /** erzeugt für die Veranstaltung die statistischen Daten,
+         * die dann zur Visualisierung genutzt werden **/
+        function jsonstatistik_action()
+        {
+            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
+            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
+            $this->set_layout(null);
+            $this->response->add_header("Content-Type", "application/json");
+
+            // Result Array mit Daten
+            $this->result = array( "uebungsnamen" => array(), "punkteliste" => array());
+
+            try {
+                
+                if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                    throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
+
+
+                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
+                $laListe      = $loAuswertung->studenttabelle();
+
+                foreach ($laListe["uebungen"] as $uebung)
+                array_push($this->result["uebungsnamen"], $uebung["name"]);
+
+                foreach ($laListe["studenten"] as $student)
+                {
+                    $la = array();
+                    
+                    foreach ($laListe["uebungen"] as $uebung)
+                        array_push($la, $uebung["studenten"][$student["id"]]["punktesumme"]);
+
+                    array_push($this->result["punkteliste"], $la);
+                }
+
+            } catch (Exception $e) { }
+        }
+
+
         /** erzeugt den PDF Export der Veranstaltung
          * @see http://docs.studip.de/develop/Entwickler/PDFExport
          * @see http://hilfe.studip.de/index.php/Basis/VerschiedenesFormat
          **/
         function pdfexport_action()
         {
-            if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
+            try {
+                
+                if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                    throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
-            $loPDF        = new ExportPDF("L");
-            $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester()); // hier fehlt noch das Semester
-            $loPDF->addPage();
+                $loPDF        = new ExportPDF("L");
+                $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester()); // hier fehlt noch das Semester
+                $loPDF->addPage();
 
-            $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-            $laListe      = $loAuswertung->studenttabelle();
-            
-            // Sortierung hart nach Matrikelnummern
-            uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
+                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
+                $laListe      = $loAuswertung->studenttabelle();
 
-            // erzeuge Array für die Namen der Übungen
-            $laUebungen      = array();
-            foreach($this->flash["veranstaltung"]->uebungen() as $uebung)
-                array_push($laUebungen, $uebung->name());
+                // Sortierung hart nach Matrikelnummern
+                uasort( $laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; } );
 
+                // Tabelle mit Punkten erstellen
+                $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
+                foreach($laListe["uebungen"] as $uebung)
+                    $lcTabData .= "|&#160;**".$uebung["name"]."  ("._("bestanden").")** ";
+                $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
 
-            // Tabelle mit Punkten erstellen
-            $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
-            foreach($laUebungen as $name)
-                $lcTabData .= "|&#160;**".$name."  ("._("bestanden").")** ";
-            $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
+                foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                {
+                    if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
+                        continue;
 
-            foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
-            {
-                if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
-                    continue;
+                    $lcLine = "|&#160;".$laStudent["name"]." |&#160;".$laStudent["matrikelnummer"]." |&#160;".$laStudent["studiengang"];
 
-                $lcLine = "|&#160;".$laStudent["name"]." |&#160;".$laStudent["matrikelnummer"]." |&#160;".$laStudent["studiengang"];
+                    foreach($laListe["uebungen"] as $laUebung)
+                        $lcLine .= " |&#160;".$laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
 
-                foreach($laUebungen as $lcUebung)
-                    $lcLine .= " |&#160;".$laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                    $lcTabData .= $lcLine." |&#160;".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." |&#160;".$laStudent["bonuspunkte"]." |\n";
+                }
+                
+                $loPDF->addContent( $lcTabData );
+                
+                // beim PDF senden wir kein Layout
+                $this->set_layout(null);
+                $loPDF->dispatch("punkteliste");
 
-                $lcTabData .= $lcLine." |&#160;".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." |&#160;".$laStudent["bonuspunkte"]." |\n";
-            }
-
-            $loPDF->addContent( $lcTabData );
-
-            // beim PDF senden wir kein Layout
-            $this->set_layout(null);
-            $loPDF->dispatch("punkteliste");
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         }
 
 
