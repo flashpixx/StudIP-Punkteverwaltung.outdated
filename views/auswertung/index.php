@@ -49,9 +49,29 @@
         echo "<p>PDF Export: <ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
 
 
+        // Bild erzeugen
+        echo "<p>";
+        echo "<script type=\"text/javascript\">";
+
+        echo 
+        var margin = {top: 10, right: 50, bottom: 20, left: 50},
+        width = 120 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+        var min = Infinity,
+        max = -Infinity;
+
+        var chart = d3.box()
+        .whiskers(iqr(1.5))
+        .width(width)
+        .height(height);
+
+        echo "</script>";
+        echo "</p>";
 
 
 
+        // Tabelle erzeugen
         echo "<table width=\"100%\">";
         echo "<tr><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
 

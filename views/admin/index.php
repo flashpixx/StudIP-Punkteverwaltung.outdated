@@ -46,7 +46,7 @@
 
             echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierte Bestehensgrenze liegen dürfen, um noch zu einem Bestehen der Veranstaltung zu führen z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen. Die Bemerkung ist optinal und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."</p><p>"._("Die Veranstaltung muss abgeschlossen werden, um Listen generieren zu können. Durch das Abschließen werden die, von den Studenten ausgewählten Studiengänge, übernommen, damit erscheint dieser Studiengang in der Auswertung für diese Veranstaltung. Sollte kein expliziter Studiengang ausgewählt worden sein, wird der ein verfügbarer Studiengang verwendet.")."</p><hr width=\"100%\"/>";
 
-            echo "<table width=\"100%\">\n";
+            echo "<p><table width=\"100%\">\n";
 
             echo "<tr><td width=\"50%\"><label for=\"bestandenprozent\">"._("Prozentzahl über die Summe aller Punkte, damit die Veranstaltung als bestanden gilt")."</label></td>";
             echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$loVeranstaltung->bestandenProzent()."\" size=\"35\"/></td></tr>\n";
@@ -74,7 +74,8 @@
             else
                 echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
 
-            echo "</form>";
+            echo "</form></p>";
+            echo "<p style=\"font-size: x-small;\"><a href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\">https://github.com/flashpixx/StudIP-Punkteverwaltung</a></p>"
         }
         
     } catch (Exception $e) {
