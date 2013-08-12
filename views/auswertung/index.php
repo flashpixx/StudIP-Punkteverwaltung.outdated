@@ -61,10 +61,10 @@
         echo "json.punkteliste.forEach(function(x) {";
         //echo "if (x) {";
         //echo "data.push(x);";
-        //echo "min = x.min();";
+        echo "min = x.min();";
         //echo "max = x.max();";
         //echo "}";
-        echo "console.log(x);";
+        echo "console.log(min);";
         echo "});";
         echo "});";
         echo "chart.domain([min, max]);";
