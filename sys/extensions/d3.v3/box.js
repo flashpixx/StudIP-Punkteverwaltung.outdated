@@ -27,6 +27,18 @@
  * @see http://informationandvisualization.de/blog/box-plot
  **/
 
+Array.prototype.min = function () {
+    return this.reduce(function (p, v) {
+                       return ( p < v ? p : v );
+                       });
+}
+
+Array.prototype.max = function () {
+    return this.reduce(function (p, v) {
+                       return ( p > v ? p : v );
+                       });
+}
+
 (function() {
 
      d3.box = function() {
