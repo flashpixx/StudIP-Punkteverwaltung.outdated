@@ -27,17 +27,8 @@
  * @see http://informationandvisualization.de/blog/box-plot
  **/
 
-Array.prototype.min = function () {
-    return this.reduce(function (p, v) {
-                       return ( p < v ? p : v );
-                       });
-}
-
-Array.prototype.max = function () {
-    return this.reduce(function (p, v) {
-                       return ( p > v ? p : v );
-                       });
-}
+Array.max = function( array ) { return Math.max.apply( Math, array ); };
+Array.min = function( array ) { return Math.min.apply( Math, array ); };
 
 (function() {
 
