@@ -58,14 +58,14 @@
         echo "var chart = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
-        echo "console.log(json.punkteliste);";
-        //echo "json.punkteliste.forEach(function(x) {";
+        echo "json.punkteliste.forEach(function(x) {";
         //echo "var e = Math.floor(x.Expt - 1), r = Math.floor(x.Run - 1), s = Math.floor(x.Speed), d = data[e]; ";
         //echo "if (!d) d = data[e] = [s]; ";
         //echo "else d.push(s); ";
         //echo "if (s > max) max = s; ";
         //echo "if (s < min) min = s; ";
-        //echo "});";
+        echo "console.log(x);";
+        echo "});";
         echo "});";
         //echo "chart.domain([min, max]);";
 
