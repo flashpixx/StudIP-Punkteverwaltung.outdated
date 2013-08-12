@@ -75,6 +75,8 @@
             PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
             PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js" );
             PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js" );
+
+            $this->statistikaction  = $this->url_for( "auswertung/jsonstatstik");
         }
 
 
