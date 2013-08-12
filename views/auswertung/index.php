@@ -61,7 +61,7 @@
         echo "json.punkteliste.forEach(function(x) {";
         //echo "if (x) {";
         //echo "data.push(x);";
-        echo "minvalue = min( minvalue, Math.min.apply(null, x) );";
+        echo "minvalue = Math.min( minvalue, Math.min.apply(null, x) );";
         //echo "max = x.max();";
         //echo "}";
         echo "console.log(minvalue);";
