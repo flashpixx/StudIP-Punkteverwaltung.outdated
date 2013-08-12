@@ -56,6 +56,7 @@
         echo "var margin = {top: 10, right: 50, bottom: 20, left: 50}, width = 120 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;";
         echo "var min = Infinity, max = -Infinity;";
         echo "var chart = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
+
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
         echo "json.punkteliste.forEach(function(x) {";
@@ -63,8 +64,19 @@
         echo "max = Math.min( max, Math.max.apply(null, x) );";
         echo "data.push(x);";
         echo "});";
-        echo "});";
+
         echo "chart.domain([min, max]);";
+        echo "var svg = d3.select(\"body\").selectAll(\"svg\")";
+        echo ".data(data)";
+        echo ".enter().append(\"svg\")";
+        echo ".attr(\"class\", \"box\")";
+        echo ".attr(\"width\", width + margin.left + margin.right)";
+        echo ".attr(\"height\", height + margin.bottom + margin.top)";
+        echo ".append(\"g\")";
+        echo ".attr(\"transform\", \"translate(\" + margin.left + \",\" + margin.top + \")\")";
+        echo ".call(chart);";
+
+        echo "});";
 
         // Returns a function to compute the interquartile range.
         echo "function iqr(k) {";
