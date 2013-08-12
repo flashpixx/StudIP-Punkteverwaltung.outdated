@@ -74,6 +74,7 @@
         {
             PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
             PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js" );
+            PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/box.js" );
         }
 
 
@@ -102,8 +103,6 @@
             foreach($this->flash["veranstaltung"]->uebungen() as $uebung)
                 array_push($laUebungen, $uebung->name());
 
-
-            //str_replace(" ", "&#160;",
 
             // Tabelle mit Punkten erstellen
             $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
