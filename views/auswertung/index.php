@@ -66,7 +66,18 @@
         //echo "if (s > max) max = s; ";
         //echo "if (s < min) min = s; ";
         echo "});";
+        echo "});";
         //echo "chart.domain([min, max]);";
+
+        // Returns a function to compute the interquartile range.
+        echo "function iqr(k) {";
+        echo "return function(d, i) {";
+        echo "var q1 = d.quartiles[0], q3 = d.quartiles[2],  iqr = (q3 - q1) * k, i = -1, j = d.length;";
+        echo "while (d[++i] < q1 - iqr);";
+        echo "while (d[--j] > q3 + iqr);";
+        echo "return [i, j];";
+        echo "};";
+        echo "}";
 
         echo "</script>";
         echo "</p>";
