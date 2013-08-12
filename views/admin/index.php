@@ -74,8 +74,8 @@
             else
                 echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
 
-            echo "</form></p>";
-            echo "<p style=\"font-size: x-small;\"><a href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\">https://github.com/flashpixx/StudIP-Punkteverwaltung</a></p>";
+            echo "</form></p><br/><br/>";
+            echo "<p style=\"font-size: xx-small; text-align: center\"><a href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\">https://github.com/flashpixx/StudIP-Punkteverwaltung</a></p>";
         }
         
     } catch (Exception $e) {
