@@ -45,20 +45,18 @@
         // Sortierung hart nach Matrikelnummern
         uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
 
-        // erzeuge Array für die Namen der Übungen
-        $laUebungen      = array();
-        foreach($loVeranstaltung->uebungen() as $uebung)
-            array_push($laUebungen, $uebung->name());
-
-
-
-        // erzeuge Ausgabe
+        // erzeuge Ausgabe ald PDF
         echo "<p>PDF Export: <ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
+
+
+
+
+
         echo "<table width=\"100%\">";
         echo "<tr><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
 
-        foreach($laUebungen as $name)
-            echo "<th>".$name."  ("._("bestanden").")</th>";
+        foreach($laListe["uebungen"] as $laUebung)
+            echo "<th>".$laUebung["name"]."  ("._("bestanden").")</th>";
 
         echo "<th>"._("bestanden")."</th><th>"._("Bonuspunkte")."</th></tr>";
 
@@ -71,10 +69,10 @@
             echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
             echo "<td>".$laStudent["matrikelnummer"]."</td>";
 
-            foreach($laUebungen as $lcUebung)
+            foreach($laListe["uebungen"] as $laUebung)
             {
                 echo "<td>";
-                echo $laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["punktesumme"]." (".($laListe["uebungen"][$lcUebung]["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                echo $laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
                 echo "</td>";
             }
             echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
