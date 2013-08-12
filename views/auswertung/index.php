@@ -54,20 +54,17 @@
         echo "<script type=\"text/javascript\">";
 
         echo "var margin = {top: 10, right: 50, bottom: 20, left: 50}, width = 120 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;";
-        echo "var minvalue = Infinity, maxvalue = -Infinity;";
+        echo "var min = Infinity, max = -Infinity;";
         echo "var chart = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
         echo "json.punkteliste.forEach(function(x) {";
-        //echo "if (x) {";
-        //echo "data.push(x);";
-        echo "minvalue = Math.min( minvalue, Math.min.apply(null, x) );";
-        //echo "max = x.max();";
-        //echo "}";
-        echo "console.log(minvalue);";
+        echo "min = Math.min( min, Math.min.apply(null, x) );";
+        echo "max = Math.min( max, Math.max.apply(null, x) );";
+        echo "data.push(x);";
         echo "});";
         echo "});";
-        //echo "chart.domain([min, max]);";
+        echo "chart.domain([min, max]);";
 
         // Returns a function to compute the interquartile range.
         echo "function iqr(k) {";
