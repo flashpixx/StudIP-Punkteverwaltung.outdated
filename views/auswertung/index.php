@@ -58,7 +58,7 @@
         echo "var chart = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
-        echo "json.forEach(function(x) {
+        echo "json.forEach(function(x) {";
         echo "console.log(x);";
         //echo "var e = Math.floor(x.Expt - 1), r = Math.floor(x.Run - 1), s = Math.floor(x.Speed), d = data[e]; ";
         //echo "if (!d) d = data[e] = [s]; ";
