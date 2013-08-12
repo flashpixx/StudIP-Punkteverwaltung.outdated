@@ -102,13 +102,12 @@
                 $laListe      = $loAuswertung->studenttabelle();
 
                 foreach ($laListe["uebungen"] as $uebung)
-                array_push($this->result["uebungsnamen"], $uebung["name"]);
+                    array_push($this->result["uebungsnamen"], $uebung["name"]);
 
-                foreach ($laListe["studenten"] as $student)
+                foreach ($laListe["uebungen"] as $uebung)
                 {
                     $la = array();
-                    
-                    foreach ($laListe["uebungen"] as $uebung)
+                    foreach ($laListe["studenten"] as $student)
                         array_push($la, $uebung["studenten"][$student["id"]]["punktesumme"]);
 
                     array_push($this->result["punkteliste"], $la);
