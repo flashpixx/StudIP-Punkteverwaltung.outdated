@@ -51,7 +51,7 @@
 
         // Bild erzeugen
 //        echo "<p><iframe marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">";
-echo "<div style=\"width: 120px background=\"#eee\"; height:500px\">";
+echo "<div style=\"width: 120px; display: block; background=\"#eee\"; height:500px\">";
 
 /*        echo "<style type=\"text/css\">\n";
         echo "body { font-family: sans-serif; }\n";
