@@ -61,10 +61,11 @@
 
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
+        echo "var i = 0;";
         echo "json.punkteliste.forEach(function(x) {";
         echo "min = Math.min( min, Math.min.apply(null, x) );";
         echo "max = Math.max( max, Math.max.apply(null, x) );";
-        echo "data.push(x);";
+        echo "data[i++] = x;";
         echo "});";
 
         echo "chart.domain([min, max]);";
