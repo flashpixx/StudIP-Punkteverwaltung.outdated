@@ -51,7 +51,7 @@
 
         // Bild erzeugen
 //        echo "<p><iframe marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">";
-echo "<div style=\"height: 350px; width: 650px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px;\">";
+echo "<p><div style=\"height: 350px; width: 650px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
 
 /*        echo "<style type=\"text/css\">\n";
         echo "body { font-family: sans-serif; }\n";
@@ -100,7 +100,7 @@ echo "<div style=\"height: 350px; width: 650px; background-color: #fafafa; borde
 
         echo "</script>";
 //        echo "</iframe></p>";
-        echo "</div>";
+        echo "</div><p>";
 
 
 
