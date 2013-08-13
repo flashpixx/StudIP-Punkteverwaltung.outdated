@@ -50,17 +50,8 @@
 
 
         // Bild erzeugen
-//        echo "<p><iframe marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">";
-echo "<p><div id=\"boxplot\" style=\"height: 350px; width: 650px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
+        echo "<p><div id=\"boxplot\" style=\"height: 350px; width: 650px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
 
-/*        echo "<style type=\"text/css\">\n";
-        echo "body { font-family: sans-serif; }\n";
-        echo ".box { font: 10px sans-serif;}\n";
-        echo ".box line, .box rect, .box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }\n";
-        echo ".box .center { stroke-dasharray: 3,3; }\n";
-        echo ".box .outlier { fill: none; stroke: #ccc; }\n";
-        echo "</style>\n";
-*/
         echo "<script type=\"text/javascript\">";
 
         echo "var margin = {top: 50, right: 50, bottom: 50, left: 50}, width = 650 - margin.left - margin.right, height = 350 - margin.top - margin.bottom;";
@@ -71,7 +62,7 @@ echo "<p><div id=\"boxplot\" style=\"height: 350px; width: 650px; background-col
         echo "var data = [];";
         echo "json.punkteliste.forEach(function(x) {";
         echo "min = Math.min( min, Math.min.apply(null, x) );";
-        echo "max = Math.min( max, Math.max.apply(null, x) );";
+        echo "max = Math.max( max, Math.max.apply(null, x) );";
         echo "data.push(x);";
         echo "});";
 
@@ -99,7 +90,6 @@ echo "<p><div id=\"boxplot\" style=\"height: 350px; width: 650px; background-col
         echo "}";
 
         echo "</script>";
-//        echo "</iframe></p>";
         echo "</div><p>";
 
 
