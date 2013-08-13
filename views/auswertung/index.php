@@ -50,12 +50,20 @@
 
 
         // Bild erzeugen
-        echo "<p>";
+        echo "<p><iframe marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">";
+        echo "<style type=\"text/css\">\n";
+        echo "body { font-family: sans-serif; }\n";
+        echo ".box { font: 10px sans-serif;}\n";
+        echo ".box line, .box rect, .box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }\n";
+        echo ".box .center { stroke-dasharray: 3,3; }\n";
+        echo ".box .outlier { fill: none; stroke: #ccc; }\n";
+        echo "</style>\n";
+
         echo "<script type=\"text/javascript\">";
 
         echo "var margin = {top: 10, right: 50, bottom: 20, left: 50}, width = 120 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;";
-        echo "var min = Infinity, max = -Infinity;";
-        echo "var chart = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
+        echo "var min    = Infinity, max = -Infinity;";
+        echo "var chart  = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
 
         echo "d3.json(\"".$statistikaction."\", function(error, json) {";
         echo "var data = [];";
@@ -89,7 +97,8 @@
         echo "}";
 
         echo "</script>";
-        echo "</p>";
+        echo "</iframe></p>";
+
 
 
 

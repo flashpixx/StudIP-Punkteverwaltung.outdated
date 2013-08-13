@@ -74,12 +74,7 @@
         {
             // CSS Styles für den Boxplot & Datentabelle
             PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
-            PageLayout::addStyle(".box { font: 10px sans-serif; }");
-            PageLayout::addStyle(".box line, .box rect, .box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }");
-            PageLayout::addStyle(".box .center { stroke-dasharray: 3,3; }");;
-            PageLayout::addStyle(".box .outlier { fill: none; stroke: #ccc; }");
 
-            // JS Scripte
             PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js" );
             PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js" );
 
@@ -137,7 +132,7 @@
 
 
                 $loPDF        = new ExportPDF("L");
-                $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester()); // hier fehlt noch das Semester
+                $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester());
                 $loPDF->addPage();
 
                 $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
