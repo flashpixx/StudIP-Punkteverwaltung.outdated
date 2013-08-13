@@ -51,7 +51,7 @@
 
         // Bild erzeugen
 //        echo "<p><iframe marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">";
-echo "<p><div style=\"height: 350px; width: 650px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
+echo "<p><div id=\"boxplot\" style=\"height: 350px; width: 650px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
 
 /*        echo "<style type=\"text/css\">\n";
         echo "body { font-family: sans-serif; }\n";
@@ -76,7 +76,7 @@ echo "<p><div style=\"height: 350px; width: 650px; background-color: #fafafa; bo
         echo "});";
 
         echo "chart.domain([min, max]);";
-        echo "var svg = d3.select(\"body\").selectAll(\"svg\")";
+        echo "var svg = d3.select(\"#boxplot\").selectAll(\"svg\")";
         echo ".data(data)";
         echo ".enter().append(\"svg\")";
         echo ".attr(\"class\", \"box\")";
