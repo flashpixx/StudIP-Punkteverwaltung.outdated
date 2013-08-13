@@ -67,7 +67,6 @@
         echo "max = Math.max( max, Math.max.apply(null, x) );";
         echo "data[i++] = x;";
         echo "});";
-        echo "console.log(data);";
 
         echo "chart.domain([min, max]);";
         echo "var svg = d3.select(\"#boxplot\").selectAll(\"svg\")";
