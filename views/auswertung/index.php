@@ -79,7 +79,8 @@
 
         echo "});";
 
-        // Returns a function to compute the interquartile range.
+        // berechnet den Interquartilsabstand
+        // @see http://de.wikipedia.org/wiki/Quartilabstand#.28Inter-.29Quartilsabstand
         echo "function iqr(k) {";
         echo "return function(d, i) {";
         echo "var q1 = d.quartiles[0], q3 = d.quartiles[2],  iqr = (q3 - q1) * k, i = -1, j = d.length;";
