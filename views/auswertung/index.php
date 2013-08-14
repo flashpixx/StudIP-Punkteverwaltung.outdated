@@ -46,11 +46,13 @@
         uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
 
         // erzeuge Ausgabe ald PDF
-        echo "<p>PDF Export: <ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
+        echo "<h1>PDF Export</h1>";
+        echo "<p><ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
 
 
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
+        echo "<h1>Statistik</h1>";
         echo "<p><div id=\"boxplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
 
         echo "<script type=\"text/javascript\">";
@@ -98,7 +100,8 @@
 
 
         // Tabelle erzeugen
-        echo "<table width=\"100%\">";
+        echo "<h1>Liste</h1>";
+        echo "<p><table width=\"100%\">";
         echo "<tr><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
 
         foreach($laListe["uebungen"] as $laUebung)
@@ -126,7 +129,7 @@
             echo "</tr>";
         }
 
-        echo "</table>";
+        echo "</table></p>";
 
 
     } catch (Exception $e) {
