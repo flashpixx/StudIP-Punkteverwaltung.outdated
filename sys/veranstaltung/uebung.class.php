@@ -44,6 +44,9 @@
         /** maximale Punktanzahl der Übung (für schnelles Caching) **/
         private $mnMaxPunkte = 0;
 
+        /** Name der Übung (für Caching) **/
+        private $mcName = null;
+
 
 
         /** erzeugt eine neue Übung
@@ -108,24 +111,27 @@
                 $this->moVeranstaltung = $pxVeranstaltungUebung->moVeranstaltung;
                 $this->mcID            = $pxVeranstaltungUebung->mcID;
                 $this->mnMaxPunkte     = $pxVeranstaltungUebung->mnMaxPunkte;
+                $this->mcName          = $pxVeranstaltungUebung->mcName;
             } else {
                 $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltungUebung );
 
                 if (is_string($pxUebung))
                 {
-                    $loPrepare = DBManager::get()->prepare("select id, maxpunkte from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                    $loPrepare = DBManager::get()->prepare("select id, uebungsname, maxpunkte from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                     $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
                     if ($loPrepare->rowCount() != 1)
                         throw new Exception(_("Übung nicht gefunden"));
 
                     $result            = $loPrepare->fetch(PDO::FETCH_ASSOC);
                     $this->mnMaxPunkte = floatval($result["maxpunkte"]);
+                    $this->mcName      = $result["uebungsname"];
                     $this->mcID        = $result["id"];
                 }
                 elseif ($pxUebung instanceof $this)
                 {
                     $this->mcID            = $pxUebung->mcID;
                     $this->mnMaxPunkte     = floatval($pxUebung->mnMaxPunkte);
+                    $this->mcName          = $pxUebung->mcName;
                 }
             }
 
@@ -158,31 +164,16 @@
          **/
         function name( $pc = null )
         {
-            $lc = null;
-            
             if ((!empty($pc)) && (is_string($pc)) )
             {
                 if ($this->moVeranstaltung->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
-
-                DBManager::get()->prepare( "update ppv_uebung set uebungsname = :name where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $pc) );
-                $lc = $pc;
-
-            } else {
-
-                $loPrepare = DBManager::get()->prepare("select uebungsname from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
-
-                if ($loPrepare->rowCount() == 1)
-                {
-                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $lc     = $result["uebungsname"];
-                }
-
+                $this->mcName = $pc;
+                DBManager::get()->prepare( "update ppv_uebung set uebungsname = :name where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "name" => $this->mcName) );
             }
-
-            return $lc;
+            
+            return $this->mcName;
         }
 
         

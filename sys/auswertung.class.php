@@ -166,13 +166,12 @@
             foreach ($main["uebungen"] as $uebungitem)
             {
                 $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
-                $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
                     $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
-                    $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
                 foreach( $uebungitem["studenten"] as $key => $student)
@@ -233,13 +232,12 @@
             foreach ($main["uebungen"] as $uebungitem)
             {
                 $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
-                $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
                     $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
-                    $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
 
