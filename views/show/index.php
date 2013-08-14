@@ -49,7 +49,7 @@
         echo "<table width=\"100%\">";
         echo "<tr><th>"._("Übung")."</th><th>"._("erreichte Punkte")."</th><th>"._("erreichte Prozent")."</th></tr>";
 
-        foreach( $laAuswertung as $laUebung )
+        foreach( $laAuswertung["uebungen"] as $laUebung )
             echo "<tr><td>".$laUebung["name"]."</td><td> ".$laUebung["punktesumme"]."</td><td>".$laUebung["erreichteprozent"]."%</td></tr>";
 
 
