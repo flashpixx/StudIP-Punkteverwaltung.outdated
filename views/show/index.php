@@ -27,7 +27,9 @@
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
 
+    
 
     Tools::showMessage($flash["message"]);
 
@@ -36,6 +38,12 @@
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
         if (!$loVeranstaltung)
             throw new Exception(_("keine Veranstaltung gefunden"));
+
+        $x = new Auswertung($loVeranstaltung);
+        
+        echo "<pre>";
+        var_dump($x->studentdaten($GLOBALS["user"]->id));
+        echo "</pre>";
 
 
         echo "<table width=\"100%\">";

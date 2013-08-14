@@ -138,16 +138,59 @@
         function studentdaten( $px )
         {
             $loStudent = new Student( $px );
-            $data      = array( "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0, "uebungen" => array(), "student" => $this->createStudentenArray($loStudent) );
 
+            // Daten erzeugen (das Array ist ähnlich strukturiert wie in der Methode "studententabelle()")
+            $main = array( "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0, "uebungen" => array(), "studenten" => array($this->createStudentenArray($loStudent)) );
+
+            // Iteration über jede Übung und über jeden Teilnehmer
+            foreach ( $this->moVeranstaltung->uebungen() as $uebung)
+            {
+                $main["gesamtpunkte"] += $uebung->maxPunkte();
+                $uebungarray = $this->createUebungsArray( $uebung );
+
+                foreach ($uebung->studentenuebung(false, $loStudent) as $studentuebung )
+                    $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                
+                $main["uebungen"][$uebung->name()] = $uebungarray;
+            }
+            // berechne wie viel Gesamtpunkte zum Bestehen notwendig sind
+            $main["gesamtpunktebestanden"] = round( $main["gesamtpunkte"] / 100 * $this->moVeranstaltung->bestandenProzent(), 2);
+
+
+
+            // nun existiert ein Array mit den Basis Informationen zu jedem Studenten & jeder Übung
+            // da ein Student sich während des Semesters aus der Veranstaltung austragen kann, in
+            // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die Übungen so angepasst
+            // werden, dass sie gleich viele Elemente erhalten, d.h. falls Studenten nicht in allen Übungen
+            // enthalten sind, werden sie Default mit Null-Werten eingefügt
+            foreach ($main["uebungen"] as $item)
+            {
+                $uebung       = new Uebung( $this->moVeranstaltung, $item["id"] );
+                $lcUebungName = $uebung->name();
+                $uebungarray  = $this->createUebungsArray( $uebung );
+
+                foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
+                {
+                    $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
+                    $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                }
+            }
+
+
+
+            // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
+            $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
+            foreach ($main["studenten"] as $lcStudentKey => $laStudent)
+            {
+                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
+                $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
+            }
             
-
 
             return $data;
         }
 
-        /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt
-         * erzeugt und erzeugt die Statistik der Veranstaltung
+        /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt erzeugt
          * @return assoc. Array
          **/
         function studenttabelle()
@@ -195,47 +238,6 @@
             }
 
 
-            // jetzt wird für alle Übungen ein bisschen Statistik berechnet (Min / Max / Median / Average / Anzahlen)
-            foreach ($main["uebungen"] as $key => $val)
-            {
-                $main["uebungen"][$key]["statistik"] = array(
-                    //"minpunkte"            => INF,
-                    //"maxpunkte"            => 0,
-                    //"mittelwert"           => 0,
-                    //"median"               => array(),
-                    //"quartil25"            => 0,
-                    //"quartil75"            => 0,
-                    "anzahlbestanden"      => 0,
-                    "anzahlnichtbestanden" => 0
-
-                );
-
-                foreach ($val["studenten"] as $lcStudentKey => $laStudent)
-                {
-                    if ($laStudent["bestanden"])
-                    {
-                        $main["uebungen"][$key]["statistik"]["anzahlbestanden"]++;
-                        $main["studenten"][$lcStudentKey]["uebungenbestanden"]++;
-                    } else {
-                        $main["uebungen"][$key]["statistik"]["anzahlnichtbestanden"]++;
-                        $main["studenten"][$lcStudentKey]["uebungennichtbestanden"]++;
-                    }
-
-                    $main["studenten"][$lcStudentKey]["uebungenpunkte"] += $laStudent["punktesumme"];
-                    //$main["uebungen"][$key]["statistik"]["minpunkte"]    = min($laStudent["punktesumme"], $main["uebungen"][$key]["statistik"]["minpunkte"]);
-                    //$main["uebungen"][$key]["statistik"]["maxpunkte"]    = max($laStudent["punktesumme"], $main["uebungen"][$key]["statistik"]["maxpunkte"]);
-                    //$main["uebungen"][$key]["statistik"]["mittelwert"]  += $laStudent["punktesumme"];
-                    
-                    //array_push($main["uebungen"][$key]["statistik"]["median"], $laStudent["punktesumme"]);
-                }
-
-                //$main["uebungen"][$key]["statistik"]["mittelwert"] = round($main["uebungen"][$key]["statistik"]["mittelwert"] / count($val["studenten"]), 2);
-                //$main["uebungen"][$key]["statistik"]["quartil25"]  = $main["uebungen"][$key]["statistik"]["median"][intval(count($val)/4)];
-                //$main["uebungen"][$key]["statistik"]["quartil75"]  = $main["uebungen"][$key]["statistik"]["median"][intval(3*count($val)/4)];
-                //$main["uebungen"][$key]["statistik"]["median"]     = $main["uebungen"][$key]["statistik"]["median"][intval(count($val)/2)];
-                
-            }
-            
 
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
             $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
@@ -245,6 +247,7 @@
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
             }
 
+            
             return $main;
         }
 

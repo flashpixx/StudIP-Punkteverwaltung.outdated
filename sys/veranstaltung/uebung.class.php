@@ -28,6 +28,7 @@
     require_once("veranstaltung.class.php");
     require_once("studentuebung.class.php");
     require_once("interface.class.php");
+    require_once(dirname(__DIR__) . "/student.class.php");
 
 
     /** Klasse für die Übungsdaten **/
@@ -324,18 +325,20 @@
         /** liefert eine Liste mit allen Studenten
          * für diese Übung zurück
          * @param $resultarray liefert nur die Auth-Hashes der Studenten als Array
-         * @param $pcAuth liefert nur den Datensatz für einen Studenten zurück
+         * @param $pxAuth liefert nur den Datensatz für einen Studenten zurück
          * @return Array mit Objekten von Student-Übung
          **/
-        function studentenuebung( $resultarray = false, $pcAuth = null )
+        function studentenuebung( $resultarray = false, $pxAuth = null )
         {
             $la = array();
 
             $loPrepare = null;
-            if (is_string($pcAuth))
+            if ( )(is_string($pxAuth)) || ($pxAuth instanceof Student) )
             {
+                $loStudent = new Student($pxAuth);
+                
                 $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id and student = :student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("id" => $this->mcID, "student" => $pcAuth) );
+                $loPrepare->execute( array("id" => $this->mcID, "student" => $loStudent->id()) );
             } else {
                 $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent where uebung = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("id" => $this->mcID) );
