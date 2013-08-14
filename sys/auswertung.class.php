@@ -187,13 +187,13 @@
             }
             
 
-            return $data;
+            return $main;
         }
 
         /** liefert eine assoc. Array das für jeden Studenten die Anzahl der Punkt erzeugt
          * @return assoc. Array
          **/
-        function studenttabelle()
+        function studententabelle()
         {
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
             $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0 );

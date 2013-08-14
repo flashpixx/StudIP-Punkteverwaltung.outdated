@@ -42,7 +42,7 @@
         $x = new Auswertung($loVeranstaltung);
         
         echo "<pre>";
-        var_dump($x->studentdaten($GLOBALS["user"]->id));
+        var_dump( $x->studentdaten($GLOBALS["user"]->id) );
         echo "</pre>";
 
 

@@ -107,7 +107,7 @@
 
 
                 $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-                $laListe      = $loAuswertung->studenttabelle();
+                $laListe      = $loAuswertung->studententabelle();
 
                 foreach ($laListe["uebungen"] as $uebung)
                     array_push($this->result["uebungsnamen"], $uebung["name"]);
@@ -142,7 +142,7 @@
                 $loPDF->addPage();
 
                 $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-                $laListe      = $loAuswertung->studenttabelle();
+                $laListe      = $loAuswertung->studententabelle();
 
                 // Sortierung hart nach Matrikelnummern
                 uasort( $laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; } );
