@@ -333,7 +333,7 @@
             $la = array();
 
             $loPrepare = null;
-            if ( )(is_string($pxAuth)) || ($pxAuth instanceof Student) )
+            if ( (is_string($pxAuth)) || ($pxAuth instanceof Student) )
             {
                 $loStudent = new Student($pxAuth);
                 
