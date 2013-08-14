@@ -28,6 +28,7 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/student.class.php");
 
     
 
@@ -39,28 +40,17 @@
         if (!$loVeranstaltung)
             throw new Exception(_("keine Veranstaltung gefunden"));
 
-        $x = new Auswertung($loVeranstaltung);
-        
-        echo "<pre>";
-        var_dump( $x->studentdaten($GLOBALS["user"]->id) );
-        echo "</pre>";
+        $loStudent    = new Student($GLOBALS["user"]->id);
+
+        $loAuswertung = new Auswertung($loVeranstaltung);
+        $laAuswertung = $x->studentdaten($loStudent);
 
 
         echo "<table width=\"100%\">";
         echo "<tr><th>"._("Übung")."</th><th>"._("erreichte Punkte")."</th><th>"._("erreichte Prozent")."</th></tr>";
 
-        $loStudent = null;
-        foreach( $loVeranstaltung->uebungen() as $loUebung )
-            foreach ( $loUebung->studentenuebung( false, $GLOBALS["user"]->id ) as $item )
-            {
-                if (!$loStudent)
-                    $loStudent = $item->student();
-
-                $lnPunkte  = round($item->erreichtePunkte()+$item->zusatzPunkte(), 2);
-                $lnProzent = round($lnPunkte / $item->uebung()->maxPunkte() * 100, 2);
-
-                echo "<tr><td>".$item->uebung()->name()."</td><td> ".$lnPunkte."</td><td>".$lnProzent."%</td></tr>";
-            }
+        foreach( $laAuswertung as $laUebung )
+            echo "<tr><td>".$laUebung["name"]."</td><td> ".$laUebung["punktesumme"]."</td><td>".$laUebung["erreichteprozent"]."%</td></tr>";
 
 
         if ($loStudent)
