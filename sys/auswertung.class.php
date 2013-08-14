@@ -174,11 +174,15 @@
                     $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
+                // berechne die kummulierten Daten
                 foreach( $uebungitem["studenten"] as $lcStudentKey => $laStudent)
+                {
+                    $main["studenten"][$lcStudentKey]["uebungenpunkte"] += $laStudent["punktesumme"];
                     if ($laStudent["bestanden"])
                         $main["studenten"][$lcStudentKey]["uebungenbestanden"]++;
                     else
                         $main["studenten"][$lcStudentKey]["uebungennichtbestanden"]++;
+                }
             }
 
 
@@ -241,11 +245,15 @@
                 }
 
 
+                // berechne die kummulierten Daten
                 foreach( $uebungitem["studenten"] as $lcStudentKey => $laStudent)
+                {
+                    $main["studenten"][$lcStudentKey]["uebungenpunkte"] += $laStudent["punktesumme"];
                     if ($laStudent["bestanden"])
                         $main["studenten"][$lcStudentKey]["uebungenbestanden"]++;
                     else
                         $main["studenten"][$lcStudentKey]["uebungennichtbestanden"]++;
+                }
             }
 
 
