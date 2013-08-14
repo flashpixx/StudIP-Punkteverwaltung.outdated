@@ -163,9 +163,9 @@
             // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die Übungen so angepasst
             // werden, dass sie gleich viele Elemente erhalten, d.h. falls Studenten nicht in allen Übungen
             // enthalten sind, werden sie Default mit Null-Werten eingefügt
-            foreach ($main["uebungen"] as $uebung)
+            foreach ($main["uebungen"] as $uebungitem)
             {
-                $uebung       = new Uebung( $this->moVeranstaltung, $uebung["id"] );
+                $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
                 $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
@@ -175,7 +175,7 @@
                     $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
-                foreach( $uebung["studenten"] as $key => $student)
+                foreach( $uebungitem["studenten"] as $key => $student)
                     if ($student["bestanden"])
                         $main["studenten"][$key]["uebungenbestanden"]++;
                     else
@@ -230,9 +230,9 @@
             // der globalen Liste aber alle Teilnehmer vorhanden sind, müssen nun die Übungen so angepasst
             // werden, dass sie gleich viele Elemente erhalten, d.h. falls Studenten nicht in allen Übungen
             // enthalten sind, werden sie Default mit Null-Werten eingefügt
-            foreach ($main["uebungen"] as $uebung)
+            foreach ($main["uebungen"] as $uebungitem)
             {
-                $uebung       = new Uebung( $this->moVeranstaltung, $uebung["id"] );
+                $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
                 $lcUebungName = $uebung->name();
                 $uebungarray  = $this->createUebungsArray( $uebung );
 
@@ -243,7 +243,7 @@
                 }
 
 
-                foreach( $uebung["studenten"] as $key => $student)
+                foreach( $uebungitem["studenten"] as $key => $student)
                     if ($student["bestanden"])
                         $main["studenten"][$key]["uebungenbestanden"]++;
                     else
