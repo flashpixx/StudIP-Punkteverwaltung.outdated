@@ -51,7 +51,7 @@
 
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
-        echo "<p><div id=\"boxplot\" style=\"height: 350px; width: ".(120*count($laListe["uebungen"]))."px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
+        echo "<p><div id=\"boxplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
 
         echo "<script type=\"text/javascript\">";
 
