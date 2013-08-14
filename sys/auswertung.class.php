@@ -140,7 +140,7 @@
             $loStudent = new Student( $px );
 
             // Daten erzeugen (das Array ist ähnlich strukturiert wie in der Methode "studententabelle()")
-            $main = array( "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0, "uebungen" => array(), "studenten" => array($this->createStudentenArray($loStudent)) );
+            $main = array( "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0, "uebungen" => array(), "studenten" => array($loStudent->id() => $this->createStudentenArray($loStudent)) );
 
             // Iteration über jede Übung und über jeden Teilnehmer
             foreach ( $this->moVeranstaltung->uebungen() as $uebung)
