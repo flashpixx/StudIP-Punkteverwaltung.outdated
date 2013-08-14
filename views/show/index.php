@@ -43,7 +43,7 @@
         $loStudent    = new Student($GLOBALS["user"]->id);
 
         $loAuswertung = new Auswertung($loVeranstaltung);
-        $laAuswertung = $x->studentdaten($loStudent);
+        $laAuswertung = $loAuswertung->studentdaten($loStudent);
 
 
         echo "<table width=\"100%\">";
