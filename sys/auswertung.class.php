@@ -174,6 +174,12 @@
                     $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
+
+                foreach( $item["studenten"] as $student)
+                    if ($student["bestanden"])
+                        $main["studenten"][$student["id"]]["uebungenbestanden"]++;
+                    else
+                        $main["studenten"][$student["id"]]["uebungennichtbestanden"]++;
             }
 
 
@@ -235,6 +241,13 @@
                     $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$lcUebungName]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
+
+
+                foreach( $item["studenten"] as $student)
+                    if ($student["bestanden"])
+                        $main["studenten"][$student["id"]]["uebungenbestanden"]++;
+                    else
+                        $main["studenten"][$student["id"]]["uebungennichtbestanden"]++;
             }
 
 
