@@ -55,7 +55,7 @@
 
         echo "<script type=\"text/javascript\">";
 
-        echo "var margin = {top: 20, right: 20, bottom: 20, left: 20}, width = 120 - margin.left - margin.right, height = 300 - margin.top - margin.bottom;";
+        echo "var margin = {top: 20, right: 20, bottom: 20, left: 20}, width = 60 - margin.left - margin.right, height = 300 - margin.top - margin.bottom;";
         echo "var min    = Infinity, max = -Infinity;";
         echo "var chart  = d3.box().whiskers(iqr(1.5)).width(width).height(height);";
 
