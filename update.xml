@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-add to manifest
-homepage=https://github.com/flashpixx/StudIP-Punkteverwaltung
-updateURL=https://github.com/flashpixx/StudIP-Punkteverwaltung/blob/master/update.xml
-
 <plugins>
     <plugin name="Punkteverwaltung">
         <release
