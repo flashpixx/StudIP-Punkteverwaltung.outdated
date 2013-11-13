@@ -136,7 +136,7 @@
 
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
-                $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update erreichtepunkte = :punkte" );
+                $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, erreichtepunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update erreichtepunkte = :punkte, korrektor = :korrektor" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn), "korrektor" => $GLOBALS["user"]->id) );
 
                 $ln = $pn;
@@ -174,7 +174,7 @@
 
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
                 
-                $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update zusatzpunkte = :punkte" );
+                $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, zusatzpunkte, korrektor) values (:uebungid, :auth, :punkte, :korrektor) on duplicate key update zusatzpunkte = :punkte, korrektor = :korrektor" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "punkte" => floatval($pn), "korrektor" => $GLOBALS["user"]->id) );
 
                 $ln = $pn;
@@ -209,7 +209,7 @@
 
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
-                $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor) values (:uebungid, :auth, :bemerkung, :korrektor) on duplicate key update bemerkung = :bemerkung" );
+                $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor) values (:uebungid, :auth, :bemerkung, :korrektor) on duplicate key update bemerkung = :bemerkung, korrektor = :korrektor" );
                 $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bemerkung" => (empty($pc) ? null : $pc), "korrektor" => $GLOBALS["user"]->id) );
 
                 $lc = $pc;
@@ -279,7 +279,7 @@
 
             $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
-            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor, zusatzpunkte, erreichtepunkte) values (:uebungid, :auth, :bemerkung, :korrektor, :zusatzpunkte, :erreichtepunkte) on duplicate key update bemerkung = :bemerkung, zusatzpunkte = :zusatzpunkte, erreichtepunkte = :erreichtepunkte" );
+            $loPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudent (uebung, student, bemerkung, korrektor, zusatzpunkte, erreichtepunkte) values (:uebungid, :auth, :bemerkung, :korrektor, :zusatzpunkte, :erreichtepunkte) on duplicate key update bemerkung = :bemerkung, zusatzpunkte = :zusatzpunkte, erreichtepunkte = :erreichtepunkte, korrektor = :korrektor" );
             $loPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id(), "bemerkung" => (empty($pcBemerkung) ? null : $pcBemerkung), "korrektor" => $GLOBALS["user"]->id, "zusatzpunkte" => $pnZusatzPunkte, "erreichtepunkte" => $pnErreichtePunkte) );
         }
         
