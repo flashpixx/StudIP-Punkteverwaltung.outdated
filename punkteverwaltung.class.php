@@ -100,7 +100,7 @@
                 $laUebung = $loVeranstaltung->uebungen();
                 if ($laUebung)
                 {
-                    Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer", new AutoNavigation(_("Teilnehmer aktualisieren"), PluginEngine::GetURL($this, array(), "updateteilnehmer")) );
+                    Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer", new AutoNavigation(_("Teilnehmer in Übung aktualisieren"), PluginEngine::GetURL($this, array(), "admin/updateteilnehmer")) );
                     foreach($laUebung as $ueb)
                         Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
                 }

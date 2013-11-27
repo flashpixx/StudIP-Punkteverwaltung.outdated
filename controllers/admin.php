@@ -141,7 +141,23 @@
             $this->redirect("admin");
         }
 
-        
+
+        /** updatet die Teilnehmerliste in allen Übungen **/
+        function updateteilnehmer()
+        {
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung anzulegen") );
+
+            else
+            {
+                foreach($this->flash["veranstaltung"]->uebungen() as $ueb)
+                    $ueb->updateTeilnehmer();
+
+                $this->flash["message"] = Tools::createMessage( "success", _("Teilnehmer in den Übungen aktualisiert") );
+            }
+
+            $this->redirect("admin");
+        }
 
 
         /** Aufruf um eine neue Übung zu erzeugen **/

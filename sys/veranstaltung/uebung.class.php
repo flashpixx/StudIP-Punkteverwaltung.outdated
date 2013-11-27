@@ -345,6 +345,18 @@
         }
 
 
+        /** updated die Teilnehmerliste, ergänzt fehlende Teilnehmer **/
+        function updateTeilnehmer()
+        {
+            $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "status" => "autor") );
+
+            $loPrepareInsert = DBManager::get()->prepare("insert ignore into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                $loPrepare->execute( array("id" => $this->mcID, , "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
+        }
+
+
 
     }
 
