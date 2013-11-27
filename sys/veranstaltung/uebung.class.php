@@ -353,7 +353,7 @@
 
             $loPrepareInsert = DBManager::get()->prepare("insert ignore into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                $loPrepare->execute( array("id" => $this->mcID, , "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
+                $loPrepareInsert->execute( array("id" => $this->mcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
         }
 
 
