@@ -132,7 +132,7 @@
 
 
         /** liefert die Daten für einen Studenten
-         * @param $po Studentenobjekt
+         * @param $px Studentenobjekt
          * @return Array mit den Daten eines Studenten
          **/
         function studentdaten( $px )

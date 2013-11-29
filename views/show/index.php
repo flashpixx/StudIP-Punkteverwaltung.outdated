@@ -97,6 +97,9 @@
             }
             echo "</td></tr>";
 
+            if ($loVeranstaltung->isClosed())
+                echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td>".($main["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$main["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
+
         }
 
         echo "</table>";
