@@ -45,7 +45,7 @@
         $loAuswertung = new Auswertung($loVeranstaltung);
         $laAuswertung = $loAuswertung->studentdaten($loStudent);
 
-        echo "<p><em>"._("Hinweis:")."</em> "._("Eine Übung, die noch nicht bewertet wurde, wird mit 0 Punkten angegeben. Warten Sie bitte die Bearbeitung ab!")."</p>";
+        echo "<p><strong>"._("Hinweis:")."</strong> "._("Eine Übung, die noch nicht bewertet wurde, wird mit 0 Punkten angegeben. Warten Sie bitte die Bewertung Ihrer Übung ab, bevor Sie uns kontaktieren.")."</p>";
 
 
         echo "<table width=\"100%\">";
