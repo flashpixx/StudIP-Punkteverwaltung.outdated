@@ -47,7 +47,11 @@
 
         // erzeuge Ausgabe ald PDF
         echo "<h1>PDF Export</h1>";
-        echo "<p><ul><li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li> <li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li></ul> </p>";
+        echo "<p><ul>";
+        echo "<li><a href=\"".$controller->url_for("auswertung/pdfexport", array("extern" => true))."\">"._("Liste für Aushang (nur Matrikelnummer, bestanden (ja/nein) und Bonuspunkte)")."</a></li>";
+        echo "<li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li>";
+        echo "<li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li>";
+        echo "</ul> </p>";
 
 
         // Bild erzeugen

@@ -137,7 +137,7 @@
                     throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
-                $loPDF        = new ExportPDF("L");
+                $loPDF        = (Request::int("extern")) ? new ExportPDF() : new ExportPDF("L");
                 $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester());
                 $loPDF->addPage();
 
@@ -147,25 +147,35 @@
                 // Sortierung hart nach Matrikelnummern
                 uasort( $laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; } );
 
-                // Tabelle mit Punkten erstellen
-                $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
-                foreach($laListe["uebungen"] as $uebung)
-                    $lcTabData .= "|&#160;**".$uebung["name"]."  ("._("bestanden").")** ";
-                $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
-
-                foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                // Tabelle mit Punkten erstellen (entweder für Aushang, dann nur mit Matrikelnummer, bestanden, Bonuspunkte oder intern, dann mit Name etc.
+                if (Request::int("extern"))
                 {
-                    if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
-                        continue;
+                    $lcTabData = "|&#160;**"._("Matrikelnr")."** |&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
+                    foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                        $lcTabData .= "|&#160;".$laStudent["matrikelnummer"]." |&#160;".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein"))." |&#160;".$laStudent["bonuspunkte"]." |\n";
 
-                    $lcLine = "|&#160;".$laStudent["name"]." |&#160;".$laStudent["matrikelnummer"]." |&#160;".$laStudent["studiengang"];
+                } else {
+                    
+                    $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
+                    foreach($laListe["uebungen"] as $uebung)
+                        $lcTabData .= "|&#160;**".$uebung["name"]."  ("._("bestanden").")** ";
+                    $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
 
-                    foreach($laListe["uebungen"] as $laUebung)
-                        $lcLine .= " |&#160;".$laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                    foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                    {
+                        if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
+                            continue;
 
-                    $lcTabData .= $lcLine." |&#160;".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." |&#160;".$laStudent["bonuspunkte"]." |\n";
+                        $lcLine = "|&#160;".$laStudent["name"]." |&#160;".$laStudent["matrikelnummer"]." |&#160;".$laStudent["studiengang"];
+
+                        foreach($laListe["uebungen"] as $laUebung)
+                            $lcLine .= " |&#160;".$laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+
+                        $lcTabData .= $lcLine." |&#160;".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." |&#160;".$laStudent["bonuspunkte"]." |\n";
+                    }
                 }
-                
+
+                // Tabelle erzeugen
                 $loPDF->addContent( $lcTabData );
                 
                 // beim PDF senden wir kein Layout
