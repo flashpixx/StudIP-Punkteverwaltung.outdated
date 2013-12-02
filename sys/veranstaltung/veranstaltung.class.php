@@ -317,7 +317,7 @@
         {
             $la = array();
 
-            $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid order by abgabe, name", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid order by abgabe, name desc", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $this->mcID) );
 
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
