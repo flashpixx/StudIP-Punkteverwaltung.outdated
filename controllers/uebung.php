@@ -111,7 +111,7 @@
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
-            $this->redirect("uebung", array("ueid" => $this->flash["uebung"]->id()));
+            $this->redirect($this->url_for("uebung", array("ueid" => $this->flash["uebung"]->id())));
         }
 
 
@@ -138,7 +138,7 @@
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
-            $this->redirect("uebung", array("ueid" => $this->flash["uebung"]->id()));
+            $this->redirect($this->url_for("uebung", array("ueid" => $this->flash["uebung"]->id())));
         }
 
 
