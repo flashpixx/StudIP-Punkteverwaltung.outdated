@@ -45,7 +45,7 @@
             // der Dozent kann die Daten der Übung ändern
             if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
-                echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting")."\">\n";
+                echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                 CSRFProtection::tokenTag();
 
                 echo "<div class=\"steel1\">\n";
@@ -72,7 +72,7 @@
                 echo "</table>";
                 echo "</div>\n";
                 if (!$loUebung->veranstaltung()->isClosed())
-                    echo "<p><input type=\"hidden\" name=\"ueid\" value=\"".$loUebung->id()."\" /><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+                    echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
                 echo "</form>";
                 echo "</div>";
             }
