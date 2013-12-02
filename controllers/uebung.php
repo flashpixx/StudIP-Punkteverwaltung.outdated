@@ -111,8 +111,7 @@
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
-            
-            $this->redirect("uebung");
+            $this->redirect("uebung/ueid=".$this->flash["uebung"]->id());
         }
 
 
