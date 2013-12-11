@@ -126,7 +126,10 @@
         function initialize () { }
 
 
-        function getIconNavigation($course_id, $last_visit) { }
+        /** @note dritten Parameter durch StudIP 2.5 eingefügt, aber mit Defaultvalue versehen,
+         * damit Abwärtskompatibilität erhalten bleibt
+        **/
+        function getIconNavigation($course_id, $last_visit, $user_id = null) { }
 
 
         function getInfoTemplate($course_id) { }
