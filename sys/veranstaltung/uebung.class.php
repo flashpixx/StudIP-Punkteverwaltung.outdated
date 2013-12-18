@@ -47,6 +47,9 @@
         /** Name der Übung (für Caching) **/
         private $mcName = null;
 
+        /** Abgabe der Übung (für Caching) **/
+        private $mcAbgabeDatum = null;
+
 
 
         /** erzeugt eine neue Übung
@@ -112,26 +115,29 @@
                 $this->mcID            = $pxVeranstaltungUebung->mcID;
                 $this->mnMaxPunkte     = $pxVeranstaltungUebung->mnMaxPunkte;
                 $this->mcName          = $pxVeranstaltungUebung->mcName;
+                $this->mcAbgabeDatum   = $pxVeranstaltungUebung->mcAbgabeDatum;
             } else {
                 $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltungUebung );
 
                 if (is_string($pxUebung))
                 {
-                    $loPrepare = DBManager::get()->prepare("select id, uebungsname, maxpunkte from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                    $loPrepare = DBManager::get()->prepare("select id, uebungsname, maxpunkte, abgabe from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                     $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $pxUebung) );
                     if ($loPrepare->rowCount() != 1)
                         throw new Exception(_("Übung nicht gefunden"));
 
-                    $result            = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    $this->mnMaxPunkte = floatval($result["maxpunkte"]);
-                    $this->mcName      = $result["uebungsname"];
-                    $this->mcID        = $result["id"];
+                    $result               = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $this->mnMaxPunkte    = floatval($result["maxpunkte"]);
+                    $this->mcName         = $result["uebungsname"];
+                    $this->mcID           = $result["id"];
+                    $this->mcAbgabeDatum  = DateTime::createFromFormat("Y-m-d H:i:s", $result["abgabe"])->format("d.m.Y H:i");
                 }
                 elseif ($pxUebung instanceof $this)
                 {
                     $this->mcID            = $pxUebung->mcID;
                     $this->mnMaxPunkte     = floatval($pxUebung->mnMaxPunkte);
                     $this->mcName          = $pxUebung->mcName;
+                    $this->mcAbgabeDatum   = $pxUebung->mcAbgabeDatum;
                 }
             }
 
@@ -274,10 +280,9 @@
          **/
         function abgabeDatum( $pc = false )
         {
-            $lc = null;
-
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
+                $lc = null;
                 if ($pc)
                 {
                     $lxDate = DateTime::createFromFormat("d.m.Y H:i", $pc);
@@ -288,7 +293,8 @@
                             throw new Exception(_("Datum entspricht nicht dem geforderten Format"));
                     }
 
-                    $lc = $lxDate->format("Y-m-d H:i:s");
+                    $lc                  = $lxDate->format("Y-m-d H:i:s");
+                    $this->mcAbgabeDatum = $pc;
                 }
 
                 if ($this->moVeranstaltung->isClosed())
@@ -296,20 +302,9 @@
 
                 DBManager::get()->prepare( "update ppv_uebung set abgabe = :datum where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "datum" => $lc) );
                 
-            } else {
-                $loPrepare = DBManager::get()->prepare("select abgabe from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
-
-                if ($loPrepare->rowCount() == 1)
-                {
-                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    if ($result["abgabe"])
-                        $lc = DateTime::createFromFormat("Y-m-d H:i:s", $result["abgabe"])->format("d.m.Y H:i");
-                }
-
             }
 
-            return $lc;
+            return $this->mcAbgabeDatum;
         }
 
 

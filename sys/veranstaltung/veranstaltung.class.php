@@ -323,6 +323,13 @@
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 array_push($la, new Uebung($this, $row["id"]) );
 
+            // Sortierung für die Ausgabe
+            usort($la, function($a, $b) {
+                if ( (!empty($a->abgabeDatum())) && (!empty($b->abgabeDatum())) )
+                  return strcasecmp($a->abgabeDatum(), $b->abgabeDatum());
+                return strcasecmp($a->name(), $b->name());
+            });
+
             return $la;
         }
 

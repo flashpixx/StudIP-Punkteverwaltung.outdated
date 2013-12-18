@@ -101,14 +101,6 @@
                 if ($laUebung)
                 {
                     Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer", new AutoNavigation(_("Teilnehmer in Übung(en) aktualisieren"), PluginEngine::GetURL($this, array(), "admin/updateteilnehmer")) );
-
-                    // Sortierung für die Anzeige
-                    usort($laUebung, function($a, $b) {
-                          if ( (!empty($a->abgabeDatum())) && (!empty($b->abgabeDatum())) )
-                            return strcasecmp($a->abgabeDatum(), $b->abgabeDatum());
-                          return strcasecmp($a->name(), $b->name());
-                    });
-
                     foreach($laUebung as $ueb)
                         Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
                 }
