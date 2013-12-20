@@ -28,8 +28,8 @@
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
     if (!class_exists("UserModel"))
-        require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
-        //in 2.5 require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
+        // vor 2.5 require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
+        require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
 
 
     /** Klasse um einen Studenten vollständig abzubilden **/
