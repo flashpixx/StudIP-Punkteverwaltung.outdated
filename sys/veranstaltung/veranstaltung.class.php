@@ -325,9 +325,15 @@
 
             // Sortierung für die Ausgabe
             usort($la, function($a, $b) {
-                if ( (!empty($a->abgabeDatum())) && (!empty($b->abgabeDatum())) )
-                  return strcasecmp($a->abgabeDatum(), $b->abgabeDatum());
-                return strcasecmp($a->name(), $b->name());
+                $lcSort1 = $a->abgabeDatum();
+                $lcSort2 = $b->abgabeDatum();
+
+                if ( (!empty($lcSort1)) && (!empty($lcSort2)) )
+                  return strcasecmp($lcSort1, $lcSort2);
+
+                $lcSort1 = $a->name();
+                $lcSort2 = $b->name();
+                return strcasecmp($lcSort1, $lcSort2);
             });
 
             return $la;
