@@ -130,7 +130,9 @@
                     $this->mnMaxPunkte    = floatval($result["maxpunkte"]);
                     $this->mcName         = $result["uebungsname"];
                     $this->mcID           = $result["id"];
-                    $this->mcAbgabeDatum  = DateTime::createFromFormat("Y-m-d H:i:s", $result["abgabe"])->format("d.m.Y H:i");
+
+                    $loDTime              = DateTime::createFromFormat("Y-m-d H:i:s", $result["abgabe"]);
+                    $this->mcAbgabeDatum  = $loDTime->format("d.m.Y H:i");
                 }
                 elseif ($pxUebung instanceof $this)
                 {
