@@ -27,9 +27,16 @@
 
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
+
+    // UserModel ist ab der StudIP 2.5 in einer anderen Datei
     if (!class_exists("UserModel"))
-        // vor 2.5 require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
-        require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
+    {
+        $ln = floatval($GLOBALS["SOFTWARE_VERSION"]);
+        if ($ln < 2.5)
+            require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
+        else
+            require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
+    }
 
 
     /** Klasse um einen Studenten vollständig abzubilden **/
