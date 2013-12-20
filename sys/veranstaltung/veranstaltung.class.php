@@ -133,7 +133,7 @@
 
                 if ($this->mlClose)
                 {
-                    $loDTime               = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"])
+                    $loDTime               = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"]);
                     $this->mcCloseDateTime = $loDTime->format("d.m.Y H:i");
                 }
             }
