@@ -131,9 +131,13 @@
         **/
         function getIconNavigation($course_id, $last_visit, $user_id = null) { }
 
+        /** @note Methode wurde in StudIP 2.5 eingefügt **/
+        function getTabNavigation ($course_id) {}
+
+        /** @note Methode wurde in StudIP 2.5 eingefügt **/
+        function getNotificationObjects ($course_id, $since, $user_id) {}
 
         function getInfoTemplate($course_id) { }
-
 
         function perform($unconsumed_path)
         {
