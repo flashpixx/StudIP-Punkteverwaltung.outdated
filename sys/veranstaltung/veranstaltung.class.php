@@ -132,10 +132,7 @@
                 $this->mnAllowNichtBestanden  = intval($result["allow_nichtbestanden"]);
 
                 if ($this->mlClose)
-                {
-                    $loDTime               = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"]);
-                    $this->mcCloseDateTime = $loDTime->format("d.m.Y H:i");
-                }
+                    $this->mcCloseDateTime = DateTime::createFromFormat("Y-m-d H:i:s", $result["close"])->format("d.m.Y H:i");
             }
             else
                 throw new Exception(_("Veranstaltungparameter inkrorrekt"));
