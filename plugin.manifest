@@ -1,7 +1,7 @@
 pluginname=Punkteverwaltung
 pluginclassname=punkteverwaltung
 origin=TUC
-version=0.12
+version=0.13
 description=Punkteverwaltung für Übungen und Tutorien
 homepage=https://github.com/flashpixx/StudIP-Punkteverwaltung
 studipMinVersion=2.0
