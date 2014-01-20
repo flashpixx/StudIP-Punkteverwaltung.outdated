@@ -57,8 +57,8 @@
 
         if ($loStudent)
         {
-            echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
-            echo "<tr><td>"._("Anerkennung für den Studiengang:")."</td><td colspan=\"2\">";
+            echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
+            echo "<tr><td><strong>"._("Anerkennung für den Studiengang:")."</strong></td><td colspan=\"2\">";
 
             $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
             if ($loVeranstaltung->isClosed())
@@ -97,8 +97,8 @@
             }
             echo "</td></tr>";
 
-            if ($loVeranstaltung->isClosed())
-                echo "<tr><th colspan=\"2\">"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des Übungsbetriebes, somit ist die Angabe unter Umständen inkorrekt!")."</td></tr>";
+            if (!$loVeranstaltung->isClosed())
+                echo "<tr><td colspan=\"3\"><strong>"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des Übungsbetriebes, somit ist die Angabe unter Umständen inkorrekt!")."</strong></td></tr>";
             echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td>".($main["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$main["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
 
         }
