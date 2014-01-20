@@ -24,7 +24,7 @@
     **/
 
 
-    // blank file for PDF export
+    // blank file for export
 
     Tools::showMessage($flash["message"]);
 

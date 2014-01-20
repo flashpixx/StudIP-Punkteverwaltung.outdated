@@ -129,7 +129,7 @@
          * @see http://docs.studip.de/develop/Entwickler/PDFExport
          * @see http://hilfe.studip.de/index.php/Basis/VerschiedenesFormat
          **/
-        function pdfexport_action()
+        function export_action()
         {
             try {
                 

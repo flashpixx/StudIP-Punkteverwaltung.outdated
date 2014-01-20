@@ -47,11 +47,11 @@
 
         // erzeuge Ausgabe ald PDF
         echo "<h1>PDF Export</h1>";
-        echo "<p><ul>";
-        echo "<li><a href=\"".$controller->url_for("auswertung/pdfexport", array("extern" => true))."\">"._("Liste für Aushang (nur Matrikelnummer, bestanden (ja/nein) und Bonuspunkte)")."</a></li>";
-        echo "<li><a href=\"".$controller->url_for("auswertung/pdfexport")."\">"._("vollständige Liste")."</a></li>";
-        echo "<li><a href=\"".$controller->url_for("auswertung/pdfexport", array("bestandenonly" => true))."\">"._("nur bestandene Studenten")."</a></li>";
-        echo "</ul> </p>";
+        echo "<p><table border=\"0\" width=\"15%\">";
+        echo "<tr><td>"._("Liste für Aushang (nur Matrikelnummer, bestanden (ja/nein) und Bonuspunkte)")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "extern" => true))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "extern" => true))."\">XSLX</a></td></tr>";
+        echo "<tr><td>"._("vollständige Liste")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx"))."\">XSLX</a></td></tr>";
+        echo "<tr><td>"._("nur bestandene Studenten")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "bestandenonly" => true))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "bestandenonly" => true))."\">XSLX</a></td></tr>";
+        echo "</table> </p>";
 
 
         // Bild erzeugen
