@@ -97,9 +97,10 @@
             }
             echo "</td></tr>";
 
+            echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
             if (!$loVeranstaltung->isClosed())
                 echo "<tr><td colspan=\"3\"><strong>"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des Übungsbetriebes, somit ist die Angabe unter Umständen inkorrekt!")."</strong></td></tr>";
-            echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td>".($main["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$main["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
+            echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td colspan=\"2\">".($main["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$main["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
 
         }
 
