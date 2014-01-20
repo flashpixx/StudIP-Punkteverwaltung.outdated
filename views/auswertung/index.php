@@ -47,7 +47,7 @@
 
         // erzeuge Ausgabe ald PDF
         echo "<h1>PDF Export</h1>";
-        echo "<p><table border=\"0\" width=\"15%\">";
+        echo "<p><table border=\"0\" width=\"30%\">";
         echo "<tr><td>"._("Liste für Aushang (nur Matrikelnummer, bestanden (ja/nein) und Bonuspunkte)")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "extern" => true))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "extern" => true))."\">XSLX</a></td></tr>";
         echo "<tr><td>"._("vollständige Liste")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx"))."\">XSLX</a></td></tr>";
         echo "<tr><td>"._("nur bestandene Studenten")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "bestandenonly" => true))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "bestandenonly" => true))."\">XSLX</a></td></tr>";
