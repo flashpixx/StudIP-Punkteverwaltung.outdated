@@ -48,9 +48,10 @@
         // erzeuge Ausgabe ald PDF
         echo "<h1>Datei Export</h1>";
         echo "<p><table border=\"0\" width=\"35%\">";
-        echo "<tr><td>"._("Liste für Aushang (Matrikelnummer, bestanden, Bonuspunkte)")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "extern" => true))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "extern" => true))."\">XSLX</a></td></tr>";
-        echo "<tr><td>"._("vollständige Liste")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx"))."\">XSLX</a></td></tr>";
-        echo "<tr><td>"._("nur bestandene Studenten")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "bestandenonly" => true))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "bestandenonly" => true))."\">XSLX</a></td></tr>";
+        echo "<tr><td>"._("Liste für Aushang (Matrikelnummer, bestanden, Bonuspunkte)")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "target" => "aushang"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "target" => "aushang"))."\">XSLX</a></td></tr>";
+        echo "<tr><td>"._("vollständige Liste")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "target" => "full"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "target" => "full"))."\">XSLX</a></td></tr>";
+        echo "<tr><td>"._("bestandene Studenten (vollständige Liste)")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "target" => "bestanden"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "target" => "bestanden"))."\">XSLX</a></td></tr>";
+        echo "<tr><td>"._("bestandene Studenten (Name, Matrikelnummer, Studiengang)")."</td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "pdf", "target" => "bestandenshort"))."\">PDF</a></td><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "target" => "bestandenshort"))."\">XSLX</a></td></tr>";
         echo "</table> </p>";
 
 
