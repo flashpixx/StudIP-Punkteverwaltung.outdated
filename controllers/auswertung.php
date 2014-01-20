@@ -29,7 +29,7 @@
     require_once(dirname(__DIR__) . "/sys/auswertung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
-    require_once(dirname(__DIR__) . "/sys/xlsxwriter.class.php");
+    require_once(dirname(__DIR__) . "/sys/extensions/xlsxwriter.class.php");
     require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocument/ExportPDF.class.php");
 
 
