@@ -152,7 +152,7 @@
                 {
                     $lcTabData = "|&#160;**"._("Matrikelnr")."** |&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
                     foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
-                        $lcTabData .= "|&#160;".$laStudent["matrikelnummer"]." |&#160;".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein"))." |&#160;".$laStudent["bonuspunkte"]." |\n";
+                        $lcTabData .= "|&#160;".$laStudent["matrikelnummer"]." |&#160;".($laStudent["veranstaltungenbestanden"] ? _("ja") : _("nein"))." |&#160;".$laStudent["bonuspunkte"]." |\n";
 
                 } else {
                     
