@@ -29,6 +29,7 @@
     require_once(dirname(__DIR__) . "/sys/auswertung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(__DIR__) . "/sys/xlsxwriter.class.php");
     require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocument/ExportPDF.class.php");
 
 
@@ -128,6 +129,8 @@
         /** erzeugt den PDF Export der Veranstaltung
          * @see http://docs.studip.de/develop/Entwickler/PDFExport
          * @see http://hilfe.studip.de/index.php/Basis/VerschiedenesFormat
+         * @see https://github.com/mk-j/PHP_XLSXWriter
+         * @bug nicht mehr aktuell - Export muss um Excel ergänz werden -
          **/
         function export_action()
         {
