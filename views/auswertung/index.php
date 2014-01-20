@@ -51,7 +51,7 @@
         echo "<h1>Datei Export</h1>";
         echo "<p><table border=\"0\" width=\"35%\">";
 
-        echo "<tr>
+        echo "<tr>";
         echo "<td>"._("vollständige Liste")."</td>";
         foreach( $laExportformat as $lcType )
             echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "full"))."\">PDF</a></td>";
