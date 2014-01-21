@@ -328,21 +328,21 @@
                 // für den ersten Eintrag den Header erzeugen
                 if (empty($lcData))
                 {
-                    if (isset($laLine["matrikelnummer"]))
+                    if (array_key_exists("matrikelnummer", $laLine))
                         $lcData .= "|&#160;**"._("Matrikelnummer")."** ";
-                    if (isset($laLine["name"]))
+                    if (array_key_exists("name", $laLine))
                         $lcData .= "|&#160;**"._("Name")."** ";
-                    if (isset($laLine["studiengang"]))
+                    if (array_key_exists("studiengang", $laLine))
                         $lcData .= "|&#160;**"._("Studiengang")."** ";
-                    if (isset($laLine["bestanden"]))
+                    if (array_key_exists("bestanden", $laLine))
                         $lcData .= "|&#160;**"._("bestanden")."** ";
-                    if (isset($laLine["Bonuspunkte"]))
+                    if (array_key_exists("bonuspunkte", $laLine))
                         $lcData .= "|&#160;**"._("Bonuspunkte")."** ";
-                    if (isset($laLine["uebung"]))
+                    if (array_key_exists("uebung", $laLine))
                         foreach( $laLine["uebung"] as $lcName => $laData )
                         {
                             $lcData .= "|&#160;**".$lcName;
-                            if (isset($laData["bestanden"]))
+                            if (array_key_exists("bestanden", $laData))
                                 $lcData .= " ("._("bestanden").")";
                             $lcData .= "** ";
                         }
@@ -350,21 +350,21 @@
                 }
 
                 // Daten hinzufügen
-                if (isset($laLine["matrikelnummer"]))
+                if (array_key_exists("matrikelnummer", $laLine))
                     $lcData .= "|&#160; ".$laLine["matrikelnummer"];
-                if (isset($laLine["name"]))
+                if (array_key_exists("name", $laLine))
                     $lcData .= "|&#160; ".$laLine["name"];
-                if (isset($laLine["studiengang"]))
+                if (array_key_exists("studiengang", $laLine))
                     $lcData .= "|&#160; ".$laLine["studiengang"];
-                if (isset($laLine["bestanden"]))
+                if (array_key_exists("bestanden", $laLine))
                     $lcData .= "|&#160; ".($laLine["bestanden"] ? _("ja") : _("nein"));
-                if (isset($laLine["bonuspunkte"]))
+                if (array_key_exists("bonuspunkte", $laLine))
                     $lcData .= "|&#160; ".$laLine["bonuspunkte"];
-                if (isset($laLine["uebung"]))
+                if (array_key_exists("uebung", $laLine))
                     foreach( $laLine["uebung"] as $lcName => $laData )
                     {
                         $lcData .= "|&#160; ".$laLine["punktesumme"];
-                        if (isset($laData["bestanden"]))
+                        if (array_key_exists("bestanden", $laData))
                             $lcData .= " (".($laData["bestanden"] ? _("ja") : _("nein")).")";
                     }
                 $lcData .= "|\n";
