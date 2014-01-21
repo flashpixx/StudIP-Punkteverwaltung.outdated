@@ -274,11 +274,11 @@
             if (array_key_exists("name", $laLine))
                 array_push($laHeader, _("Name"));
             if (array_key_exists("studiengang", $laLine))
-                array_push($laHeader, _("Studiengang")."** ";
+                array_push($laHeader, _("Studiengang"));
             if (array_key_exists("bestanden", $laLine))
-                array_push($laHeader, _("bestanden")."** ";
+                array_push($laHeader, _("bestanden"));
             if (array_key_exists("bonuspunkte", $laLine))
-                array_push($laHeader, _("Bonuspunkte")."** ";
+                array_push($laHeader, _("Bonuspunkte"));
             if (array_key_exists("uebung", $laLine))
                 foreach( $laLine["uebung"] as $lcName => $laData )
                 {
