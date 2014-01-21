@@ -288,8 +288,23 @@
                 }
 
             foreach( $paOutput as &$laLine )
-                $laLine = array_values($laLine);
+            {
+                $laItem = array();
+                foreach( $laLine as $lcKey => $lxData)
+                    if ($lcKey == "bestanden")
+                        array_push( $lxData ? _("ja") : _("nein") );
+                    elseif ($lcKey == "uebung")
+                        foreach($data as $lcName => $lxUebungData)
+                        {
+                            array_push($laItem, $lxUebungData["punktesumme"]);
+                            if (array_key_exists("bestanden", $lxUebungData))
+                                array_push($laItem, $lxUebungData["bestanden"]);
+                        }
+                    else
+                        array_push($laItem, $lxData);
 
+                $laLine = $laItem;
+            }
             $loExcel->writeSheet($paOutput);
 
 
