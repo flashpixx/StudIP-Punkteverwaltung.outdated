@@ -140,6 +140,109 @@
                     throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
+                // erzeuge Datenarray mit harter Sortierung nach Matrikelnummer,
+                // Items die leer (empty) sind, erscheinen nicht in der Ausgabe
+                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
+                $laListe      = $loAuswertung->studententabelle();
+                uasort( $laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; } );
+
+                $laOutput       = array();
+                switch (strtolower(Request::quoted("target")))
+                {
+
+                    // Vollexport aller Daten
+                    case "full" :
+                        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                        {
+                            $laItem = array(
+                                "name"           => $laStudent["name"],
+                                "matrikelnummer" => $laStudent["matrikelnummer"],
+                                "studiengang"    => $laStudent["studiengang"],
+                                "bestanden"      => $laStudent["veranstaltungenbestanden"],
+                                "bonuspunkte"    => $laStudent["bonuspunkte"],
+                                "uebung"         => array()
+                            );
+                            foreach($laListe["uebungen"] as $laUebung)
+                                $laItem["uebung"][$uebung["name"]] = array(
+                                    "punktesumme" => $laUebung["studenten"][$lcStudentKey]["punktesumme"],
+                                    "bestanden"   => $laUebung["studenten"][$lcStudentKey]["bestanden"]
+                                );
+                            array_push( $laOutput,  $laItem );
+                        }
+                        break;
+
+
+                    // reduzierter Export für den Aushang, d.h. nur Matrikelnummer, Bonuspunkte & bestanden / nicht bestanden
+                    case "aushang" :
+                        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                            array_push($laOutput, array(
+                                "matrikelnummer" => $laStudent["matrikelnummer"],
+                                "bestanden"      => $laStudent["veranstaltungenbestanden"],
+                                "bonuspunkte"    => $laStudent["bonuspunkte"],
+                            ));
+
+                        break;
+
+
+                    // kurze Liste aller Studenten (Matrikelnummer, Name und Studiengang), die die Veranstaltung bestanden
+                    // haben für den Import in HIS
+                    case "bestandenshort" :
+                        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                            if ($laStudent["veranstaltungenbestanden"])
+                                array_push($laOutput, array(
+                                    "name"           => $laStudent["name"],
+                                    "matrikelnummer" => $laStudent["matrikelnummer"],
+                                    "studiengang"    => $laStudent["studiengang"],
+                                ));
+                        break;
+
+
+                    // volle Liste der Studenten, die die Veranstaltung bestanden haben
+                    case "bestanden" :
+                        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                            if ($laStudent["veranstaltungenbestanden"])
+                            {
+                                $laItem = array(
+                                    "name"           => $laStudent["name"],
+                                    "matrikelnummer" => $laStudent["matrikelnummer"],
+                                    "studiengang"    => $laStudent["studiengang"],
+                                    "bonuspunkte"    => $laStudent["bonuspunkte"],
+                                    "uebung"         => array()
+                                );
+                                foreach($laListe["uebungen"] as $laUebung)
+                                    $laItem["uebung"][$uebung["name"]] = array(
+                                        "punktesumme" => $laUebung["studenten"][$lcStudentKey]["punktesumme"]
+                                    );
+                                array_push( $laOutput,  $laItem );
+                            }
+                        break;
+
+
+                    default :
+                        throw new Exception(_("Exportart unbekannt"));
+                }
+
+
+                // erzeuge Ausgabeformat, das Senden inkl. Headerinformationen geschieht durch den View
+                $this->set_layout(null);
+                $lcTitle = $this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester();
+                switch (strtolower(Request::quoted("type")))
+                {
+                    case "pdf" : $this->exportPDF( $laOutput, $lcTitle ); break;
+
+                    //case "xlsx"
+
+                    //case "csv"
+
+                    default :
+                        throw new Exception(_("Exportparameter unbekannt"));
+                }
+
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+
+/*
+
                 $loPDF        = (Request::int("extern")) ? new ExportPDF() : new ExportPDF("L");
                 $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester());
                 $loPDF->addPage();
@@ -186,6 +289,7 @@
                 $loPDF->dispatch("punkteliste");
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+ */
         }
 
 
@@ -204,6 +308,71 @@
             $args[0] = $to;
 
             return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
+        }
+
+
+        /** Exportfunktion für PDF
+         * @param $paOutput Datenarray
+         * @param $pcTitle String mit Titel der Veranstaltung
+         **/
+        private function exportPDF( $paOutput, $pcTitle )
+        {
+            // für den Ausgang wird Hochformat, sonst Querformat verwendet
+            $loPDF = strtolower(Request::quoted("target")) == "aushang" ? new ExportPDF() : new ExportPDF("L");
+            $loPDF->setHeaderTitle($pcTitle);
+            $loPDF->addPage();
+
+            $lcData= "";
+            foreach( $paOutput as $laLine )
+            {
+                // für den ersten Eintrag den Header erzeugen
+                if (empty($lcData))
+                {
+                    if (isset($laLine["matrikelnummer"]))
+                        $lcData .= "|&#160;**"._("Matrikelnummer")."** ";
+                    if (isset($laLine["name"]))
+                        $lcData .= "|&#160;**"._("Name")."** ";
+                    if (isset($laLine["studiengang"]))
+                        $lcData .= "|&#160;**"._("Studiengang")."** ";
+                    if (isset($laLine["bestanden"]))
+                        $lcData .= "|&#160;**"._("bestanden")."** ";
+                    if (isset($laLine["Bonuspunkte"]))
+                        $lcData .= "|&#160;**"._("Bonuspunkte")."** ";
+                    if (isset($laLine["uebung"]))
+                        foreach( $laLine["uebung"] as $lcName => $laData )
+                        {
+                            $lcData .= "|&#160;**".$lcName;
+                            if (isset($laData["bestanden"]))
+                                $lcData .= " ("._("bestanden").")";
+                            $lcData .= "** ";
+                        }
+                    $lcData .= "|\n";
+                }
+
+                // Daten hinzufügen
+                if (isset($laLine["matrikelnummer"]))
+                    $lcData .= "|&#160; ".$laLine["matrikelnummer"];
+                if (isset($laLine["name"]))
+                    $lcData .= "|&#160; ".$laLine["name"];
+                if (isset($laLine["studiengang"]))
+                    $lcData .= "|&#160; ".$laLine["studiengang"];
+                if (isset($laLine["bestanden"]))
+                    $lcData .= "|&#160; ".($laLine["bestanden"] ? _("ja") : _("nein"));
+                if (isset($laLine["bonuspunkte"]))
+                    $lcData .= "|&#160; ".$laLine["bonuspunkte"];
+                if (isset($laLine["uebung"]))
+                    foreach( $laLine["uebung"] as $lcName => $laData )
+                    {
+                        $lcData .= "|&#160; ".$laLine["punktesumme"];
+                        if (isset($laData["bestanden"]))
+                            $lcData .= " (".($laData["bestanden"] ? _("ja") : _("nein")).")";
+                    }
+                $lcData .= "|\n";
+            }
+
+            // Daten dem PDF hinzufügen und senden
+            $loPDF->addContent( $lcTabData );
+            $loPDF->dispatch("punkteliste");
         }
 
     }

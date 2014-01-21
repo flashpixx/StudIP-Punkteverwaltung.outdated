@@ -64,15 +64,15 @@
         echo "</tr>";
 
         echo "<tr>";
-        echo "<td>"._("bestandene Studenten (mit Aufgaben)")."</td>";
-        foreach( $laExportformat as $lcType )
-            echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestanden"))."\">".strtoupper($lcType)."</a></td>";
-        echo "</tr>";
-
-        echo "<tr>";
         echo "<td>"._("bestandene Studenten (Name, Matrikelnummer, Studiengang)")."</td>";
         foreach( $laExportformat as $lcType )
             echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestandenshort"))."\">".strtoupper($lcType)."</a></td>";
+        echo "</tr>";
+
+        echo "<tr>";
+        echo "<td>"._("bestandene Studenten (mit Aufgaben)")."</td>";
+        foreach( $laExportformat as $lcType )
+            echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestanden"))."\">".strtoupper($lcType)."</a></td>";
         echo "</tr>";
 
         echo "</table> </p>";
