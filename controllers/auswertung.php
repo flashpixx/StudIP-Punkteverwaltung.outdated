@@ -371,7 +371,7 @@
             }
 
             // Daten dem PDF hinzufügen und senden
-            $loPDF->addContent( $lcTabData );
+            $loPDF->addContent( $lcData );
             $loPDF->dispatch("punkteliste");
         }
 
