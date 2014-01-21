@@ -313,7 +313,7 @@
                 if (array_key_exists("uebung", $laLine))
                     foreach( $laLine["uebung"] as $lcName => $laData )
                     {
-                        $lcData .= "|&#160; ".$laLine["punktesumme"];
+                        $lcData .= "|&#160; ".$laData["punktesumme"];
                         if (array_key_exists("bestanden", $laData))
                             $lcData .= " (".($laData["bestanden"] ? _("ja") : _("nein")).")";
                     }
