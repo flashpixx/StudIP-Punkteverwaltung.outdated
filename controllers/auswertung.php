@@ -163,7 +163,7 @@
                                 "uebung"         => array()
                             );
                             foreach($laListe["uebungen"] as $laUebung)
-                                $laItem["uebung"][$uebung["name"]] = array(
+                                $laItem["uebung"][$laUebung["name"]] = array(
                                     "punktesumme" => $laUebung["studenten"][$lcStudentKey]["punktesumme"],
                                     "bestanden"   => $laUebung["studenten"][$lcStudentKey]["bestanden"]
                                 );
@@ -210,7 +210,7 @@
                                     "uebung"         => array()
                                 );
                                 foreach($laListe["uebungen"] as $laUebung)
-                                    $laItem["uebung"][$uebung["name"]] = array(
+                                    $laItem["uebung"][$laUebung["name"]] = array(
                                         "punktesumme" => $laUebung["studenten"][$lcStudentKey]["punktesumme"]
                                     );
                                 array_push( $laOutput,  $laItem );
@@ -240,56 +240,6 @@
 
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
-
-/*
-
-                $loPDF        = (Request::int("extern")) ? new ExportPDF() : new ExportPDF("L");
-                $loPDF->setHeaderTitle($this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester());
-                $loPDF->addPage();
-
-                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-                $laListe      = $loAuswertung->studententabelle();
-
-                // Sortierung hart nach Matrikelnummern
-                uasort( $laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; } );
-
-                // Tabelle mit Punkten erstellen (entweder für Aushang, dann nur mit Matrikelnummer, bestanden, Bonuspunkte oder intern, dann mit Name etc.
-                if (Request::int("extern"))
-                {
-                    $lcTabData = "|&#160;**"._("Matrikelnr")."** |&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
-                    foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
-                        $lcTabData .= "|&#160;".$laStudent["matrikelnummer"]." |&#160;".($laStudent["veranstaltungenbestanden"] ? _("ja") : _("nein"))." |&#160;".$laStudent["bonuspunkte"]." |\n";
-
-                } else {
-                    
-                    $lcTabData = "|&#160;**"._("Name")."** |&#160;**"._("Matrikelnr")."** |&#160;**"._("Studiengang")."** ";
-                    foreach($laListe["uebungen"] as $uebung)
-                        $lcTabData .= "|&#160;**".$uebung["name"]."  ("._("bestanden").")** ";
-                    $lcTabData .= "|&#160;**"._("bestanden")."** |&#160;**"._("Bonuspunkte")."** |\n";
-
-                    foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
-                    {
-                        if ((Request::int("bestandenonly")) && (!$laStudent["veranstaltungenbestanden"]))
-                            continue;
-
-                        $lcLine = "|&#160;".$laStudent["name"]." |&#160;".$laStudent["matrikelnummer"]." |&#160;".$laStudent["studiengang"];
-
-                        foreach($laListe["uebungen"] as $laUebung)
-                            $lcLine .= " |&#160;".$laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
-
-                        $lcTabData .= $lcLine." |&#160;".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")." |&#160;".$laStudent["bonuspunkte"]." |\n";
-                    }
-                }
-
-                // Tabelle erzeugen
-                $loPDF->addContent( $lcTabData );
-                
-                // beim PDF senden wir kein Layout
-                $this->set_layout(null);
-                $loPDF->dispatch("punkteliste");
-
-            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
- */
         }
 
 
