@@ -290,7 +290,7 @@
             foreach( $paOutput as &$laLine )
                 $laLine = array_values($laLine);
 
-            $loExcel->writeSheet($paOutput, $lcTitle, $laHeader);
+            $loExcel->writeSheet($paOutput);
 
 
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
