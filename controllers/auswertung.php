@@ -269,26 +269,30 @@
             $loExcel = new XLSXWriter();
 
             $laHeader = array();
-            if (array_key_exists("matrikelnummer", $laLine))
-                array_push($laHeader, _("Matrikelnummer"));
-            if (array_key_exists("name", $laLine))
-                array_push($laHeader, _("Name"));
-            if (array_key_exists("studiengang", $laLine))
-                array_push($laHeader, _("Studiengang"));
-            if (array_key_exists("bestanden", $laLine))
-                array_push($laHeader, _("bestanden"));
-            if (array_key_exists("bonuspunkte", $laLine))
-                array_push($laHeader, _("Bonuspunkte"));
-            if (array_key_exists("uebung", $laLine))
-                foreach( $laLine["uebung"] as $lcName => $laData )
-                {
-                    array_push($laHeader, $lcName);
-                    if (array_key_exists("bestanden", $laData))
-                        array_push($laHeader, _("bestanden"));
-                }
-
             foreach( $paOutput as &$laLine )
             {
+                if (empty($laHeader))
+                {
+                    if (array_key_exists("matrikelnummer", $laLine))
+                        array_push($laHeader, _("Matrikelnummer"));
+                    if (array_key_exists("name", $laLine))
+                        array_push($laHeader, _("Name"));
+                    if (array_key_exists("studiengang", $laLine))
+                        array_push($laHeader, _("Studiengang"));
+                    if (array_key_exists("bestanden", $laLine))
+                        array_push($laHeader, _("bestanden"));
+                    if (array_key_exists("bonuspunkte", $laLine))
+                        array_push($laHeader, _("Bonuspunkte"));
+                    if (array_key_exists("uebung", $laLine))
+                        foreach( $laLine["uebung"] as $lcName => $laData )
+                    {
+                        array_push($laHeader, $lcName);
+                        if (array_key_exists("bestanden", $laData))
+                            array_push($laHeader, _("bestanden"));
+                    }
+                }
+
+
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
                     if ($lcKey == "bestanden")
