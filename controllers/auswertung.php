@@ -300,7 +300,7 @@
                             if (array_key_exists("punktesumme", $lxUebungData))
                                 array_push($laItem, $lxUebungData["punktesumme"]);
                             if (array_key_exists("bestanden", $lxUebungData))
-                                array_push($laItem, $lxUebungData["bestanden"]);
+                                array_push($laItem, $lxUebungData["bestanden"] ? _("ja") : _("nein") );
                         }
                     else
                         array_push($laItem, $lxData);
