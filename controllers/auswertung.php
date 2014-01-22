@@ -310,7 +310,7 @@
 
 
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            header("Content-Disposition: attachment;filename=\"punkteliste.xlsx\"");
+            header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
             echo $loExcel->writeToString();
         }
 
@@ -380,7 +380,7 @@
 
             // Daten dem PDF hinzufügen und senden
             $loPDF->addContent( $lcData );
-            $loPDF->dispatch("punkteliste");
+            $loPDF->dispatch($lcTitle);
         }
 
     }
