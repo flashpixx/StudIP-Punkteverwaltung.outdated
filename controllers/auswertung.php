@@ -270,21 +270,22 @@
                 if (empty($laHeader))
                 {
                     if (array_key_exists("matrikelnummer", $laLine))
-                        array_push($laHeader, _("Matrikelnummer"));
+                        $laHeader[_("Matrikelnummer")] = "string";
                     if (array_key_exists("name", $laLine))
-                        array_push($laHeader, _("Name"));
+                        $laHeader[_("Name")] = "string";
                     if (array_key_exists("studiengang", $laLine))
-                        array_push($laHeader, _("Studiengang"));
+                        $laHeader[_("Studiengang")] = "string";
                     if (array_key_exists("bestanden", $laLine))
-                        array_push($laHeader, _("bestanden"));
+                        $laHeader[_("bestanden")] = "string";
                     if (array_key_exists("bonuspunkte", $laLine))
-                        array_push($laHeader, _("Bonuspunkte"));
+                        $laHeader[_("Bonuspunkte") = "string";
                     if (array_key_exists("uebung", $laLine))
                         foreach( $laLine["uebung"] as $lcName => $laData )
                     {
-                        array_push($laHeader, $lcName);
+                        if (array_key_exists("punktesumme", $laData))
+                            $laHeader[$lcName] = "string";
                         if (array_key_exists("bestanden", $laData))
-                            array_push($laHeader, _("bestanden"));
+                            $laHeader[_("bestanden")] = "string";
                     }
                 }
 
