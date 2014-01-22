@@ -293,7 +293,7 @@
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
                     if ($lcKey == "name")
-                        array_push( $laItem, utf8_encode($lcData) );
+                        array_push( $laItem, utf8_encode($lxData) );
                     elseif ($lcKey == "bestanden")
                         array_push( $laItem, $lxData ? _("ja") : _("nein") );
                     elseif ($lcKey == "uebung")
