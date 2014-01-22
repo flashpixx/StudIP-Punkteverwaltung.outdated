@@ -150,8 +150,8 @@
                         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
                         {
                             $laItem = array(
-                                "name"           => $laStudent["name"],
                                 "matrikelnummer" => $laStudent["matrikelnummer"],
+                                "name"           => $laStudent["name"],
                                 "studiengang"    => $laStudent["studiengang"],
                                 "bestanden"      => $laStudent["veranstaltungenbestanden"],
                                 "bonuspunkte"    => $laStudent["bonuspunkte"],
@@ -185,8 +185,8 @@
                         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
                             if ($laStudent["veranstaltungenbestanden"])
                                 array_push($laOutput, array(
-                                    "name"           => $laStudent["name"],
                                     "matrikelnummer" => $laStudent["matrikelnummer"],
+                                    "name"           => $laStudent["name"],
                                     "studiengang"    => $laStudent["studiengang"],
                                 ));
                         break;
@@ -198,8 +198,8 @@
                             if ($laStudent["veranstaltungenbestanden"])
                             {
                                 $laItem = array(
-                                    "name"           => $laStudent["name"],
                                     "matrikelnummer" => $laStudent["matrikelnummer"],
+                                    "name"           => $laStudent["name"],
                                     "studiengang"    => $laStudent["studiengang"],
                                     "bonuspunkte"    => $laStudent["bonuspunkte"],
                                     "uebung"         => array()
