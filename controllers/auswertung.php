@@ -283,7 +283,7 @@
                             if (array_key_exists("punktesumme", $laData))
                                 $laHeader[$lcName] = "string";
                             if (array_key_exists("bestanden", $laData))
-                                $laHeader[_("bestanden")] = "string";
+                                $laHeader[$lcName." "._("bestanden")] = "string";
                         }
                 }
 
