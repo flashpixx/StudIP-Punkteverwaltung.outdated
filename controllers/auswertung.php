@@ -278,7 +278,7 @@
                     if (array_key_exists("bestanden", $laLine))
                         $laHeader[_("bestanden")] = "string";
                     if (array_key_exists("bonuspunkte", $laLine))
-                        $laHeader[_("Bonuspunkte") = "string";
+                        $laHeader[_("Bonuspunkte")] = "string";
                     if (array_key_exists("uebung", $laLine))
                         foreach( $laLine["uebung"] as $lcName => $laData )
                     {
