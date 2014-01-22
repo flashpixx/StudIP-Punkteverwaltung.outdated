@@ -291,7 +291,9 @@
 
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
-                    if ($lcKey == "bestanden")
+                    if ($lcKey == "name")
+                        array_push( $laItem, utf8_encode($lcData) );
+                    elseif ($lcKey == "bestanden")
                         array_push( $laItem, $lxData ? _("ja") : _("nein") );
                     elseif ($lcKey == "uebung")
                         foreach($lxData as $lcName => $lxUebungData)
@@ -306,7 +308,7 @@
 
                 $laLine = $laItem;
             }
-            $loExcel->writeSheet($paOutput);
+            $loExcel->writeSheet($paOutput, "Liste", $laHeader);
 
 
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
