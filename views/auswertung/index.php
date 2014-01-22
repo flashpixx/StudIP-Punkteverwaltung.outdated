@@ -46,7 +46,7 @@
         uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
 
         // erzeuge verschiedene Ausgabeformate
-        $laExportformat  = array("pdf", "xlsx", "csv");
+        $laExportformat  = array("pdf", "xlsx");
 
         echo "<h1>Datei Export</h1>";
         echo "<p><table border=\"0\" width=\"35%\">";

@@ -226,8 +226,6 @@
                     case "pdf"  : $this->exportPDF( $laOutput, $lcTitle );   break;
                     case "xlsx" : $this->exportExcel( $laOutput, $lcTitle ); break;
 
-                    //case "csv"
-
                     default :
                         throw new Exception(_("Exportparameter unbekannt"));
                 }
@@ -281,12 +279,12 @@
                         $laHeader[_("Bonuspunkte")] = "string";
                     if (array_key_exists("uebung", $laLine))
                         foreach( $laLine["uebung"] as $lcName => $laData )
-                    {
-                        if (array_key_exists("punktesumme", $laData))
-                            $laHeader[$lcName] = "string";
-                        if (array_key_exists("bestanden", $laData))
-                            $laHeader[_("bestanden")] = "string";
-                    }
+                        {
+                            if (array_key_exists("punktesumme", $laData))
+                                $laHeader[$lcName] = "string";
+                            if (array_key_exists("bestanden", $laData))
+                                $laHeader[_("bestanden")] = "string";
+                        }
                 }
 
 
@@ -309,7 +307,7 @@
 
                 $laLine = $laItem;
             }
-            $loExcel->writeSheet($paOutput, "Liste", $laHeader);
+            $loExcel->writeSheet($paOutput, "Punkteliste", $laHeader);
 
 
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
