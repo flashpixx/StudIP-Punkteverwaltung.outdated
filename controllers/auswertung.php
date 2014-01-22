@@ -126,12 +126,7 @@
         }
 
 
-        /** erzeugt den PDF Export der Veranstaltung
-         * @see http://docs.studip.de/develop/Entwickler/PDFExport
-         * @see http://hilfe.studip.de/index.php/Basis/VerschiedenesFormat
-         * @see https://github.com/mk-j/PHP_XLSXWriter
-         * @bug nicht mehr aktuell - Export muss um Excel ergänz werden -
-         **/
+        /** Export Controller um Datenstruktur zu erzeugen **/
         function export_action()
         {
             try {
@@ -261,6 +256,7 @@
 
 
         /** Exportfunktion für Excel
+         * @see https://github.com/mk-j/PHP_XLSXWriter
          * @param $paOutput Datenarray
          * @param $pcTitle String mit Titel der Veranstaltung
          **/
@@ -300,7 +296,8 @@
                     elseif ($lcKey == "uebung")
                         foreach($data as $lcName => $lxUebungData)
                         {
-                            array_push($laItem, $lxUebungData["punktesumme"]);
+                            if (array_key_exists("punktesumme", $lxUebungData))
+                                array_push($laItem, $lxUebungData["punktesumme"]);
                             if (array_key_exists("bestanden", $lxUebungData))
                                 array_push($laItem, $lxUebungData["bestanden"]);
                         }
@@ -319,6 +316,8 @@
 
 
         /** Exportfunktion für PDF
+         * @see http://docs.studip.de/develop/Entwickler/PDFExport
+         * @see http://hilfe.studip.de/index.php/Basis/VerschiedenesFormat
          * @param $paOutput Datenarray
          * @param $pcTitle String mit Titel der Veranstaltung
          **/
@@ -370,7 +369,9 @@
                 if (array_key_exists("uebung", $laLine))
                     foreach( $laLine["uebung"] as $lcName => $laData )
                     {
-                        $lcData .= "|&#160; ".$laData["punktesumme"];
+                        $lcData .= "|&#160; ";
+                        if (array_key_exists("punktesumme", $laData))
+                            $lcData .= $laData["punktesumme"];
                         if (array_key_exists("bestanden", $laData))
                             $lcData .= " (".($laData["bestanden"] ? _("ja") : _("nein")).")";
                     }
