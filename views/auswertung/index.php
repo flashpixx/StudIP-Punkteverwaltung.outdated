@@ -123,7 +123,19 @@
         echo "}";
 
         echo "</script>";
-        echo "</div><p>";
+        echo "</div></p>";
+
+
+        // hier muss noch etwas die Auswertung hinein
+        echo "<p><table width=\"60%\">";
+        echo "<tr><th>Teilnehmeranzahl</th><td>".."</td></tr>";
+        echo "<tr><th>Anzahl bestandene Studenten (%)</th><td>".."</td></tr>";
+        echo "<tr><th>Anzahl Studenten mit Bonuspunkten (%)</th><td>".."</td></tr>";
+        echo "<tr><th>Gesamtpunktanzahl</th><td>".."</td></tr>";
+        echo "<tr><th>max. erreichte Punkte</th><td>".."</td></tr>";
+        echo "<tr><th>min. erreichte Punkte</th><td>".."</td></tr>";
+        echo "</table></p>";
+
 
 
 
@@ -135,7 +147,7 @@
         foreach($laListe["uebungen"] as $laUebung)
             echo "<th>".$laUebung["name"]."  ("._("bestanden").")</th>";
 
-        echo "<th>"._("bestanden")."</th><th>"._("Bonuspunkte")."</th></tr>";
+        echo "<th>Gesamtpunkte ("._("bestanden").")</th><th>"._("Bonuspunkte")."</th></tr>";
 
 
 
@@ -149,7 +161,7 @@
             foreach($laListe["uebungen"] as $laUebung)
             {
                 echo "<td>";
-                echo $laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                echo $laUebung["studenten"][$lcStudentKey]["uebungenpunkte"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
                 echo "</td>";
             }
             echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
