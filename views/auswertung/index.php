@@ -129,7 +129,7 @@
         // hier muss noch etwas die Auswertung hinein
         echo "<p><table width=\"30%\">";
         echo "<tr><th align=\"left\">Teilnehmeranzahl</th><td>".$laListe["statistik"]["teilnehmergesamt"]."</td></tr>";
-        echo "<tr><th align=\"left\">Anzahl bestandene Studenten (%)</th><td>".$laListe["statistik"]["teilnehmerbestanden"]." (".round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
+        echo "<tr><th align=\"left\">Anzahl bestandenen Studenten (%)</th><td>".$laListe["statistik"]["teilnehmerbestanden"]." (".round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
         echo "<tr><th align=\"left\">Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>".$laListe["statistik"]["teilnehmerbonus"]." (".round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"],2)."%)</td></tr>";
         echo "<tr><th align=\"left\">Anzahl Studenten mit mehr als null Punkten (%)</th><td>".$laListe["statistik"]["teilnehmerpunktenotzero"]." (".round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
         echo "<tr><th align=\"left\">Gesamtpunktanzahl</th><td>".$laListe["gesamtpunkte"]."</td></tr>";
