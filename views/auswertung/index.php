@@ -140,9 +140,9 @@
         echo "<tr><th align=\"left\">max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
         echo "<tr><th align=\"left\">min. erreichte Punkte (min. Punkte > 0)</th><td>".$laListe["statistik"]["minpunkte"]." (".$laListe["statistik"]["minpunktegreaterzero"].")</td></tr>";
         echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
-        echo "<tr><th align=\"left\">Bonuspunkte</th><th>zu erreichende Punktzahl</th></tr>";
-        echo "<tr><td colspan=\"2\"><pre>".print_r($laBonuspunkte, true)."</pre></td></tr>";
-
+        echo "<tr><th align=\"left\">Bonuspunkte</th><th>zu erreichende Punktzahl (%)</th></tr>";
+        foreach ($laBonuspunkte as $lnProzent => $lnPunkt)
+            echo "<tr><td>".$lnPunkt."</td><td>".round($laListe["gesamtpunkte"] / 100 * $lnProzent,2)." (".$lnProzent."%)</td></tr>";
         echo "</table></p>";
 
 
