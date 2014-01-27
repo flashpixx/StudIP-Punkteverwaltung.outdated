@@ -39,7 +39,7 @@
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
-        $loBonuspunkte   = new Bonuspunkte( $loVeranstaltung );
+        $loBonuspunkte   = new Bonuspunkt( $loVeranstaltung );
         $laBonuspunkte   = $loBonuspunkte.liste();
         $loAuswertung    = new Auswertung( $loVeranstaltung );
         $laListe         = $loAuswertung->studententabelle();
