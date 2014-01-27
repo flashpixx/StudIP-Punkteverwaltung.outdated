@@ -39,6 +39,8 @@
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
+        $loBonuspunkte   = new Bonuspunkte( $loVeranstaltung );
+        $laBonuspunkte   = $loBonuspunkte.liste();
         $loAuswertung    = new Auswertung( $loVeranstaltung );
         $laListe         = $loAuswertung->studententabelle();
         
@@ -132,11 +134,15 @@
         echo "<tr><th align=\"left\">Anzahl bestandenen Studenten (%)</th><td>".$laListe["statistik"]["teilnehmerbestanden"]." (".round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
         echo "<tr><th align=\"left\">Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>".$laListe["statistik"]["teilnehmerbonus"]." (".round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"],2)."%)</td></tr>";
         echo "<tr><th align=\"left\">Anzahl Studenten mit mehr als null Punkten (%)</th><td>".$laListe["statistik"]["teilnehmerpunktenotzero"]." (".round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
+        echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
         echo "<tr><th align=\"left\">Gesamtpunktanzahl</th><td>".$laListe["gesamtpunkte"]."</td></tr>";
         echo "<tr><th align=\"left\">Punkte zur Zulassung</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
-
         echo "<tr><th align=\"left\">max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
         echo "<tr><th align=\"left\">min. erreichte Punkte (min. Punkte > 0)</th><td>".$laListe["statistik"]["minpunkte"]." (".$laListe["statistik"]["minpunktegreaterzero"].")</td></tr>";
+        echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
+        echo "<tr><th align=\"left\">Bonuspunkte</th><th>zu erreichende Punktzahl</th></tr>";
+        echo "<tr><td colspan=\"2\"><pre>".print_r($laBonuspunkte, true)."</pre></td></tr>";
+
         echo "</table></p>";
 
 
