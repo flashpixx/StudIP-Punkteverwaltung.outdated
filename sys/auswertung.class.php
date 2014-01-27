@@ -274,14 +274,14 @@
             $main["statistik"]["maxpunkte"]           = 0;
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
-                if ($main["studenten"][$lcStudentKey]["veranstaltungenbestanden"])
-                    $main["statistik"]["anzahlbestanden"]++;
+                if ($laStudent["uebungenpunkte"]["veranstaltungenbestanden"])
+                    $main["statistik"]["teilnehmerbestanden"]++;
 
-                if ($main["studenten"][$lcStudentKey]["bonuspunkte"])
-                    $main["statistik"]["anzahlbonus"]++;
+                if ($laStudent["uebungenpunkte"]["bonuspunkte"] > 0)
+                    $main["statistik"]["teilnehmerbonus"]++;
 
                 $main["statistik"]["minpunkte"] = min($main["statistik"]["minpunkte"], $laStudent["uebungenpunkte"]);
-                $main["statistik"]["maxpunkte"] = max($main["statistik"]["minpunkte"], $laStudent["uebungenpunkte"]);
+                $main["statistik"]["maxpunkte"] = max($main["statistik"]["maxpunkte"], $laStudent["uebungenpunkte"]);
             }
 
             return $main;
