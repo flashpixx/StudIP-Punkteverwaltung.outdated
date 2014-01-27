@@ -205,7 +205,7 @@
         function studententabelle()
         {
             // das globale Array enthält einmal die Liste aller Studenten und eine Liste der übungen
-            $main = array( "studenten" => array(), "uebungen" => array(), "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0 );
+            $main = array( "studenten" => array(), "statistik" => array(), "uebungen" => array(), "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0 );
 
 
             // Iteration über jede Übung und über jeden Teilnehmer
@@ -240,7 +240,7 @@
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
-                    $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
+                    $loStudentUebung                                                                   = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
@@ -257,7 +257,6 @@
             }
 
 
-
             // prüfe nun die Studenten, ob sie die Veranstaltung bestanden haben
             $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
@@ -266,7 +265,25 @@
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
             }
 
-            
+
+            // berechnet die Statistik
+            $main["statistik"]["teilnehmergesamt"]    = count($main["studenten"]);
+            $main["statistik"]["teilnehmerbestanden"] = 0;
+            $main["statistik"]["teilnehmerbonus"]     = 0;
+            $main["statistik"]["minpunkte"]           = 0;
+            $main["statistik"]["maxpunkte"]           = 0;
+            foreach ($main["studenten"] as $lcStudentKey => $laStudent)
+            {
+                if ($main["studenten"][$lcStudentKey]["veranstaltungenbestanden"])
+                    $main["statistik"]["anzahlbestanden"]++;
+
+                if ($main["studenten"][$lcStudentKey]["bonuspunkte"])
+                    $main["statistik"]["anzahlbonus"]++;
+
+                $main["statistik"]["minpunkte"] = min($main["statistik"]["minpunkte"], $laStudent["uebungenpunkte"]);
+                $main["statistik"]["maxpunkte"] = max($main["statistik"]["minpunkte"], $laStudent["uebungenpunkte"]);
+            }
+
             return $main;
         }
 
