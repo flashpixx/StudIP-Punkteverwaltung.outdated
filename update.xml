@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugins>
     <plugin name="Punkteverwaltung">
+        <release version="0.16" url="https://github.com/flashpixx/StudIP-Punkteverwaltung/archive/v0.16.zip" />
         <release version="0.15" url="https://github.com/flashpixx/StudIP-Punkteverwaltung/archive/v0.15.zip" />
         <release version="0.14" url="https://github.com/flashpixx/StudIP-Punkteverwaltung/archive/v0.14.zip" />
         <release version="0.13" url="https://github.com/flashpixx/StudIP-Punkteverwaltung/archive/v0.13.zip" />
