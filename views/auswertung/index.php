@@ -40,7 +40,7 @@
 
 
         $loBonuspunkte   = new Bonuspunkt( $loVeranstaltung );
-        $laBonuspunkte   = $loBonuspunkte.liste();
+        $laBonuspunkte   = $loBonuspunkte->liste();
         $loAuswertung    = new Auswertung( $loVeranstaltung );
         $laListe         = $loAuswertung->studententabelle();
         
