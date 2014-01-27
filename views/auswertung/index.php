@@ -162,10 +162,10 @@
             foreach($laListe["uebungen"] as $laUebung)
             {
                 echo "<td>";
-                echo $laUebung["studenten"][$lcStudentKey]["uebungenpunkte"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
+                echo $laUebung["studenten"][$lcStudentKey]["punktesumme"]." (".($laUebung["studenten"][$lcStudentKey]["bestanden"] ? _("ja") : _("nein")).")";
                 echo "</td>";
             }
-            echo "<td>".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein")."</td>";
+            echo "<td>".$laStudent["uebungenpunkte"]." (".($laStudent["veranstaltungenbestanden"] ? "ja" : "nein").")</td>";
             echo "<td>".$laStudent["bonuspunkte"]."</td>";
             echo "</tr>";
         }
