@@ -127,14 +127,14 @@
 
 
         // hier muss noch etwas die Auswertung hinein
-        echo "<p><table width=\"25%\">";
-        echo "<tr><th>Teilnehmeranzahl</th><td>".$laListe["statistik"]["teilnehmergesamt"]."</td></tr>";
-        echo "<tr><th>Anzahl bestandene Studenten (%)</th><td>".$laListe["statistik"]["teilnehmerbestanden"]." (".round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
-        echo "<tr><th>Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>".$laListe["statistik"]["teilnehmerbonus"]." (".round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"],2)."%)</td></tr>";
-        echo "<tr><th>Gesamtpunktanzahl</th><td>".$laListe["gesamtpunkte"]."</td></tr>";
-        echo "<tr><th>Punkte zum Bestehen</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
-        echo "<tr><th>max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
-        echo "<tr><th>min. erreichte Punkte</th><td>".$laListe["statistik"]["minpunkte"]."</td></tr>";
+        echo "<p><table width=\"30%\">";
+        echo "<tr><th align=\"left\">Teilnehmeranzahl</th><td>".$laListe["statistik"]["teilnehmergesamt"]."</td></tr>";
+        echo "<tr><th align=\"left\">Anzahl bestandene Studenten (%)</th><td>".$laListe["statistik"]["teilnehmerbestanden"]." (".round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
+        echo "<tr><th align=\"left\">Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>".$laListe["statistik"]["teilnehmerbonus"]." (".round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"],2)."%)</td></tr>";
+        echo "<tr><th align=\"left\">Gesamtpunktanzahl</th><td>".$laListe["gesamtpunkte"]."</td></tr>";
+        echo "<tr><th align=\"left\">Punkte zum Bestehen</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
+        echo "<tr><th align=\"left\">max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
+        echo "<tr><th align=\"left\">min. erreichte Punkte</th><td>".$laListe["statistik"]["minpunkte"]."</td></tr>";
         echo "</table></p>";
 
 
