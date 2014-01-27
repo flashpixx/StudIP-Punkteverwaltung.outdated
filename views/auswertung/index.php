@@ -133,8 +133,9 @@
         echo "<tr><th align=\"left\">Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>".$laListe["statistik"]["teilnehmerbonus"]." (".round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"],2)."%)</td></tr>";
         echo "<tr><th align=\"left\">Gesamtpunktanzahl</th><td>".$laListe["gesamtpunkte"]."</td></tr>";
         echo "<tr><th align=\"left\">Punkte zum Bestehen</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
+
         echo "<tr><th align=\"left\">max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
-        echo "<tr><th align=\"left\">min. erreichte Punkte</th><td>".$laListe["statistik"]["minpunkte"]."</td></tr>";
+        echo "<tr><th align=\"left\">min. erreichte Punkte (min. Punkte > 0)</th><td>".$laListe["statistik"]["minpunkte"]." (".$main["statistik"]["minpunktegreaterzero"].")</td></tr>";
         echo "</table></p>";
 
 

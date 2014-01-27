@@ -270,7 +270,7 @@
             $main["statistik"]["teilnehmergesamt"]    = count($main["studenten"]);
             $main["statistik"]["teilnehmerbestanden"] = 0;
             $main["statistik"]["teilnehmerbonus"]     = 0;
-            $main["statistik"]["minpunkte"]           = 0;
+            $main["statistik"]["minpunkte"]           = INF;
             $main["statistik"]["maxpunkte"]           = 0;
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
@@ -280,8 +280,12 @@
                 if ($laStudent["bonuspunkte"] > 0)
                     $main["statistik"]["teilnehmerbonus"]++;
 
-                $main["statistik"]["minpunkte"] = min($main["statistik"]["minpunkte"], $laStudent["uebungenpunkte"]);
-                $main["statistik"]["maxpunkte"] = max($main["statistik"]["maxpunkte"], $laStudent["uebungenpunkte"]);
+                
+                if ($laStudent["uebungenpunkte"] > 0)
+                    $main["statistik"]["minpunktegreaterzero"] = min($main["statistik"]["minpunktegreaterzero"], $laStudent["uebungenpunkte"]);
+                $main["statistik"]["minpunkte"]            = min($main["statistik"]["minpunkte"], $laStudent["uebungenpunkte"]);
+                $main["statistik"]["maxpunkte"]            = max($main["statistik"]["maxpunkte"], $laStudent["uebungenpunkte"]);
+
             }
 
             return $main;
