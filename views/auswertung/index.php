@@ -139,10 +139,13 @@
         echo "<tr><th align=\"left\">Punkte zur Zulassung</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
         echo "<tr><th align=\"left\">max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
         echo "<tr><th align=\"left\">min. erreichte Punkte (min. Punkte > 0)</th><td>".$laListe["statistik"]["minpunkte"]." (".$laListe["statistik"]["minpunktegreaterzero"].")</td></tr>";
-        echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
-        echo "<tr><th align=\"left\">Bonuspunkte</th><th>zu erreichende Punktzahl (%)</th></tr>";
-        foreach ($laBonuspunkte as $lnProzent => $lnPunkt)
-            echo "<tr><td>".$lnPunkt."</td><td>".round($laListe["gesamtpunkte"] / 100 * $lnProzent,2)." (".$lnProzent."%)</td></tr>";
+        if (!empty($laBonuspunkte))
+        {
+            echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
+            echo "<tr><th align=\"left\">Bonuspunkte</th><th>zu erreichende Punktzahl (%)</th></tr>";
+            foreach ($laBonuspunkte as $lnProzent => $lnPunkt)
+                echo "<tr><td>".$lnPunkt."</td><td>".round($laListe["gesamtpunkte"] / 100 * $lnProzent,2)." (".$lnProzent."%)</td></tr>";
+        }
         echo "</table></p>";
 
 
