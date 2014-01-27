@@ -135,7 +135,7 @@
         echo "<tr><th align=\"left\">Punkte zum Bestehen</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
 
         echo "<tr><th align=\"left\">max. erreichte Punkte</th><td>".$laListe["statistik"]["maxpunkte"]."</td></tr>";
-        echo "<tr><th align=\"left\">min. erreichte Punkte (min. Punkte > 0)</th><td>".$laListe["statistik"]["minpunkte"]." (".$main["statistik"]["minpunktegreaterzero"].")</td></tr>";
+        echo "<tr><th align=\"left\">min. erreichte Punkte (min. Punkte > 0)</th><td>".$laListe["statistik"]["minpunkte"]." (".$laListe["statistik"]["minpunktegreaterzero"].")</td></tr>";
         echo "</table></p>";
 
 
