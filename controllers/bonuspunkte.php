@@ -25,7 +25,7 @@
 
 
 
-    /** Controller für die Sicht eines Studenten **/
+    /** Controller für die Bonuspunkte eines Studenten **/
     class BonuspunkteController extends StudipController
     {
 

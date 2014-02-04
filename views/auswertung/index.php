@@ -146,6 +146,9 @@
             foreach ($laBonuspunkte as $lnProzent => $lnPunkt)
                 echo "<tr><td>".$lnPunkt."</td><td>".round($laListe["gesamtpunkte"] / 100 * $lnProzent,2)." (".$lnProzent."%)</td></tr>";
         }
+
+        // @todo beste Studenten sollen gelistet werden
+
         echo "</table></p>";
 
 
