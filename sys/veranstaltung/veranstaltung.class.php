@@ -384,7 +384,7 @@
                 if (empty($pcBemerkung))
                 {
                     $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarstundentbestanden where seminar=:semid and student=:student limit 1" );
-                    $loPrepare->execute( array("semid" => $this->mcID, "student" => $poStudent->id() );
+                    $loPrepare->execute( array("semid" => $this->mcID, "student" => $poStudent->id()) );
                 } else {
                     $loPrepare = DBManager::get()->prepare( "insert into ppv_seminarstundentbestanden (seminar, student, bemerkung) values (:semid, :student, :bemerkung) on duplicate key update bemerkung = :bemerkung" );
                     $loPrepare->execute( array("semid" => $this->mcID, "student" => $poStudent->id(), "bemerkung" => $pcBemerkung) );
@@ -404,7 +404,7 @@
                 }
 
             }
-            
+        }
     }
     
     
