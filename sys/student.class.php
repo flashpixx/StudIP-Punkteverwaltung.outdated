@@ -144,6 +144,18 @@
         }
 
 
+        /** liefert die Information, ob der Student die Veranstaltung bestanden hat
+         * @return Boolean für das Bestehen
+         **/
+        function VeranstaltungBestanden( $poVeranstaltung )
+        {
+            if (!($poVeranstaltung instanceof Veranstaltung))
+                throw new Exception(_("kein Veranstaltungsobjekt übergeben"));
+
+            return !empty($poVeranstaltung->zulassung($this));
+        }
+
+
         /** liefert die Matrikelnummer des Users, sofern vorhanden
          * @return Matrikelnummer oder null
          **/
