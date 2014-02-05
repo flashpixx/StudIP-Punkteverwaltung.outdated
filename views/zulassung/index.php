@@ -34,47 +34,43 @@
 
     try {
 
-        // Übung aus dem Flash holen und Zugriffsrechte prüfen
-        $loUebung = isset($flash["uebung"]) ? $flash["uebung"] : null;
-
-        if ( (!$loUebung) || (!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) )
+        if (!$flash["veranstaltung"])
             throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
 
-        else {
 
-            // jTable für die Studenten / Bemerkungen erzeugen
-            echo "<script type=\"text/javascript\">";
-            echo "jQuery(document).ready(function() {";
-            echo "jQuery(\"#punktetabelle\").jtable({";
+        // jTable für die Studenten / Bemerkungen erzeugen
+        echo "<script type=\"text/javascript\">";
+        echo "jQuery(document).ready(function() {";
+        echo "jQuery(\"#punktetabelle\").jtable({";
 
-            echo "title          : \"manuelle Zulassung\",";
-            echo "paging         : true,";
-            echo "pageSize       : 500,";
-            echo "sorting        : true,";
-            echo "defaultSorting : \"Matrikelnummer ASC\",";
-            echo "actions: {";
-            echo "listAction   : \"".$listaction."\",";
-            if (!$loUebung->veranstaltung()->isClosed())
-                echo "updateAction : \"".$updateaction."\",";
-            echo "},";
+        echo "title          : \"manuelle Zulassung\",";
+        echo "paging         : true,";
+        echo "pageSize       : 500,";
+        echo "sorting        : true,";
+        echo "defaultSorting : \"Matrikelnummer ASC\",";
+        echo "actions: {";
+        echo "listAction   : \"".$listaction."\",";
+        if (!$flash["veranstaltung"]->isClosed())
+            echo "updateAction : \"".$updateaction."\",";
+        echo "},";
 
-            echo "fields: {";
+        echo "fields: {";
 
-            echo "Auth : { key : true, create : false, edit : false, list : false },";
-            echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
-            echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
-            echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
-            echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"35%\" }";
-            
-            echo "}";
-            echo "});";
-            
-            echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
-            echo "});";
-            echo "</script>";
-            
-            echo "<div id=\"punktetabelle\"></div>";
-        }
+        echo "Auth : { key : true, create : false, edit : false, list : false },";
+        echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
+        echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
+        echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
+        echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"50%\" }";
+        
+        echo "}";
+        echo "});";
+        
+        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        echo "});";
+        echo "</script>";
+        
+        echo "<div id=\"punktetabelle\"></div>";
+
         
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
