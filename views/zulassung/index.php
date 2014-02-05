@@ -70,7 +70,7 @@
         echo "</script>";
 
 
-        echo "<p>"._("Über die nachfolgende Tabelle kann fÜr einzelne Studenten manuell die Zulassung (bestanden Kriterium) für die Veranstaltung eingetragen werden. Um einen Studenten manuell zuzulassen, muss eine Bemerkung hinterlegt werden, beim der Entfernung der Bemerkung wird die manuelle Zulassung wieder entfernt und die aufgrund der hinterlegten Punkten erzeugte Zulassung aktiviert. Diese Funktion ist gedacht, um Studenten, die z.B. wegen Krankheit / sozialer Härte die Zulassung nicht erreicht haben, dennoch zuzulassen.")."</p>";
+        echo "<p>"._("Über die nachfolgende Tabelle kann für einzelne Studenten manuell die Zulassung (bestanden Kriterium) für die Veranstaltung eingetragen werden. Um einen Studenten manuell zuzulassen, muss eine Bemerkung hinterlegt werden, beim der Entfernung der Bemerkung wird die manuelle Zulassung wieder entfernt und die aufgrund der hinterlegten Punkten erzeugte Zulassung aktiviert. Diese Funktion ist gedacht, um Studenten, die z.B. wegen Krankheit / sozialer Härte die Zulassung nicht erreicht haben, dennoch zuzulassen.")."</p>";
         echo "<div id=\"zulassungstabelle\"></div>";
 
         

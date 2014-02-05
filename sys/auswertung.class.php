@@ -191,7 +191,8 @@
             $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
-                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
+                $loStudent = new Student($lcStudentKey);
+                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || !empty($loStudent->manuelleZulassung($this->moVeranstaltung));
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
             }
             
@@ -261,7 +262,8 @@
             $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
-                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden());
+                $loStudent = new Student($lcStudentKey);
+                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || !empty($loStudent->manuelleZulassung($this->moVeranstaltung));
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
             }
 
