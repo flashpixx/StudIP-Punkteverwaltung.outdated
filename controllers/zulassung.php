@@ -134,7 +134,7 @@
 
                     foreach( $laData as $item )
                     {
-                        // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
+                        // siehe Arraykeys unter views/zulassung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
                         $laItem = array(
                                         "Auth"            => studip_utf8encode( $item->student()->id() ),
                                         "Matrikelnummer"  => $item->student()->matrikelnummer(),
@@ -142,9 +142,6 @@
                                         "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
                                         "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
                                         );
-
-                        if (VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
-                            $laItem["Korrektor"] = studip_utf8encode( $item->korrektor() );
 
 
                         array_push( $this->result["Records"], $laItem );
@@ -177,7 +174,8 @@
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // setze die Bemerkung
-                $lo->zulassung( Request::quoted("Auth"), Request::quoted("Bemerkung") );
+                $lo = new Student( :-PRequest::quoted("Auth") );
+                $lo->manuelleZulassung( $this->flash["veranstaltung"], Request::quoted("Bemerkung") );
                 
                 
                 // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)

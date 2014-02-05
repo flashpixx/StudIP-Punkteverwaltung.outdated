@@ -144,15 +144,48 @@
         }
 
 
-        /** liefert die Information, ob der Student die Veranstaltung bestanden hat
-         * @return Boolean für das Bestehen
+        /** liefert die Information, ob für den Studenten eine manuelle Zulassung hinterlegt wurde
+         * @param $poVeranstaltung Veranstaltungsobjekt
+         * @param $pcBemerkung Bemerkungsstring, der gesetzt werden soll
+         * @return String mit einer Bemerkung oder null
          **/
-        function VeranstaltungBestanden( $poVeranstaltung )
+        function manuelleZulassung( $poVeranstaltung, $pcBemerkung = false )
         {
             if (!($poVeranstaltung instanceof Veranstaltung))
                 throw new Exception(_("kein Veranstaltungsobjekt übergeben"));
 
-            return !empty($poVeranstaltung->zulassung($this));
+            $lc = null;
+            if ( (!is_bool($pcBemerkung)) || (is_string($pc)) )
+            {
+
+                if ($poVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
+                if (empty($pcBemerkung))
+                {
+                    $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarstundentbestanden where seminar=:semid and student=:student limit 1" );
+                    $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID) );
+                } else {
+                    $loPrepare = DBManager::get()->prepare( "insert into ppv_seminarstundentbestanden (seminar, student, bemerkung) values (:semid, :student, :bemerkung) on duplicate key update bemerkung = :bemerkung" );
+                    $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID, "bemerkung" => $pcBemerkung) );
+                }
+
+                $lc = $pcBemerkung;
+
+            } else {
+
+                $loPrepare = DBManager::get()->prepare( "select bemerkung from ppv_seminarstundentbestanden where seminar=:semid and student=:student" );
+                $loPrepare->execute( array("semid" => $poVeranstalung->id(), "student" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $lc     = $result["bemerkung"];
+                }
+                
+            }
+
+            return $lc;
         }
 
 

@@ -249,7 +249,7 @@
 
                     foreach( $laData as $item )
                     {
-                        // siehe Arraykeys unter views/uebung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
+                        // siehe Arraykeys unter views/uebung/jsonlist.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
                         $laItem = array(
                                     "Auth"            => studip_utf8encode( $item->student()->id() ),
                                     "Matrikelnummer"  => $item->student()->matrikelnummer(),

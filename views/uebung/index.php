@@ -93,7 +93,7 @@
 
             echo "title          : \"Punktetabelle - ".$loUebung->name().$abgabe."\",";
             echo "paging         : true,";
-            echo "pageSize       : 25,";
+            echo "pageSize       : 500,";
             echo "sorting        : true,";
             echo "defaultSorting : \"Matrikelnummer ASC\",";
             echo "actions: {";
