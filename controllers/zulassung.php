@@ -103,10 +103,10 @@
             try {
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
+                if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
-                $laData = $this->flash["uebung"]->studentenuebung();
+                $laData = $this->flash["veranstaltung"]->teilnehmer();
                 if ($laData)
                 {
                     // setze Defaultwerte für jTable
@@ -180,7 +180,7 @@
             try {
 
                 // hole die Übung und prüfe die Rechte
-                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
+                if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // setze die Bemerkung
