@@ -41,7 +41,7 @@
         // jTable für die Studenten / Bemerkungen erzeugen
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
-        echo "jQuery(\"#punktetabelle\").jtable({";
+        echo "jQuery(\"#zulassungstabelle\").jtable({";
 
         echo "title          : \"manuelle Zulassung\",";
         echo "paging         : true,";
@@ -68,8 +68,10 @@
         echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
         echo "});";
         echo "</script>";
-        
-        echo "<div id=\"punktetabelle\"></div>";
+
+
+        echo "<p>"._("Über die nachfolgende Tabelle kann für einzelne Studenten manuell die Zulassung (bestanden Kriterium) für die Veranstaltung eingetragen werden. Um einen Studenten manuell zuzulassen, muss eine Bemerkung hinterlegt werden, beim der Entfernung der Bemerkung wird die manuelle Zulassung wieder entfernt und die aufgrund der hinterlegten Punkten erzeugte Zulassung aktiviert. Diese Funktion ist gedacht, um Studenten, die z.B. wegen Krankheit / sozialer Härte die Zulassung nicht erreicht haben, dennoch zuzulassen.")."</p>";
+        echo "<div id=\"zuassungstabelle\"></div>";
 
         
     } catch (Exception $e) {

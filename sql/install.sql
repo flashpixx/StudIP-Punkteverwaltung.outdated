@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `ppv_seminarmanuellezulassung` (
   `seminar` varchar(32) NOT NULL,
   `student` varchar(32) NOT NULL,
   `bemerkung` longtext,
-  PRIMARY KEY (`id`, `student`)
+  PRIMARY KEY (`seminar`, `student`)
 );
 
 CREATE TABLE IF NOT EXISTS `ppv_uebung` (
