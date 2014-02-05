@@ -97,6 +97,9 @@
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
+
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where id = :semid" );
+            $loPrepare->execute( array("semid" => $lo->id()) );
         }
 
 
