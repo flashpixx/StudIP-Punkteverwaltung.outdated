@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `ppv_seminar` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `ppv_seminarstundentbestanden` (
+CREATE TABLE IF NOT EXISTS `ppv_seminarmanuellezulassung` (
   `id` varchar(32) NOT NULL,
   `student` varchar(32) NOT NULL,
   `bemerkung` longtext,

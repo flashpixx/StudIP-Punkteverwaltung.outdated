@@ -163,10 +163,10 @@
 
                 if (empty($pcBemerkung))
                 {
-                    $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarstundentbestanden where seminar=:semid and student=:student limit 1" );
+                    $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where seminar=:semid and student=:student limit 1" );
                     $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID) );
                 } else {
-                    $loPrepare = DBManager::get()->prepare( "insert into ppv_seminarstundentbestanden (seminar, student, bemerkung) values (:semid, :student, :bemerkung) on duplicate key update bemerkung = :bemerkung" );
+                    $loPrepare = DBManager::get()->prepare( "insert into ppv_seminarmanuellezulassung (seminar, student, bemerkung) values (:semid, :student, :bemerkung) on duplicate key update bemerkung = :bemerkung" );
                     $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID, "bemerkung" => $pcBemerkung) );
                 }
 
