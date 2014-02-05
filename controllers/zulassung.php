@@ -117,19 +117,19 @@
                           $ln = 0;
 
                           if ($a == $b)
-                          return 0;
+                            return 0;
 
                           elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
-                          $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
+                            $ln = $a->matrikelnummer() - $b->matrikelnummer();
 
                           elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
-                          $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
+                            $ln = strcasecmp(studip_utf8encode($a->name()), studip_utf8encode($b->name()));
 
                           elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
-                          $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
+                            $ln = strcasecmp(studip_utf8encode($a->email()), studip_utf8encode($b->email()));
 
                           elseif (stripos(Request::quoted("jtSorting"), "bemerkung") !== false)
-                          $ln = strcasecmp(studip_utf8encode($a->bemerkung()), studip_utf8encode($b->bemerkung()));
+                            $ln = strcasecmp(studip_utf8encode($a->manuelleZulassung($this->flash["veranstaltung"])), studip_utf8encode($b->manuelleZulassung($this->flash["veranstaltung"])));
 
 
                           if (stripos(Request::quoted("jtSorting"), "asc") === false)
@@ -146,11 +146,11 @@
                     {
                         // siehe Arraykeys unter views/zulassung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
                         $laItem = array(
-                                        "Auth"            => studip_utf8encode( $item->student()->id() ),
-                                        "Matrikelnummer"  => $item->student()->matrikelnummer(),
-                                        "Name"            => studip_utf8encode( $item->student()->name() ),
-                                        "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
-                                        "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
+                                        "Auth"            => studip_utf8encode( $item->id() ),
+                                        "Matrikelnummer"  => $item->matrikelnummer(),
+                                        "Name"            => studip_utf8encode( $item->name() ),
+                                        "EmailAdresse"    => studip_utf8encode( $item->email() ),
+                                        "Bemerkung"       => studip_utf8encode( $item->manuelleZulassung($this->flash["veranstaltung"]) )
                                         );
 
 
