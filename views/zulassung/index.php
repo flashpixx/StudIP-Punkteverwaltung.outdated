@@ -38,7 +38,7 @@
             throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
 
 
-        // jTable fÃ¼r die Studenten / Bemerkungen erzeugen
+        // jTable für die Studenten / Bemerkungen erzeugen
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
         echo "jQuery(\"#zulassungstabelle\").jtable({";
@@ -70,8 +70,8 @@
         echo "</script>";
 
 
-        echo "<p>"._("Ãœber die nachfolgende Tabelle kann fÃ¼r einzelne Studenten manuell die Zulassung (bestanden Kriterium) fÃ¼r die Veranstaltung eingetragen werden. Um einen Studenten manuell zuzulassen, muss eine Bemerkung hinterlegt werden, beim der Entfernung der Bemerkung wird die manuelle Zulassung wieder entfernt und die aufgrund der hinterlegten Punkten erzeugte Zulassung aktiviert. Diese Funktion ist gedacht, um Studenten, die z.B. wegen Krankheit / sozialer HÃ¤rte die Zulassung nicht erreicht haben, dennoch zuzulassen.")."</p>";
-        echo "<div id=\"zuassungstabelle\"></div>";
+        echo "<p>"._("Über die nachfolgende Tabelle kann fÜr einzelne Studenten manuell die Zulassung (bestanden Kriterium) für die Veranstaltung eingetragen werden. Um einen Studenten manuell zuzulassen, muss eine Bemerkung hinterlegt werden, beim der Entfernung der Bemerkung wird die manuelle Zulassung wieder entfernt und die aufgrund der hinterlegten Punkten erzeugte Zulassung aktiviert. Diese Funktion ist gedacht, um Studenten, die z.B. wegen Krankheit / sozialer Härte die Zulassung nicht erreicht haben, dennoch zuzulassen.")."</p>";
+        echo "<div id=\"zulassungstabelle\"></div>";
 
         
     } catch (Exception $e) {
