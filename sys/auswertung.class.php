@@ -73,18 +73,20 @@
                 $lcStudiengang = trim($laStudiengang["abschluss"]." ".$laStudiengang["fach"]);
             }
 
+            $lcZulassungsBemerkung = $poStudent->manuelleZulassung($this->moVeranstaltung);
+            
             return array(
-                "id"                       => $poStudent->id(),                                                 // Auth Hash des Studenten
-                "name"                     => $poStudent->name(),                                               // Name des Studenten
-                "matrikelnummer"           => $poStudent->matrikelnummer(),                                     // Matrikelnummer des Studenten
-                "email"                    => $poStudent->email(),                                              // EMail des Studenten
-                "studiengang"              => $lcStudiengang,                                                   // Studiengang (wenn nicht gesetzt, dann null)
-                "uebungenbestanden"        => 0,                                                                // Anzahl der Übungen, die bestanden wurden
-                "uebungennichtbestanden"   => 0,                                                                // Anzahl der Übungen, die nicht bestanden wurden
-                "uebungenpunkte"           => 0,                                                                // Summe über alle erreichten Übungspunkte
-                "veranstaltungenbestanden" => false,                                                            // Boolean, ob die Veranstaltung als komplett bestanden gilt
-                "bonuspunkte"              => 0,                                                                // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
-                "manuelleZulassung"        => !empty($poStudent->manuelleZulassung($this->moVeranstaltung));    // Boolean für die manuelle Zulassung
+                "id"                       => $poStudent->id(),                  // Auth Hash des Studenten
+                "name"                     => $poStudent->name(),                // Name des Studenten
+                "matrikelnummer"           => $poStudent->matrikelnummer(),      // Matrikelnummer des Studenten
+                "email"                    => $poStudent->email(),               // EMail des Studenten
+                "studiengang"              => $lcStudiengang,                    // Studiengang (wenn nicht gesetzt, dann null)
+                "uebungenbestanden"        => 0,                                 // Anzahl der Übungen, die bestanden wurden
+                "uebungennichtbestanden"   => 0,                                 // Anzahl der Übungen, die nicht bestanden wurden
+                "uebungenpunkte"           => 0,                                 // Summe über alle erreichten Übungspunkte
+                "veranstaltungenbestanden" => false,                             // Boolean, ob die Veranstaltung als komplett bestanden gilt
+                "bonuspunkte"              => 0,                                 // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
+                "manuelleZulassung"        => !empty($lcZulassungsBemerkung);    // Boolean für die manuelle Zulassung
             );
         }
 
