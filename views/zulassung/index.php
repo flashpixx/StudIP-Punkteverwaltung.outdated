@@ -65,7 +65,7 @@
         echo "}";
         echo "});";
         
-        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        echo "jQuery(\"#zulassungstabelle\").jtable(\"load\");";
         echo "});";
         echo "</script>";
 
