@@ -74,16 +74,17 @@
             }
 
             return array(
-                "id"                       => $poStudent->id(),                                         // Auth Hash des Studenten
-                "name"                     => $poStudent->name(),                                       // Name des Studenten
-                "matrikelnummer"           => $poStudent->matrikelnummer(),                             // Matrikelnummer des Studenten
-                "email"                    => $poStudent->email(),                                      // EMail des Studenten
-                "studiengang"              => $lcStudiengang,                                           // Studiengang (wenn nicht gesetzt, dann null)
-                "uebungenbestanden"        => 0,                                                        // Anzahl der Übungen, die bestanden wurden
-                "uebungennichtbestanden"   => 0,                                                        // Anzahl der Übungen, die nicht bestanden wurden
-                "uebungenpunkte"           => 0,                                                        // Summe über alle erreichten Übungspunkte
-                "veranstaltungenbestanden" => false,                                                    // Boolean, ob die Veranstaltung als komplett bestanden gilt
-                "bonuspunkte"              => 0                                                         // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
+                "id"                       => $poStudent->id(),                                                 // Auth Hash des Studenten
+                "name"                     => $poStudent->name(),                                               // Name des Studenten
+                "matrikelnummer"           => $poStudent->matrikelnummer(),                                     // Matrikelnummer des Studenten
+                "email"                    => $poStudent->email(),                                              // EMail des Studenten
+                "studiengang"              => $lcStudiengang,                                                   // Studiengang (wenn nicht gesetzt, dann null)
+                "uebungenbestanden"        => 0,                                                                // Anzahl der Übungen, die bestanden wurden
+                "uebungennichtbestanden"   => 0,                                                                // Anzahl der Übungen, die nicht bestanden wurden
+                "uebungenpunkte"           => 0,                                                                // Summe über alle erreichten Übungspunkte
+                "veranstaltungenbestanden" => false,                                                            // Boolean, ob die Veranstaltung als komplett bestanden gilt
+                "bonuspunkte"              => 0,                                                                // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
+                "manuelleZulassung"        => !empty($poStudent->manuelleZulassung($this->moVeranstaltung));    // Boolean für die manuelle Zulassung
             );
         }
 
@@ -191,8 +192,7 @@
             $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
-                $loStudent = new Student($lcStudentKey);
-                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || !empty($loStudent->manuelleZulassung($this->moVeranstaltung));
+                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || $main["studenten"][$lcStudentKey]["manuelleZulassung"];;
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
             }
             
@@ -262,8 +262,7 @@
             $loBonuspunkte = $this->moVeranstaltung->bonuspunkte();
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
-                $loStudent = new Student($lcStudentKey);
-                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || !empty($loStudent->manuelleZulassung($this->moVeranstaltung));
+                $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || $main["studenten"][$lcStudentKey]["manuelleZulassung"];
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
             }
 
