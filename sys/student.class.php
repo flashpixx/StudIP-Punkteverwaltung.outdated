@@ -175,7 +175,7 @@
             } else {
 
                 $loPrepare = DBManager::get()->prepare( "select bemerkung from ppv_seminarstundentbestanden where seminar=:semid and student=:student" );
-                $loPrepare->execute( array("semid" => $poVeranstalung->id(), "student" => $this->mcID) );
+                $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID) );
 
                 if ($loPrepare->rowCount() == 1)
                 {
