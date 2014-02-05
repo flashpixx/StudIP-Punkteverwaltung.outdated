@@ -74,7 +74,7 @@
             }
 
             $lcZulassungsBemerkung = $poStudent->manuelleZulassung($this->moVeranstaltung);
-            
+
             return array(
                 "id"                       => $poStudent->id(),                  // Auth Hash des Studenten
                 "name"                     => $poStudent->name(),                // Name des Studenten
@@ -86,7 +86,7 @@
                 "uebungenpunkte"           => 0,                                 // Summe über alle erreichten Übungspunkte
                 "veranstaltungenbestanden" => false,                             // Boolean, ob die Veranstaltung als komplett bestanden gilt
                 "bonuspunkte"              => 0,                                 // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
-                "manuelleZulassung"        => !empty($lcZulassungsBemerkung);    // Boolean für die manuelle Zulassung
+                "manuelleZulassung"        => !empty($lcZulassungsBemerkung)     // Boolean für die manuelle Zulassung
             );
         }
 
