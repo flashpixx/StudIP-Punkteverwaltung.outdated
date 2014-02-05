@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `ppv_seminar` (
 );
 
 CREATE TABLE IF NOT EXISTS `ppv_seminarmanuellezulassung` (
-  `id` varchar(32) NOT NULL,
+  `seminar` varchar(32) NOT NULL,
   `student` varchar(32) NOT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`id`, `student`)
