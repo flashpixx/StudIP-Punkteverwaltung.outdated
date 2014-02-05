@@ -174,7 +174,7 @@
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // setze die Bemerkung
-                $lo = new Student( :-PRequest::quoted("Auth") );
+                $lo = new Student( Request::quoted("Auth") );
                 $lo->manuelleZulassung( $this->flash["veranstaltung"], Request::quoted("Bemerkung") );
                 
                 
