@@ -362,7 +362,7 @@
 
             $la = array();
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push($la, new Student($row["user_id"]) );
+                array_push($la, new Student($row["student"]) );
 
             return $la;
         }
