@@ -29,6 +29,17 @@
     class ZulassungController extends StudipController
     {
 
+        /** Ctor, um aus dem Dispatcher die Referenz auf das Pluginobjekt
+         * zu bekommen
+         * @param $poDispatch
+         **/
+        function __construct( $poDispatch )
+        {
+            parent::__construct($poDispatch);
+            $this->plugin = $poDispatch->plugin;
+        }
+
+
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
          * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
@@ -54,10 +65,9 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung, falls keine ÜbungsID gesetzt ist nehmen wir die Default Einstellung
-            $this->listaction       = $this->url_for( "zulassung/jsonlist",   array("ueid" => $this->flash["uebung"]->id()) );
-            $this->updateaction     = $this->url_for( "zulassung/jsonupdate", array("ueid" => $this->flash["uebung"]->id()) );
-            $this->childiconpath    = $this->plugin->getPluginUrl() . "/img/log.png";
+            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
+            $this->listaction       = $this->url_for( "zulassung/jsonlist" );
+            $this->updateaction     = $this->url_for( "zulassung/jsonupdate" );
         }
 
 
