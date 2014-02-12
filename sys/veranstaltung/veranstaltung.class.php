@@ -253,13 +253,15 @@
         }
 
 
-        /** schließt die Veranstaltung für Änderungen **/
+        /** schließt die Veranstaltung für Änderungen
+         * @todo beim Schließen müssen alle "Fehler" protokolliert werden und nicht einzeln nacheinander
+         **/
         function close()
         {
             try {
 
                 // Studiengänge der Teilnehmer setzen, sofern sie es nicht selbstständig gemacht haben
-                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung =  ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung = ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("semid" => $this->mcID) );
             
                 foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
