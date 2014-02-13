@@ -258,12 +258,17 @@
          **/
         function close()
         {
-            try {
+            if ($this->mlClose)
+                return;
 
-                // Studiengänge der Teilnehmer setzen, sofern sie es nicht selbstständig gemacht haben
-                $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung = ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-                $loPrepare->execute( array("semid" => $this->mcID) );
-            
+            $laErrorList = array();
+
+            // Studiengänge der Teilnehmer setzen, sofern sie es nicht selbstständig gemacht haben
+            $loPrepare = DBManager::get()->prepare("select student from ppv_uebungstudent as ues join ppv_uebung as ueb on ues.uebung = ueb.id where ueb.seminar = :semid group by student", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->mcID) );
+
+
+            try {
                 foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 {
                     $loStudent = new Student( $row["student"] );
@@ -280,18 +285,24 @@
                         $loStudent->studiengang( $this, $laStudiengang["abschluss_id"], $laStudiengang["fach_id"]);
                     }
                 }
+            } catch (Exception $e) {
+                array_push($laErrorList, $e->getMessage());
+            }
 
 
+            if (empty($laErrorList))
+            {
                 // Veranstaltung schließen
                 $this->mlClose         = true;
                 $this->mcCloseDateTime = date("Y-m-d H:i:s");
                 DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => $this->mcCloseDateTime) );
 
-            } catch (Exception $e) {
+            } else {
+
                 $this->mlClose         = false;
                 $this->mcCloseDateTime = null;
                 
-                throw new Exception(_("Veranstaltung konnte nicht geschlossen werden, da ein Fehler aufgetreten ist: ".$e->getMessage()));
+                throw new Exception(_("Veranstaltung konnte nicht geschlossen werden, da Fehler aufgetreten sind: ".implode(", ", $laErrorList)));
             }
 
         }
