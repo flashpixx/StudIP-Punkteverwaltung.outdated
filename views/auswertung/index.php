@@ -26,6 +26,7 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/auswertung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/student.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
 
 
@@ -157,7 +158,7 @@
         // Tabelle erzeugen
         echo "<h1>Liste</h1>";
         echo "<p><table width=\"100%\">";
-        echo "<tr><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
+        echo "<tr><th>"._("Fehler")."</th><th>"._("Name (EMail)")."</th><th>"._("Matrikelnummer")."</th>";
 
         foreach($laListe["uebungen"] as $laUebung)
             echo "<th>".$laUebung["name"]."  ("._("bestanden").")</th>";
@@ -169,7 +170,12 @@
         // erzeuge Tabelle
         foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
         {
+            $loStudent = new Student($lcStudentKey);
+
             echo "<tr>";
+            echo "<td>";
+            echo ($loStudent->checkStudiengangAbschlussFehler() ? _("Fehler bei Studiengang und/oder Abschluss") : "&nbsp;");
+            echo "</td>";
             echo "<td>".$laStudent["name"]." (".$laStudent["email"].")</td>";
             echo "<td>".$laStudent["matrikelnummer"]."</td>";
 

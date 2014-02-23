@@ -144,6 +144,19 @@
         }
 
 
+        /** prüft, ob für den Studenten der Studiengang korrekt hinterlegt ist
+         * @retrun boolean ob ein Fehler vorhanden ist
+         **/
+        function checkStudiengangAbschlussFehler()
+        {
+            foreach ( UserModel::getUserStudycourse($this->mcID) as $item )
+                if ( (empty($item["abschluss_id"])) || (empty($item["fach_id"])) )
+                    return true;
+
+            return false;
+        }
+
+
         /** liefert die Information, ob für den Studenten eine manuelle Zulassung hinterlegt wurde
          * @param $poVeranstaltung Veranstaltungsobjekt
          * @param $pcBemerkung Bemerkungsstring, der gesetzt werden soll
