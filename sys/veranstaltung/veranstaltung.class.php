@@ -308,9 +308,6 @@
         /** öffnet die Veranstaltung wieder, falls sie geschlossen wurde **/
         function reopen()
         {
-            if (!$this->close)
-                return;
-
             DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => null) );
             $this->mlClose         = false;
             $this->mcCloseDateTime = null;
