@@ -253,9 +253,7 @@
         }
 
 
-        /** schließt die Veranstaltung für Änderungen
-         * @todo beim Schließen müssen alle "Fehler" protokolliert werden und nicht einzeln nacheinander
-         **/
+        /** schließt die Veranstaltung für Änderungen **/
         function close()
         {
             if ($this->mlClose)
@@ -307,7 +305,18 @@
 
         }
 
-        
+        /** öffnet die Veranstaltung wieder, falls sie geschlossen wurde **/
+        function reopen()
+        {
+            if (!$this->close)
+                return;
+
+            DBManager::get()->prepare( "update ppv_seminar set close = :close where id = :semid" )->execute( array("semid" => $this->mcID, "close" => null) );
+            $this->mlClose         = false;
+            $this->mcCloseDateTime = null;
+        }
+
+
         /** liefert ob die Veranstaltung geschlossen ist
          * @return boolean
          **/

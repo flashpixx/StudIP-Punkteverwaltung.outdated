@@ -183,6 +183,17 @@
             $this->redirect("admin");
         }
 
+        /** öffnet die Veranstaltung, wenn sie geschlossen wurde **/
+        function reopen_action()
+        {
+            if (!VeranstaltungPermission::hasAdminRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Veranstaltung wieder zu öffnen") );
+            else
+            {
+                
+            }
+        }
+
 
         /** URL Aufruf **/
         function url_for($to)
