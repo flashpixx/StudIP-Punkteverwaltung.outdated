@@ -190,8 +190,11 @@
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Veranstaltung wieder zu öffnen") );
             else
             {
-                
+                $this->flash["veranstaltung"]->reopen();
+                $this->flash["message"] = Tools::createMessage( "success", _("Veranstaltung erfolgreich geöffnet") );
             }
+
+            $this->redirect("admin");
         }
 
 
