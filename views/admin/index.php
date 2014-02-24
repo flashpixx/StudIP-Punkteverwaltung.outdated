@@ -64,14 +64,20 @@
 
                 echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
                 echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
+
+                
             }
 
 
             echo "</table>\n";
             echo "</div>\n";
             if ($loVeranstaltung->isClosed())
-                echo "<p><strong>Die Veranstaltung wurde am ".$loVeranstaltung->closedDateTime()." geschlossen</strong></p>";
-            else
+            {
+                echo "<p><strong>Die Veranstaltung wurde am ".$loVeranstaltung->closedDateTime()." geschlossen</strong>";
+                if (VeranstaltungPermission::hasAdminRecht())
+                    echo " (<a href=\"".$controller->url_for("admin/reopen")."\">Veranstaltung wieder öffnen</a>)";
+                echo "</p>";
+            } else
                 echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
 
             echo "</form></p><br/><br/>";

@@ -32,6 +32,16 @@
     class VeranstaltungPermission
     {
 
+        /** prüft, ob der aktuelle Benutzer Admin Rechte auf der Veranstaltung hat
+         * @param px null, String oder Veranstaltungsobjekt
+         * @return Boolean für die Rechte
+         **/
+        static function hasAdminRecht( $px = null )
+        {
+            return $GLOBALS["perm"]->have_perm("admin")
+        }
+
+        
         /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Dozentenrechte hat
          * @param px null, String oder Veranstaltungsobjekt
          * @return Boolean für die Rechte
