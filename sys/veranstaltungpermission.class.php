@@ -38,7 +38,7 @@
          **/
         static function hasAdminRecht( $px = null )
         {
-            return $GLOBALS["perm"]->have_perm("admin")
+            return $GLOBALS["perm"]->have_perm("admin");
         }
 
         
