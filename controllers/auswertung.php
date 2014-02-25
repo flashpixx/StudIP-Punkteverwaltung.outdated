@@ -290,9 +290,7 @@
 
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
-                    if ($lcKey == "name")
-                        array_push( $laItem, utf8_encode($lxData) );
-                    elseif ($lcKey == "bestanden")
+                    if ($lcKey == "bestanden")
                         array_push( $laItem, $lxData ? _("ja") : _("nein") );
                     elseif ($lcKey == "uebung")
                         foreach($lxData as $lcName => $lxUebungData)
@@ -303,7 +301,7 @@
                                 array_push($laItem, $lxUebungData["bestanden"] ? _("ja") : _("nein") );
                         }
                     else
-                        array_push($laItem, $lxData);
+                        array_push($laItem, utf8_encode($lxData));
 
                 $laLine = $laItem;
             }
