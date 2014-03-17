@@ -63,6 +63,18 @@
                 echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form 'dd.mm.yyyy hh:mm', 'dd.mm.yyyy' oder leer)")."</label></td>";
                 echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$loUebung->abgabeDatum()."\" size=\"35\"/></td></tr>\n";
 
+
+                echo "<tr><td colspan=\"2\">&nbsp</td></tr>";
+
+                echo "<tr><td><label for=\"digitaleAbgabePlagiatURL\">"._("URL des Webservice für Plagiatsprüfung")."</label></td>";
+                echo "<td><input type=\"text\" id=\"digitaleAbgabePlagiatURL\" name=\"digitaleAbgabePlagiatURL\" value=\"".$loUebung->digitaleAbgabePlagiatURL()."\" size=\"35\"/></td></tr>\n";
+
+                echo "<tr><td><label for=\"digitaleAbgabeBewertungURL\">"._("URL des Webservice für Bewertung")."</label></td>";
+                echo "<td><input type=\"text\" id=\"digitaleAbgabeBewertungURL\" name=\"digitaleAbgabeBewertungURL\" value=\"".$loUebung->digitaleAbgabeBewertungURL()."\" size=\"35\"/></td></tr>\n";
+
+                echo "<tr><td colspan=\"2\">&nbsp</td></tr>";
+
+
                 echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung (f¸r die Tutoren sichtbar)")."</label></td>";
                 echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
 

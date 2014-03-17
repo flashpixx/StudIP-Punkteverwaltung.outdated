@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS `ppv_uebung` (
   `bestandenprozent` decimal(5,2) unsigned NOT NULL,
   `maxpunkte` int(10) unsigned NOT NULL,
   `abgabe` datetime DEFAULT NULL,
+  `digitaleabgabeplagiaturl` longtext,
+  'digitaleabgabebewertungurl' longtext,
   `bemerkung` longtext,
   PRIMARY KEY (`seminar`,`id`),
   UNIQUE KEY `uebung` (`seminar`,`uebungsname`),

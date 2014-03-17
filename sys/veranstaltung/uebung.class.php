@@ -354,6 +354,69 @@
         }
 
 
+        /** URL für die Überprüfung auf Plagiagte der Übungsdaten mittels Webservice
+         * @param $pcURL URL des Webservice
+         * @return URL oder null
+         **/
+        function digitaleAbgabePlagiatURL( $pc = false )
+        {
+            $lc = null;
+
+            if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
+            {
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
+                DBManager::get()->prepare( "update ppv_uebung set digitaleabgabeplagiaturl = :url where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "url" => (empty($pc) ? null : $pc)) );
+
+                $lc = $pc;
+            } else {
+                $loPrepare = DBManager::get()->prepare("select digitaleabgabeplagiaturl from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $lc     = $result["digitaleabgabeplagiaturl"];
+                }
+
+            }
+            
+            return $lc;
+        }
+
+
+        /** URL für die Überprüfung der Übungsdaten mittels Webservice
+         * @param $pxURL URL des Webservice
+         * @return URL oder null
+         **/
+        function digitaleAbgabeBewertungURL( $pxURL = false )
+        {
+            $lc = null;
+
+            if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
+            {
+                if ($this->moVeranstaltung->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+
+                DBManager::get()->prepare( "update ppv_uebung set digitaleabgabebewertungurl = :url where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "url" => (empty($pc) ? null : $pc)) );
+
+                $lc = $pc;
+            } else {
+                $loPrepare = DBManager::get()->prepare("select digitaleabgabebewertungurl from ppv_uebung where seminar = :semid and id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+                $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID) );
+
+                if ($loPrepare->rowCount() == 1)
+                {
+                    $result = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                    $lc     = $result["digitaleabgabebewertungurl"];
+                }
+                
+            }
+            
+            return $lc;
+        }
+
 
     }
 
