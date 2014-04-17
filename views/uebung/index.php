@@ -85,7 +85,7 @@
             // Feld für Masseneingabe
             if (!$loUebung->veranstaltung()->isClosed())
             {
-                echo "<div class=\"steel1\">";
+                echo "<div class=\"steel2\">";
                 echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                 CSRFProtection::tokenTag();
                 echo "<textarea cols=\"10\" rows=\"20\"></textarea>";
