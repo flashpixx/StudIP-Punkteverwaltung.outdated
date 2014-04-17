@@ -39,13 +39,13 @@
                                              "field_number" => "matrikelnr"
                                             );
 
-        /** Prepare Statement fŸr Abfragen anhand der UID **/
-        private $moPrepareUID = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num, ".self::$maConfiguration["field_userid"]." as uid from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-        /** Prepare Statement fŸr Abfragen anhand der Matrikelnummer **/
-        private $moPrepareNUM = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num, ".self::$maConfiguration["field_userid"]." as uid from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_number"]." = :num limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+        /** Prepare Statement für Abfragen anhand der UID **/
+        private $moPrepareUID = null;
 
+        /** Prepare Statement für Abfragen anhand der Matrikelnummer **/
+        private $moPrepareNUM = null
         
-        /** zeit an, dass die Möglichkeit besteht die Matrikelnummer abzufragen **/
+        /** zeigt an, dass die Möglichkeit besteht die Matrikelnummer abzufragen **/
         private $mlExists = false;
 
 
@@ -58,6 +58,13 @@
                 $loPrepare = DBManager::get()->prepare("show tables like :tablename", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("tablename" => self::$maConfiguration["tablename"]) );
                 $this->mlExists = $loPrepare->rowCount() == 1;
+            }
+
+            if ($this->mlExists)
+            {
+                $this->moPrepareUID = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num, ".self::$maConfiguration["field_userid"]." as uid from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+
+                $this->moPrepareNUM = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num, ".self::$maConfiguration["field_userid"]." as uid from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_number"]." = :num limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             }
         }
 
