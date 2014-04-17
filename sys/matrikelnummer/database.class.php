@@ -79,17 +79,15 @@
             if (!$this->mlExists)
                 return null;
 
-            if (is_string($px))
+            if ((is_string($px)) && (!empty($this->moPrepareUID)))
             {
-                error_log("blub "+$px);
                 $this->moPrepareUID->execute( array("uid" => $px ) );
                 $loResult = $this->moPrepareUID->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
                     return array( $loResult["uid"] => intval($loResult["num"]) );
 
 
-            } elseif (is_numeric($px)) {
-
+            } elseif ((is_numeric($px)) && (!empty($this->moPrepareNUM))) {
                 $this->moPrepareNUM->execute( array("num" => $px ) );
                 $loResult = $this->moPrepareNUM->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
@@ -101,7 +99,7 @@
                 foreach ($px as $lx)
                 {
                     $lxData = $this->get($lx);
-                    if (is_array($lxData))
+                    if ((is_array($lxData)) && (!empty($lxData)))
                         $laList = array_merge($laList, $lxData);
                 }
                 return $laList;
