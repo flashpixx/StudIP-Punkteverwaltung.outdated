@@ -43,7 +43,7 @@
         private $moPrepareUID = null;
 
         /** Prepare Statement für Abfragen anhand der Matrikelnummer **/
-        private $moPrepareNUM = null
+        private $moPrepareNUM = null;
         
         /** zeigt an, dass die Möglichkeit besteht die Matrikelnummer abzufragen **/
         private $mlExists = false;
