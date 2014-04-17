@@ -81,6 +81,7 @@
 
             if (is_string($px))
             {
+                error_log("blub "+$px);
                 $this->moPrepareUID->execute( array("uid" => $px ) );
                 $loResult = $this->moPrepareUID->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
@@ -100,10 +101,8 @@
                 foreach ($px as $lx)
                 {
                     $lxData = $this->get($lx);
-                    if (is_array($lxData)) {
+                    if (is_array($lxData))
                         $laList = array_merge($laList, $lxData);
-                        error_log( print_r($laList, true) );
-                    }
                 }
                 return $laList;
 
