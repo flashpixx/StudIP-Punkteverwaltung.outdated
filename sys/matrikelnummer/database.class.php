@@ -84,14 +84,14 @@
                 $this->moPrepareUID->execute( array("uid" => $px ) );
                 $loResult = $this->moPrepareUID->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
-                    return array( $loResult["uid"] => intval($loResult["num"]) );
+                    return array( "uid" => $loResult["uid"], "num" => intval($loResult["num"]) );
 
 
             } elseif ((is_numeric($px)) && (!empty($this->moPrepareNUM))) {
                 $this->moPrepareNUM->execute( array("num" => $px ) );
                 $loResult = $this->moPrepareNUM->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
-                    return array( $loResult["uid"] => intval($loResult["num"]) );
+                    return array( "uid" => $loResult["uid"], "num" => intval($loResult["num"]) );
 
 
             } elseif (is_array($px)) {
