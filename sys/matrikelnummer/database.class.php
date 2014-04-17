@@ -100,7 +100,7 @@
                 {
                     $lxData = $this->get($lx);
                     if ((is_array($lxData)) && (!empty($lxData)))
-                        $laList = array_merge($laList, $lxData);
+                        $laList[$lxData["uid"]] = $lxData["num"];
                 }
                 return $laList;
 
