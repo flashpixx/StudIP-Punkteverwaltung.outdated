@@ -319,7 +319,7 @@
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 $x = array();
-                $laLines = explode("\n", Request::quoted("massedit"));
+                $laLines = explode("\n", Request::quoted("massinput"));
                 foreach($laLines as $lcLine)
                 {
                     $laItems = preg_split("/[\s,]+/", $lcLine, PREG_SPLIT_NO_EMPTY);
