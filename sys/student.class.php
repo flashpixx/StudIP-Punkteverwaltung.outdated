@@ -102,8 +102,8 @@
 
             if (!UserModel::check($this->mcID))
                 throw new Exception(_("Benutzer existiert nicht"));
-            //if (empty($this->mnMatrikelnummer))
-            //    throw new Exception(_("Benutzer hat keine Matrikelnummer"));
+            if (empty($this->mnMatrikelnummer))
+                throw new Exception(_("Benutzer hat keine Matrikelnummer"));
         }
 
 
