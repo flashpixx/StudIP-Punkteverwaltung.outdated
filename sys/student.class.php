@@ -65,9 +65,10 @@
         {
             if ($px instanceof $this)
             {
-                $this->mcID    = $px->mcID;
-                $this->mcName  = $px->mcName;
-                $this->mcEmail = $px->mcEmail;
+                $this->mcID             = $px->mcID;
+                $this->mcName           = $px->mcName;
+                $this->mcEmail          = $px->mcEmail;
+                $this->mnMatrikelnummer = $pc->mnMatrikelnummer;
             }
             elseif (is_string($px))
             {
@@ -76,15 +77,33 @@
                 $this->mcName  = $lo->getFullName("full_rev");
                 $this->mcEmail = User::find($px)->email;
                 $this->mcID    = $px;
-             }
+
+                $la = MatrikelNummerFactory::get()->get( $this->mcID );
+                if (is_array($la))
+                    $this->mnMatrikelnummer = $la["num"];
+
+            }
+            elseif (is_numeric($px))
+            {
+                $la = MatrikelNummerFactory::get()->get( $px );
+                if (is_array($la))
+                {
+                    $this->mnMatrikelnummer = $px;
+
+                    $lo            = new User($la["uid"]);
+                    // der Name wird in der Form "Nachname, Vorname" ausgegeben
+                    $this->mcName  = $lo->getFullName("full_rev");
+                    $this->mcEmail = User::find($la["uid"])->email;
+                    $this->mcID    = $la["uid"];
+                }
+            }
             else
                 throw new Exception("Benutzer nicht gefunden");
 
-
             if (!UserModel::check($this->mcID))
                 throw new Exception(_("Benutzer existiert nicht"));
-
-            $this->mnMatrikelnummer = MatrikelNummerFactory::get()->get( $this->mcID );
+            if (empty($this->mnMatrikelnummer))
+                throw new Exception(_("Benutzer hat keine Matrikelnummer"));
         }
 
 

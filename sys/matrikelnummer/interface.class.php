@@ -32,7 +32,7 @@
     {
 
         /** liefert die Matrikelnummer oder einen leeren Wert zurück
-         * @param $pxUID BenutzerID oder ein Array mit IDs
+         * @param $pxUID BenutzerID oder ein Array mit IDs / Matrikelnummer bzw. Array mit Matrikelnummern
          * @return Leerwert, Nummer oder Array mit Nummern
          **/
         function get( $pxUID );

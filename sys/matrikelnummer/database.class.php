@@ -39,6 +39,11 @@
                                              "field_number" => "matrikelnr"
                                             );
 
+        /** Prepare Statement fŸr Abfragen anhand der UID **/
+        private $moPrepareUID = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num, ".self::$maConfiguration["field_userid"]." as uid from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+        /** Prepare Statement fŸr Abfragen anhand der Matrikelnummer **/
+        private $moPrepareNUM = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num, ".self::$maConfiguration["field_userid"]." as uid from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_number"]." = :num limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+
         
         /** zeit an, dass die Möglichkeit besteht die Matrikelnummer abzufragen **/
         private $mlExists = false;
@@ -50,7 +55,6 @@
         {
             if (self::$maConfiguration)
             {
-
                 $loPrepare = DBManager::get()->prepare("show tables like :tablename", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
                 $loPrepare->execute( array("tablename" => self::$maConfiguration["tablename"]) );
                 $this->mlExists = $loPrepare->rowCount() == 1;
@@ -60,34 +64,40 @@
 
         /** liefert die Matrikelnummer oder einen leeren Wert zurück
          * @overload
-         * @param $pxUID BenutzerID oder ein Array mit IDs
+         * @param $px BenutzerID oder ein Array mit IDs / Matrikelnummer bzw. Array mit Matrikelnummern
          * @return Leerwert, Nummer oder Array mit Nummern
          **/
-        function get( $pxUID )
+        function get( $px )
         {
             if (!$this->mlExists)
                 return null;
 
-            $loPrepare = DBManager::get()->prepare("select ".self::$maConfiguration["field_number"]." as num from ".self::$maConfiguration["tablename"]." where ".self::$maConfiguration["field_userid"]." = :uid limit 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
-
-            if (is_string($pxUID))
+            if (is_string($px))
             {
-                $loPrepare->execute( array("uid" => $pxUID ) );
+                $this->moPrepareUID->execute( array("uid" => $px ) );
                 $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
-                    return intval($loResult["num"]);
+                    return array( $loResult["uid"] => intval($loResult["num"]) );
 
-            } elseif (is_array($pxUID)) {
+
+            } elseif (is_numeric($px)) {
+
+                $this->moPrepareNUM->execute( array("num" => $px ) );
+                $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                if ($loResult)
+                    return array( $loResult["uid"] => intval($loResult["num"]) );
+
+
+            } elseif (is_array($px)) {
                 $laList = array();
-                foreach ($pxUID as $lcUID)
+                foreach ($px as $lx)
                 {
-                    $loPrepare->execute( array( "uid" => $lcUID ) );
-                    $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
-                    if ($loResult)
-                        array_push($laList, intval($loResult["num"]));
+                    $lxData = $this->get($lx);
+                    if (is_array($lxData))
+                        $laList = array_merge($laList, $lxData);
                 }
-
                 return $laList;
+
             }
 
             return null;

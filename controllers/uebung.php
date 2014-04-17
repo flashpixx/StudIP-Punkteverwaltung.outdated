@@ -308,6 +308,22 @@
         }
 
 
+        /** schreibt die Daten aus dem Massenedit Feld in die Datenbank **/
+        function massedit_action()
+        {
+            // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
+            try {
+
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
+                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+
+            $this->redirect($this->url_for("uebung", array("ueid" => $this->flash["uebung"]->id())));
+        }
+
+
         /** URL Aufruf **/
         function url_for($to)
         {
