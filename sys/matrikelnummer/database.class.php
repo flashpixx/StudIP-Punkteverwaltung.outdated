@@ -82,7 +82,7 @@
             if (is_string($px))
             {
                 $this->moPrepareUID->execute( array("uid" => $px ) );
-                $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $loResult = $this->moPrepareUID->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
                     return array( $loResult["uid"] => intval($loResult["num"]) );
 
@@ -90,7 +90,7 @@
             } elseif (is_numeric($px)) {
 
                 $this->moPrepareNUM->execute( array("num" => $px ) );
-                $loResult = $loPrepare->fetch(PDO::FETCH_ASSOC);
+                $loResult = $this->moPrepareNUM->fetch(PDO::FETCH_ASSOC);
                 if ($loResult)
                     return array( $loResult["uid"] => intval($loResult["num"]) );
 
