@@ -324,7 +324,7 @@
                     if (empty($lcLine))
                         continue;
 
-                    $laItems = preg_split("/[\s,]+/", trim($lcLine), PREG_SPLIT_NO_EMPTY);
+                    $laItems = preg_split("/[\s,]+/", trim($lcLine), -1, PREG_SPLIT_NO_EMPTY);
                     array_push($x, $laItems);
                 }
 
