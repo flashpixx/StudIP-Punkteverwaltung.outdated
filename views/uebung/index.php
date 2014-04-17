@@ -42,6 +42,8 @@
 
         else {
 
+            echo "<div>";
+
             // der Dozent kann die Daten der Übung ändern
             if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
             {
@@ -94,6 +96,9 @@
                 echo "</div>";
             }
 
+            echo "</div>";
+
+            
             // jTable für die Punkte erzeugen
             echo "<script type=\"text/javascript\">";
             echo "jQuery(document).ready(function() {";
