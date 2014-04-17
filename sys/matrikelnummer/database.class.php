@@ -100,7 +100,7 @@
                 {
                     $lxData = $this->get($lx);
                     if ((is_array($lxData)) && (!empty($lxData)))
-                        $laList[$lxData["uid"]] = $lxData["num"];
+                        array_push($laList, $lxData);
                 }
                 return $laList;
 
