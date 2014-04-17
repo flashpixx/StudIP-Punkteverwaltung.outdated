@@ -318,6 +318,17 @@
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
+                $x = array();
+                $laLines = explode("\n", Request::quoted("massedit"));
+                foreach($laLines as $lcLine)
+                {
+                    $laItems = preg_split("/[\s,]+/", $lcLine, PREG_SPLIT_NO_EMPTY);
+                    array_push($x, $laItems);
+                }
+
+                throw new Exception( print_r($x, true) );
+
+
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
             $this->redirect($this->url_for("uebung", array("ueid" => $this->flash["uebung"]->id())));
