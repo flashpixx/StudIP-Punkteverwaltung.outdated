@@ -363,7 +363,7 @@
                 }
 
                 if (!empty($laError))
-                    $this->flash["message"] = Tools::createMessage( "error", implode("\n", $laError) );
+                    $this->flash["message"] = Tools::createMessage( "error", implode(",\n", $laError) );
 
 
 
