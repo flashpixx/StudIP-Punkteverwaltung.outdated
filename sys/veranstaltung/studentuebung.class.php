@@ -77,7 +77,7 @@
          **/
         function __construct( $pxUebung, $pxAuth )
         {
-            if (is_string($pxAuth))
+            if ( (is_string($pxAuth)) || (is_numeric($pxAuth)) )
                 $this->moStudent = new Student($pxAuth);
             elseif ($pxAuth instanceof Student)
                 $this->moStudent = $pxAuth;

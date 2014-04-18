@@ -318,17 +318,49 @@
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
-                $x = array();
+                $laError = array();
+                $i = 1;
                 foreach(explode("\n", Request::quoted("massinput")) as $lcLine)
                 {
                     if (empty($lcLine))
                         continue;
 
                     $laItems = preg_split("/[\s,]+/", trim($lcLine), -1, PREG_SPLIT_NO_EMPTY);
-                    array_push($x, $laItems);
-                }
+                    $laData  = array("matrikelnummer" => null, "punkte" => 0, "bonuspunkte" => 0, "bemerkung" => null);
 
-                throw new Exception( print_r($x, true) );
+                    if ( (!is_array($laItems)) || (empty($laItems)) )
+                    {
+                        array_push($laError, "Zeile ".$i." hat eiin ungültiges Format");
+                        continue;
+                    }
+
+                    if (!is_numeric($laItems[0]))
+                    {
+                        array_push($laError, "Matrikelnummer in Zeile ".$i." ist nicht numerisch");
+                        continue;
+                    }
+                    $laData["matrikelnummer"] = intval($laItems[0]);
+
+                    if ( (count($laItems) > 1) && (is_numeric($laItems[1])) )
+                        $laData["punkte"] = abs(floatval($laItems[1]));
+                    elseif ( (count($laItems) > 1) && (is_string($laItems[1])) )
+                        $laData["bemerkung"] = $laItems[1];
+
+                    if ( (count($laItems) > 2) && (is_numeric($laItems[2])) )
+                        $laData["bonuspunkte"] = abs(floatval($laItems[2]));
+                    elseif ( (count($laItems) > 2) && (is_string($laItems[2])) )
+                        $laData["bemerkung"] = $laItems[2];
+
+                    if ( (count($laItems) > 3) && (is_string($laItems[3])) )
+                        $laData["bemerkung"] = $laItems[3];
+
+                    try {
+                        $lo = new StudentUebung( $this->flash["uebung"], $laData["matrikelnummer"] );
+                        $lo->update( $laData["punkte"], $laData["bonuspunkte"], $laData["bemerkung"] );
+                    } catch (UserNotFound $e) { array_push($laError, "Zeile ".$i.": ".$e->getMessage()); }
+
+                    $i++;
+                }
 
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }

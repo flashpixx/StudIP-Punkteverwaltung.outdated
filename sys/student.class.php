@@ -28,6 +28,11 @@
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
 
+
+    // exception to define an not-found exception
+    class UserNotFound extends Exception {}
+
+
     // UserModel ist ab der StudIP 2.5 in einer anderen Datei
     if (!class_exists("UserModel"))
     {
@@ -98,12 +103,10 @@
                 }
             }
             else
-                throw new Exception("Benutzer nicht gefunden");
+                throw new UserNotFound(_("Userdaten konnten nicht ermittelt werden"));
 
-            if (!UserModel::check($this->mcID))
-                throw new Exception(_("Benutzer existiert nicht"));
-            if (empty($this->mnMatrikelnummer))
-                throw new Exception(_("Benutzer hat keine Matrikelnummer"));
+            if ( (!UserModel::check($this->mcID)) || (empty($this->mnMatrikelnummer)) )
+                throw new UserNotFound(_("Userdaten konnten nicht ermittelt werden"));
         }
 
 
