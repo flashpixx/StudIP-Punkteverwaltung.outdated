@@ -318,9 +318,10 @@
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
-                $laError = array();
+                $x = explode("\n", Request::quoted("massinput"));
+                $laError = array("count: ".count($x));
                 $i = 1;
-                foreach(explode("\n", Request::quoted("massinput")) as $lcLine)
+                foreach($x as $lcLine)
                 {
                     if (empty($lcLine))
                         continue;
@@ -363,7 +364,7 @@
                 }
 
                 if (!empty($laError))
-                    $this->flash["message"] = Tools::createMessage( "error", implode(",\n", $laError) );
+                    $this->flash["message"] = Tools::createMessage( "error", implode("\n", $laError) );
 
 
 
