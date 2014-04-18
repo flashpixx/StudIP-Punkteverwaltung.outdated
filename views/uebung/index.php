@@ -92,7 +92,7 @@
                 echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                 CSRFProtection::tokenTag();
                 echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/>";
-                echo "<textarea name=\"massinput\" id=\"massinput\" cols=\"60\" rows=\"20\"></textarea>";
+                echo "<textarea name=\"massinput\" id=\"massinput\" cols=\"60\" rows=\"20\" wrap=\"physical\"></textarea>";
                 echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Masseneingabe übernehmen")."\"/></p>";
                 echo "</form>";
                 echo "</div>";
