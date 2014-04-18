@@ -344,15 +344,15 @@
                     if ( (count($laItems) > 1) && (is_numeric($laItems[1])) )
                         $laData["punkte"] = abs(floatval($laItems[1]));
                     elseif ( (count($laItems) > 1) && (is_string($laItems[1])) )
-                        $laData["bemerkung"] = $laItems[1];
+                        $laData["bemerkung"] = implode(" ", array_slice($laItems, 1));
 
                     if ( (count($laItems) > 2) && (is_numeric($laItems[2])) )
                         $laData["bonuspunkte"] = abs(floatval($laItems[2]));
                     elseif ( (count($laItems) > 2) && (is_string($laItems[2])) )
-                        $laData["bemerkung"] = $laItems[2];
+                        $laData["bemerkung"] = implode(" ", array_slice($laItems, 2));
 
                     if ( (count($laItems) > 3) && (is_string($laItems[3])) )
-                        $laData["bemerkung"] = $laItems[3];
+                        $laData["bemerkung"] = implode(" ", array_slice($laItems, 3));
 
                     try {
                         $lo = new StudentUebung( $this->flash["uebung"], $laData["matrikelnummer"] );
