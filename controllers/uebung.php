@@ -362,6 +362,10 @@
                     $i++;
                 }
 
+                if (!empty($laError))
+                    $this->flash["message"] = Tools::createMessage( "error", impode("\n", $laError) );
+
+
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
