@@ -155,7 +155,7 @@
 
             try {
                 if (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
-                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 // hole Student und Logdaten
                 $loStudentUebung = new StudentUebung($this->flash["uebung"], Request::quoted("aid"));
@@ -203,7 +203,7 @@
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
-                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 $laData = $this->flash["uebung"]->studentenuebung();
                 if ($laData)
@@ -291,7 +291,7 @@
 
                 // hole die Übung und prüfe die Rechte
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
-                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 // hole die Zuordnung von Übung und Student und setze die Daten
                 $lo = new StudentUebung( $this->flash["uebung"], Request::quoted("Auth") );
@@ -316,13 +316,13 @@
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
-                    throw new Exception("Sie haben nicht die notwendige Berechtigung");
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
-                $x = explode("\n", Request::quoted("massinput"));
-                $laError = array("count: ".count($x));
-                $i = 1;
-                foreach($x as $lcLine)
+                $i = 0;
+                $laError = array();
+                foreach(explode("\n", Request::quoted("massinput")) as $lcLine)
                 {
+                    $i++;
                     if (empty($lcLine))
                         continue;
 
@@ -331,13 +331,13 @@
 
                     if ( (!is_array($laItems)) || (empty($laItems)) )
                     {
-                        array_push($laError, "Zeile ".$i." hat eiin ungültiges Format");
+                        array_push($laError, _("Zeile ".$i." hat ein ungültiges Format"));
                         continue;
                     }
 
                     if (!is_numeric($laItems[0]))
                     {
-                        array_push($laError, "Matrikelnummer in Zeile ".$i." ist nicht numerisch");
+                        array_push($laError, _("Matrikelnummer in Zeile ".$i." ist nicht numerisch"));
                         continue;
                     }
                     $laData["matrikelnummer"] = intval($laItems[0]);
@@ -359,8 +359,6 @@
                         $lo = new StudentUebung( $this->flash["uebung"], $laData["matrikelnummer"] );
                         $lo->update( $laData["punkte"], $laData["bonuspunkte"], $laData["bemerkung"] );
                     } catch (UserNotFound $e) { array_push($laError, "Zeile ".$i.": ".$e->getMessage()); }
-
-                    $i++;
                 }
 
                 if (!empty($laError))
