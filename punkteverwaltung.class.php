@@ -113,10 +113,11 @@
         private function setTutorNavigation()
         {
             $loVeranstaltung = Veranstaltung::get();
+
+            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
             if ( (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
                 return;
 
-            Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
             foreach($loVeranstaltung->uebungen() as $ueb)
                 Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
 

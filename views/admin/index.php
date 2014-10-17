@@ -36,12 +36,8 @@
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
 
         if (!$loVeranstaltung)
-        {
-            if (VeranstaltungPermission::hasDozentRecht())
-                echo "<p><a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a></p>";
-            elseif (VeranstaltungPermission::hasTutorRecht())
-                echo "<p>Es wurden bisher keine Daten hinterlegt. Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung</p>";
-        } else {
+            echo "<p><a href=\"".$controller->url_for("admin/create")."\">"._("Für diese Veranstaltung die Punkteverwaltung aktivieren")."</a></p>";
+        else {
 
             echo "<form method=\"post\" action=\"".$controller->url_for("admin/updatesettings")."\">\n";
             CSRFProtection::tokenTag();
