@@ -157,7 +157,7 @@
                 $main["uebungen"][$uebung->name()] = $uebungarray;
             }
             // berechne wie viel Gesamtpunkte zum Bestehen notwendig sind
-            $main["gesamtpunktebestanden"] = round( $main["gesamtpunkte"] / 100 * $this->moVeranstaltung->bestandenProzent(), 2);
+            $main["gesamtpunktebestanden"] = ($this->moVeranstaltung->bestandenProzent() == 0 ? 0 : round( $main["gesamtpunkte"] / 100 * $this->moVeranstaltung->bestandenProzent(), 2));
 
 
 
@@ -195,7 +195,7 @@
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
                 $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || $main["studenten"][$lcStudentKey]["manuelleZulassung"];;
-                $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
+                $main["studenten"][$lcStudentKey]["bonuspunkte"]              = ($main["gesamtpunkte"] == 0 ? 0 : $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 ));
             }
             
 
@@ -265,7 +265,7 @@
             foreach ($main["studenten"] as $lcStudentKey => $laStudent)
             {
                 $main["studenten"][$lcStudentKey]["veranstaltungenbestanden"] = ($laStudent["uebungenpunkte"] >= $main["gesamtpunktebestanden"]) && ($laStudent["uebungennichtbestanden"] <= $this->moVeranstaltung->allowNichtBestanden()) || $main["studenten"][$lcStudentKey]["manuelleZulassung"];
-                $main["studenten"][$lcStudentKey]["bonuspunkte"]              = $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 );
+                $main["studenten"][$lcStudentKey]["bonuspunkte"]              = ($main["gesamtpunkte"] == 0 ? 0 : $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 ));
             }
 
             // @todo Sortierung nach Punkten muss noch hinzugefügt werden
