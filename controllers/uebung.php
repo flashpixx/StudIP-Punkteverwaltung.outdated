@@ -65,15 +65,10 @@
                 $this->flash                  = Trails_Flash::instance();
                 $this->flash["veranstaltung"] = Veranstaltung::get();
 
-                // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
+                // falls keine ÜbungsID gesetzt ist, abbrechen
                 if (Request::quoted("ueid"))
                 {
                     $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-                    return;
-                } else {
-                    $laUebungen = $this->flash["veranstaltung"]->uebungen();
-                    if (is_array($laUebungen))
-                        $laUebungen = reset($laUebungen);
                     return;
                 }
                 
