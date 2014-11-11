@@ -68,8 +68,11 @@
                 // falls keine ÜbungsID gesetzt ist, nehmen wir einfach die erste in der Liste
                 if (Request::quoted("ueid"))
                     $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-                else
-                    $this->flash["uebung"] = reset($this->flash["veranstaltung"]->uebungen());
+                else {
+                    $laUebungen = $this->flash["veranstaltung"]->uebungen();
+                    if (is_array($laUebungen))
+                        $this->flash["uebung"] = reset($laUebungen);
+                }
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
