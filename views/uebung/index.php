@@ -39,10 +39,6 @@
 
         if ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung())))
             throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
-      
-        if (!$loUebung)
-            echo "<p>Es wurden bisher keine Daten hinterlegt. Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung</p>";
-
         else {
 
             echo "<div>";
