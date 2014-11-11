@@ -118,8 +118,10 @@
             if ( (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
                 return;
 
-            foreach($loVeranstaltung->uebungen() as $ueb)
-                Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
+            $laUebungen = $loVeranstaltung->uebungen();
+            if (laUebungen)
+                foreach($laUebungen as $ueb)
+                    Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
 
         }
 
