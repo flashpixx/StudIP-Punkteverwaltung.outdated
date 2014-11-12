@@ -74,7 +74,7 @@
                     $laUebungen = $this->flash["veranstaltung"]->uebungen();
                     if ( (is_array($laUebungen)) && (!empty($laUebungen)) )
                     {
-                        $this->flash["uebung"] = reset($laUebungem);
+                        $this->flash["uebung"] = reset($laUebungen);
                         return;
                     }
                 }
