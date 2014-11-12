@@ -118,7 +118,7 @@
             if ( (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
                 return;
 
-            $laUebung = Veranstaltung::get()->uebungen();
+            $laUebungen = Veranstaltung::get()->uebungen();
             foreach($laUebungen as $ueb)
                 Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
 
