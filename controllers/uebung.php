@@ -65,11 +65,18 @@
         
             try {
 
-                // falls keine ÜbungsID gesetzt ist, abbrechen
+                // falls keine ÜbungsID gesetzt ist, versuchen die erste Übung zu finden, wenn nicht mit Exception abbrechen
                 if (Request::quoted("ueid"))
                 {
                     $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
                     return;
+                } else {
+                    $laUebungen = $this->flash["veranstaltung"]->uebungen();
+                    if ( (is_array($laUebungen)) && (!empty($laUebungen)) )
+                    {
+                        $this->flash["uebung"] = reset($laUebungem);
+                        return;
+                    }
                 }
                 
                 throw new Exception(_("Es wurden bisher keine Daten hinterlegt. Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung"));
