@@ -72,7 +72,7 @@
                     return;
                 }
                 
-                //throw new Exception(_("Es wurden bisher keine Daten hinterlegt. Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung"));
+                throw new Exception(_("Es wurden bisher keine Daten hinterlegt. Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung"));
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 

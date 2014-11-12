@@ -36,143 +36,144 @@
 
         // Übung aus dem Flash holen und Zugriffsrechte prüfen
         $loUebung = isset($flash["uebung"]) ? $flash["uebung"] : null;
-        if (!is_object($loUebung))
-            throw new Exception(_("Es wurden bisher keine Daten hinterlegt. Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung"));
-        
+        if (is_object($loUebung))
+        {
 
-        if ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung())))
-            throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
-        else {
+            if ((!VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung())) && (!VeranstaltungPermission::hasTutorRecht($loUebung->veranstaltung())))
+                throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
+            else {
 
-            echo "<div>";
+                echo "<div>";
 
-            // der Dozent kann die Daten der Übung ändern
-            if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
-            {
-                echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
-                CSRFProtection::tokenTag();
+                // der Dozent kann die Daten der Übung ändern
+                if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                {
+                    echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
+                    CSRFProtection::tokenTag();
 
-                echo "<div class=\"steel1\">\n";
-                echo "<table width=\"100%\">\n";
+                    echo "<div class=\"steel1\">\n";
+                    echo "<table width=\"100%\">\n";
 
-                echo "<tr><td width=\"50%\"><label for=\"uebungname\">"._("Name der Übung")."</label></td>";
-                echo "<td><input type=\"text\" id=\"uebungname\" name=\"uebungname\" value=\"".$loUebung->name()."\" size=\"35\"/></td></tr>\n";
+                    echo "<tr><td width=\"50%\"><label for=\"uebungname\">"._("Name der Übung")."</label></td>";
+                    echo "<td><input type=\"text\" id=\"uebungname\" name=\"uebungname\" value=\"".$loUebung->name()."\" size=\"35\"/></td></tr>\n";
 
-                echo "<tr><td><label for=\"maxpunkte\">"._("maximal zu erreichende Punkte der Übung")."</label></td>";
-                echo "<td><input type=\"text\" id=\"maxpunkte\" name=\"maxpunkte\" value=\"".$loUebung->maxPunkte()."\" size=\"35\"/></td></tr>\n";
+                    echo "<tr><td><label for=\"maxpunkte\">"._("maximal zu erreichende Punkte der Übung")."</label></td>";
+                    echo "<td><input type=\"text\" id=\"maxpunkte\" name=\"maxpunkte\" value=\"".$loUebung->maxPunkte()."\" size=\"35\"/></td></tr>\n";
 
-                echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl, mit der die Übung bestanden ist")."</label></td>";
-                echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$loUebung->bestandenprozent()."\" size=\"35\"/></td></tr>\n";
+                    echo "<tr><td><label for=\"bestandenprozent\">"._("Prozentzahl, mit der die Übung bestanden ist")."</label></td>";
+                    echo "<td><input type=\"text\" id=\"bestandenprozent\" name=\"bestandenprozent\" value=\"".$loUebung->bestandenprozent()."\" size=\"35\"/></td></tr>\n";
 
-                echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form 'dd.mm.yyyy hh:mm', 'dd.mm.yyyy' oder leer)")."</label></td>";
-                echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$loUebung->abgabeDatum()."\" size=\"35\"/></td></tr>\n";
+                    echo "<tr><td><label for=\"abgabedatum\">"._("Abgabedatum (in der Form 'dd.mm.yyyy hh:mm', 'dd.mm.yyyy' oder leer)")."</label></td>";
+                    echo "<td><input type=\"text\" id=\"abgabedatum\" name=\"abgabedatum\" value=\"".$loUebung->abgabeDatum()."\" size=\"35\"/></td></tr>\n";
 
-                echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung (für die Tutoren sichtbar)")."</label></td>";
-                echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
+                    echo "<tr><td><label for=\"bemerkung\">"._("Bemerkung (für die Tutoren sichtbar)")."</label></td>";
+                    echo "<td><textarea id=\"bemerkung\" name=\"bemerkung\" cols=\"37\" rows=\"5\">".$loUebung->bemerkung()."</textarea></td></tr>\n";
 
+                    if (!$loUebung->veranstaltung()->isClosed())
+                        echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete", array("ueid" => $loUebung->id()))."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
+
+                    echo "</table>";
+                    echo "</div>\n";
+                    if (!$loUebung->veranstaltung()->isClosed())
+                        echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
+                    echo "</form>";
+                    echo "</div>";
+                }
+
+                // Tutoren bekommen nur die Bemerkung angezeigt
+                elseif ($loUebung->bemerkung())
+                    echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div>";
+                echo "<br/><br/>";
+
+
+                // Feld für Masseneingabe
                 if (!$loUebung->veranstaltung()->isClosed())
-                    echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("uebung/delete", array("ueid" => $loUebung->id()))."\">alle Einstellungen und Daten zu dieser Übung entfernen</a></td></tr>\n";
+                {
+                    echo "<div class=\"steel2\">";
+                    echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
+                    CSRFProtection::tokenTag();
+                    echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/>";
+                    echo "<textarea name=\"massinput\" id=\"massinput\" cols=\"60\" rows=\"20\" wrap=\"physical\"></textarea>";
+                    echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Masseneingabe übernehmen")."\"/></p>";
+                    echo "</form>";
+                    echo "</div>";
+                }
 
-                echo "</table>";
-                echo "</div>\n";
+                echo "</div>";
+
+
+                // jTable für die Punkte erzeugen
+                echo "<script type=\"text/javascript\">";
+                echo "jQuery(document).ready(function() {";
+                echo "jQuery(\"#punktetabelle\").jtable({";
+
+                $abgabe = $loUebung->abgabeDatum();
+                if ($abgabe)
+                    $abgabe = " ("._("Abgabe").": ".$abgabe.")";
+
+                echo "title          : \"Punktetabelle - ".$loUebung->name().$abgabe."\",";
+                echo "paging         : true,";
+                echo "pageSize       : 500,";
+                echo "sorting        : true,";
+                echo "defaultSorting : \"Matrikelnummer ASC\",";
+                echo "actions: {";
+                echo "listAction   : \"".$listaction."\",";
                 if (!$loUebung->veranstaltung()->isClosed())
-                    echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
-                echo "</form>";
-                echo "</div>";
-            }
+                    echo "updateAction : \"".$updateaction."\",";
+                echo "},";
 
-            // Tutoren bekommen nur die Bemerkung angezeigt
-            elseif ($loUebung->bemerkung())
-                echo "<div class=\"steel1\">".$loUebung->bemerkung()."</div>";
-            echo "<br/><br/>";
+                echo "fields: {";
+
+                echo "Auth : { key : true, create : false, edit : false, list : false },";
+                if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                {
+                    echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
+                    echo "display : function(row) {";
+                    echo "var \$item = jQuery('<img src=\"".$childiconpath."\" title=\"Log anzeigen\" />');";
+                    echo "\$item.click(function() {";
+
+                    echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
+                    echo "title : \"Log für \" + row.record.Name, actions : { listAction : \"".$childlistaction."&aid=\" + row.record.Auth },";
+
+                    echo "fields : {";
+                    echo "ID : { key : true, edit : false, list : false }, ";
+                    echo "ErreichtePunkte : { title : \"erreichte Punkte\", edit : false },";
+                    echo "ZusatzPunkte : { title : \"Zusatzpunkte\", edit : false },";
+                    echo "Bemerkung : { title : \"Bemerkung\", edit : false },";
+                    echo "Korrektor : { title : \"Korrektor\", edit : false }";
+                    echo "}";
+
+                    echo "}, function (data) { data.childTable.jtable('load'); }";
+                    echo ");";
+
+                    echo "});";
+                    echo "return \$item;";
+                    echo "}},";
+                }
 
 
-            // Feld für Masseneingabe
-            if (!$loUebung->veranstaltung()->isClosed())
-            {
-                echo "<div class=\"steel2\">";
-                echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
-                CSRFProtection::tokenTag();
-                echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/>";
-                echo "<textarea name=\"massinput\" id=\"massinput\" cols=\"60\" rows=\"20\" wrap=\"physical\"></textarea>";
-                echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Masseneingabe übernehmen")."\"/></p>";
-                echo "</form>";
-                echo "</div>";
-            }
+                echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
+                echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
+                echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
+                echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";
+                echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"5%\" },";
+                if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                {
+                    echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"15%\" },";
+                    echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"15%\" }";
+                } else
+                    echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"35%\" }";
 
-            echo "</div>";
-
-
-            // jTable für die Punkte erzeugen
-            echo "<script type=\"text/javascript\">";
-            echo "jQuery(document).ready(function() {";
-            echo "jQuery(\"#punktetabelle\").jtable({";
-
-            $abgabe = $loUebung->abgabeDatum();
-            if ($abgabe)
-                $abgabe = " ("._("Abgabe").": ".$abgabe.")";
-
-            echo "title          : \"Punktetabelle - ".$loUebung->name().$abgabe."\",";
-            echo "paging         : true,";
-            echo "pageSize       : 500,";
-            echo "sorting        : true,";
-            echo "defaultSorting : \"Matrikelnummer ASC\",";
-            echo "actions: {";
-            echo "listAction   : \"".$listaction."\",";
-            if (!$loUebung->veranstaltung()->isClosed())
-                echo "updateAction : \"".$updateaction."\",";
-            echo "},";
-
-            echo "fields: {";
-
-            echo "Auth : { key : true, create : false, edit : false, list : false },";
-            if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
-            {
-                echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
-                echo "display : function(row) {";
-                echo "var \$item = jQuery('<img src=\"".$childiconpath."\" title=\"Log anzeigen\" />');";
-                echo "\$item.click(function() {";
-
-                echo "jQuery(\"#punktetabelle\").jtable(\"openChildTable\", \$item.closest(\"tr\"), {";
-                echo "title : \"Log für \" + row.record.Name, actions : { listAction : \"".$childlistaction."&aid=\" + row.record.Auth },";
-
-                echo "fields : {";
-                echo "ID : { key : true, edit : false, list : false }, ";
-                echo "ErreichtePunkte : { title : \"erreichte Punkte\", edit : false },";
-                echo "ZusatzPunkte : { title : \"Zusatzpunkte\", edit : false },";
-                echo "Bemerkung : { title : \"Bemerkung\", edit : false },";
-                echo "Korrektor : { title : \"Korrektor\", edit : false }";
                 echo "}";
-
-                echo "}, function (data) { data.childTable.jtable('load'); }";
-                echo ");";
-
                 echo "});";
-                echo "return \$item;";
-                echo "}},";
+
+                echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+                echo "});";
+                echo "</script>";
+
+                echo "<div id=\"punktetabelle\"></div>";
             }
-
-
-            echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
-            echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
-            echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
-            echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";
-            echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"5%\" },";
-            if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
-            {
-                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"15%\" },";
-                echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"15%\" }";
-            } else
-                echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"35%\" }";
-
-            echo "}";
-            echo "});";
-
-            echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
-            echo "});";
-            echo "</script>";
-
-            echo "<div id=\"punktetabelle\"></div>";
+        
         }
 
     } catch (Exception $e) {
