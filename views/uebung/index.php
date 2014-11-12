@@ -93,7 +93,7 @@
                         echo "<div class=\"steel2\">";
                     echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                     CSRFProtection::tokenTag();
-                    echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional, müssen aber mit Defaultwerten gesetzt werden, wenn nachfolgende optionale Elemente gesetzt sind z.B. 123456 0 0 Testbemerkung): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/><br/>";
+                    echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional und müssen ggf. mit Defaultwerten belegt werden): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/><br/>";
                     echo "<textarea name=\"massinput\" id=\"massinput\" cols=\"60\" rows=\"20\" wrap=\"physical\"></textarea>";
                     echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Masseneingabe übernehmen")."\"/></p>";
                     echo "</form>";
