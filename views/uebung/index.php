@@ -86,13 +86,14 @@
                 echo "<br/><br/>";
 
 
-                // Feld für Masseneingabe
+                // Feld für Masseneingabe (bei Tutoren Ansicht, muss der öffnende Div-Tag entfernt werden, da dies oben unterhalb vom else schon geschieht)
                 if (!$loUebung->veranstaltung()->isClosed())
                 {
-                    echo "<div class=\"steel2\">";
+                    if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
+                        echo "<div class=\"steel2\">";
                     echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                     CSRFProtection::tokenTag();
-                    echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/>";
+                    echo "<label for=\"massinput\">"._("zeilenweise Masseneingabe in der Form (geklammerte Eingaben sind optional): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/><br/>";
                     echo "<textarea name=\"massinput\" id=\"massinput\" cols=\"60\" rows=\"20\" wrap=\"physical\"></textarea>";
                     echo "<p><input type=\"submit\" name=\"submitted\" value=\""._("Masseneingabe übernehmen")."\"/></p>";
                     echo "</form>";
