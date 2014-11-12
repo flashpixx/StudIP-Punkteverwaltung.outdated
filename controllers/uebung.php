@@ -58,12 +58,12 @@
             // PageLayout::setTitle("");
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
+            // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
+            // die aktuellen Daten bekommt
+            $this->flash                  = Trails_Flash::instance();
+            $this->flash["veranstaltung"] = Veranstaltung::get();
+        
             try {
-
-                // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
-                // die aktuellen Daten bekommt
-                $this->flash                  = Trails_Flash::instance();
-                $this->flash["veranstaltung"] = Veranstaltung::get();
 
                 // falls keine ÜbungsID gesetzt ist, abbrechen
                 if (Request::quoted("ueid"))
