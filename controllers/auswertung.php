@@ -56,7 +56,7 @@
          **/
         function before_filter( &$action, &$args )
         {
-            // PageLayout::setTitle("");
+            PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Auswertung"));
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
             try {

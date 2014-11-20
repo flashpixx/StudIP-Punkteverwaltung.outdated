@@ -55,7 +55,7 @@
          **/
         function before_filter( &$action, &$args )
         {
-            // PageLayout::setTitle("");
+            PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Übungsverwaltung"));
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
             // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
