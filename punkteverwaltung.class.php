@@ -109,7 +109,7 @@
             $loVeranstaltung = Veranstaltung::get();
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
-            if ( (!$loVeranstaltung) || (!empty($loVeranstaltung->uebungen())) )
+            if (!$loVeranstaltung)
                 return;
 
             $laUebungen = $loVeranstaltung->uebungen();
