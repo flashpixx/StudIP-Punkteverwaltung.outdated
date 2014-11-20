@@ -97,7 +97,8 @@
                 if (!$loVeranstaltung->isClosed())
                     Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
 
-                $this->addUebungEditList( $loVeranstaltung->uebungen() );
+                $laUebungen = $loVeranstaltung->uebungen();
+                $this->addUebungEditList( $laUebungen );
             }
         }
 
@@ -111,7 +112,8 @@
             if ( (!$loVeranstaltung) || (!empty($loVeranstaltung->uebungen())) )
                 return;
 
-            $this->addUebungEditList( $loVeranstaltung->uebungen() );
+            $laUebungen = $loVeranstaltung->uebungen();
+            $this->addUebungEditList( $laUebungen );
         }
     
     
