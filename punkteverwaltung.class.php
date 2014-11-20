@@ -97,14 +97,7 @@
                 if (!$loVeranstaltung->isClosed())
                     Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
 
-                // ggf einmal Übung als Navigation + eine Subnavigation für jede einzelne Übung (Tab Struktur)
-                $laUebung = $loVeranstaltung->uebungen();
-                if ($laUebung)
-                {
-                    Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer", new AutoNavigation(_("Teilnehmer in Übung(en) aktualisieren"), PluginEngine::GetURL($this, array(), "admin/updateteilnehmer")) );
-                    foreach($laUebung as $ueb)
-                        Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
-                }
+                this->addUebungEditList( $loVeranstaltung->uebungen() );
             }
         }
 
@@ -115,14 +108,31 @@
             $loVeranstaltung = Veranstaltung::get();
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
-            if ( (!$loVeranstaltung) || (!$loVeranstaltung->uebungen()) )
+            if ( (!$loVeranstaltung) || (!empty($loVeranstaltung->uebungen())) )
                 return;
 
-            $laUebungen = Veranstaltung::get()->uebungen();
-            foreach($laUebungen as $ueb)
-                Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), new AutoNavigation($ueb->name(), PluginEngine::GetURL($this, array("ueid" => $ueb->id()), "uebung")) );
+            this->addUebungEditList( $loVeranstaltung->uebungen() );
 
         }
+    
+    
+        /** setzt die Liste der Übungen mit korrekten Aktivierungsflag
+         * @param paUebungen Array mit Übungsobjekten
+         **/
+        private function addUebungEditList( $paUebung )
+        {
+            if ( (!is_array($paUebung)) || (empty($paUebung)) )
+                return;
+        
+            foreach($paUebung as $loUebung)
+            {
+                $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
+                Navigation::addItem( "/course/punkteverwaltung/edituebung".$ueb->id(), $loNavigation );
+            
+                $loNavigation->setActive( Request::quoted("ueid") == $loUebung->id() );
+            }
+        }
+    
 
 
 
