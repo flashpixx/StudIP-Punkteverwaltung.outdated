@@ -268,7 +268,7 @@
             $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
 			$loExcel->getProperties()->setTitle(utf8_encode($pcTitle));
             $loExcel->getProperties()->setDescription(utf8_encode("Liste mit den Übungsleistungen"));
-            //$loExcel->getProperties()->setKeywords("Stud.IP '"+$pcTite+"' Studium");
+            $loExcel->getProperties()->setKeywords("Stud.IP '".$pcTite."' Studium");
         
          
             // erzeuge Sheet und setze Layout-Strukturen
@@ -308,7 +308,7 @@
                     for($i=0; $i < count($laHeader); $i++)
                         $loExcel->getActiveSheet()->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
                 
-                    $loExcel->getActiveSheet()->getStyle("A1:A3")->getFont()->setBold(true);
+                    $loExcel->getActiveSheet()->getStyle("A1:".(chr(65+count($laHeader)))."1")->getFont()->setBold(true);
                     break;
                 }
             
