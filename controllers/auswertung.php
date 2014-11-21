@@ -272,6 +272,7 @@
          
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
+            $loExcel->getDefaultStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
             $loSheet = $loExcel->getActiveSheet();
         
             $loSheet->setTitle("Punkteliste");
@@ -289,6 +290,7 @@
                 {
                     if (array_key_exists("matrikelnummer", $laLine))
                         array_push($laHeader, _("Matrikelnummer"));
+                $this->workbook->getActiveSheet()->getStyle($cell)->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_TEXT );
                     if (array_key_exists("name", $laLine))
                         array_push($laHeader, _("Name"));
                     if (array_key_exists("studiengang", $laLine))
@@ -325,7 +327,7 @@
                         foreach($lxData as $lcName => $lxUebungData)
                         {
                             if (array_key_exists("punktesumme", $lxUebungData))
-                                array_push($laItem, $lxUebungData["punktesumme"]);
+                                array_push($laItem, int($lxUebungData["punktesumme"]));
                             if (array_key_exists("bestanden", $lxUebungData))
                                 array_push($laItem, $lxUebungData["bestanden"] ? _("ja") : _("nein") );
                         }
