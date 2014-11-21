@@ -267,14 +267,16 @@
             $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
 			$loExcel->getProperties()->setTitle(utf8_encode($pcTitle));
             $loExcel->getProperties()->setDescription(utf8_encode("Liste mit den Übungsleistungen"));
-            $loExcel->getProperties()->setKeywords("Stud.IP '".$pcTite."' Studium");
+            $loExcel->getProperties()->setKeywords("Stud.IP '".utf8_encode($pcTite)."' Studium");
         
          
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
-            $loExcel->getActiveSheet()->setTitle("Punkteliste");
-            $loExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-            $loExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+            $loSheet = $loExcel->getActiveSheet();
+        
+            $loSheet->setTitle("Punkteliste");
+            $loSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+            $loSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         
         
             // erzeuge Array mit Ausgabedaten
@@ -305,7 +307,7 @@
                         }
 
                     for($i=0; $i < count($laHeader); $i++)
-                        $loExcel->getActiveSheet()->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
+                        $loSheet->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
                 
                     $loHeader = $loExcel->getActiveSheet()->getStyle("A1:".(chr(65+count($laHeader)))."1");
                     $loHeader->getFont()->setBold(true);
@@ -315,7 +317,6 @@
             
                 // modifziere Datensatz, so dass die Daten so enthalten sind,
                 // wie sie vom Header verlangt werden
-            
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
                     if ($lcKey == "bestanden")
@@ -335,11 +336,14 @@
             
             }
         
-            // setze Daten in das Sheet
-            $loExcel->getActiveSheet()->fromArray($paOutput, NULL, "A3");
+            // setze Daten in das Sheet und setze Autosizing für die Zellen
+            $loSheet->fromArray($paOutput, NULL, "A3");
         
+            $loCellIterator = $loSheet->getRowIterator()->current()->getCellIterator();
+            $loCellIterator->setIterateOnlyExistingCells( true );
+            foreach( $loCellIterator as $loCell )
+                $loSheet->getColumnDimension( $loCell->getColumn() )->setAutoSize( true );
         
-
         
             // erzeuge Download / Ausgabe
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
