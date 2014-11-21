@@ -265,10 +265,10 @@
             $loExcel = new PHPExcel();
         
             // Dokument Properties setzen
-            $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
-			$loExcel->getProperties()->setTitle($pcTitle);
-            $loExcel->getProperties()->setDescription("Liste mit den Übungsleistungen");
-            $loExcel->getProperties()->setKeywords("Stud.IP '"+$pcTite+"' Studium");
+            //$loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
+			//$loExcel->getProperties()->setTitle($pcTitle);
+            //$loExcel->getProperties()->setDescription("Liste mit den Übungsleistungen");
+            //$loExcel->getProperties()->setKeywords("Stud.IP '"+$pcTite+"' Studium");
         
          
             // erzeuge Sheet und setze Layout-Strukturen
