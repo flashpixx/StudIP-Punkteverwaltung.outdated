@@ -347,14 +347,18 @@
 
             // Sortierung für die Ausgabe
             usort($la, function($a, $b) {
-                $lcSort1 = $a->abgabeDatum();
-                $lcSort2 = $b->abgabeDatum();
+                $lxSort1 = $a->abgabeDatum( false, Uebung::DATEASOBJECT );
+                $lxSort2 = $b->abgabeDatum( false, Uebung::DATEASOBJECT );
 
-                if ( (!empty($lcSort1)) && (!empty($lcSort2)) )
-                  return strcasecmp($lcSort1, $lcSort2);
-
-                $lcSort1 = $a->name();
-                $lcSort2 = $b->name();
+                if ( (!empty($lxSort1)) && (!empty($lxSort2)) )
+                {
+                  $lxSort1 = $lxSort1->getTimestamp();
+                  $lxSort2 = $lxSort2->getTimestamp();
+                  return ($lxSort1 < $lxSort2) ? -1 :  ( ($lxSort1 > $lxSort2) ? 1 : 0 )
+                }
+                                                                                         
+                $lxSort1 = $a->name();
+                $lxSort2 = $b->name();
                 return strcasecmp($lcSort1, $lcSort2);
             });
 
