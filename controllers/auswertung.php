@@ -272,7 +272,7 @@
          
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
-            $loExcel->getDefaultStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+            $loExcel->getDefaultStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_GENERAL);
             $loSheet = $loExcel->getActiveSheet();
         
             $loSheet->setTitle("Punkteliste");
