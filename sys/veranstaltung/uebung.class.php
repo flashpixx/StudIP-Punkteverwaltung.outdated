@@ -34,6 +34,12 @@
     /** Klasse für die Übungsdaten **/
     class Uebung implements VeranstaltungsInterface
     {
+        /** Konstante, um das Datum als String zu liefern **/
+        public const DATEASSTRING = 0;
+        /** Konstante, um das Datum als DateTime-Objekt zu liefern **/
+        public const DATEASOBJECT = 1;
+    
+    
 
         /** Veranstaltungsobjekt auf das sich die Übung bezieht */
         private $moVeranstaltung = null;
@@ -278,26 +284,16 @@
 
         /** liefert / setzt das Abgabedatum
          * @param $pc Abgabedatum order null
+         * @param $pnreturntype liefert das Datum als DateTime-Object oder als String
          * @return Datum
          **/
-        function abgabeDatum( $pc = false )
+        function abgabeDatum( $pc = false, $pnreturntype = self::DATEASSTRING )
         {
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
-                $lc = null;
-                if ($pc)
-                {
-                    $lxDate = DateTime::createFromFormat("d.m.Y H:i", $pc);
-                    if (!$lxDate)
-                    {
-                        $lxDate = DateTime::createFromFormat("d.m.Y", $pc);
-                        if (!$lxDate)
-                            throw new Exception(_("Datum entspricht nicht dem geforderten Format"));
-                    }
-
-                    $lc                  = $lxDate->format("Y-m-d H:i:s");
-                    $this->mcAbgabeDatum = $pc;
-                }
+                $lxDate = self::createDateTimeFromString($pc);
+                $lc                  = $lxDate->format("Y-m-d H:i:s");
+                $this->mcAbgabeDatum = $pc;
 
                 if ($this->moVeranstaltung->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
@@ -305,8 +301,31 @@
                 DBManager::get()->prepare( "update ppv_uebung set abgabe = :datum where seminar = :semid and id = :id" )->execute( array("semid" => $this->moVeranstaltung->id(), "id" => $this->mcID, "datum" => $lc) );
                 
             }
-
-            return $this->mcAbgabeDatum;
+        
+            return ($pnreturntype == self::DATEASOBJECT) ? self::createDateTimeFromString($this->mcAbgabeDatum) : $this->mcAbgabeDatum;
+        }
+    
+    
+        /** erzeugt ein DateTime-Objekt aus einem String
+         * @param $pc Input-String
+         * @return DateTime-Objekt
+         **/
+        static private function createDateTimeFromString( $pc )
+        {
+            if (empty($pc))
+                return null;
+            if (!is_string($pc))
+                throw new Exception(_("Datumswert konnte nicht dedektiert werden"));
+                
+            $lxDate = DateTime::createFromFormat("d.m.Y H:i", $pc);
+            if (!$lxDate)
+            {
+                $lxDate = DateTime::createFromFormat("d.m.Y", $pc);
+                if (!$lxDate)
+                    throw new Exception(_("Datum entspricht nicht dem geforderten Format"));
+            }
+        
+            return $lxDate;
         }
 
 
