@@ -154,12 +154,12 @@
                                 "name"           => $laStudent["name"],
                                 "studiengang"    => $laStudent["studiengang"],
                                 "bestanden"      => $laStudent["veranstaltungenbestanden"],
-                                "bonuspunkte"    => $laStudent["bonuspunkte"],
+                                "bonuspunkte"    => floatval($laStudent["bonuspunkte"]),
                                 "uebung"         => array()
                             );
                             foreach($laListe["uebungen"] as $laUebung)
                                 $laItem["uebung"][$laUebung["name"]] = array(
-                                    "punktesumme" => $laUebung["studenten"][$lcStudentKey]["punktesumme"],
+                                    "punktesumme" => floatval($laUebung["studenten"][$lcStudentKey]["punktesumme"]),
                                     "bestanden"   => $laUebung["studenten"][$lcStudentKey]["bestanden"]
                                 );
                             array_push( $laOutput,  $laItem );
@@ -173,7 +173,7 @@
                             array_push($laOutput, array(
                                 "matrikelnummer" => $laStudent["matrikelnummer"],
                                 "bestanden"      => $laStudent["veranstaltungenbestanden"],
-                                "bonuspunkte"    => $laStudent["bonuspunkte"],
+                                "bonuspunkte"    => floatval($laStudent["bonuspunkte"]),
                             ));
 
                         break;
@@ -201,12 +201,12 @@
                                     "matrikelnummer" => $laStudent["matrikelnummer"],
                                     "name"           => $laStudent["name"],
                                     "studiengang"    => $laStudent["studiengang"],
-                                    "bonuspunkte"    => $laStudent["bonuspunkte"],
+                                    "bonuspunkte"    => floatval($laStudent["bonuspunkte"]),
                                     "uebung"         => array()
                                 );
                                 foreach($laListe["uebungen"] as $laUebung)
                                     $laItem["uebung"][$laUebung["name"]] = array(
-                                        "punktesumme" => $laUebung["studenten"][$lcStudentKey]["punktesumme"]
+                                        "punktesumme" => floatval($laUebung["studenten"][$lcStudentKey]["punktesumme"])
                                     );
                                 array_push( $laOutput,  $laItem );
                             }
@@ -326,7 +326,7 @@
                         foreach($lxData as $lcName => $lxUebungData)
                         {
                             if (array_key_exists("punktesumme", $lxUebungData))
-                                array_push($laItem, (empty($lxUebungData["punktesumme"]) ? 0 : $lxUebungData["punktesumme"]) );
+                                array_push($laItem, $lxUebungData["punktesumme"]);
                             if (array_key_exists("bestanden", $lxUebungData))
                                 array_push($laItem, $lxUebungData["bestanden"] ? _("ja") : _("nein") );
                         }
