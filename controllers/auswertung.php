@@ -345,7 +345,7 @@
         $sheet->setCellValue('C1', 'Hello');
         $sheet->setCellValue('D2', 'world!');
 
-        //$loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
+        $loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
         //$loExcel->getActiveSheet()->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
         $loExcel->setActiveSheetIndex(0);
