@@ -356,6 +356,7 @@
         
             $loOutput = PHPExcel_IOFactory::createWriter($loExcel, "Excel2007");
             $loOutput->save("php://output");
+            $loOutput->save("/tmp/blub.xlsx");
         }
     
 
