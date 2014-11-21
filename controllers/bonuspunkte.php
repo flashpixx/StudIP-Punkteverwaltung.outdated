@@ -25,14 +25,14 @@
 
 
 
-    /** Controller fÃ¼r die Bonuspunkte eines Studenten **/
+    /** Controller für die Bonuspunkte eines Studenten **/
     class BonuspunkteController extends StudipController
     {
 
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
-         * Eigenschaft "flash" hÃ¤ndisch initialisiert werden, damit persistent die Werte
-         * Ã¼bergeben werden kÃ¶nnen
+         * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
+         * übergeben werden können
          **/
         function before_filter( &$action, &$args )
         {
@@ -59,7 +59,7 @@
             try {
 
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verÃ¤ndern") );
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
 
                 $loBonusPunkte = $this->flash["veranstaltung"]->bonuspunkte();
 

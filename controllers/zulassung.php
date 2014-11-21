@@ -25,7 +25,7 @@
 
 
 
-    /** Controller fÃ¼r die manuelle Zulassung eines Studenten **/
+    /** Controller für die manuelle Zulassung eines Studenten **/
     class ZulassungController extends StudipController
     {
 
@@ -42,8 +42,8 @@
 
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
-         * Eigenschaft "flash" hÃ¤ndisch initialisiert werden, damit persistent die Werte
-         * Ã¼bergeben werden kÃ¶nnen
+         * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
+         * übergeben werden können
          **/
         function before_filter( &$action, &$args )
         {
@@ -60,12 +60,12 @@
         /** Default Action **/
         function index_action()
         {
-            // setze URLs fÃ¼r jTable
+            // setze URLs für jTable
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen (URLs) fÃ¼r die entsprechende Ajax-Anbindung
+            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
             $this->listaction       = $this->url_for( "zulassung/jsonlist" );
             $this->updateaction     = $this->url_for( "zulassung/jsonupdate" );
         }
@@ -77,7 +77,7 @@
             try {
 
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verÃ¤ndern") );
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
 
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
@@ -86,7 +86,7 @@
         }
 
 
-        /** liefert die korrekten Json Daten fÃ¼r den jTable **/
+        /** liefert die korrekten Json Daten für den jTable **/
         function jsonlist_action()
         {
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
@@ -94,7 +94,7 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-            // Daten fÃ¼r das Json Objekt holen und ein Default Objekt setzen
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
 
@@ -102,14 +102,14 @@
             // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
             try {
 
-                // hole die Ãœbung und prÃ¼fe die Berechtigung (in AbhÃ¤ngigkeit des gesetzen Parameter die Ãœbung initialisieren)
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 $laData = $this->flash["veranstaltung"]->teilnehmer();
                 if ($laData)
                 {
-                    // setze Defaultwerte fÃ¼r jTable
+                    // setze Defaultwerte für jTable
                     $this->result["TotalRecordCount"] = count($laData);
 
                     // sortiere Daten anhand des Kriteriums
@@ -138,13 +138,13 @@
                           return $ln;
                           });
 
-                    // hole Query Parameter, um die Datenmenge passend auszuwÃ¤hlen
+                    // hole Query Parameter, um die Datenmenge passend auszuwählen
                     $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
 
 
                     foreach( $laData as $item )
                     {
-                        // siehe Arraykeys unter views/zulassung/list.php & alle String mÃ¼ssen UTF-8 codiert werden, da Json UTF-8 ist
+                        // siehe Arraykeys unter views/zulassung/list.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
                         $laItem = array(
                                         "Auth"            => studip_utf8encode( $item->id() ),
                                         "Matrikelnummer"  => $item->matrikelnummer(),
@@ -166,7 +166,7 @@
         }
 
 
-        /** erzeugt das Update, fÃ¼r den jTable **/
+        /** erzeugt das Update, für den jTable **/
         function jsonupdate_action()
         {
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
@@ -174,12 +174,12 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-            // Daten fÃ¼r das Json Objekt holen und ein Default Objekt setzen
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
 
-                // hole die Ãœbung und prÃ¼fe die Rechte
+                // hole die Übung und prüfe die Rechte
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
@@ -188,7 +188,7 @@
                 $lo->manuelleZulassung( $this->flash["veranstaltung"], Request::quoted("Bemerkung") );
                 
                 
-                // alles fehlerfrei durchlaufen, setze Result (lese die geÃ¤nderten Daten aus der Datenbank)
+                // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
                 $this->result["Result"] = "OK";
                 
                 

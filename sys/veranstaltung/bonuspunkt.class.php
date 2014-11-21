@@ -28,7 +28,7 @@
     require_once("veranstaltung.class.php");
 
 
-    /** Klasse fÃ¼r die Bonuspunkte zu einer Veranstaltung **/
+    /** Klasse für die Bonuspunkte zu einer Veranstaltung **/
     class Bonuspunkt
     {
         /** Veranstaltung **/
@@ -39,14 +39,14 @@
         
 
 
-        /** lÃ¶scht alle Bonuspunkte zu einer Veranstaltung
+        /** löscht alle Bonuspunkte zu einer Veranstaltung
          * @param $po Veranstaltung
          **/
         static function delete( $po )
         {
             $lo = Veranstaltung::get( $pxVeranstaltung );
             if ($lo->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit kÃ¶nnen keine Ã„nderungen durchgefÃ¼hrt werden"));
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_bonuspunkte where seminar = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
@@ -76,7 +76,7 @@
         }
 
 
-        /** liefert die Veranstaltung fÃ¼r die die Bonuspunkte erzeugt wurden
+        /** liefert die Veranstaltung für die die Bonuspunkte erzeugt wurden
          * @return Veranstaltung
          **/
         function veranstaltung()
@@ -85,35 +85,35 @@
         }
 
 
-        /** lÃ¶scht einen Punktedatensatz
+        /** löscht einen Punktedatensatz
          * @param $pn Prozentzahl
          **/
         function remove( $pn )
         {
             if ($this->moVeranstaltung->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit kÃ¶nnen keine Ã„nderungen durchgefÃ¼hrt werden"));
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
 
             if (!is_numeric($pn))
-                throw new Exception(_("Der Ã¼bergebene Parameter muss numerisch sein"));
+                throw new Exception(_("Der übergebene Parameter muss numerisch sein"));
 
             DBManager::get()->prepare("delete from ppv_bonuspunkte where seminar = :semid and prozent = :prozent", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) )->execute( array("semid" => $this->moVeranstaltung->id(), "prozent" => $pn) );
             $this->readData();
         }
 
 
-        /** setzt die Bonuspunkte fÃ¼r einen Range
-         * @param Prozentzahl fÃ¼r die die Punkte gesetzt werden sollen
+        /** setzt die Bonuspunkte für einen Range
+         * @param Prozentzahl für die die Punkte gesetzt werden sollen
          * @param $pnPunkte Punkte die gesetzt werden
          **/
         function set( $pn, $pnPunkte )
         {
             if ($this->moVeranstaltung->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit kÃ¶nnen keine Ã„nderungen durchgefÃ¼hrt werden"));
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
 
             if ( (!is_numeric($pn)) || (!is_numeric($pnPunkte)) )
-                throw new Exception(_("Der Ã¼bergebenen Parameter mÃ¼ssen numerisch sein"));
+                throw new Exception(_("Der übergebenen Parameter müssen numerisch sein"));
             if ( ($pn < 0) || ($pn > 100) )
-                throw new Exception(_("Der Ã¼bergebenen Prozentwert muss im Intervall [0,100] liegen"));
+                throw new Exception(_("Der übergebenen Prozentwert muss im Intervall [0,100] liegen"));
 
             
             DBManager::get()->prepare("insert into ppv_bonuspunkte values ( :semid, :prozent, :punkte) on duplicate key update punkte = :punkte", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) )->execute( array("semid" => $this->moVeranstaltung->id(), "prozent" => $pn, "punkte" => $pnPunkte) );
@@ -128,7 +128,7 @@
         function get( $pn )
         {
             if (!is_numeric($pn))
-                throw new Exception(_("Der Ã¼bergebene Parameter muss numerisch sein"));
+                throw new Exception(_("Der übergebene Parameter muss numerisch sein"));
 
             $punkte = 0;
             foreach($this->maPunkte as $key => $value)
@@ -143,7 +143,7 @@
         }
 
 
-        /** liefert die Prozentliste zurÃ¼ck
+        /** liefert die Prozentliste zurück
          * @return Array mit Punkteverteilung
          **/
         function liste()

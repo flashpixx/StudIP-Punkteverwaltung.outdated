@@ -25,7 +25,7 @@
 
 
 
-    /** Interfaceklasse fÃ¼r den Zugriff auf die Matrikelnummer, damit
+    /** Interfaceklasse für den Zugriff auf die Matrikelnummer, damit
      * die Matrikelnummer auch aus anderen Datenquellen gelesen werden kann
      **/
     interface VeranstaltungsInterface
@@ -44,7 +44,7 @@
         function bemerkung( $pc );
 
 
-        /** statische Methode um ein Element zu lÃ¶schen
+        /** statische Methode um ein Element zu löschen
          * @param $px1 erster Wert
          * @param $px2 zweiter Wert
          **/

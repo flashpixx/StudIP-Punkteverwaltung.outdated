@@ -44,7 +44,7 @@
     }
 
 
-    /** Klasse um einen Studenten vollstÃ¤ndig abzubilden **/
+    /** Klasse um einen Studenten vollständig abzubilden **/
     class Student
     {
 
