@@ -265,11 +265,13 @@
             $loExcel = new PHPExcel();
         
             // Dokument Properties setzen
+        /*
             $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
 			$loExcel->getProperties()->setTitle($pcTitle);
             $loExcel->getProperties()->setDescription("Liste mit den Übungsleistungen");
             $loExcel->getProperties()->setKeywords("Stud.IP '"+$pcTite+"' Studium");
-        
+        */
+         
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
         
@@ -337,14 +339,14 @@
         */
         
         
-        $loExcel->setActiveSheetIndex(0);
-        $loExcel->getActiveSheet()->setCellValue('A1', 'Hello');
-        $loExcel->getActiveSheet()->setCellValue('B2', 'world!');
-        $loExcel->getActiveSheet()->setCellValue('C1', 'Hello');
-        $loExcel->getActiveSheet()->setCellValue('D2', 'world!');
+        $loExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Hello')
+            ->setCellValue('B2', 'world!')
+            ->setCellValue('C1', 'Hello')
+            ->setCellValue('D2', 'world!');
 
-        $loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
-        $loExcel->getActiveSheet()->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+        //$loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
+        //$loExcel->getActiveSheet()->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
         $loExcel->setActiveSheetIndex(0);
 
@@ -353,10 +355,10 @@
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
             header("Cache-Control: max-age=0");
+            header("Cache-Control: max-age=1");
         
             $loOutput = PHPExcel_IOFactory::createWriter($loExcel, "Excel2007");
             $loOutput->save("php://output");
-            $loOutput->save("/tmp/blub.xlsx");
         }
     
 
