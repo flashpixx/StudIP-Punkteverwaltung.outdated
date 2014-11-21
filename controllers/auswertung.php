@@ -265,19 +265,16 @@
             $loExcel = new PHPExcel();
         
             // Dokument Properties setzen
-        /*
             $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
 			$loExcel->getProperties()->setTitle($pcTitle);
             $loExcel->getProperties()->setDescription("Liste mit den Übungsleistungen");
             $loExcel->getProperties()->setKeywords("Stud.IP '"+$pcTite+"' Studium");
-        */
+        
          
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
-        
-        
-            //$loExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-            //$loExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+            $loExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+            $loExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         
         
             // erzeuge Array mit Ausgabedaten
@@ -345,7 +342,6 @@
             // erzeuge Download / Ausgabe
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
-            header("Cache-Control: max-age=0");
             header("Cache-Control: max-age=1");
         
             $loOutput = PHPExcel_IOFactory::createWriter($loExcel, "Excel2007");
