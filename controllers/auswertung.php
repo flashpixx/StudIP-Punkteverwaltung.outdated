@@ -309,7 +309,6 @@
                         $loExcel->getActiveSheet()->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
                 
                     $loExcel->getActiveSheet()->getStyle("A1:".(chr(65+count($laHeader)))."1")->getFont()->setBold(true);
-                    break;
                 }
             
             
@@ -336,7 +335,7 @@
             }
         
             // setze Daten in das Sheet
-            //$loExcel->getActiveSheet()->fromArray($paOutput, NULL, "B1");
+            $loExcel->getActiveSheet()->fromArray($paOutput, NULL, "A3");
         
         
 
