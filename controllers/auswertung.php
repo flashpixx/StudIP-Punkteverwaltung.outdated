@@ -305,7 +305,7 @@
                         }
 
                     for($i=0; $i < count($laHeader); $i++)
-                        $loExcel->getActiveSheet()->setCellValue("A".($i+1), $utf8_encode(laHeader[$i]));
+                        $loExcel->getActiveSheet()->setCellValue("A".($i+1), utf8_encode($laHeader[$i]));
                 
                     break;
                 }
