@@ -338,12 +338,12 @@
         
         
         $loExcel->setActiveSheetIndex(0);
-        $loExcel->getActiveSheet()->setCellValue('A1', 'Hello')
-        $loExcel->getActiveSheet()->setCellValue('B2', 'world!')
-        $loExcel->getActiveSheet()->setCellValue('C1', 'Hello')
+        $loExcel->getActiveSheet()->setCellValue('A1', 'Hello');
+        $loExcel->getActiveSheet()->setCellValue('B2', 'world!');
+        $loExcel->getActiveSheet()->setCellValue('C1', 'Hello');
         $loExcel->getActiveSheet()->setCellValue('D2', 'world!');
 
-        $loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs')
+        $loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
         $loExcel->getActiveSheet()->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
         $loExcel->setActiveSheetIndex(0);
