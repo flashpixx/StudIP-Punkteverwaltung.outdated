@@ -275,7 +275,7 @@
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
         
-        /*
+        
             //$loExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
             //$loExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         
@@ -308,13 +308,15 @@
                         }
 
                     for($i=0; $i < count($laHeader); $i++)
-                        $loExcel->getActiveSheet()->setCellValue("A".$i, $laHeader[$i]);
+                        $loExcel->getActiveSheet()->setCellValue("A".($i+1), $laHeader[$i]);
+                
+                    break;
                 }
             
             
                 // modifziere Datensatz, so dass die Daten so enthalten sind,
                 // wie sie vom Header verlangt werden
-         
+            
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
                     if ($lcKey == "bestanden")
@@ -336,19 +338,8 @@
         
             // setze Daten in das Sheet
             //$loExcel->getActiveSheet()->fromArray($paOutput, NULL, "B1");
-        */
         
         
-        $sheet = $loExcel->setActiveSheetIndex(0);
-        $sheet->setCellValue('A1', 'Hello');
-        $sheet->setCellValue('B2', 'world!');
-        $sheet->setCellValue('C1', 'Hello');
-        $sheet->setCellValue('D2', 'world!');
-
-        $loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
-        //$loExcel->getActiveSheet()->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
-
-        $loExcel->setActiveSheetIndex(0);
 
         
             // erzeuge Download / Ausgabe
