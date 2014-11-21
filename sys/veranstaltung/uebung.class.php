@@ -35,9 +35,9 @@
     class Uebung implements VeranstaltungsInterface
     {
         /** Konstante, um das Datum als String zu liefern **/
-        public const DATEASSTRING = 0;
+        const DATEASSTRING = 0;
         /** Konstante, um das Datum als DateTime-Objekt zu liefern **/
-        public const DATEASOBJECT = 1;
+        const DATEASOBJECT = 1;
     
     
 
