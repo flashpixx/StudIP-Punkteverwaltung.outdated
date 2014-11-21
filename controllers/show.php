@@ -29,14 +29,14 @@
     require_once(dirname(__DIR__) . "/sys/student.class.php");
 
 
-    /** Controller f¸r die Sicht eines Studenten **/
+    /** Controller für die Sicht eines Studenten **/
     class ShowController extends StudipController
     {
 
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
-         * Eigenschaft "flash" h‰ndisch initialisiert werden, damit persistent die Werte
-         * ¸bergeben werden kˆnnen
+         * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
+         * übergeben werden kˆnnen
          **/
         function before_filter( &$action, &$args )
         {
@@ -68,7 +68,7 @@
                     $loStudent = new Student( $GLOBALS["user"]->id );
                     $loStudent->studiengang($this->flash["veranstaltung"], trim($laData[0]), trim($laData[1]));
 
-                    $this->flash["message"] = Tools::createMessage( "success", _("Anerkennung f¸r den Studiengang f¸r diese Veranstaltung ge‰ndert") );
+                    $this->flash["message"] = Tools::createMessage( "success", _("Anerkennung für den Studiengang für diese Veranstaltung geändert") );
                 }
                 
 

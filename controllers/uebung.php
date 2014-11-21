@@ -32,7 +32,7 @@
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
 
 
-    /** Controller f¸r die Administration der ‹bungen **/
+    /** Controller für die Administration der Übungen **/
     class UebungController extends StudipController
     {
 
@@ -50,8 +50,8 @@
 
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
-         * Eigenschaft "flash" h‰ndisch initialisiert werden, damit persistent die Werte
-         * ¸bergeben werden kˆnnen
+         * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
+         * übergeben werden können
          **/
         function before_filter( &$action, &$args )
         {
@@ -64,18 +64,18 @@
         
             try {
 
-                // falls keine ‹bungsID gesetzt ist, versuchen die erste ‹bung zu finden, wenn nicht mit Exception abbrechen
+                // falls keine ÜbungsID gesetzt ist, versuchen die erste Übung zu finden, wenn nicht mit Exception abbrechen
                 if (Request::quoted("ueid"))
                 {
                     $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-                    PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - ‹bung [".$this->flash["uebung"]->name()."]"));
+                    PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Übung [".$this->flash["uebung"]->name()."]"));
                     return;
                 } else {
                     $laUebungen = $this->flash["veranstaltung"]->uebungen();
                     if ( (is_array($laUebungen)) && (!empty($laUebungen)) )
                     {
                         $this->flash["uebung"] = reset($laUebungen);
-                        PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - ‹bung [".$this->flash["uebung"]->name()."]"));
+                        PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Übung [".$this->flash["uebung"]->name()."]"));
                         return;
                     }
                 }
@@ -90,12 +90,12 @@
         /** Default Action **/
         function index_action()
         {
-            // setze URLs f¸r jTable 
+            // setze URLs für jTable 
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen (URLs) f¸r die entsprechende Ajax-Anbindung, falls keine ‹bungsID gesetzt ist nehmen wir die Default Einstellung
+            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung, falls keine ÜbungsID gesetzt ist nehmen wir die Default Einstellung
             if (!empty($this->flash["message"]))
                 return;
         
@@ -106,12 +106,12 @@
         }
 
 
-        /** setzt die Einstellungen f¸r die ‹bung **/
+        /** setzt die Einstellungen für die Übung **/
         function updatesetting_action()
         {
             try {
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
-                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die ‹bung zu ver‰ndern") );
+                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu verändern") );
                 elseif (Request::submitted("submitted"))
                 {
                     $this->flash["uebung"]->name( Request::quoted("uebungname") );
@@ -120,7 +120,7 @@
                     $this->flash["uebung"]->bemerkung( Request::quoted("bemerkung") );
                     $this->flash["uebung"]->abgabeDatum( Request::quoted("abgabedatum") );
 
-                    $this->flash["message"] = Tools::createMessage( "success", _("Einstellung der ‹bung ge‰ndert") );
+                    $this->flash["message"] = Tools::createMessage( "success", _("Einstellung der Übung geändert") );
                 }
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
@@ -129,25 +129,25 @@
         }
 
 
-        /** lˆscht eine ‹bung **/
+        /** löscht eine Übung **/
         function delete_action()
         {
             try {
                 if (Request::int("dialogyes"))
                 {
                     if (!VeranstaltungPermission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
-                        $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die ‹bung zu lˆschen") );
+                        $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu löschen") );
                     else
                         Uebung::delete( $this->flash["uebung"] );
 
-                    $this->flash["message"] = Tools::createMessage( "success", _("‹bung gelˆscht") );
+                    $this->flash["message"] = Tools::createMessage( "success", _("Übung gelöscht") );
                     $this->redirect("admin");
                     return;
                 }
                 elseif (Request::int("dialogno")) { }
 
                 else
-                    $this->flash["message"] = Tools::createMessage( "question", _("Soll die ‹bung inkl aller Punkte gelˆscht werden?"), array(), $this->url_for("uebung/delete", array("ueid" => $this->flash["uebung"]->id())) );
+                    $this->flash["message"] = Tools::createMessage( "question", _("Soll die Übung inkl aller Punkte gelöscht werden?"), array(), $this->url_for("uebung/delete", array("ueid" => $this->flash["uebung"]->id())) );
 
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
@@ -164,7 +164,7 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-            // Daten f¸r das Json Objekt holen und ein Default Objekt setzen
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
@@ -199,7 +199,7 @@
         }
 
         
-        /** liefert die korrekten Json Daten f¸r den jTable **/
+        /** liefert die korrekten Json Daten für den jTable **/
         function jsonlist_action()
         {
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
@@ -207,7 +207,7 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-            // Daten f¸r das Json Objekt holen und ein Default Objekt setzen
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
 
@@ -215,14 +215,14 @@
             // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
             try {
 
-                // hole die ‹bung und pr¸fe die Berechtigung (in Abh‰ngigkeit des gesetzen Parameter die ‹bung initialisieren)
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 $laData = $this->flash["uebung"]->studentenuebung();
                 if ($laData)
                 {
-                    // setze Defaultwerte f¸r jTable
+                    // setze Defaultwerte für jTable
                     $this->result["TotalRecordCount"] = count($laData);
 
                     // sortiere Daten anhand des Kriteriums
@@ -257,13 +257,13 @@
                           return $ln;
                     });
 
-                    // hole Query Parameter, um die Datenmenge passend auszuw‰hlen
+                    // hole Query Parameter, um die Datenmenge passend auszuwählen
                     $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
                     
 
                     foreach( $laData as $item )
                     {
-                        // siehe Arraykeys unter views/uebung/jsonlist.php & alle String m¸ssen UTF-8 codiert werden, da Json UTF-8 ist
+                        // siehe Arraykeys unter views/uebung/jsonlist.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
                         $laItem = array(
                                     "Auth"            => studip_utf8encode( $item->student()->id() ),
                                     "Matrikelnummer"  => $item->student()->matrikelnummer(),
@@ -290,7 +290,7 @@
         }
 
 
-        /** erzeugt das Update, f¸r den jTable **/
+        /** erzeugt das Update, für den jTable **/
         function jsonupdate_action()
         {
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
@@ -298,21 +298,21 @@
             $this->set_layout(null);
             $this->response->add_header("Content-Type", "application/json");
 
-            // Daten f¸r das Json Objekt holen und ein Default Objekt setzen
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
 
-                // hole die ‹bung und pr¸fe die Rechte
+                // hole die Übung und prüfe die Rechte
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
-                // hole die Zuordnung von ‹bung und Student und setze die Daten
+                // hole die Zuordnung von Übung und Student und setze die Daten
                 $lo = new StudentUebung( $this->flash["uebung"], Request::quoted("Auth") );
                 $lo->update( Request::float("ErreichtePunkte"), Request::float("ZusatzPunkte"), Request::quoted("Bemerkung") );
                
 
-                // alles fehlerfrei durchlaufen, setze Result (lese die ge‰nderten Daten aus der Datenbank)
+                // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
                 $this->result["Result"] = "OK";
 
 
@@ -328,7 +328,7 @@
             // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
             try {
 
-                // hole die ‹bung und pr¸fe die Berechtigung (in Abh‰ngigkeit des gesetzen Parameter die ‹bung initialisieren)
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
@@ -345,7 +345,7 @@
 
                     if ( (!is_array($laItems)) || (empty($laItems)) )
                     {
-                        array_push($laError, _("Zeile ".$i." hat ein ung¸ltiges Format"));
+                        array_push($laError, _("Zeile ".$i." hat ein ungültiges Format"));
                         continue;
                     }
 
