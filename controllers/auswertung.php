@@ -29,7 +29,6 @@
     require_once(dirname(__DIR__) . "/sys/auswertung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
-    #require_once(dirname(__DIR__) . "/sys/extensions/xlsxwriter.class.php");
     require_once(dirname(__DIR__) . "/sys/extensions/excel/PHPExcel.php");
     require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocument/ExportPDF.class.php");
 
@@ -308,7 +307,9 @@
                     for($i=0; $i < count($laHeader); $i++)
                         $loExcel->getActiveSheet()->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
                 
-                    $loExcel->getActiveSheet()->getStyle("A1:".(chr(65+count($laHeader)))."1")->getFont()->setBold(true);
+                    $loHeader = $loExcel->getActiveSheet()->getStyle("A1:".(chr(65+count($laHeader)))."1");
+                    $loHeader->getFont()->setBold(true);
+                    $loHeader->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 }
             
             
@@ -349,68 +350,6 @@
             $loOutput->save("php://output");
         }
     
-
-
-        /** Exportfunktion für Excel
-         * @see https://github.com/mk-j/PHP_XLSXWriter
-         * @param $paOutput Datenarray
-         * @param $pcTitle String mit Titel der Veranstaltung
-         **
-        private function exportExcel( $paOutput, $pcTitle )
-        {
-            $loExcel = new XLSXWriter();
-
-            $laHeader = array();
-            foreach( $paOutput as &$laLine )
-            {
-                if (empty($laHeader))
-                {
-                    if (array_key_exists("matrikelnummer", $laLine))
-                        $laHeader[_("Matrikelnummer")] = "string";
-                    if (array_key_exists("name", $laLine))
-                        $laHeader[_("Name")] = "string";
-                    if (array_key_exists("studiengang", $laLine))
-                        $laHeader[_("Studiengang")] = "string";
-                    if (array_key_exists("bestanden", $laLine))
-                        $laHeader[_("bestanden")] = "string";
-                    if (array_key_exists("bonuspunkte", $laLine))
-                        $laHeader[_("Bonuspunkte")] = "string";
-                    if (array_key_exists("uebung", $laLine))
-                        foreach( $laLine["uebung"] as $lcName => $laData )
-                        {
-                            if (array_key_exists("punktesumme", $laData))
-                                $laHeader[$lcName] = "string";
-                            if (array_key_exists("bestanden", $laData))
-                                $laHeader[$lcName." "._("bestanden")] = "string";
-                        }
-                }
-
-
-                $laItem = array();
-                foreach( $laLine as $lcKey => $lxData)
-                    if ($lcKey == "bestanden")
-                        array_push( $laItem, $lxData ? _("ja") : _("nein") );
-                    elseif ($lcKey == "uebung")
-                        foreach($lxData as $lcName => $lxUebungData)
-                        {
-                            if (array_key_exists("punktesumme", $lxUebungData))
-                                array_push($laItem, $lxUebungData["punktesumme"]);
-                            if (array_key_exists("bestanden", $lxUebungData))
-                                array_push($laItem, $lxUebungData["bestanden"] ? _("ja") : _("nein") );
-                        }
-                    else
-                        array_push($laItem, utf8_encode($lxData));
-
-                $laLine = $laItem;
-            }
-            $loExcel->writeSheet($paOutput, "Punkteliste", $laHeader);
-
-
-            header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
-            echo $loExcel->writeToString();
-        }
-        */
 
 
         /** Exportfunktion für PDF
