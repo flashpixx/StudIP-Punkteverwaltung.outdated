@@ -305,12 +305,13 @@
                         }
 
                     for($i=0; $i < count($laHeader); $i++)
-                        $loExcel->getActiveSheet()->setCellValue("A1", $laHeader[$i]);
+                        $loExcel->getActiveSheet()->setCellValue("A".$i, $laHeader[$i]);
                 }
             
             
                 // modifziere Datensatz, so dass die Daten so enthalten sind,
                 // wie sie vom Header verlangt werden
+            /*
                 $laItem = array();
                 foreach( $laLine as $lcKey => $lxData)
                     if ($lcKey == "bestanden")
@@ -327,11 +328,12 @@
                         array_push($laItem, utf8_encode($lxData));
             
                 $laLine = $laItem;
+             */
             
             }
         
             // setze Daten in das Sheet
-            $loExcel->getActiveSheet()->fromArray($paOutput, NULL, "B1");
+            //$loExcel->getActiveSheet()->fromArray($paOutput, NULL, "B1");
         
 
         
