@@ -354,7 +354,7 @@
                 {
                   $lxSort1 = $lxSort1->getTimestamp();
                   $lxSort2 = $lxSort2->getTimestamp();
-                  return ($lxSort1 < $lxSort2) ? -1 :  ( ($lxSort1 > $lxSort2) ? 1 : 0 )
+                  return ($lxSort1 < $lxSort2) ? -1 :  ( ($lxSort1 > $lxSort2) ? 1 : 0 );
                 }
                                                                                          
                 $lxSort1 = $a->name();
