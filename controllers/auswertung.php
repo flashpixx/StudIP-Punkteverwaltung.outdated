@@ -290,7 +290,6 @@
                 {
                     if (array_key_exists("matrikelnummer", $laLine))
                         array_push($laHeader, _("Matrikelnummer"));
-                $this->workbook->getActiveSheet()->getStyle($cell)->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_TEXT );
                     if (array_key_exists("name", $laLine))
                         array_push($laHeader, _("Name"));
                     if (array_key_exists("studiengang", $laLine))
