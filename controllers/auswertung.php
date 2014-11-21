@@ -327,7 +327,7 @@
                         foreach($lxData as $lcName => $lxUebungData)
                         {
                             if (array_key_exists("punktesumme", $lxUebungData))
-                                array_push($laItem, int($lxUebungData["punktesumme"]));
+                                array_push($laItem, floatval($lxUebungData["punktesumme"]));
                             if (array_key_exists("bestanden", $lxUebungData))
                                 array_push($laItem, $lxUebungData["bestanden"] ? _("ja") : _("nein") );
                         }
