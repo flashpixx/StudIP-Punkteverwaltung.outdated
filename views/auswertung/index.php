@@ -132,9 +132,10 @@
         // hier muss noch etwas die Auswertung hinein
         echo "<p><table align=\"center\" width=\"38%\">";
         echo "<tr><th align=\"left\">Teilnehmeranzahl</th><td>".$laListe["statistik"]["teilnehmergesamt"]."</td></tr>";
-        echo "<tr><th align=\"left\">Anzahl bestandenen Studenten (%)</th><td>".$laListe["statistik"]["teilnehmerbestanden"]." (".round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
-        echo "<tr><th align=\"left\">Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>".$laListe["statistik"]["teilnehmerbonus"]." (".round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)."%)</td></tr>";
-        echo "<tr><th align=\"left\">Anzahl Studenten mit mehr als null Punkten (%)</th><td>".$laListe["statistik"]["teilnehmerpunktenotzero"]." (".round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%)</td></tr>";
+        
+        echo "<tr><th align=\"left\">Anzahl bestandenen Studenten (%)</th><td>".                    $laListe["statistik"]["teilnehmerbestanden"]    ." (".  ($laListe["statistik"]["teilnehmergesamt"] == 0    ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2))      ."%)</td></tr>";
+        echo "<tr><th align=\"left\">Anzahl Studenten mit Bonuspunkten (% der bestanden)</th><td>". $laListe["statistik"]["teilnehmerbonus"]        ." (".  ($laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2))        ."%)</td></tr>";
+        echo "<tr><th align=\"left\">Anzahl Studenten mit mehr als null Punkten (%)</th><td>".      $laListe["statistik"]["teilnehmerpunktenotzero"]." (".  ($laListe["statistik"]["teilnehmergesamt"] == 0    ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2))  ."%)</td></tr>";
         echo "<tr><td colspan=\"2\">&nbsp;</td></tr>";
         echo "<tr><th align=\"left\">Gesamtpunktanzahl</th><td>".$laListe["gesamtpunkte"]."</td></tr>";
         echo "<tr><th align=\"left\">Punkte zur Zulassung</th><td>".$laListe["gesamtpunktebestanden"]."</td></tr>";
