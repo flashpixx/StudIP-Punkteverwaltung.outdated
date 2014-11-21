@@ -273,8 +273,8 @@
          
             // erzeuge Sheet und setze Layout-Strukturen
             $loExcel->setActiveSheetIndex(0);
-            //$loExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-            //$loExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+            $loExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+            $loExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         
         
             // erzeuge Array mit Ausgabedaten
@@ -305,7 +305,7 @@
                         }
 
                     for($i=0; $i < count($laHeader); $i++)
-                        $loExcel->getActiveSheet()->setCellValue("A".($i+1), $laHeader[$i]);
+                        $loExcel->getActiveSheet()->setCellValue("A".($i+1), $utf8_encode(laHeader[$i]));
                 
                     break;
                 }
