@@ -339,11 +339,11 @@
         */
         
         
-        $loExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'Hello')
-            ->setCellValue('B2', 'world!')
-            ->setCellValue('C1', 'Hello')
-            ->setCellValue('D2', 'world!');
+        $sheet = $loExcel->setActiveSheetIndex(0);
+        $sheet->setCellValue('A1', 'Hello');
+        $sheet->setCellValue('B2', 'world!');
+        $sheet->setCellValue('C1', 'Hello');
+        $sheet->setCellValue('D2', 'world!');
 
         //$loExcel->getActiveSheet()->setCellValue('A4', 'Miscellaneous glyphs');
         //$loExcel->getActiveSheet()->setCellValue('A5', 'יאטשגךמפûכןüÿהצüח');
