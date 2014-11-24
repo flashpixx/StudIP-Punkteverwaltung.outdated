@@ -291,8 +291,9 @@
         {
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
-                $lxDate = self::createDateTimeFromString($pc);
-                $lc                  = $lxDate->format("Y-m-d H:i:s");
+                $lxDate              = self::createDateTimeFromString($pc);
+                if (!empty($lxData))
+                    $lc              = $lxDate->format("Y-m-d H:i:s");
                 $this->mcAbgabeDatum = $pc;
 
                 if ($this->moVeranstaltung->isClosed())
