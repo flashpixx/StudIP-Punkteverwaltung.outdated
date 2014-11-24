@@ -128,7 +128,7 @@
             if ( (!is_array($paUebung)) || (empty($paUebung)) )
                 return;
         
-            for($paUebung as $key => $loUebung)
+            foreach($paUebung as $key => $loUebung)
             {
                 $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
                 Navigation::addItem( "/course/punkteverwaltung/edituebung/".$loUebung->id(), $loNavigation );
