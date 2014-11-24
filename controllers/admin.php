@@ -49,10 +49,6 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-        
-            // Pluginmeta-Daten setzen - ab Stud.IP 3.0 mittels
-            $ln = floatval($GLOBALS["SOFTWARE_VERSION"]);
-            $this->flash["pluginmeta"] = ($ln < 3.0) ? PluginManager::getInstance()->getPluginInfoById($this->dispatcher->plugin->getPluginId(),  $_SESSION["SessionSeminar"]) : $this->dispatcher->plugin->getMetadata();
         }
 
 

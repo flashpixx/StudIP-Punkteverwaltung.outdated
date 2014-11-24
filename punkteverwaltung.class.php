@@ -30,6 +30,7 @@
     require_once("sys/veranstaltung/veranstaltung.class.php");
 
 
+    
     //ini_set("display_errors", TRUE);
     //error_reporting(E_ALL);
     //error_reporting(E_ALL ^ E_NOTICE);
@@ -38,6 +39,8 @@
     // http://docs.studip.de/develop/Entwickler/HowToHTML
     // http://studip.tleilax.de/plugins/generator/
     // http://docs.studip.de/api
+    // http://docs.studip.de/develop/Entwickler/Migrations
+    
 
 
     /** Basisklasse für das Plugin nach dem Trails-Framework
