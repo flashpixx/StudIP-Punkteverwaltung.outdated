@@ -132,7 +132,7 @@
         
         
             $loFirst = null;
-            §llSet   = false,
+            $llSet   = false;
             foreach($paUebung as $loUebung)
             {
                 $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
