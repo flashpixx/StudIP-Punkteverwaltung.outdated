@@ -1,17 +1,17 @@
-/*
+Ôªø/*
     jTable localization file for 'Italian' language.
     Author: Mauro Rulli
 */
 (function ($) {
 
     $.extend(true, $.hik.jtable.prototype.options.messages, {
-        serverCommunicationError: 'Si Ë verificato un errore di comunicazione con il server.',
+        serverCommunicationError: 'Si √® verificato un errore di comunicazione con il server.',
         loadingMessage: 'Caricamento dei record...',
         noDataAvailable: 'Non ci sono dati disponibili!',
         addNewRecord: '+ Crea un nuovo record',
         editRecord: 'Modifica record',
         areYouSure: 'Sei sicuro?',
-        deleteConfirmation: 'Il record verr‡ eliminato. Sei sicuro?',
+        deleteConfirmation: 'Il record verr√† eliminato. Sei sicuro?',
         save: 'Salva',
         saving: 'Salvataggio',
         cancel: 'Annulla',
