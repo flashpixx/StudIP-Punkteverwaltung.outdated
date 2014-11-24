@@ -51,7 +51,7 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
         
             // Pluginmeta-Daten setzen
-            $this->flash["pluginmeta"]    = $this->getMetadata();
+            $this->flash["pluginmeta"]    = $this->dispatcher->plugin->getMetadata();
         }
 
 
