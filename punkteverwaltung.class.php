@@ -121,6 +121,8 @@
     
     
         /** setzt die Liste der Übungen mit korrekten Aktivierungsflag
+         * @note man muss manuell feststellen, ob ein Item selektiert wurde, bei Tutoren existiert kein Item außer den Übungen,
+         * es muss manuell geprüft werden, ob ein Item gesetzt wurde und wenn nicht, dann manuell setzen
          * @param paUebungen Array mit Übungsobjekten
          **/
         private function addUebungEditList( $paUebung )
@@ -129,13 +131,23 @@
                 return;
         
         
+            $loFirst = null;
+            §llSet   = false,
             foreach($paUebung as $loUebung)
             {
                 $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
                 Navigation::addItem( "/course/punkteverwaltung/edituebung".$loUebung->id(), $loNavigation );
             
-                //$loNavigation->setActive( Request::quoted("ueid") == $loUebung->id() );
+                if (empty($loFirst))
+                    $loFirst = $loNavigation;
+            
+                $llSet = $llSet || Request::quoted("ueid") == $loUebung->id();
+                $loNavigation->setActive( Request::quoted("ueid") == $loUebung->id() );
             }
+        
+            if ((!$llSet) && ($loFirst))
+                $loFirst->setActive(true);
+                
         }
     
 
