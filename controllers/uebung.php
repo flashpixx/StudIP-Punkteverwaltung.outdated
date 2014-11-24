@@ -90,10 +90,6 @@
         /** Default Action **/
         function index_action()
         {
-            // setze URLs für jTable (das Encoding muss passend zu dem Stud.IP Output gesetzt werden, da sonst Anzeigeprobleme auftreten),
-            // Stud.IP ist nicht in der Lage einen korrekten HTML-Header zu genieren
-            PageLayout::addHeadElement("meta", array("http-equiv" => "Content-Type", "content" => "text/html; charset=windows-1251"));
-        
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
