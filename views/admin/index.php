@@ -82,8 +82,7 @@
 
             echo "</form></p><br/><br/>";
             echo "<p style=\"font-size: xx-small; text-align: center; background:#eee;\"\"><a target=\"_blank\" href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\">https://github.com/flashpixx/StudIP-Punkteverwaltung</a>";
-            if (isset($flash["pluginmeta"]))
-                echo " - Plugin Version ".print_r($flash["pluginmeta"], true);
+            echo " - Plugin Version ".print_r($this->dispatcher->plugin, true);
             echo "</p>";
         }
         

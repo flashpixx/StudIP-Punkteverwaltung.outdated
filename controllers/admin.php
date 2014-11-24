@@ -49,9 +49,6 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-        
-            // Pluginmeta-Daten setzen
-            $this->flash["pluginmeta"]    = $this->dispatcher->plugin->getMetadata();
         }
 
 
