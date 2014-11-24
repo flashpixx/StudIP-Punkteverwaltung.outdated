@@ -82,7 +82,7 @@
 
             echo "</form></p><br/><br/>";
             echo "<p style=\"font-size: xx-small; text-align: center; background:#eee;\"\"><a target=\"_blank\" href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\">https://github.com/flashpixx/StudIP-Punkteverwaltung</a>";
-            echo " - Plugin Version ".$flash["pluginmeta"];
+            echo " - Plugin Version <pre>".$flash["pluginmeta"]."</pre>";
             echo "</p>";
         }
         
