@@ -114,7 +114,7 @@
                 return;
         
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
-
+        
             $laUebungen = $loVeranstaltung->uebungen();
             $this->addUebungEditList( $laUebungen );
         }
@@ -128,6 +128,7 @@
             if ( (!is_array($paUebung)) || (empty($paUebung)) )
                 return;
         
+            echo "<pre>".print_r($paUebung, true)."</pre>";
             foreach($paUebung as $loUebung)
             {
                 $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
