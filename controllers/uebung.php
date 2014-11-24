@@ -94,8 +94,8 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
-            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung, falls keine ÜbungsID gesetzt ist nehmen wir die Default Einstellung
-            if (!empty($this->flash["message"]))
+            // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
+            if (!is_object($this->flash["uebung"])))
                 return;
         
             $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $this->flash["uebung"]->id()) );
