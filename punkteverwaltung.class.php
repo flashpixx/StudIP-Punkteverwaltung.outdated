@@ -131,7 +131,7 @@
             foreach($paUebung as $loUebung)
             {
                 $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
-                Navigation::addItem( "/course/punkteverwaltung/edituebung".$loUebung->id(), $loNavigation );
+                Navigation::addItem( "/course/punkteverwaltung/edituebung", $loNavigation );
             
                 $loNavigation->setActive( Request::quoted("ueid") == $loUebung->id() );
             }
