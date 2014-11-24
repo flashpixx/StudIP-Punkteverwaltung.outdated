@@ -52,7 +52,7 @@
         
             // Pluginmeta-Daten setzen - ab Stud.IP 3.0 mittels
             $ln = floatval($GLOBALS["SOFTWARE_VERSION"]);
-            $this->flash["pluginmeta"] = ($ln < 3.0) ? PluginManager::getInstance()->getPluginInfoById($this->dispatcher->plugin->getPluginId()) : $this->dispatcher->plugin->getMetadata();
+            $this->flash["pluginmeta"] = ($ln < 3.0) ? PluginManager::getInstance()->getPluginInfoById($this->dispatcher->plugin->getPluginId(),  $_SESSION["SessionSeminar"]) : $this->dispatcher->plugin->getMetadata();
         }
 
 
