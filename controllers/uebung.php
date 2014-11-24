@@ -90,7 +90,8 @@
         /** Default Action **/
         function index_action()
         {
-            // setze URLs für jTable 
+            // setze URLs für jTable
+            PageLayout::addHeadElement("meta", array("http-equiv" => "Content-Type", "content" => "text/html;", "charset" => "WINDOWS-1252"));
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
