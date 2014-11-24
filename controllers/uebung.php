@@ -95,7 +95,7 @@
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
 
             // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
-            if (!is_object($this->flash["uebung"])))
+            if (!is_object($this->flash["uebung"]))
                 return;
         
             $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $this->flash["uebung"]->id()) );
