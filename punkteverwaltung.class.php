@@ -145,7 +145,7 @@
                 $loNavigation->setActive( Request::quoted("ueid") == $loUebung->id() );
             }
         
-            if ((!$llSet) && ($loFirst))
+            if ((VeranstaltungPermission::hasTutorRecht()) && (!$llSet) && ($loFirst))
                 $loFirst->setActive(true);
                 
         }
