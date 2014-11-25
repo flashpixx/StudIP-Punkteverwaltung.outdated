@@ -85,6 +85,15 @@
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
         }
+    
+    
+        function infobox_action()
+        {
+            $this->setInfoBoxImage('blank.gif');
+        
+            $this->addToInfobox('Kategorie', 'Inhalt', 'icon.png');
+            $this->addToInfobox('Info', '<strong>HTML</strong> erlaubt');
+        }
 
 
         /** Default Action **/
