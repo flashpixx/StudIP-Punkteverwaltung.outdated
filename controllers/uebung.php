@@ -55,7 +55,7 @@
          **/
         function before_filter( &$action, &$args )
         {
-            //$this->set_layout($GLOBALS["template_factory"]->open("layouts/base"));
+            $this->set_layout($GLOBALS["template_factory"]->open("layouts/base"));
 
             // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
             // die aktuellen Daten bekommt
@@ -87,15 +87,6 @@
         }
     
     
-        function infobox_action()
-        {
-            $this->setInfoBoxImage('blank.gif');
-        
-            $this->addToInfobox('Kategorie', 'Inhalt', 'icon.png');
-            $this->addToInfobox('Info', '<strong>HTML</strong> erlaubt');
-        }
-
-
         /** Default Action **/
         function index_action()
         {
