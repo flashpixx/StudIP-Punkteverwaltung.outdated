@@ -128,7 +128,7 @@
          **/
         private function addUebungEditList( $paUebung )
         {
-            if ( (!is_array($paUebung)) || (empty($paUebung)) || (empty($poTopNavigation)) )
+            if ( (!is_array($paUebung)) || (empty($paUebung)) )
                 return;
         
         
