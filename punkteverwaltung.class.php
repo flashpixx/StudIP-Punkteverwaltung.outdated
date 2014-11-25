@@ -100,9 +100,12 @@
                 Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer", new AutoNavigation(_("Teilnehmer in Übung(en) aktualisieren"), PluginEngine::GetURL($this, array(), "admin/updateteilnehmer")) );
                 Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             }
-                
+        
+            $loUebungenNavigation = new AutoNavigation(_("Übungen"), null)
+            Navigation::addItem( "/course/punkteverwaltung/uebung", $loUebungenNavigation );
+        
             $laUebungen = $loVeranstaltung->uebungen();
-            $this->addUebungEditList( $laUebungen );
+            $this->addUebungEditList( $loUebungenNavigation, $laUebungen );
         }
 
 
@@ -121,33 +124,19 @@
     
     
         /** setzt die Liste der Übungen mit korrekten Aktivierungsflag
-         * @note man muss manuell feststellen, ob ein Item selektiert wurde, bei Tutoren existiert kein Item außer den Übungen,
-         * es muss manuell geprüft werden, ob ein Item gesetzt wurde und wenn nicht, dann manuell setzen
          * @param paUebungen Array mit Übungsobjekten
          **/
-        private function addUebungEditList( $paUebung )
+        private function addUebungEditList( $poTopNavigation, $paUebung )
         {
-            if ( (!is_array($paUebung)) || (empty($paUebung)) )
+            if ( (!is_array($paUebung)) || (empty($paUebung)) || (empty($poTopNavigation)) )
                 return;
         
         
-            $loFirst = null;
-            $llSet   = false;
             foreach($paUebung as $loUebung)
-            {
-                $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
-                Navigation::addItem( "/course/punkteverwaltung/edituebung".$loUebung->id(), $loNavigation );
-            
-                if (empty($loFirst))
-                    $loFirst = $loNavigation;
-            
-                $llSet = $llSet || Request::quoted("ueid") == $loUebung->id();
-                $loNavigation->setActive( Request::quoted("ueid") == $loUebung->id() );
-            }
+                $poTopNavigation->addSubNavigation( "/course/punkteverwaltung/edituebung".$loUebung->id(),  new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung")) );
+                //$loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
+                //Navigation::addItem( "/course/punkteverwaltung/edituebung".$loUebung->id(), $loNavigation );
         
-            if ((VeranstaltungPermission::hasTutorRecht()) && (!$llSet) && ($loFirst))
-                $loFirst->setActive(true);
-                
         }
     
 
