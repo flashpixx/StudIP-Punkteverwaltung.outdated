@@ -101,7 +101,7 @@
                 Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             }
         
-            $loUebungenNavigation = new AutoNavigation(_("Übungen"), null)
+            $loUebungenNavigation = new AutoNavigation(_("Übungen"), null);
             Navigation::addItem( "/course/punkteverwaltung/uebung", $loUebungenNavigation );
         
             $laUebungen = $loVeranstaltung->uebungen();
