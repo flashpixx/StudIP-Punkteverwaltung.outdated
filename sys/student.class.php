@@ -103,10 +103,18 @@
                 }
             }
             else
-                throw new UserNotFound(_("Userdaten konnten nicht ermittelt werden"));
+                throw new UserNotFound(_("Userdaten-Eingabe inkorrekt"));
 
             if ( (!UserModel::check($this->mcID)) || (empty($this->mnMatrikelnummer)) )
-                throw new UserNotFound(_("Userdaten konnten nicht ermittelt werden"));
+            {
+                $lcData = null;
+                if (!empty($this->mcID))
+                    $lcData = "(Login: ".$this->mcID.")";
+                elseif (!empty($this->mnMatrikelnummer))
+                    $lcData = "(Matrikelnummer: ".$this->mnMatrikelnummer.")";
+            
+                throw new UserNotFound(_("Userdaten ".$lcData." konnten nicht ermittelt werden"));
+            }
         }
 
 

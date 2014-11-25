@@ -104,8 +104,8 @@
             $loUebungenNavigation = new AutoNavigation(_("Übungen"), null);
             Navigation::addItem( "/course/punkteverwaltung/uebung", $loUebungenNavigation );
         
-            $laUebungen = $loVeranstaltung->uebungen();
-            $this->addUebungEditList( $loUebungenNavigation, $laUebungen );
+            //$laUebungen = $loVeranstaltung->uebungen();
+            //$this->addUebungEditList( $loUebungenNavigation, $laUebungen );
         }
 
 
@@ -118,8 +118,8 @@
         
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
         
-            $laUebungen = $loVeranstaltung->uebungen();
-            $this->addUebungEditList( $laUebungen );
+            //$laUebungen = $loVeranstaltung->uebungen();
+            //$this->addUebungEditList( $laUebungen );
         }
     
     
@@ -133,9 +133,10 @@
         
         
             foreach($paUebung as $loUebung)
-                $poTopNavigation->addSubNavigation( "/course/punkteverwaltung/edituebung".$loUebung->id(),  new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung")) );
+            {
                 //$loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
                 //Navigation::addItem( "/course/punkteverwaltung/edituebung".$loUebung->id(), $loNavigation );
+            }
         
         }
     
