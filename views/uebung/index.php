@@ -45,12 +45,18 @@
 
                 echo "<div>";
 
-                
                 // erzeuge ein Select Menü, da StudIP keine 4. Navigationsebene via Core-API generieren kann
-                echo "<select id=\"uebungsmenu\">\n";
+                echo "<div class=\"steel1\">\n";
+                echo "<table width=\"100%\">\n";
+                
+                echo "<tr><td width=\"50%\"><label for=\"uebungsmenu\">"._("ausgewählte Übung")."</label></td>";
+                echo "<td><select id=\"uebungsmenu\">\n";
                 foreach($loUebung->veranstaltung()->uebungen() as $loOptUebung)
                     echo "<option value=\"".$loOptUebung->id()."\" ".($loOptUebung->id() == $loUebung->id() ? "selected" : null).">".$loOptUebung->name()."</option>\n";
-                echo "</select>\n";
+                echo "</select></td></tr>\n";
+                
+                echo "</table></div>";
+                
                 
                 
                 // der Dozent kann die Daten der Übung ändern
