@@ -336,6 +336,7 @@
 
                 $i = 0;
                 $laError = array();
+                $this->massedit = Request::quoted("massinput");
                 foreach(explode("\n", Request::quoted("massinput")) as $lcLine)
                 {
                     $i++;
@@ -378,13 +379,11 @@
                 }
 
                 if (!empty($laError))
-                {
                     $this->flash["message"] = Tools::createMessage( "error", implode("<br/>", $laError) );
-                    $this->massedit = Request::quoted("massinput");
-                }
+                else
+                    $this->massedit = null;
 
-
-
+                
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
             $this->redirect($this->url_for("uebung", array("ueid" => $this->flash["uebung"]->id())));
