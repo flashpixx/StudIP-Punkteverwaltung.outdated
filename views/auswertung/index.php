@@ -52,7 +52,7 @@
         $laExportformat  = array("pdf", "xlsx");
 
         echo "<h1>Datei Export</h1>";
-        echo "<p><table border=\"0\" width=\"20%\">";
+        echo "<p><table border=\"0\" width=\"25%\">";
 
         echo "<tr>";
         echo "<td>"._("vollständige Liste")."</td>";
