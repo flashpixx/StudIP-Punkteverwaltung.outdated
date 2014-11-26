@@ -61,12 +61,6 @@
         echo "</tr>";
 
         echo "<tr>";
-        echo "<td>"._("Liste für Aushang (Matrikelnummer, bestanden, Bonuspunkte)")."</td>";
-        foreach( $laExportformat as $lcType )
-            echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "aushang"))."\">".strtoupper($lcType)."</a></td>";
-        echo "</tr>";
-
-        echo "<tr>";
         echo "<td>"._("bestandene Studenten (Name, Matrikelnummer, Studiengang)")."</td>";
         foreach( $laExportformat as $lcType )
             echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestandenshort"))."\">".strtoupper($lcType)."</a></td>";

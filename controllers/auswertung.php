@@ -167,18 +167,6 @@
                         break;
 
 
-                    // reduzierter Export für den Aushang, d.h. nur Matrikelnummer, Bonuspunkte & bestanden / nicht bestanden
-                    case "aushang" :
-                        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
-                            array_push($laOutput, array(
-                                "matrikelnummer" => $laStudent["matrikelnummer"],
-                                "bestanden"      => $laStudent["veranstaltungenbestanden"],
-                                "bonuspunkte"    => floatval($laStudent["bonuspunkte"]),
-                            ));
-
-                        break;
-
-
                     // kurze Liste aller Studenten (Matrikelnummer, Name und Studiengang), die die Veranstaltung bestanden
                     // haben für den Import in HIS
                     case "bestandenshort" :
@@ -365,8 +353,8 @@
          **/
         private function exportPDF( $paOutput, $pcTitle )
         {
-            // für den Ausgang wird Hochformat, sonst Querformat verwendet
-            $loPDF = strtolower(Request::quoted("target")) == "aushang" ? new ExportPDF() : new ExportPDF("L");
+            // Querformat verwendet
+            $loPDF = new ExportPDF("L");
             $loPDF->setHeaderTitle($pcTitle);
             $loPDF->addPage();
 
