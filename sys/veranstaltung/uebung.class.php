@@ -80,8 +80,18 @@
 
             
             // erzeuge die Default Liste der Studenten aus der Liste der angemeldeten
-            $loPrepare = DBManager::get()->prepare("insert into ppv_uebungstudent select :uebung as uebung, user_id as student, :korrektor as korrektor, 0 as erreichtepunkte, 0 as zusatzpunkte, null as bemerkung from seminar_user where status = :status and Seminar_id = :semid" );
-            $loPrepare->execute( array("semid" => $lo->id(), "status" => "autor", "uebung" => $lcID, "korrektor" => $GLOBALS["user"]->id) );
+            $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $lo->id(), "status" => "autor") );
+        
+            $loPrepareInsert = DBManager::get()->prepare("insert into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                if (self::canUserAdded($row["student"]))
+                    $loPrepareInsert->execute( array("id" => $lcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
+        
+        
+        
+            //$loPrepare = DBManager::get()->prepare("insert into ppv_uebungstudent select :uebung as uebung, user_id as student, :korrektor as korrektor, 0 as erreichtepunkte, 0 as zusatzpunkte, null as bemerkung from seminar_user where status = :status and Seminar_id = :semid" );
+            //$loPrepare->execute( array("semid" => $lo->id(), "status" => "autor", "uebung" => $lcID, "korrektor" => $GLOBALS["user"]->id) );
             
 
             $lcClassName = __CLASS__;
@@ -369,7 +379,19 @@
 
             $loPrepareInsert = DBManager::get()->prepare("insert ignore into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                $loPrepareInsert->execute( array("id" => $this->mcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
+                if (self::canUserAdded($row["student"]))
+                    $loPrepareInsert->execute( array("id" => $this->mcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
+        
+        }
+    
+    
+        /** prüft ob ein User in die Übung eingefügt werden kann
+         * @param $pcUser UserID
+         * @return boolean, ob er eingefügt werden kann
+         **/
+        static private function canUserAdded( $pcUser )
+        {
+            return true;
         }
 
 

@@ -55,7 +55,7 @@
             elseif (is_string($px))
                 return $GLOBALS["perm"]->have_studip_perm("dozent", $px);
 
-            return $GLOBALS["perm"]->have_studip_perm("dozent");
+            return false;
         }
     
 
@@ -72,7 +72,7 @@
             elseif (is_string($px))
                 return $GLOBALS["perm"]->have_studip_perm("tutor", $px);
 
-            return $GLOBALS["perm"]->have_studip_perm("tutor");
+            return false;
         }
 
 
@@ -89,7 +89,7 @@
             elseif (is_string($px))
                 return $GLOBALS["perm"]->have_studip_perm("autor", $px);
 
-            return $GLOBALS["perm"]->have_studip_perm("autor");
+            return false;
         }
 
     }
