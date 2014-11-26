@@ -101,7 +101,7 @@
                 Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             }
         
-            Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), null ) );
+            Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), PluginEngine::GetURL($this, array(), "uebung")) );
         }
 
 
@@ -113,8 +113,7 @@
                 return;
         
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
-            Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), null ) );
-
+            Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), PluginEngine::GetURL($this, array(), "uebung")) );
         }
     
     
