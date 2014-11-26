@@ -63,7 +63,7 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
         
             // für das Massedit die Datenübernahme definieren
-            $this->flash["massedit"] = Request::quoted("massinput");;
+            $this->flash["massedit"] = Request::quoted("massinput");
         
             try {
 
@@ -338,7 +338,7 @@
 
                 $i = 0;
                 $laError = array();
-                foreach(explode("\n", Request::quoted("massinput")) as $lcLine)
+                foreach(explode("\n", $this->flash["massinput"]) as $lcLine)
                 {
                     $i++;
                     if (empty($lcLine))
@@ -379,10 +379,10 @@
                     } catch (UserNotFound $e) { array_push($laError, "Zeile ".$i.": ".$e->getMessage()); }
                 }
 
-                if (!empty($laError))
-                    $this->flash["message"] = Tools::createMessage( "error", implode("<br/>", $laError) );
+                if (empty($laError))
+                    $this->flash["massinput"] = null;
                 else
-                    $this->flash["massedit"] = null;
+                    $this->flash["message"] = Tools::createMessage( "error", implode("<br/>", $laError) );
 
                 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
