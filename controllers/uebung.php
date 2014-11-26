@@ -65,7 +65,12 @@
             // erzeuge Infobox
             $this->infobox = array(
                 "picture" => null,
-                "content" => array()
+                "content" => array(
+                                   
+                      'icon' => 'icons/16/green/accept.png',
+                      'text' => 'Aufgabe ist als fertig markiert.'
+                                   
+                )
             );
         
             try {
