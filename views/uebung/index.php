@@ -53,7 +53,7 @@
                 echo "<tr><td width=\"50%\"><label for=\"uebungsmenu\"><strong>"._("ausgewählte Übung")."</strong></label></td>";
                 echo "<td><select id=\"uebungsmenu\">\n";
                 foreach($loUebung->veranstaltung()->uebungen() as $loOptUebung)
-                    echo "<option value=\"".$loOptUebung->id()."\" ".($loOptUebung->id() == $loUebung->id() ? "selected" : null).">".$loOptUebung->name()."</option>\n";
+                    echo "<option value=\"".$loOptUebung->id()."\" ".($loOptUebung->id() == $loUebung->id() ? "selected" : null)." rel=\"".PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung")."\">".$loOptUebung->name()."</option>\n";
                 echo "</select></td></tr>\n";
                 
                 echo "</table></div>";
