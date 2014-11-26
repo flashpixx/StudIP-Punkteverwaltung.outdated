@@ -44,7 +44,8 @@
         function __construct( $poDispatch )
         {
             parent::__construct($poDispatch);
-            $this->plugin = $poDispatch->plugin;
+            $this->plugin   = $poDispatch->plugin;
+            $this->massedit = null;
         }
 
 
@@ -377,7 +378,10 @@
                 }
 
                 if (!empty($laError))
+                {
                     $this->flash["message"] = Tools::createMessage( "error", implode("<br/>", $laError) );
+                    $this->massedit = Request::quoted("massinput");
+                }
 
 
 
