@@ -68,18 +68,22 @@
          **/
         function __construct( $px )
         {
+            $loUser = null;
+        
             if ($px instanceof $this)
             {
                 $this->mcID             = $px->mcID;
                 $this->mcName           = $px->mcName;
                 $this->mcEmail          = $px->mcEmail;
                 $this->mnMatrikelnummer = $pc->mnMatrikelnummer;
+            
+                $loUser                 = new User($this->mcID);
             }
             elseif (is_string($px))
             {
-                $lo            = new User($px);
+                $loUser        = new User($px);
                 // der Name wird in der Form "Nachname, Vorname" ausgegeben
-                $this->mcName  = $lo->getFullName("full_rev");
+                $this->mcName  = $loUser->getFullName("full_rev");
                 $this->mcEmail = User::find($px)->email;
                 $this->mcID    = $px;
 
@@ -95,9 +99,9 @@
                 {
                     $this->mnMatrikelnummer = $px;
 
-                    $lo            = new User($la["uid"]);
+                    $loUser        = new User($la["uid"]);
                     // der Name wird in der Form "Nachname, Vorname" ausgegeben
-                    $this->mcName  = $lo->getFullName("full_rev");
+                    $this->mcName  = $loUser->getFullName("full_rev");
                     $this->mcEmail = User::find($la["uid"])->email;
                     $this->mcID    = $la["uid"];
                 }
@@ -105,8 +109,7 @@
             else
                 throw new UserNotFound(_("Userdaten-Eingabe inkorrekt"));
 
-            $loUser = new User($this->mcID);
-            if (!is_object($loUser))
+            if ( (!is_object($loUser)) || (empty($loUser)) )
                 throw new UserNotFound(_("Userdaten sind fehlerhafte"));
             if (!UserModel::check($this->mcID))
                 throw new UserNotFound(_("Userdaten zum Login: [".$loUser->getUserid()."] konnten nicht ermittelt werden"));
