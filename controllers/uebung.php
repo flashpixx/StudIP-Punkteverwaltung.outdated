@@ -62,6 +62,12 @@
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
         
+            // erzeuge Infobox
+            $this->infobox = array(
+                "picture" => null,
+                "content" => array()
+            );
+        
             try {
 
                 // falls keine ÜbungsID gesetzt ist, versuchen die erste Übung zu finden, wenn nicht mit Exception abbrechen
