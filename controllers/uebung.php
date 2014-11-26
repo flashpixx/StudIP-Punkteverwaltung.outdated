@@ -63,7 +63,7 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
         
             // für das Massedit die Datenübernahme definieren
-            $this->flash["massedit"] = null;
+            $this->flash["massedit"] = Request::quoted("massinput");;
         
             try {
 
@@ -338,7 +338,6 @@
 
                 $i = 0;
                 $laError = array();
-                $this->flash["massedit"] = Request::quoted("massinput");
                 foreach(explode("\n", Request::quoted("massinput")) as $lcLine)
                 {
                     $i++;
