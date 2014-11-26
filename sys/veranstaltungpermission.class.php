@@ -33,7 +33,7 @@
     {
 
         /** prüft, ob der aktuelle Benutzer Admin Rechte auf der Veranstaltung hat
-         * @param px null, String oder Veranstaltungsobjekt
+         * @param $px null, String oder Veranstaltungsobjekt
          * @return Boolean für die Rechte
          **/
         static function hasAdminRecht( $px = null )
@@ -43,7 +43,7 @@
 
         
         /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Dozentenrechte hat
-         * @param px null, String oder Veranstaltungsobjekt
+         * @param $px null, String oder Veranstaltungsobjekt
          * @return Boolean für die Rechte
          **/
         static function hasDozentRecht( $px = null )
@@ -55,12 +55,12 @@
             elseif (is_string($px))
                 return $GLOBALS["perm"]->have_studip_perm("dozent", $px);
 
-            return false;
+            return $GLOBALS["perm"]->have_studip_perm("dozent");
         }
-
+    
 
         /** prüft, ob der aktuelle Benuter auf der aktuellen Veranstaltung Tutorenrechte hat
-         * @param px null, String oder Veranstaltungsobjekt
+         * @param $px null, String oder Veranstaltungsobjekt
          * @return Boolean für die Rechte
          **/
         static function hasTutorRecht( $px = null )
@@ -72,12 +72,12 @@
             elseif (is_string($px))
                 return $GLOBALS["perm"]->have_studip_perm("tutor", $px);
 
-            return false;
+            return $GLOBALS["perm"]->have_studip_perm("tutor");
         }
 
 
         /* prüft, ob der aktuelle User Autorenrechte in der Veranstaltung hat
-         * @param px null, String oder Veranstaltungsobjekt
+         * @param $px null, String oder Veranstaltungsobjekt
          * @return Boolean für die Rechte
          **/
         static function hasAutorRecht( $px = null )
@@ -89,7 +89,7 @@
             elseif (is_string($px))
                 return $GLOBALS["perm"]->have_studip_perm("autor", $px);
 
-            return false;
+            return $GLOBALS["perm"]->have_studip_perm("autor");
         }
 
     }
