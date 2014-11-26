@@ -101,11 +101,7 @@
                 Navigation::addItem( "/course/punkteverwaltung/createuebung", new AutoNavigation(_("neue Übung erzeugen"), PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             }
         
-            //$loUebungenNavigation = new AutoNavigation(_("Übungen"), null);
-            //Navigation::addItem( "/course/punkteverwaltung/uebung", $loUebungenNavigation );
-        
-            $laUebungen = $loVeranstaltung->uebungen();
-            $this->addUebungEditList( $laUebungen );
+            Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), null ) );
         }
 
 
@@ -117,31 +113,11 @@
                 return;
         
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkteverwaltung"), PluginEngine::GetURL($this, array(), "uebung")) );
-        
-            //$laUebungen = $loVeranstaltung->uebungen();
-            //$this->addUebungEditList( $laUebungen );
+            Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), null ) );
+
         }
     
     
-        /** setzt die Liste der Übungen mit korrekten Aktivierungsflag
-         * @param paUebungen Array mit Übungsobjekten
-         **/
-        private function addUebungEditList( $paUebung )
-        {
-            if ( (!is_array($paUebung)) || (empty($paUebung)) )
-                return;
-        
-        
-            foreach($paUebung as $loUebung)
-            {
-                $loNavigation = new AutoNavigation($loUebung->name(), PluginEngine::GetURL($this, array("ueid" => $loUebung->id()), "uebung"));
-                Navigation::addItem( "/course/punkteverwaltung/edituebung".$loUebung->id(), $loNavigation );
-            }
-        
-        }
-    
-
-
 
         function initialize () { }
 
