@@ -1,5 +1,3 @@
 (function ($) {
 
-    $( "#uebungsmenu" ).selectmenu();
-
 }(jQuery));
