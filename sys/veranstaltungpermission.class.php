@@ -28,7 +28,7 @@
     require_once("veranstaltung/veranstaltung.class.php");
 
     
-    /** Klasse um Zugriffsrechte zu einer Veranstaltung für einen User zu prüfen **/
+    /** Klasse um Zugriffsrechte zu einer Veranstaltung für den aktuellen User zu prüfen **/
     class VeranstaltungPermission
     {
 

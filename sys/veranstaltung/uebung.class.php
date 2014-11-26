@@ -28,10 +28,13 @@
     require_once("veranstaltung.class.php");
     require_once("studentuebung.class.php");
     require_once("interface.class.php");
+    require_once(dirname(__DIR__) . "/baseinclude.php");
     require_once(dirname(__DIR__) . "/student.class.php");
 
 
-    /** Klasse für die Übungsdaten **/
+    /** Klasse für die Übungsdaten 
+     * @note in einer Übung werden nur Studenten eingetragen @see canUserAdded"
+     **/
     class Uebung implements VeranstaltungsInterface
     {
         /** Konstante, um das Datum als String zu liefern **/
@@ -88,12 +91,6 @@
                 if (self::canUserAdded($row["student"]))
                     $loPrepareInsert->execute( array("id" => $lcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
         
-        
-        
-            //$loPrepare = DBManager::get()->prepare("insert into ppv_uebungstudent select :uebung as uebung, user_id as student, :korrektor as korrektor, 0 as erreichtepunkte, 0 as zusatzpunkte, null as bemerkung from seminar_user where status = :status and Seminar_id = :semid" );
-            //$loPrepare->execute( array("semid" => $lo->id(), "status" => "autor", "uebung" => $lcID, "korrektor" => $GLOBALS["user"]->id) );
-            
-
             $lcClassName = __CLASS__;
             return new $lcClassName( $pxVeranstaltung, $lcID );
         }
@@ -386,12 +383,16 @@
     
     
         /** prüft ob ein User in die Übung eingefügt werden kann
+         * @note User, wie z.B. globale Admins oder Dozenten, die Authoren
+         * in der Veranstaltung sind, besitzen aber das globale Dozenten- / 
+         * Admin-Recht, besitzen aber keine Matrikelnummer, so dass sie nicht
+         * in die Übung eingefügt werden dürfen
          * @param $pcUser UserID
          * @return boolean, ob er eingefügt werden kann
          **/
         static private function canUserAdded( $pcUser )
         {
-            return true;
+            return $GLOBALS["perm"]->have_perm("author", $pcUser) || $GLOBALS["perm"]->have_perm("tutor", $pcUser);
         }
 
 

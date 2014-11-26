@@ -27,21 +27,11 @@
 
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
-
+    require_once("baseinclude.php");
+    
 
     // exception to define an not-found exception
     class UserNotFound extends Exception {}
-
-
-    // UserModel ist ab der StudIP 2.5 in einer anderen Datei
-    if (!class_exists("UserModel"))
-    {
-        $ln = floatval($GLOBALS["SOFTWARE_VERSION"]);
-        if ($ln < 2.5)
-            require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/user.php");
-        else
-            require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/app/models/UserModel.php");
-    }
 
 
     /** Klasse um einen Studenten vollständig abzubilden **/
