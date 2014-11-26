@@ -392,7 +392,7 @@
          **/
         static private function canUserAdded( $pcUser )
         {
-            return $GLOBALS["perm"]->have_perm("author", $pcUser) || $GLOBALS["perm"]->have_perm("tutor", $pcUser);
+            return $GLOBALS["perm"]->have_perm("autor", $pcUser) || $GLOBALS["perm"]->have_perm("tutor", $pcUser);
         }
 
 
