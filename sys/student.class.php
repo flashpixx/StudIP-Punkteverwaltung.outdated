@@ -109,7 +109,7 @@
             {
                 $lcData = null;
                 if (!empty($this->mcID))
-                    $lcData = "(Login: ".$this->mcID.")";
+                    $lcData = "(EMail: ".$this->mcEmail.")";
                 elseif (!empty($this->mnMatrikelnummer))
                     $lcData = "(Matrikelnummer: ".$this->mnMatrikelnummer.")";
             
