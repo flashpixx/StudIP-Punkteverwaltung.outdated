@@ -62,9 +62,6 @@
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
         
-            // für das Massedit die Datenübernahme definieren
-            $this->flash["massedit"] = Request::quoted("massinput");
-        
             try {
 
                 // falls keine ÜbungsID gesetzt ist, versuchen die erste Übung zu finden, wenn nicht mit Exception abbrechen
@@ -338,6 +335,7 @@
 
                 $i = 0;
                 $laError = array();
+                $this->flash["massinput"] =  Request::quoted("massinput");
                 foreach(explode("\n", $this->flash["massinput"]) as $lcLine)
                 {
                     $i++;
