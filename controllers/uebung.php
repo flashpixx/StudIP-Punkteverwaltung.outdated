@@ -55,23 +55,12 @@
          **/
         function before_filter( &$action, &$args )
         {
-            $this->set_layout($GLOBALS["template_factory"]->open("layouts/base"));
+            $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
             // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-        
-            // erzeuge Infobox
-            $this->infobox = array(
-                "picture" => null,
-                "content" => array(
-                                   
-                      'icon' => 'icons/16/green/accept.png',
-                      'text' => 'Aufgabe ist als fertig markiert.'
-                                   
-                )
-            );
         
             try {
 
@@ -104,6 +93,8 @@
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
+            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
+        
 
             // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
             if (!is_object($this->flash["uebung"]))

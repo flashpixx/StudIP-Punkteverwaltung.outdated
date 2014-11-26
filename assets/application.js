@@ -1,5 +1,5 @@
 (function ($) {
 
-    // JS
+    $( "#uebungsmenu" ).selectmenu();
 
 }(jQuery));

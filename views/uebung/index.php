@@ -45,6 +45,14 @@
 
                 echo "<div>";
 
+                
+                // erzeuge ein Select Menü, da StudIP keine 4. Navigationsebene via Core-API generieren kann
+                echo "<select id=\"uebungsmenu\">\n";
+                foreach($loUebung->veranstaltung()->uebungen() as $loOptUebung)
+                    echo "<option value=\"".$loOptUebung->id()."\" ".($loOptUebung->id() == $loUebung->id() ? "selected" : null).">".$loOptUebung->name()."</option>\n";
+                echo "</select>\n";
+                
+                
                 // der Dozent kann die Daten der Übung ändern
                 if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
                 {
