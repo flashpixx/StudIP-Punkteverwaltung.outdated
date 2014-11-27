@@ -104,7 +104,7 @@
             if (!UserModel::check($this->mcID))
                 throw new UserNotFound(_("Userdaten zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
             if (empty($this->mnMatrikelnummer))
-                throw new UserNotFound(print_r($this,true));
+                throw new UserNotFound(print_r($this,true). " --- ".print_r($px, true));
             
                 //throw new UserNotFound(_("Matrikelnummer zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
             
