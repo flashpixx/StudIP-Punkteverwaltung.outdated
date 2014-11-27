@@ -65,7 +65,7 @@
                 $this->mcID             = $px->mcID;
                 $this->mcName           = $px->mcName;
                 $this->mcEmail          = $px->mcEmail;
-                $this->mnMatrikelnummer = $pc->mnMatrikelnummer;
+                $this->mnMatrikelnummer = $px->mnMatrikelnummer;
             
                 $loUser                 = new User($this->mcID);
             }
@@ -104,9 +104,7 @@
             if (!UserModel::check($this->mcID))
                 throw new UserNotFound(_("Userdaten zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
             if (empty($this->mnMatrikelnummer))
-                throw new UserNotFound(print_r($this,true). " --- ".print_r($px, true));
-            
-                //throw new UserNotFound(_("Matrikelnummer zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
+                throw new UserNotFound(_("Matrikelnummer zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
             
         }
 
