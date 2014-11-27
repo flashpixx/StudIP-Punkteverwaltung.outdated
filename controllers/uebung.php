@@ -64,7 +64,7 @@
         
             try {
 
-                // falls keine ÜbungsID gesetzt ist, versuchen die erste Übung zu finden, wenn nicht mit Exception abbrechen
+                // falls keine ÜbungsID gesetzt ist, versuchen die letzte Übung (zu letzt hinzugefügt) zu finden, wenn nicht mit Exception abbrechen
                 if (Request::quoted("ueid"))
                 {
                     $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
@@ -74,7 +74,7 @@
                     $laUebungen = $this->flash["veranstaltung"]->uebungen();
                     if ( (is_array($laUebungen)) && (!empty($laUebungen)) )
                     {
-                        $this->flash["uebung"] = reset($laUebungen);
+                        $this->flash["uebung"] = end($laUebungen);
                         PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Übung [".$this->flash["uebung"]->name()."]"));
                         return;
                     }
