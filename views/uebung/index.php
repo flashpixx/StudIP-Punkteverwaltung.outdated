@@ -48,9 +48,9 @@
                 // erzeuge ein Select Menü, da StudIP keine 4. Navigationsebene via Core-API generieren kann
                 // @todo Gruppierung von Übungen kann dann mittels "optgroup" eingetragen werden
                 echo "<div class=\"steel1\">\n";
-                echo "<table width=\"100%\">\n";
+                echo "<table width=\"100%\" class=\"ppv_headertable\">\n";
                 
-                echo "<tr><th width=\"50%\"><label for=\"uebungsmenu\"><strong>"._("ausgewählte Übung")."</strong></label></th>";
+                echo "<tr><td width=\"50%\"><label for=\"uebungsmenu\"><strong>"._("ausgewählte Übung")."</strong></label></td>";
                 echo "<td><select id=\"uebungsmenu\">\n";
                 foreach($loUebung->veranstaltung()->uebungen() as $loOptUebung)
                     echo "<option value=\"".$loOptUebung->id()."\" ".($loOptUebung->id() == $loUebung->id() ? "selected" : null)." rel=\"".$controller->url_for("uebung", array("ueid" => $loOptUebung->id()))."\">".$loOptUebung->name()."</option>\n";

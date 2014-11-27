@@ -90,12 +90,13 @@
         /** Default Action **/
         function index_action()
         {
+            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
+            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/assets/style.css" );
+        
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js" );
-            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
         
-
             // setze Variablen (URLs) für die entsprechende Ajax-Anbindung
             if (!is_object($this->flash["uebung"]))
                 return;
