@@ -53,7 +53,11 @@
 
 
         /** Default Action **/
-        function index_action() { }
+        function index_action()
+        {
+            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
+            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/assets/style.css" );
+        }
 
 
         /** erzeugt für eine Veranstaltung einen neuen Eintrag mit Defaultwerten **/

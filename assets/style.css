@@ -1,4 +1,9 @@
-.ppv_headertable td, th
+.ppv headertable td, th
 {
     font-weight: bold;
+}
+
+.ppv .ci
+{
+    style=\"font-size: xx-small; text-align: center; background:#eee;\"\"
 }

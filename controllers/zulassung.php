@@ -60,6 +60,9 @@
         /** Default Action **/
         function index_action()
         {
+            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
+            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/assets/style.css" );
+        
             // setze URLs für jTable
             PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css" );
             PageLayout::addScript(     $this->plugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js" );

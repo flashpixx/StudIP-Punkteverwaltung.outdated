@@ -73,6 +73,9 @@
         /** Default Action **/
         function index_action()
         {
+            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
+            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/assets/style.css" );
+        
             // CSS Styles für den Boxplot & Datentabelle
             PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
 
