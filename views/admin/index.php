@@ -31,8 +31,6 @@
 
     Tools::showMessage($flash["message"]);
 
-    echo "<a href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\"><img style=\"position: relative; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67\" alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png\"></a>";
-    
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
@@ -45,6 +43,8 @@
             CSRFProtection::tokenTag();
 
             echo "<div class=\"steel1\">\n";
+            
+            echo "<a href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67\" alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png\"></a>";
 
             echo "<p>"._("Mit diesen Einstellungen können globale Optionen gesetzt werden, um den Übungsbetrieb zu verwalten. Hierzu zählt einmal die Angabe in Prozent (über die Summe aller Punkte aller Übungen), die für das Bestehen der Veranstaltung notwendig sind. Mit der zweiten Option kann eine Anzahl an Übungen festgelegt werden, die unterhalb der individuell für jede Übung definierten Bestehensgrenze liegen dürfen, um noch die Veranstaltung bestehen zu können (z.B. wenn eine Übung ausgelassen / nicht abgegeben werden darf, wäre der Wert 1 einzutragen). Die Bemerkung ist optional und kann nur von Benutzern mit Dozenten oder Tutorrechten gesehen werden.")."</p><p>"._("Die Veranstaltung muss abgeschlossen werden, um vollständige Listen generieren zu können. Durch das Abschließen werden die, von den Studenten ausgewählten Studiengänge, übernommen, damit erscheint dieser Studiengang in der Auswertung für diese Veranstaltung. Sollte kein expliziter Studiengang ausgewählt worden sein, wird der ein verfügbarer Studiengang verwendet.")."</p><hr width=\"100%\"/>";
 
