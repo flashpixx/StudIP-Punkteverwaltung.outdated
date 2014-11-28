@@ -64,8 +64,6 @@
 
                 echo "<tr><td colspan=\"2\">&nbsp;</td></tr>\n";
                 echo "<tr><td colspan=\"2\"><a href=\"".$controller->url_for("admin/delete")."\">alle Einstellungen und Daten zur Punkteverwaltung dieser Veranstaltung entfernen</a></td></tr>\n";
-
-                
             }
 
 
