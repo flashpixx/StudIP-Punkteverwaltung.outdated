@@ -34,6 +34,17 @@
     /** Controller für die Administration **/
     class AdminController extends StudipController
     {
+    
+        /** Ctor, um aus dem Dispatcher die Referenz auf das Pluginobjekt
+         * zu bekommen
+         * @param $poDispatch
+         **/
+        function __construct( $poDispatch )
+        {
+            parent::__construct($poDispatch);
+            $this->plugin   = $poDispatch->plugin;
+        }
+    
 
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
