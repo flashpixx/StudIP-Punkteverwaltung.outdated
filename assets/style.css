@@ -1,9 +1,16 @@
-.ppv headertable td, th
+.ppv
 {
-    font-weight: bold;
-}
 
-.ppv .ci
-{
-    style=\"font-size: xx-small; text-align: center; background:#eee;\"\"
+    .headertable td, th
+    {
+        font-weight: bold;
+    }
+
+    .ci
+    {
+        font-size:  xx-small;
+        text-align: center;
+        background: #eee;
+    }
+
 }
