@@ -1,8 +1,9 @@
 .ppv
 {
 
-    .headertable td, th
+    .headertable tr
     {
+        font-weight: bold;
         background: #eee;
     }
 
