@@ -48,7 +48,7 @@
                 // erzeuge ein Select Menü, da StudIP keine 4. Navigationsebene via Core-API generieren kann
                 // @todo Gruppierung von Übungen kann dann mittels "optgroup" eingetragen werden
                 echo "<div class=\"steel1\">\n";
-                echo "<table width=\"100%\" class=\"ppv:headertable\">\n";
+                echo "<table width=\"100%\" class=\"ppv headertable\">\n";
                 
                 echo "<tr><td width=\"50%\"><label for=\"uebungsmenu\">"._("ausgewählte Übung")."</label></td>";
                 echo "<td><select id=\"uebungsmenu\">\n";

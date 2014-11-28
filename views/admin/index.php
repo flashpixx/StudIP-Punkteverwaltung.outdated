@@ -80,7 +80,7 @@
 
             echo "</form></p><br/><br/>";
 
-            echo "<p class=\"ppv:ci\"><a target=\"_blank\" href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\"><img src=\"".$plugin->getPluginURL()."/assets/github.png"."\" /> https://github.com/flashpixx/StudIP-Punkteverwaltung</a></p>";
+            echo "<p class=\"ppv ci\"><a target=\"_blank\" href=\"https://github.com/flashpixx/StudIP-Punkteverwaltung\"><img src=\"".$plugin->getPluginURL()."/assets/github.png"."\" /> https://github.com/flashpixx/StudIP-Punkteverwaltung</a></p>";
         }
         
     } catch (Exception $e) {

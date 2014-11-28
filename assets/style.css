@@ -1,17 +1,12 @@
-.ppv
+.ppv.headertable tr
 {
+    font-weight: bold;
+    background: #eee;
+}
 
-    .headertable tr
-    {
-        font-weight: bold;
-        background: #eee;
-    }
-
-    .ci
-    {
-        font-size:  x-small;
-        text-align: center;
-        background: #eee;
-    }
-
+.ppv.ci
+{
+    font-size:  x-small;
+    text-align: center;
+    background: #eee;
 }
