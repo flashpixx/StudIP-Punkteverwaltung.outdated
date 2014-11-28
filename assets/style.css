@@ -1,23 +1,25 @@
 .ppv.headertable
 {
-    border-style:   solid;
-    border-width:   medium;
-    border-color:   #aaa;
+    border-style:    solid;
+    border-width:    medium;
+    border-spacing:  0;
+    border-collapse: collapse;
+    border-color:    #444444;
 }
 
 .ppv.headertable tr
 {
-    background:     #eee;
+    background:      #eee;
 }
 
 .ppv.ci
 {
-    font-size:      small;
-    text-align:     center;
-    background:     #eee;
+    font-size:       small;
+    text-align:      center;
+    background:      #eee;
 }
 
 .ppv.ci img
 {
-    vertical-align: middle
+    vertical-align:  middle
 }
