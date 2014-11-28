@@ -1,4 +1,4 @@
-.ppv_headertable td
+.ppv_headertable td, th
 {
-    
+    font-weight: bold;
 }
