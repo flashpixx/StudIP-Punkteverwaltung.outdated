@@ -4,11 +4,12 @@
     .headertable td, th
     {
         font-weight: bold;
+        background: #eee;
     }
 
     .ci
     {
-        font-size:  xx-small;
+        font-size:  x-small;
         text-align: center;
         background: #eee;
     }
