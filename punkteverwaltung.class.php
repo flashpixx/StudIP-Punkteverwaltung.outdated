@@ -50,7 +50,9 @@
     class punkteverwaltung extends StudIPPlugin implements StandardPlugin
     {
 
-        /** Ctor des Plugins zur Erzeugung der Navigation **/
+        /** Ctor des Plugins zur Erzeugung der Navigation
+         * @todo bindtextdomain einfügen, siehe http://php.net/manual/en/function.gettext.php
+         **/
         function __construct()
         {
             parent::__construct();
