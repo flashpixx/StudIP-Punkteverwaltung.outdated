@@ -101,6 +101,27 @@
             $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where id = :semid" );
             $loPrepare->execute( array("semid" => $lo->id()) );
         }
+    
+    
+        /** ermöglicht das "harte" Löschen aller User-Daten, die in der Veranstaltung für den User
+         * hinterlegt sind, ohne explizite Existenzprüfungen durchzuführen (z.B. bei Studenten ohne Matrikelnummer)
+         * @param $px Veranstaltungsobjekt / -ID
+         * @param $pcUserID User-Hash
+         **/
+        static function clearAllUserData( $px, $pcUserID )
+        {
+            $lo = Veranstaltung::get($px);
+            if ($lo->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+        
+            // lösche zuerst alle Punktedaten
+            $loPrepare = DBManager::get()->prepare( "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student" );
+            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) )
+        
+            // lösche ggf manuelle Zulassungen
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student" );
+            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) )
+        }
 
 
         
