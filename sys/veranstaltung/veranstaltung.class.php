@@ -116,11 +116,11 @@
         
             // lösche zuerst alle Punktedaten
             $loPrepare = DBManager::get()->prepare( "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student" );
-            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) )
+            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
         
             // lösche ggf manuelle Zulassungen
             $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student" );
-            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) )
+            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
         }
 
 
