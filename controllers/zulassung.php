@@ -183,9 +183,9 @@
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
-                // setze die Bemerkung
+                // setze die Bemerkung und decodiert vorher die das von Json geforderte UTF-8
                 $lo = new Student( Request::quoted("Auth") );
-                $lo->manuelleZulassung( $this->flash["veranstaltung"], Request::quoted("Bemerkung") );
+                $lo->manuelleZulassung( $this->flash["veranstaltung"], studip_utf8decode(Request::quoted("Bemerkung")) );
                 
                 
                 // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
