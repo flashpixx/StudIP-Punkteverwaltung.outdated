@@ -24,7 +24,10 @@
     **/
 
 
+    
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
 
+    
     /** Controller für die manuelle Zulassung eines Studenten **/
     class ZulassungController extends StudipController
     {
