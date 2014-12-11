@@ -171,11 +171,11 @@
         echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
         echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
         echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
-        echo "Studiengang : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
+        echo "Studiengang : { edit : false, title : \"Studiengang\", width : \"10%\" },";
         
         $lnSize = round( 50 / count($laListe["uebungen"]),1);
         foreach($laListe["uebungen"] as $laUebung)
-            echo md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]."  ("._("bestanden").")\", width : \"".$lnSize."%\" },";
+            echo "ueb".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]."  ("._("bestanden").")\", width : \"".$lnSize."%\" },";
         
         echo "}";
         echo "});";
