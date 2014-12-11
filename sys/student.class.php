@@ -30,8 +30,12 @@
     require_once("baseinclude.php");
     
 
-    // exception to define an not-found exception
+    /** Exception, um einen User, der nicht gefunden wurde, zu erkennen **/
     class UserNotFound extends Exception {}
+    
+    /** Exception, die geworfen wird, wenn die Userdaten nicht vollständig sind **/
+    class UserDataIncomplete extends Exception {}
+    
 
 
     /** Klasse um einen Studenten vollständig abzubilden **/
@@ -102,9 +106,9 @@
             if ( (!is_object($loUser)) || (empty($loUser)) )
                 throw new UserNotFound(_("Userdaten sind fehlerhafte"));
             if (!UserModel::check($this->mcID))
-                throw new UserNotFound(_("Userdaten zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
+                throw new UserDataIncomplete(_("Userdaten zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
             if (empty($this->mnMatrikelnummer))
-                throw new UserNotFound(_("Matrikelnummer zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
+                throw new UserDataIncomplete(_("Matrikelnummer zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
             
         }
 
