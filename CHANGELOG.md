@@ -1,3 +1,10 @@
+## 0.23
+
+ * Fix Encoding Probleme
+ * CSS Refactoring
+ * Auswertung Refactorting / Änderung zu jTables
+
+
 ## 0.22
 
  * GUI Fixes im Workflow

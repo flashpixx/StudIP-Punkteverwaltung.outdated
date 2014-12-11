@@ -74,12 +74,13 @@
         function index_action()
         {
             Tools::addHTMLHeaderElements( $this->plugin );
-
+            
+            /*
             PageLayout::addStyle(".box { font: 10px sans-serif; }");
             PageLayout::addStyle(".box line, .box rect, .box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }");
             PageLayout::addStyle(".box .center { stroke-dasharray: 3,3; }");
             PageLayout::addStyle(".box .outlier { fill: none; stroke: #ccc; }");
-
+            */
 
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
         }
