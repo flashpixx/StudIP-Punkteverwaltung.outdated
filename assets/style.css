@@ -23,3 +23,9 @@
 {
     vertical-align:  middle
 }
+
+
+.ppv.box { font: 10px sans-serif; }
+.ppv.box line, .ppv.box rect, .ppv.box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }
+.ppv.box .center { stroke-dasharray: 3,3; }
+.ppv.box .outlier { fill: none; stroke: #ccc; }"

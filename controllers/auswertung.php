@@ -74,15 +74,6 @@
         function index_action()
         {
             Tools::addHTMLHeaderElements( $this->plugin );
-        
-            // CSS Styles für den Boxplot & Datentabelle
-            PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
-
-            PageLayout::addStyle(".box { font: 10px sans-serif; }");
-            PageLayout::addStyle(".box line, .box rect, .box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }");
-            PageLayout::addStyle(".box .center { stroke-dasharray: 3,3; }");
-            PageLayout::addStyle(".box .outlier { fill: none; stroke: #ccc; }");
-
 
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
         }
