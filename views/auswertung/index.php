@@ -99,7 +99,7 @@
         echo "var svg = d3.select(\"#boxplot\").selectAll(\"svg\")";
         echo ".data(data)";
         echo ".enter().append(\"svg\")";
-        echo ".attr(\"class\", \"ppv box\")";
+        echo ".attr(\"class\", \"box\")";
         echo ".attr(\"width\", width + margin.left + margin.right)";
         echo ".attr(\"height\", height + margin.bottom + margin.top)";
         echo ".append(\"g\")";
