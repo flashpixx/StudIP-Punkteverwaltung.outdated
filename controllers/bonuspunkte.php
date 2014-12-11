@@ -23,6 +23,9 @@
     @endcond
     **/
 
+    
+    
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
 
 
     /** Controller für die Bonuspunkte eines Studenten **/
