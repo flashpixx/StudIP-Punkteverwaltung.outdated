@@ -84,19 +84,21 @@
             // wird über addHeaderElement der Eintrag manuell gesetzt und UTF-8 als
             // Encoding verwendet, da StudIP Windows-1252 als Encoding ist (was einfach
             // absolut veraltet ist und dadurch massiv zu Encoding-Problemen führt)
+            //
+            // der 3. Parameter muss auf "" gesetzt werden, da sonst das Tag nicht geschlossen wird
         
-            PageLayout::addHeadElement( "link", array( "charset" => "UTF-8", "rel" => "stylesheet", "href" => $poPlugin->getPluginUrl() . "/assets/style.css") );
-            PageLayout::addHeadElement( "link", array( "charset" => "UTF-8", "rel" => "stylesheet", "href" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css") );
+            PageLayout::addHeadElement( "link", array( "charset" => "UTF-8", "rel" => "stylesheet", "href" => $poPlugin->getPluginUrl() . "/assets/style.css"), "" );
+            PageLayout::addHeadElement( "link", array( "charset" => "UTF-8", "rel" => "stylesheet", "href" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css"), "" );
         
         
-            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/assets/application.js") );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/assets/application.js"), "" );
         
-            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js") );
-            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js") );
-            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js") );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js"), "" );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js"), "" );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js"), "" );
         
-            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js" ) );
-            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js") );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js"), "" );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js"), "" );
         }
         
     }
