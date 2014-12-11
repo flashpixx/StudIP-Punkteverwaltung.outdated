@@ -150,6 +150,47 @@
 
 
 
+
+        // jTable für die Punkte erzeugen
+        echo "<script type=\"text/javascript\">";
+        echo "jQuery(document).ready(function() {";
+        echo "jQuery(\"#punktetabelle\").jtable({";
+        
+        echo "title          : \"Punktetabelle - Gesamt\",";
+        echo "paging         : true,";
+        echo "pageSize       : 500,";
+        echo "sorting        : true,";
+        echo "defaultSorting : \"Matrikelnummer ASC\",";
+        echo "actions: {";
+        echo "listAction   : \"".$listaction."\",";
+        echo "},";
+        
+        echo "fields: {";
+        
+        echo "Auth : { key : true, create : false, edit : false, list : false },";
+        echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
+        echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
+        echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
+        echo "Studiengang : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
+        
+        $lnSize = round( 50 / count($laListe["uebungen"]),1);
+        foreach($laListe["uebungen"] as $laUebung)
+            echo md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]."  ("._("bestanden").")\", width : \"".$lnSize."%\" },";
+        
+        echo "}";
+        echo "});";
+        
+        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        echo "});";
+        echo "</script>";
+        
+        echo "<div id=\"punktetabelle\"></div>";
+
+        
+        
+        
+        
+        /*
         // Tabelle erzeugen
         echo "<h1>Liste</h1>";
         echo "<p><table width=\"100%\">";
@@ -186,6 +227,7 @@
         }
 
         echo "</table></p>";
+        */
 
 
     } catch (Exception $e) {
