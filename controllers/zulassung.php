@@ -184,7 +184,7 @@
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // setze die Bemerkung und decodiert vorher die das von Json geforderte UTF-8
-                $lo = new Student( Request::quoted("Auth") );
+                $lo = new Student( studip_utf8decode(Request::quoted("Auth")) );
                 $lo->manuelleZulassung( $this->flash["veranstaltung"], studip_utf8decode(Request::quoted("Bemerkung")) );
                 
                 

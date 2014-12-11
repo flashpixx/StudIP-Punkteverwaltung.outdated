@@ -304,9 +304,9 @@
                 if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
-                // hole die Zuordnung von Übung und Student und setze die Daten
-                $lo = new StudentUebung( $this->flash["uebung"], Request::quoted("Auth") );
-                $lo->update( Request::float("ErreichtePunkte"), Request::float("ZusatzPunkte"), Request::quoted("Bemerkung") );
+                // hole die Zuordnung von Übung und Student und setze die Daten, wobei bei den Textdaten auf korrektes UTF-8 Decoding geachtet werden muss
+                $lo = new StudentUebung( $this->flash["uebung"], studip_utf8decode(Request::quoted("Auth")) );
+                $lo->update( Request::float("ErreichtePunkte"), Request::float("ZusatzPunkte"), studip_utf8decode(Request::quoted("Bemerkung")) );
                
 
                 // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
