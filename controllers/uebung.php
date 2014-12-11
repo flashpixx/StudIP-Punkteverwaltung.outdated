@@ -368,9 +368,15 @@
                         $laData["bemerkung"] = implode(" ", array_slice($laItems, 3));
 
                     try {
+                        
                         $lo = new StudentUebung( $this->flash["uebung"], $laData["matrikelnummer"] );
                         $lo->update( $laData["punkte"], $laData["bonuspunkte"], $laData["bemerkung"] );
-                    } catch (UserNotFound $e) { array_push($laError, "Zeile ".$i.": ".$e->getMessage()); }
+                    
+                    } catch (UserNotFound $e) {
+                        array_push($laError, "Zeile ".$i.": ".$e->getMessage());
+                    } catch (UserDataIncomplete $e) {
+                        array_push($laError, "Zeile ".$i.": ".$e->getMessage());
+                    }
                 }
 
                 if (empty($laError))
