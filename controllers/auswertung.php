@@ -73,8 +73,7 @@
         /** Default Action **/
         function index_action()
         {
-            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
-            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/assets/style.css" );
+            Tools::addHTMLHeaderElements( $this->plugin );
         
             // CSS Styles für den Boxplot & Datentabelle
             PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
@@ -84,9 +83,6 @@
             PageLayout::addStyle(".box .center { stroke-dasharray: 3,3; }");
             PageLayout::addStyle(".box .outlier { fill: none; stroke: #ccc; }");
 
-            
-            PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js" );
-            PageLayout::addScript($this->plugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js" );
 
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
         }

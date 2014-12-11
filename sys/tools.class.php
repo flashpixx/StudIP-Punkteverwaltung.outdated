@@ -71,6 +71,33 @@
         {
             return array("type" => $pcType, "msg" => $pcText, "info" => $paInfo, "url" => $pcURL );
         }
+    
+    
+        /** setzt alle notwendigen Elemente in den HTML Header
+         * @warning nach HTML5 ist das Attribut "charset" veraltet
+         * @see http://docs.studip.de/develop/Entwickler/PageLayout
+         * @param $poPlugin PluginObjekt
+         **/
+        static function addHTMLHeaderElements( $poPlugin )
+        {
+            // da StudIP < 3 keine Charset-Option bei addScript bzw addStylesheet erlaubt
+            // wird über addHeaderElement der Eintrag manuell gesetzt und UTF-8 als
+            // Encoding verwendet, da StudIP Windows-1252 als Encoding ist (was einfach
+            // absolut veraltet ist und dadurch massiv zu Encoding-Problemen führt)
+        
+            PageLayout::addHeadElement( "link", array( "charset" => "UTF-8", "rel" => "stylesheet", "href" => $poPlugin->getPluginUrl() . "/assets/style.css") );
+            PageLayout::addHeadElement( "link", array( "charset" => "UTF-8", "rel" => "stylesheet", "href" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/themes/lightcolor/blue/jtable.min.css") );
+        
+        
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/assets/application.js") );
+        
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js") );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/jquery.jtable.min.js") );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/jtable/localization/jquery.jtable.de.js") );
+        
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js" ) );
+            PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js") );
+        }
         
     }
     

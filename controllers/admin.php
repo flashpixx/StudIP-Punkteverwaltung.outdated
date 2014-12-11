@@ -66,8 +66,7 @@
         /** Default Action **/
         function index_action()
         {
-            PageLayout::addScript(     $this->plugin->getPluginUrl() . "/assets/application.js" );
-            PageLayout::addStylesheet( $this->plugin->getPluginUrl() . "/assets/style.css" );
+            Tools::addHTMLHeaderElements( $this->plugin );
         }
 
 
