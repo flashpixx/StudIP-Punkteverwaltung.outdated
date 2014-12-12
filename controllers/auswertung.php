@@ -127,7 +127,7 @@
             try {
                 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung()))
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 /*
                 $laData = $this->flash["uebung"]->studentenuebung();
