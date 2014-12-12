@@ -202,7 +202,7 @@
             // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
             // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
             $this->set_layout(null);
-            $this->response->add_header("Content-Type", "application/json");
+            //$this->response->add_header("Content-Type", "application/json");
 
             // Daten für das Json Objekt holen und ein Default Objekt setzen
             $this->result = array( "Result"  => "ERROR", "Records" => array() );
