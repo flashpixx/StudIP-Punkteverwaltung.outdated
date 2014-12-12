@@ -179,7 +179,7 @@
         {
             echo "ueb_punkte_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
             echo "ueb_prozent_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_prozent_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_bestanden_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
         echo "}";
