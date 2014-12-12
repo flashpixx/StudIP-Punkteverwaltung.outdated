@@ -174,9 +174,13 @@
         echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
         echo "Studiengang : { edit : false, title : \"Studiengang\", width : \"10%\" },";
         
-        $lnSize = round( 50 / count($laListe["uebungen"]),1);
+        $lnSize = round( (50 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
-            echo "ueb".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]."  ("._("bestanden").")\", width : \"".$lnSize."%\" },";
+        {
+            echo "ueb_punkte_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_prozent_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_prozent_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
+        }
         
         echo "}";
         echo "});";
