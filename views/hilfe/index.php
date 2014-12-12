@@ -30,7 +30,7 @@
 
     // Markdwon Autoloader & Namespace
     spl_autoload_register(function($pcClass){
-        require preg_replace("{\\\\|_(?!.*\\\\)}", DIRECTORY_SEPARATOR, ltrim($pClass, "\\")).".php";
+        require preg_replace("{\\\\|_(?!.*\\\\)}", DIRECTORY_SEPARATOR, ltrim($pcClass, "\\")).".php";
     });
     
     use \Michelf\Markdown;
