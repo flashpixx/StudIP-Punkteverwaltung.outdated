@@ -100,7 +100,22 @@
             PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js"), "" );
             PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js"), "" );
         }
+    
+    
+        /** sendet das Json Dokument mit passendem Header
+         * @param $poController Controller Objekt
+         * @param $pxJson Datenstruktur fŸr Json
+         **/
+        static function sendJson( $poController, $pxJson )
+        {
+            // wenn der Header direkt gesendet wird, das Rendering des Views deaktivieren
+            $poController->set_layout(null);
+            $poController->render_nothing();
         
+            header("Content-Type: application/json");
+            echo json_encode( $pxJson );
+        }
+    
     }
     
     ?>

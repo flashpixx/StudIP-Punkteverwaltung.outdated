@@ -3,6 +3,7 @@
  * Fix Encoding Probleme
  * CSS Refactoring
  * Auswertung Refactorting / Änderung zu jTables
+ * Header Sending direkt in den Controllern implementiert, somit Views reduziert
 
 
 ## 0.22

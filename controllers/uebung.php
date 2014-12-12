@@ -156,13 +156,8 @@
         /** liefert die Daten zu einem Eintrag (Log Auswertung) **/
         function jsonchildlist_action()
         {
-            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
-            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
-            $this->set_layout(null);
-            $this->response->add_header("Content-Type", "application/json");
-
             // Daten für das Json Objekt holen und ein Default Objekt setzen
-            $this->result = array( "Result"  => "ERROR", "Records" => array() );
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
                 if (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
@@ -176,7 +171,7 @@
                 $n = 0;
                 foreach( $loStudentUebung->log() as $item )
                 {
-                    array_push( $this->result["Records"], array(
+                    array_push( $laResult["Records"], array(
                                 "ID"              => $n,
                                 "ErreichtePunkte" => $item["erreichtepunkte"],
                                 "ZusatzPunkte"    => $item["zusatzpunkte"],
@@ -188,24 +183,20 @@
 
 
                 // alles fehlerfrei durchlaufen, setze Result
-                $this->result["Result"] = "OK";
+                $laResult["Result"] = "OK";
 
                 // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
-            } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
-            
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+        
+            Tools::sendJson( $this, $laResult );
         }
 
         
         /** liefert die korrekten Json Daten für den jTable **/
         function jsonlist_action()
         {
-            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
-            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
-            $this->set_layout(null);
-            //$this->response->add_header("Content-Type", "application/json");
-
             // Daten für das Json Objekt holen und ein Default Objekt setzen
-            $this->result = array( "Result"  => "ERROR", "Records" => array() );
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
 
 
 
@@ -220,7 +211,7 @@
                 if ($laData)
                 {
                     // setze Defaultwerte für jTable
-                    $this->result["TotalRecordCount"] = count($laData);
+                    $laResult["TotalRecordCount"] = count($laData);
 
                     // sortiere Daten anhand des Kriteriums
                     usort($laData, function($a, $b) {
@@ -275,30 +266,25 @@
                             $laItem["Korrektor"] = studip_utf8encode( $item->korrektor() );
 
 
-                        array_push( $this->result["Records"], $laItem );
+                        array_push( $laResult["Records"], $laItem );
                     }
                 }
 
                 // alles fehlerfrei durchlaufen, setze Result
-                $this->result["Result"] = "OK";
+                $laResult["Result"] = "OK";
 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result 
-            } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
         
-            $this->sendJson();
+            Tools::sendJson( $this, $laResult );
         }
 
 
         /** erzeugt das Update, für den jTable **/
         function jsonupdate_action()
         {
-            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
-            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
-            $this->set_layout(null);
-            $this->response->add_header("Content-Type", "application/json");
-
             // Daten für das Json Objekt holen und ein Default Objekt setzen
-            $this->result = array( "Result"  => "ERROR", "Records" => array() );
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
 
@@ -312,12 +298,13 @@
                
 
                 // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
-                $this->result["Result"] = "OK";
+                $laResult["Result"] = "OK";
 
 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
-            } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
-            
+            } catch (Exception $e) { $laResult = studip_utf8encode( $e->getMessage() ); }
+        
+            Tools::sendJson( $this, $laResult );
         }
 
 
@@ -393,16 +380,6 @@
         }
     
     
-        /** sendet das Json Dokument mit passendem Header **/
-        private function sendJson()
-        {
-            // wenn der Header direkt gesendet wird, das Rendering des Views deaktivieren
-            $this->render_nothing();
-        
-            header("Content-Type: application/json");
-            echo json_encode( $this->result );
-        }
-
 
         /** URL Aufruf **/
         function url_for($to)
