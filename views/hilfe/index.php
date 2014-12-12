@@ -27,11 +27,8 @@
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/extensions/markdown/MarkdownExtra.inc.php");
 
-    // Markdwon Autoloader & Namespace
-    spl_autoload_register(function($pcClass){
-        require dirname(dirname(__DIR__)) . "/sys/extensions/markdown/" . ltrim(end(explode("\\", $pcClass)), "\\") . ".php";
-    });
     
     use \Michelf\Markdown;
     
