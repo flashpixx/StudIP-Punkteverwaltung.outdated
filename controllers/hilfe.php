@@ -58,7 +58,7 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-            $this->faqpath                = ;
+            $this->faqpath                = $this->plugin->getPluginPath() . "/assets/faq";
         }
 
 
