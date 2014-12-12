@@ -36,10 +36,15 @@
     
     
     try {
+        
+        if (empty($faqpath))
+            throw new Exception( _("Sie haben nicht die notwendigen Berechtigung für die Anzeige") );
+        
 
         // Encoding muss in WINDOWS-1252 / ISO-8859-1 umgewandelt werdem, da das Default von Stud.IP ist,
         // das Default-Encoding des Markdown-Parsers ist UTF-8
-        echo mb_convert_encoding( Markdown::defaultTransform( file_get_contents( $faqpath . "/index.md" ) ), "ISO-8859-1", "auto" );
+        echo mb_convert_encoding( Markdown::defaultTransform( file_get_contents( $lcPath . "index.md" ) ), "ISO-8859-1", "auto" );
+
         
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );

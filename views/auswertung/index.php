@@ -177,9 +177,10 @@
         $lnSize = round( (50 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
         {
-            echo "ueb_punkte_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_prozent_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_bestanden_".md5($laUebung["name"])." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
+            $lcHash = md5($laUebung["name"]);
+            echo "ueb_punkte_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_prozent_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_bestanden_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
         echo "}";

@@ -27,6 +27,8 @@
 
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/student.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
     /** Controller für die Sicht eines Studenten **/
@@ -58,7 +60,15 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
-            $this->faqpath                = $this->plugin->getPluginPath() . "/assets/faq";
+            
+            
+            $this->faqpath = $this->plugin->getPluginPath() . "/assets/faq";
+            if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                $this->faqpath .= "/dozent/";
+            elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
+                $this->faqpath .= "/tutor/";
+            else
+                $this->faqpath = null;
         }
 
 

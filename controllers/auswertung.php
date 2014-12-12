@@ -65,6 +65,9 @@
                 // die aktuellen Daten bekommt
                 $this->flash                  = Trails_Flash::instance();
                 $this->flash["veranstaltung"] = Veranstaltung::get();
+                
+                $this->bonuspunkte   = new Bonuspunkt( $this->flash["veranstaltung"] );
+                $this->auswertung    = new Auswertung( $this->flash["veranstaltung"] );
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         }
@@ -91,9 +94,7 @@
                 if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
-
-                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-                $laListe      = $loAuswertung->studententabelle();
+                $laListe      = $this->auswertung->studententabelle();
 
                 foreach ($laListe["uebungen"] as $uebung)
                     array_push($laResult["uebungsnamen"], $uebung["name"]);
@@ -111,6 +112,93 @@
         
             Tools::sendJson( $this, $laResult );
         }
+        
+        
+        /** liefert die korrekten Json Daten für den jTable **/
+        function jsonlist_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            
+            // Daten holen und der View erzeugt dann das Json Objekt, wobei auf korrekte UTF8 Encoding geachtet werden muss
+            try {
+                
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung()))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                /*
+                $laData = $this->flash["uebung"]->studentenuebung();
+                if ($laData)
+                {
+                    // setze Defaultwerte für jTable
+                    $laResult["TotalRecordCount"] = count($laData);
+                    
+                    // sortiere Daten anhand des Kriteriums
+                    usort($laData, function($a, $b) {
+                          $ln = 0;
+                          
+                          if ($a == $b)
+                          return 0;
+                          
+                          elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
+                          $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
+                          
+                          elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
+                          $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
+                          
+                          elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
+                          $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
+                          
+
+                          
+                          
+                          if (stripos(Request::quoted("jtSorting"), "asc") === false)
+                          $ln = -1 * $ln;
+                          
+                          return $ln;
+                          });
+                    
+                    // hole Query Parameter, um die Datenmenge passend auszuwählen
+                    $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
+                    
+                    
+                    foreach( $laData as $item )
+                    {
+                        // siehe Arraykeys unter views/uebung/jsonlist.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
+                        $laItem = array(
+                                        "Auth"            => studip_utf8encode( $item->student()->id() ),
+                                        "Hinweis"         => studip_utf8encode(
+                                        "Matrikelnummer"  => $item->student()->matrikelnummer(),
+                                        "Name"            => studip_utf8encode( $item->student()->name() ),
+                                        "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                                        "Studiengang"     => studip_utf8encode(
+                        );
+                        
+                        foreach($laListe["uebungen"] as $laUebung)
+                        {
+                            $lcHash                           = md5($laUebung["name"]);
+                                                                               
+                            $laItem["ueb_punkte_".$lcHash]    =
+                            $laItem["ueb_prozent_".$lcHash]   =
+                            $laItem["ueb_bestanden_".$lcHash] =
+                        }
+                        
+                        
+                        array_push( $laResult["Records"], $laItem );
+                    }
+                }
+                 */
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["Result"] = "OK";
+                
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result 
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
 
 
         /** Export Controller um Datenstruktur zu erzeugen **/
@@ -124,8 +212,7 @@
 
                 // erzeuge Datenarray mit harter Sortierung nach Matrikelnummer,
                 // Items die leer (empty) sind, erscheinen nicht in der Ausgabe
-                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-                $laListe      = $loAuswertung->studententabelle();
+                $laListe      = $this->auswertung->studententabelle();
                 uasort( $laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; } );
 
                 $laOutput       = array();
@@ -194,7 +281,6 @@
 
 
                 // erzeuge Ausgabeformat, das Senden inkl. Headerinformationen geschieht durch den View
-                $this->set_layout(null);
                 $lcTitle = $this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester();
                 switch (strtolower(Request::quoted("type")))
                 {
@@ -209,26 +295,7 @@
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         }
 
-
-        /** URL Aufruf **/
-        function url_for($to)
-        {
-            $args = func_get_args();
-
-            # find params
-            $params = array();
-            if (is_array(end($args)))
-                $params = array_pop($args);
-
-            # urlencode all but the first argument
-            $args    = array_map("urlencode", $args);
-            $args[0] = $to;
-
-            return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
-        }
-    
-    
-    
+        
         /** Exportfunktion für Excel
          * @see https://github.com/PHPOffice/PHPExcel
          * @param $paOutput Datenarray
@@ -322,6 +389,7 @@
         
         
             // erzeuge Download / Ausgabe (ohne den View zu rendern)
+            $this->set_layout(null);
             $this->render_nothing();
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
@@ -397,8 +465,27 @@
             }
 
             // Daten dem PDF hinzufügen und senden
+            $this->set_layout(null);
             $loPDF->addContent( $lcData );
             $loPDF->dispatch($lcTitle);
+        }
+        
+        
+        /** URL Aufruf **/
+        function url_for($to)
+        {
+            $args = func_get_args();
+            
+            # find params
+            $params = array();
+            if (is_array(end($args)))
+                $params = array_pop($args);
+            
+            # urlencode all but the first argument
+            $args    = array_map("urlencode", $args);
+            $args[0] = $to;
+            
+            return PluginEngine::getURL($this->dispatcher->plugin, $params, join("/", $args));
         }
 
     }
