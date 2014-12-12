@@ -4,6 +4,7 @@
  * CSS Refactoring
  * Auswertung Refactorting / Änderung zu jTables
  * Header Sending direkt in den Controllern implementiert, somit Views reduziert
+ * Markdown FAQ / Fix Issue #41
 
 
 ## 0.22

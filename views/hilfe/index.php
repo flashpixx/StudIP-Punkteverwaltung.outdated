@@ -28,19 +28,23 @@
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
-
+    // Markdwon Autoloader & Namespace
+    spl_autoload_register(function($pcClass){
+        require preg_replace("{\\\\|_(?!.*\\\\)}", DIRECTORY_SEPARATOR, ltrim($pClass, "\\")).".php";
+    });
     
-
-    Tools::showMessage($flash["message"]);
-
+    use \Michelf\Markdown;
+    
+    
+    
+    
     try {
 
-        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
-        if (!$loVeranstaltung)
-            throw new Exception(_("keine Veranstaltung gefunden"));
-
+        echo Markdown::defaultTransform( file_get_contents( $faqpath . "/index.md" ) );
+        
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
     }
+
 
 ?>
