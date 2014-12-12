@@ -99,7 +99,7 @@
             $this->listaction       = $this->url_for( "uebung/jsonlist",   array("ueid" => $this->flash["uebung"]->id()) );
             $this->updateaction     = $this->url_for( "uebung/jsonupdate", array("ueid" => $this->flash["uebung"]->id()) );
             $this->childlistaction  = $this->url_for( "uebung/jsonchildlist", array("ueid" => $this->flash["uebung"]->id()) );
-            $this->childiconpath    = $this->plugin->getPluginUrl() . "/img/log.png";
+            $this->childiconpath    = $this->plugin->getPluginUrl() . "/assets/img/log.png";
         }
 
 
@@ -396,6 +396,8 @@
         /** sendet das Json Dokument mit passendem Header **/
         private function sendJson()
         {
+            $this->render_nothing();
+        
             header("Content-Type: application/json");
             echo json_encode( $this->result );
         }
