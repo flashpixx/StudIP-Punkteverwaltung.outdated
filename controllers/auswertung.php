@@ -331,7 +331,8 @@
                 $loSheet->getColumnDimension( $loCell->getColumn() )->setAutoSize( true );
         
         
-            // erzeuge Download / Ausgabe
+            // erzeuge Download / Ausgabe (ohne den View zu rendern)
+            $this->render_nothing();
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
             header("Cache-Control: max-age=1");

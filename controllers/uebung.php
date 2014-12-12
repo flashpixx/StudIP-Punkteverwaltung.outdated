@@ -396,6 +396,7 @@
         /** sendet das Json Dokument mit passendem Header **/
         private function sendJson()
         {
+            // wenn der Header direkt gesendet wird, das Rendering des Views deaktivieren
             $this->render_nothing();
         
             header("Content-Type: application/json");
