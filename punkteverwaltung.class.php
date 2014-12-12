@@ -104,7 +104,7 @@
             }
         
             Navigation::addItem( "/course/punkteverwaltung/uebung", new AutoNavigation(_("Übungen"), PluginEngine::GetURL($this, array(), "uebung")) );
-            Navigation::addItem( "/course/punkteverwaltung/help", new AutoNavigation(_("Hilfe"), PluginEngine::GetURL($this, array(), "help")) );
+            Navigation::addItem( "/course/punkteverwaltung/hilfe", new AutoNavigation(_("Hilfe"), PluginEngine::GetURL($this, array(), "hilfe")) );
         }
 
 
