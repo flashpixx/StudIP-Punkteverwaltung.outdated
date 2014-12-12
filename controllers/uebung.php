@@ -284,6 +284,8 @@
 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result 
             } catch (Exception $e) { $this->result["Message"] = studip_utf8encode( $e->getMessage() ); }
+        
+            $this->sendJson();
         }
 
 
@@ -388,6 +390,14 @@
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
             $this->redirect($this->url_for("uebung", array("ueid" => $this->flash["uebung"]->id())));
+        }
+    
+    
+        /** sendet das Json Dokument mit passendem Header **/
+        private function sendJson()
+        {
+            header("Content-Type: application/json");
+            echo json_encode( $this->result );
         }
 
 
