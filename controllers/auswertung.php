@@ -74,14 +74,7 @@
         function index_action()
         {
             Tools::addHTMLHeaderElements( $this->plugin );
-            
-            /*
-            PageLayout::addStyle(".box { font: 10px sans-serif; }");
-            PageLayout::addStyle(".box line, .box rect, .box circle { fill: #fff; stroke: #000; stroke-width: 1.5px; }");
-            PageLayout::addStyle(".box .center { stroke-dasharray: 3,3; }");
-            PageLayout::addStyle(".box .outlier { fill: none; stroke: #ccc; }");
-            */
-
+        
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
         }
 
@@ -90,13 +83,8 @@
          * die dann zur Visualisierung genutzt werden **/
         function jsonstatistik_action()
         {
-            // mit nachfolgenden Zeilen wird der View angewiese nur ein Json Objekt zu liefern
-            // das set_layout muss "null" als parameter bekommen, damit das Json Objekt korrekt angezeigt wird (ein "false" liefert einen PHP Error)
-            $this->set_layout(null);
-            $this->response->add_header("Content-Type", "application/json");
-
             // Result Array mit Daten
-            $this->result = array( "uebungsnamen" => array(), "punkteliste" => array());
+            $laResult = array( "uebungsnamen" => array(), "punkteliste" => array());
 
             try {
                 
@@ -108,7 +96,7 @@
                 $laListe      = $loAuswertung->studententabelle();
 
                 foreach ($laListe["uebungen"] as $uebung)
-                    array_push($this->result["uebungsnamen"], $uebung["name"]);
+                    array_push($laResult["uebungsnamen"], $uebung["name"]);
 
                 foreach ($laListe["uebungen"] as $uebung)
                 {
@@ -116,10 +104,12 @@
                     foreach ($laListe["studenten"] as $student)
                         array_push($la, $uebung["studenten"][$student["id"]]["punktesumme"]);
 
-                    array_push($this->result["punkteliste"], $la);
+                    array_push($laResult["punkteliste"], $la);
                 }
 
             } catch (Exception $e) { }
+        
+            Tools::sendJson( $this, $laResult );
         }
 
 
