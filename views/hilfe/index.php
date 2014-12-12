@@ -30,7 +30,7 @@
 
     // Markdwon Autoloader & Namespace
     spl_autoload_register(function($pcClass){
-        require preg_replace("{\\\\|_(?!.*\\\\)}", DIRECTORY_SEPARATOR, ltrim($pcClass, "\\")).".php";
+        require dirname(dirname(__DIR__)) . "/sys/extension/markdown/" . ltrim($pcClass, "\\")) . ".php";
     });
     
     use \Michelf\Markdown;
