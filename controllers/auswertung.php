@@ -79,6 +79,7 @@
             Tools::addHTMLHeaderElements( $this->plugin );
         
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
+            $this->listaction       = $this->url_for( "auswertung/jsonlist");
         }
 
 
