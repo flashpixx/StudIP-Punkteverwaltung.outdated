@@ -30,7 +30,7 @@
 
 
     /** Controller für die Sicht eines Studenten **/
-    class ShowController extends StudipController
+    class HilfeController extends StudipController
     {
 
         /** Ctor, um aus dem Dispatcher die Referenz auf das Pluginobjekt
@@ -51,7 +51,7 @@
          **/
         function before_filter( &$action, &$args )
         {
-            PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Anzeige"));
+            PageLayout::setTitle(_($_SESSION["SessSemName"]["header_line"]. " - Punkteverwaltung - Hilfe"));
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
             // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
@@ -65,31 +65,9 @@
         function index_action()
         {
             Tools::addHTMLHeaderElements( $this->plugin );
-        
-            PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
         }
 
-        /** setzt den Studiengang des Users **/
-        function studiengang_action()
-        {
-
-            try {
-                $laData    = explode("#", Request::quoted("studiengang"));
-
-                if (count($laData) == 2)
-                {
-                    $loStudent = new Student( $GLOBALS["user"]->id );
-                    $loStudent->studiengang($this->flash["veranstaltung"], trim($laData[0]), trim($laData[1]));
-
-                    $this->flash["message"] = Tools::createMessage( "success", _("Anerkennung für den Studiengang für diese Veranstaltung geändert") );
-                }
-                
-
-            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
-
-            $this->redirect("show");
-        }
-
+    
 
         /** URL Aufruf **/
         function url_for($to)
