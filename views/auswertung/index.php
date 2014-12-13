@@ -168,11 +168,11 @@
         echo "fields: {";
         
         echo "Auth : { key : true, create : false, edit : false, list : false },";
-        echo "Hinweis : { edit : false, title : \"Hinweis\", width : \"10%\" },";
-        echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"5%\" },";
-        echo "Name : { edit : false, title : \"Name\", width : \"10%\" },";
-        echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
-        echo "Studiengang : { edit : false, title : \"Studiengang\", width : \"10%\" },";
+        echo "Hinweis : { edit : false, title : \""._("Hinweis")."\", width : \"10%\" },";
+        echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
+        echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
+        echo "EmailAdresse : { edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
+        echo "Studiengang : { edit : false, title : \""._("Studiengang")."\", width : \"10%\" },";
         
         $lnSize = round( (35 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
@@ -183,10 +183,10 @@
             echo "ueb_bestanden_".$lcHash." : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
-        echo "Gesamtpunkte : { edit : false, title : \"Gesamtpunkte\", width : \"5%\" },";
-        echo "GesamtpunkteProzent : { edit : false, title : \"Gesamtpunkte Prozent\", width : \"5%\" },";
-        echo "gesamtbestanden : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"gesamt bestanden\", width : \"5%\" },";
-        echo "Bonuspunkte : { edit : false, title : \"Bonuspunkte\", width : \"5%\" },";
+        echo "Gesamtpunkte : { edit : false, title : \""._("Gesamtpunkte")."\", width : \"5%\" },";
+        echo "GesamtpunkteProzent : { edit : false, title : \""._("Gesamtpunkte Prozent")."\", width : \"5%\" },";
+        echo "gesamtbestanden : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \""._("gesamt bestanden")."\", width : \"5%\" },";
+        echo "Bonuspunkte : { edit : false, title : \""._("Bonuspunkte")."\", width : \"5%\" },";
         
         echo "}";
         echo "});";
