@@ -180,7 +180,7 @@
             $lcHash = md5($laUebung["name"]);
             echo "ueb_punkte_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
             echo "ueb_prozent_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_bestanden_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_bestanden_".$lcHash." : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
         echo "Gesamtpunkte : { edit : false, title : \"Gesamtpunkte\", width : \"5%\" },";
