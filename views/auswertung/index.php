@@ -184,7 +184,7 @@
         }
         
         echo "Gesamtpunkte : { edit : false, title : \"Gesamtpunkte\", width : \"5%\" },";
-        echo "gesamtbestanden : { edit : false, type : \"checkbox\", defaultValue : \"false\", title : \"gesamt bestanden\", width : \"5%\" },";
+        echo "gesamtbestanden : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"gesamt bestanden\", width : \"5%\" },";
         echo "Bonuspunkte : { edit : false, title : \"Bonuspunkte\", width : \"5%\" },";
         
         echo "}";
