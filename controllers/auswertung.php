@@ -131,7 +131,7 @@
                 if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
-                $laData = $this->flash["veranstaltung"]->studententabelle();
+                $laData = $this->flash["auswertung"]->studententabelle();
                 if (is_array($laData))
                 {
                     // setze Defaultwerte für jTable
