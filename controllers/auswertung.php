@@ -178,7 +178,7 @@
                             "Hinweis"         => null,
                             "Matrikelnummer"  => $loStudent->matrikelnummer(),
                             "Name"            => studip_utf8encode( $loStudent->name() ),
-                            "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                            "EmailAdresse"    => studip_utf8encode( $loStudent->email() ),
                             "Studiengang"     => null,
                             "Gesamtpunkte"    => $laStudent["uebungenpunkte"],
                             "Bonuspunkte"     => $laStudent["bonuspunkte"],
