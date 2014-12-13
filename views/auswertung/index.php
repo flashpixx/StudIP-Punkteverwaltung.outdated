@@ -174,7 +174,7 @@
         echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
         echo "Studiengang : { edit : false, title : \"Studiengang\", width : \"10%\" },";
         
-        $lnSize = round( (40 / count($laListe["uebungen"]))/3, 1 );
+        $lnSize = round( (35 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
         {
             $lcHash = md5($laUebung["name"]);
@@ -184,6 +184,7 @@
         }
         
         echo "Gesamtpunkte : { edit : false, title : \"Gesamtpunkte\", width : \"5%\" },";
+        echo "GesamtpunkteProzent : { edit : false, title : \"Gesamtpunkte Prozent\", width : \"5%\" },";
         echo "gesamtbestanden : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"gesamt bestanden\", width : \"5%\" },";
         echo "Bonuspunkte : { edit : false, title : \"Bonuspunkte\", width : \"5%\" },";
         

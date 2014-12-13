@@ -174,15 +174,16 @@
                         
                         // erzeuge Basis-Datensatz
                         $laItem = array(
-                            "Auth"            => studip_utf8encode( $loStudent->id() ),
-                            "Hinweis"         => null,
-                            "Matrikelnummer"  => $loStudent->matrikelnummer(),
-                            "Name"            => studip_utf8encode( $loStudent->name() ),
-                            "EmailAdresse"    => studip_utf8encode( $loStudent->email() ),
-                            "Studiengang"     => null,
-                            "Gesamtpunkte"    => $laStudent["uebungenpunkte"],
-                            "Bonuspunkte"     => $laStudent["bonuspunkte"],
-                            "gesamtbestanden" => $laStudent["veranstaltungenbestanden"]
+                            "Auth"                => studip_utf8encode( $loStudent->id() ),
+                            "Hinweis"             => null,
+                            "Matrikelnummer"      => $loStudent->matrikelnummer(),
+                            "Name"                => studip_utf8encode( $loStudent->name() ),
+                            "EmailAdresse"        => studip_utf8encode( $loStudent->email() ),
+                            "Studiengang"         => null,
+                            "Gesamtpunkte"        => $laStudent["uebungenpunkte"],
+                            "GesamtpunkteProzent" => $laData["gesamtpunkte"] ? round($laStudent["uebungenpunkte"] / $laData["gesamtpunkte"] * 100, 2) : 0,
+                            "Bonuspunkte"         => $laStudent["bonuspunkte"],
+                            "gesamtbestanden"     => $laStudent["veranstaltungenbestanden"]
                         );
 
                         
