@@ -179,7 +179,7 @@
                             "Matrikelnummer"      => $loStudent->matrikelnummer(),
                             "Name"                => studip_utf8encode( $loStudent->name() ),
                             "EmailAdresse"        => studip_utf8encode( $loStudent->email() ),
-                            "Studiengang"         => null,
+                            "Studiengang"         => $laStudent["studiengang"],
                             "Gesamtpunkte"        => $laStudent["uebungenpunkte"],
                             "GesamtpunkteProzent" => $laData["gesamtpunkte"] ? round($laStudent["uebungenpunkte"] / $laData["gesamtpunkte"] * 100, 2) : 0,
                             "Bonuspunkte"         => $laStudent["bonuspunkte"],
@@ -204,8 +204,6 @@
                         // Daten überprüfen und Hinweis setzen
                         if ($loStudent->checkStudiengangAbschlussFehler())
                             $laItem["Hinweis"] = studip_utf8encode( _("Fehler bei Studiengang und/oder Abschluss") );
-                        else
-                            $laItem["Studiengang"] = studip_utf8encode( $loStudent->studiengang($this->flash["veranstaltung"]) );
                         
                         
                         array_push( $laResult["Records"], $laItem );
