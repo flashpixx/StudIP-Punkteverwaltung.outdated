@@ -180,11 +180,11 @@
             $lcHash = md5($laUebung["name"]);
             echo "ueb_punkte_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
             echo "ueb_prozent_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_bestanden_".$lcHash." : { type : \"checkbox\", value : { \"false\" : \"Nein\", \"true\" : \"Ja\" }, edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_bestanden_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
         echo "Gesamtpunkte : { edit : false, title : \"Gesamtpunkte\", width : \"5%\" },";
-        echo "gesamtbestanden : { type : \"checkbox\", value : { \"false\" : \"Nein\", \"true\" : \"Ja\" }, edit : false, title : \"gesamt bestanden\", width : \"5%\" },";
+        echo "gesamtbestanden : { edit : false, title : \"gesamt bestanden\", width : \"5%\" },";
         echo "Bonuspunkte : { edit : false, title : \"Bonuspunkte\", width : \"5%\" },";
         
         echo "}";
