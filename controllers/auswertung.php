@@ -188,7 +188,7 @@
                         
                         
                         // erzeuge Übungseinträge
-                        foreach($laListe["uebungen"] as $laUebung)
+                        foreach($laData["uebungen"] as $laUebung)
                         {
                             $lcHash                           = md5($laUebung["name"]);
                             
