@@ -204,6 +204,8 @@
                         // Daten überprüfen und Hinweis setzen
                         if ($loStudent->checkStudiengangAbschlussFehler())
                             $laItem["Hinweis"] = studip_utf8encode( _("Fehler bei Studiengang und/oder Abschluss") );
+                        else
+                            $laItem["studiengang"] = studip_utf8encode( $loStudent->studiengang($this->flash["veranstaltung"]) );
                         
                         
                         array_push( $laResult["Records"], $laItem );
