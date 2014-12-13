@@ -191,9 +191,10 @@
                         foreach($laData["uebungen"] as $laUebung)
                         {
                             $lcHash                           = md5($laUebung["name"]);
+                            $lnPunkte                         = $laUebung["studenten"][$lcStudentKey]["punktesumme"];
                             
-                            $laItem["ueb_punkte_".$lcHash]    = $laUebung["studenten"][$lcStudentKey]["punktesumme"];
-                            $laItem["ueb_prozent_".$lcHash]   = 0;
+                            $laItem["ueb_punkte_".$lcHash]    = $lnPunkte;
+                            $laItem["ueb_prozent_".$lcHash]   = $laUebung["maxPunkte"] ? round( $lnPunkte / $laUebung["maxPunkte"] * 100, 2) : 0;
                             $laItem["ueb_bestanden_".$lcHash] = $laUebung["studenten"][$lcStudentKey]["bestanden"];
                         }
                         
