@@ -174,7 +174,7 @@
                         
                         // erzeuge Basis-Datensatz
                         $laItem = array(
-                            "Auth"            => studip_utf8encode( $item->student()->id() ),
+                            "Auth"            => studip_utf8encode( $loStudent->id() ),
                             "Hinweis"         => null,
                             "Matrikelnummer"  => $loStudent->matrikelnummer(),
                             "Name"            => studip_utf8encode( $loStudent->name() ),
