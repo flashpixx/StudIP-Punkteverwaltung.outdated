@@ -113,14 +113,20 @@
             $lo = Veranstaltung::get($px);
             if ($lo->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
-        
-            // lösche zuerst alle Punktedaten
-            $loPrepare = DBManager::get()->prepare( "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student" );
-            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
-        
-            // lösche ggf manuelle Zulassungen
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student" );
-            $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
+            
+            // lösche zuerst alle Punktedaten, manuelle Zulassungen, Studiengang & Logdaten
+            $laExecutes = array(
+                "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
+                "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
+                "delete from ppv_studiengang where seminar= :semid and student= :student",
+                "delete usl from ppv_uebungstudentlog as usl join  ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
+            );
+            
+            foreach( $laExecutes as $lcSQL )
+            {
+                $loPrepare = DBManager::get()->prepare(  );
+                $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
+            }
         }
 
 
