@@ -174,7 +174,7 @@
         echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
         echo "Studiengang : { edit : false, title : \"Studiengang\", width : \"10%\" },";
         
-        $lnSize = round( (50 / count($laListe["uebungen"]))/3, 1 );
+        $lnSize = round( (35 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
         {
             $lcHash = md5($laUebung["name"]);
@@ -182,6 +182,10 @@
             echo "ueb_prozent_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
             echo "ueb_bestanden_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
+        
+        echo "Gesamtpunkte : { edit : false, title : \"Gesamtpunkte\", width : \"5%\" },";
+        echo "gesamtbestanden : { edit : false, title : \"gesamt bestanden\", width : \"5%\" },";
+        echo "Bonuspunkte : { edit : false, title : \"Bonuspunkte\", width : \"5%\" },";
         
         echo "}";
         echo "});";

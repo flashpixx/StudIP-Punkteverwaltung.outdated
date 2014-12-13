@@ -27,8 +27,9 @@
 
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/auswertung.class.php");
-    require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(__DIR__) . "/sys/student.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/extensions/excel/PHPExcel.php");
     require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocument/ExportPDF.class.php");
 
@@ -129,14 +130,15 @@
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
                 if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
-                /*
-                $laData = $this->flash["uebung"]->studentenuebung();
-                if ($laData)
+                
+                $laData = $this->flash["veranstaltung"]->studententabelle();
+                if (is_array($laData))
                 {
                     // setze Defaultwerte für jTable
-                    $laResult["TotalRecordCount"] = count($laData);
+                    $laResult["TotalRecordCount"] = count($laData["studenten"]);
                     
                     // sortiere Daten anhand des Kriteriums
+                    /*
                     usort($laData, function($a, $b) {
                           $ln = 0;
                           
@@ -160,37 +162,52 @@
                           
                           return $ln;
                           });
+                     */
                     
                     // hole Query Parameter, um die Datenmenge passend auszuwählen
-                    $laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
+                    //$laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
                     
                     
-                    foreach( $laData as $item )
+                    foreach ($laData["studenten"] as $lcStudentKey => $laStudent)
                     {
-                        // siehe Arraykeys unter views/uebung/jsonlist.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
-                        $laItem = array(
-                                        "Auth"            => studip_utf8encode( $item->student()->id() ),
-                                        "Hinweis"         => studip_utf8encode(
-                                        "Matrikelnummer"  => $item->student()->matrikelnummer(),
-                                        "Name"            => studip_utf8encode( $item->student()->name() ),
-                                        "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
-                                        "Studiengang"     => studip_utf8encode(
-                        );
+                        $loStudent = new Student($lcStudentKey);
                         
+                        // erzeuge Basis-Datensatz
+                        $laItem = array(
+                            "Auth"            => studip_utf8encode( $item->student()->id() ),
+                            "Hinweis"         => null,
+                            "Matrikelnummer"  => $loStudent->matrikelnummer(),
+                            "Name"            => studip_utf8encode( $loStudent->name() ),
+                            "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                            "Studiengang"     => null,
+                            "Gesamtpunkte"    => $laStudent["uebungenpunkte"],
+                            "Bonuspunkte"     => $laStudent["bonuspunkte"],
+                            "gesamtbestanden" => $laStudent["veranstaltungenbestanden"]
+                        );
+
+                        
+                        
+                        // erzeuge Übungseinträge
                         foreach($laListe["uebungen"] as $laUebung)
                         {
                             $lcHash                           = md5($laUebung["name"]);
-                                                                               
-                            $laItem["ueb_punkte_".$lcHash]    =
-                            $laItem["ueb_prozent_".$lcHash]   =
-                            $laItem["ueb_bestanden_".$lcHash] =
+                            
+                            $laItem["ueb_punkte_".$lcHash]    = $laUebung["studenten"][$lcStudentKey]["punktesumme"];
+                            $laItem["ueb_prozent_".$lcHash]   = 0;
+                            $laItem["ueb_bestanden_".$lcHash] = $laUebung["studenten"][$lcStudentKey]["bestanden"];
                         }
+                        
+                        
+                        
+                        // Daten überprüfen und Hinweis setzen
+                        if ($loStudent->checkStudiengangAbschlussFehler())
+                            $laItem["Hinweis"] = studip_utf8encode( _("Fehler bei Studiengang und/oder Abschluss") );
                         
                         
                         array_push( $laResult["Records"], $laItem );
                     }
                 }
-                 */
+                
                 
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Result"] = "OK";
