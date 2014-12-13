@@ -124,7 +124,7 @@
             
             foreach( $laExecutes as $lcSQL )
             {
-                $loPrepare = DBManager::get()->prepare(  );
+                $loPrepare = DBManager::get()->prepare( $lcSQL );
                 $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
             }
         }
