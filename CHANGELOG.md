@@ -4,7 +4,10 @@
  * CSS Refactoring
  * Auswertung Refactorting / Änderung zu jTables
  * Header Sending direkt in den Controllern implementiert, somit Views reduziert
- * Markdown FAQ / Fix Issue #41
+ * Markdown FAQ (Fix Issue #41)
+ * Ignore Liste eingefügt (Fix Issues #40 & #17)
+ * Anzeige des Studiengangs in der Auswertung (Fix Issue #34)
+ * Auswertungstabellen in jTables geändert (Fix Issue 28)
 
 
 ## 0.22

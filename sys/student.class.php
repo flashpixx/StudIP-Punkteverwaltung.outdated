@@ -27,7 +27,7 @@
 
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
-    require_once("baseinclude.php");
+    require_once("studipincludes.php");
     
 
     /** Exception, um einen User, der nicht gefunden wurde, zu erkennen **/

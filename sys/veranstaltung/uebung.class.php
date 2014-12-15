@@ -28,7 +28,7 @@
     require_once("veranstaltung.class.php");
     require_once("studentuebung.class.php");
     require_once("interface.class.php");
-    require_once(dirname(__DIR__) . "/baseinclude.php");
+    require_once(dirname(__DIR__) . "/studipincludes.php");
     require_once(dirname(__DIR__) . "/student.class.php");
 
 

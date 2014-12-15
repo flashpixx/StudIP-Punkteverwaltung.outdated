@@ -29,7 +29,9 @@
     require_once("interface.class.php");
     require_once("bonuspunkt.class.php");
     require_once(dirname(__DIR__) . "/student.class.php");
+    require_once(dirname(__DIR__) . "/studipincludes.php");
 
+    
 
     /** Klasse für die Veranstaltungsdaten **/
     class Veranstaltung implements VeranstaltungsInterface
@@ -103,35 +105,6 @@
         }
     
     
-        /** ermöglicht das "harte" Löschen aller User-Daten, die in der Veranstaltung für den User
-         * hinterlegt sind, ohne explizite Existenzprüfungen durchzuführen (z.B. bei Studenten ohne Matrikelnummer)
-         * @param $px Veranstaltungsobjekt / -ID
-         * @param $pcUserID User-Hash
-         **/
-        static function clearAllUserData( $px, $pcUserID )
-        {
-            $lo = Veranstaltung::get($px);
-            if ($lo->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
-            
-            // lösche zuerst alle Punktedaten, manuelle Zulassungen, Studiengang & Logdaten
-            $laExecutes = array(
-                "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
-                "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
-                "delete from ppv_studiengang where seminar= :semid and student= :student",
-                "delete usl from ppv_uebungstudentlog as usl join  ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
-            );
-            
-            foreach( $laExecutes as $lcSQL )
-            {
-                $loPrepare = DBManager::get()->prepare( $lcSQL );
-                $loPrepare->execute( array("semid" => $lo->id(), "student" => $pcUserID) );
-            }
-        }
-
-
-        
-
         /** privater Ctor, um das Objekt nur durch den statischen Factory (get) erzeugen zu können
          * @param $px VeranstaltungsID (SeminarID) oder Veranstaltungsobjekt
          **/
@@ -415,6 +388,41 @@
                 array_push($la, new Student($row["student"]) );
 
             return $la;
+        }
+    
+    
+        /** ermöglicht das "harte" Löschen aller User-Daten, die in der Veranstaltung für den User
+         * hinterlegt sind, ohne explizite Existenzprüfungen durchzuführen (z.B. bei Studenten ohne Matrikelnummer)
+         * @param $px Veranstaltungsobjekt / -ID
+         * @param $pxUser User-Hash / User- / Studentenobjekt
+         **/
+        function clearUserData( $px, $pxUser )
+        {
+            if ($this->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+        
+            if ($pxUser instanceof Student)
+                $pxUser = $pxUser->id();
+            elseif ($pxUser instance User)
+                $pxUser = $pxUser->getUserid();
+            elseif (is_string($pxUser)) {}
+            elseif
+                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
+        
+        
+            // lösche zuerst alle Punktedaten, manuelle Zulassungen, Studiengang & Logdaten
+            $laExecutes = array(
+                            "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
+                            "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
+                            "delete from ppv_studiengang where seminar= :semid and student= :student",
+                            "delete usl from ppv_uebungstudentlog as usl join  ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
+                            );
+        
+            foreach( $laExecutes as $lcSQL )
+            {
+                $loPrepare = DBManager::get()->prepare( $lcSQL );
+                $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser) );
+            }
         }
 
     }
