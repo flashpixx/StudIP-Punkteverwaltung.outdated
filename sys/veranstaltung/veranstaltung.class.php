@@ -403,7 +403,7 @@
         
             if ($pxUser instanceof Student)
                 $pxUser = $pxUser->id();
-            elseif ($pxUser instance User)
+            elseif ($pxUser instanceof User)
                 $pxUser = $pxUser->getUserid();
             elseif (is_string($pxUser)) {}
             elseif
