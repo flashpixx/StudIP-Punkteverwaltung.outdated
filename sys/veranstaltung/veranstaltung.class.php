@@ -406,7 +406,7 @@
             elseif ($pxUser instanceof User)
                 $pxUser = $pxUser->getUserid();
             elseif (is_string($pxUser)) {}
-            elseif
+            else
                 throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
         
         
