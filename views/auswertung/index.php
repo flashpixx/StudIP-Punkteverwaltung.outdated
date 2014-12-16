@@ -195,11 +195,7 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"punktetabelle\">\n";
-        echo "<div class=\"hasmenu\">AAA</div>\n";
-        echo "<div class=\"hasmenu\">BBB</div>\n";
-        echo "<div class=\"hasmenu\">CCC</div>\n";
-        echo "</div>";
+        echo "<div id=\"punktetabelle\"></div>";
 
 
     } catch (Exception $e) {
