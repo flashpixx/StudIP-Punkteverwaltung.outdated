@@ -171,33 +171,27 @@
         echo "Hinweis : { edit : false, title : \""._("Hinweis")."\", width : \"10%\" },";
         echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
         echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
-        echo "EmailAdresse : { edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
-        echo "Studiengang : { edit : false, title : \""._("Studiengang")."\", width : \"10%\" },";
+        echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
+        echo "Studiengang : { visibility : \"hidden\", edit : false, title : \""._("Studiengang")."\", width : \"10%\" },";
         
         $lnSize = round( (35 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
         {
             $lcHash = md5($laUebung["name"]);
             echo "ueb_punkte_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Punkte")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_prozent_".$lcHash." : { edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
-            echo "ueb_bestanden_".$lcHash." : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_prozent_".$lcHash." : { visibility : \"hidden\", edit : false, title : \"".$laUebung["name"]." "._("Prozent")."\", width : \"".$lnSize."%\" },";
+            echo "ueb_bestanden_".$lcHash." : { visibility : \"hidden\", edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
         echo "Gesamtpunkte : { edit : false, title : \""._("Gesamtpunkte")."\", width : \"5%\" },";
         echo "GesamtpunkteProzent : { edit : false, title : \""._("Gesamtpunkte Prozent")."\", width : \"5%\" },";
-        echo "gesamtbestanden : { edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \""._("Gesamt bestanden")."\", width : \"5%\" },";
+        echo "gesamtbestanden : { visibility : \"hidden\", edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \""._("Gesamt bestanden")."\", width : \"5%\" },";
         echo "Bonuspunkte : { edit : false, title : \""._("Bonuspunkte")."\", width : \"5%\" },";
         
         echo "}";
         echo "});";
         
         echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
-        
-        
-        echo "jQuery(\"#punktetabelle\").jtable(\"changeColumnVisibility\", { columnName : \"EmailAdresse\", visibility : \"hidden\" });";
-        echo "jQuery(\"#punktetabelle\").jtable(\"changeColumnVisibility\", { columnName : \"Studiengang\", visibility : \"hidden\" });";
-        echo "jQuery(\"#punktetabelle\").jtable(\"changeColumnVisibility\", { columnName : \"gesamtbestanden\", visibility : \"hidden\" });";
-        
         
         echo "});";
         echo "</script>";
