@@ -225,6 +225,27 @@
 
             return $lc;
         }
+        
+        
+        /** liefert alle Gruppen einer Veranstaltung in denen der Student angemeldet ist
+         * @param $poVeranstaltung Veranstaltungsobjekt
+         * @return Array mit GruppenID und Namen
+         **/
+        function gruppen( $poVeranstaltung )
+        {
+            if (!($poVeranstaltung instanceof Veranstaltung))
+                throw new Exception(_("kein Veranstaltungsobjekt übergeben"));
+            
+            $la = array();
+            
+            $loPrepare = DBManager::get()->prepare( "SELECT statusgruppe_id as id, name FROM statusgruppen JOIN statusgruppe_user USING (statusgruppe_id) WHERE range_id = :semid AND user_id = :student" );
+            $loPrepare->execute( array("semid" => $poVeranstaltung->id(), "student" => $this->mcID) );
+            
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                array_push($la, $row );
+            
+            return $la;
+        }
 
 
         /** liefert die Matrikelnummer des Users, sofern vorhanden

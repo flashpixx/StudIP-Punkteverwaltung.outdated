@@ -252,11 +252,16 @@
                     foreach( $laData as $item )
                     {
                         // siehe Arraykeys unter views/uebung/jsonlist.php & alle String müssen UTF-8 codiert werden, da Json UTF-8 ist
+                        $laGruppen = array();
+                        foreach( $item->student()->gruppen($this->flash["veranstaltung"]) as $item )
+                            array_push($laGruppen, $item["name"]);
+                        
                         $laItem = array(
                                     "Auth"            => studip_utf8encode( $item->student()->id() ),
                                     "Matrikelnummer"  => $item->student()->matrikelnummer(),
                                     "Name"            => studip_utf8encode( $item->student()->name() ),
                                     "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                                    "Gruppen"         => studip_utf8encode( $laGruppen ),
                                     "ErreichtePunkte" => $item->erreichtePunkte(),
                                     "ZusatzPunkte"    => $item->zusatzPunkte(),
                                     "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
