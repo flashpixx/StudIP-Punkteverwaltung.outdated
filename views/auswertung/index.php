@@ -192,6 +192,13 @@
         echo "});";
         
         echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        
+        
+        echo "jQuery(\"#punktetabelle\").jtable(\"changeColumnVisibility\", { columnName : \"EmailAdresse\", visibility : \"hidden\" })";
+        echo "jQuery(\"#punktetabelle\").jtable(\"changeColumnVisibility\", { columnName : \"Studiengang\", visibility : \"hidden\" })";
+        echo "jQuery(\"#punktetabelle\").jtable(\"changeColumnVisibility\", { columnName : \"gesamtbestanden\", visibility : \"hidden\" })";
+        
+        
         echo "});";
         echo "</script>";
         
