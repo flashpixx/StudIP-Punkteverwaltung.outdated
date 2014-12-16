@@ -255,7 +255,7 @@
                         $lxGruppen = array();
                         foreach( $item->student()->gruppen($this->flash["veranstaltung"]) as $item )
                             array_push($lxGruppen, $item["name"]);
-                        $lxGruppen = empty($lxGruppen) ? null : explode(", ", $lxGruppen);
+                        $lxGruppen = empty($lxGruppen) ? null : implode(", ", $lxGruppen);
                         
                         $laItem = array(
                                     "Auth"            => studip_utf8encode( $item->student()->id() ),
