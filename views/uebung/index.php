@@ -172,7 +172,7 @@
 
                 echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
                 echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
-                echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
+                echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \"EMail Adresse\", width : \"20%\" },";
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";
                 echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"5%\" },";
                 if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
