@@ -51,7 +51,7 @@
         // erzeuge verschiedene Ausgabeformate
         $laExportformat  = array("pdf", "xlsx");
 
-        echo "<span=\"ppv header\">Datei Export</span>";
+        echo "<h1 class=\"ppv\">Datei Export</h1>";
         echo "<p><table border=\"0\" width=\"25%\">";
 
         echo "<tr>";
@@ -77,7 +77,7 @@
 
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
-        echo "<span=\"ppv header\">Statistik</span>";
+        echo "<h1 class=\"ppv\">Statistik</h1>";
         echo "<p><div id=\"boxplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; background-color: #fafafa; border-color: #555; border-style: solid; border-width:1px; margin: 25px auto;\">";
 
         echo "<script type=\"text/javascript\">";

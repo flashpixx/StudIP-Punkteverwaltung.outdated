@@ -67,7 +67,7 @@
                     CSRFProtection::tokenTag();
 
                     echo "<div class=\"steel1\">\n";
-                    echo "<span class=\"ppv header\">"._("Einstellungen")."</span>\n";
+                    echo "<h1 class=\"ppv\">"._("Einstellungen")."</h1>\n";
                     echo "<table width=\"100%\">\n";
 
                     echo "<tr><td width=\"50%\"><label for=\"uebungname\">"._("Name der Übung")."</label></td>";
@@ -107,7 +107,7 @@
                 {
                     if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
                         echo "<div class=\"steel2\">";
-                    echo "<span class=\"ppv header\">"._("Masseneingabe")."</span>\n";
+                    echo "<h1 class=\"ppv\">"._("Masseneingabe")."</h1>\n";
                     echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                     CSRFProtection::tokenTag();
                     echo "<label for=\"massinput\">"._("zeilenweise Eingabe in der Form (geklammerte Eingaben sind optional und müssen ggf. mit Defaultwerten belegt werden): Matrikelnummer [Aufgabenpunkte] [Bonuspunkte] [Bemerkung]")."</label><br/><br/>";
