@@ -74,11 +74,6 @@
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudent where uebung = :uebungid and student = :auth" );
             $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
-        
-            // prüfe ob der Student Veranstaltungsteilnehmer ist
-            $loPrepare = DBManager::get()->prepare("select user_id from seminar_user where status = :status and Seminar_id = :semid and user_id = :student" );
-            $loPrepare->execute( array("semid" => $this->moUebung->veranstaltung()->id(), "student" => $this->moStudent->id(), "status" => "autor") );
-            $this->mlVeranstaltungsTeilnehmer = $loPrepare->rowCount() == 1;
         }
 
 
@@ -98,6 +93,11 @@
 
             $this->moUebung     = new Uebung( $pxUebung );
             $this->moLogPrepare = DBManager::get()->prepare( "insert into ppv_uebungstudentlog select NULL as id, d.* from ppv_uebungstudent as d where uebung = :uebungid and student = :auth" );
+        
+            // prüfe ob der Student Veranstaltungsteilnehmer ist
+            $loPrepare = DBManager::get()->prepare( "select user_id from seminar_user where status = :status and Seminar_id = :semid and user_id = :auth" );
+            $loPrepare->execute( array("semid" => $this->moUebung->veranstaltung()->id(), "auth" => $this->moStudent->id(), "status" => "autor") );
+            $this->mlVeranstaltungsTeilnehmer = $loPrepare->rowCount() == 1;
         }
 
 
@@ -292,8 +292,7 @@
             if ($this->moUebung->veranstaltung()->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
             if (!$this->istVeranstaltungsTeilnehmer())
-                //throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
-                throw new UserNotSeminarMember( print_r($this, true) );
+                throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
         
             if (!is_numeric($pnErreichtePunkte))
                 throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
