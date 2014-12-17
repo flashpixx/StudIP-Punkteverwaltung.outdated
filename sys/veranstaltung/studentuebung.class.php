@@ -45,10 +45,15 @@
 
         /** Prepare Statement für das Log zu erezugen **/
         private $moLogPrepare  = null;
+    
+        /** istTeilnehmer Flag **/
+        private $mlVeranstaltungsTeilnehmer = false;
 
-        
+    
 
         /** löscht den Eintrag von einem Studenten zur Übung mit einem ggf vorhandenen Log
+         * @note der Ctor überprüft nicht, ob der Student Teilnehmer der Veranstaltung
+         * ist, diese Prüfung geschieht erst beim Versuch des Eintragens von Daten
          * @param $pxUebung Übung
          * @param $pxAuth Authentifizierungsschlüssel des Users oder Studentenobjekt
          **/
@@ -66,12 +71,16 @@
 
             $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudent where uebung = :uebungid and student = :auth" );
             $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
-
+        
+            // prüfe ob der Student Veranstaltungsteilnehmer ist
+            $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid and user_id = :student" );
+            $loPrepare->execute( array("semid" => $this->moUebung->veranstaltung()->id(), "student" => $this->moStudent->id(), "status" => "autor") );
+            $this->mlVeranstaltungsTeilnehmer = $loPrepare->rowCount() == 1;
         }
 
 
 
-        /** Ctor für den Zugriff auf auf die Studenten-Übungsbeziehung 
+        /** Ctor für den Zugriff auf auf die Studenten-Übungsbeziehung
          * @param $pxUebung Übung
          * @param $pcAuth Authentifizierung
          **/
@@ -114,6 +123,18 @@
         {
             return array( "uebung" => $this->moUebung->id(), "uid" => $this->moStudent->id() );
         }
+    
+    
+        /** prüft, ob der Student aktuell Teilnehmer der Veranstaltung ist
+         * @note diese Prüfung mus vor jedem Eintrag erfolgen, da sonst User
+         * in die Veranstaltung eingefügt werden kšnnen, die nicht angemeldet
+         * sind
+         @ return boolean Wert über die Existenz
+         **/
+        function istVeranstaltungsTeilnehmer()
+        {
+            return $this->mlVeranstaltungsTeilnehmer;
+        }
 
 
         /** liefert / setzt die erreichten Punkte für den Stundent / Übung
@@ -128,6 +149,8 @@
             {
                 if ($this->moUebung->veranstaltung()->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                if (!$this->mlVeranstaltungsTeilnehmer)
+                    throw new Exception(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
 
                 if ($pn > $this->moUebung->maxPunkte())
                     throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
@@ -168,7 +191,9 @@
             {
                 if ($this->moUebung->veranstaltung()->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
-                
+                if (!$this->mlVeranstaltungsTeilnehmer)
+                    throw new Exception(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+            
                 if ($pn < 0)
                     throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
 
@@ -206,6 +231,8 @@
             {
                 if ($this->moUebung->veranstaltung()->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                if (!$this->mlVeranstaltungsTeilnehmer)
+                    throw new Exception(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
 
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
@@ -259,6 +286,11 @@
          **/
         function update( $pnErreichtePunkte, $pnZusatzPunkte, $pcBemerkung )
         {
+            if ($this->moUebung->veranstaltung()->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+            if (!$this->mlVeranstaltungsTeilnehmer)
+                throw new Exception(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+        
             if (!is_numeric($pnErreichtePunkte))
                 throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
             if (!is_numeric($pnZusatzPunkte))
@@ -272,9 +304,6 @@
                 throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
             if ($pnErreichtePunkte < 0)
                 throw new Exception(_("Erreichte Punkte müssen größer gleich Null sein"));
-
-            if ($this->moUebung->veranstaltung()->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
 
             $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
