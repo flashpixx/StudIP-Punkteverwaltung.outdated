@@ -76,7 +76,7 @@
             $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
         
             // prüfe ob der Student Veranstaltungsteilnehmer ist
-            $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid and user_id = :student" );
+            $loPrepare = DBManager::get()->prepare("select user_id from seminar_user where status = :status and Seminar_id = :semid and user_id = :student" );
             $loPrepare->execute( array("semid" => $this->moUebung->veranstaltung()->id(), "student" => $this->moStudent->id(), "status" => "autor") );
             $this->mlVeranstaltungsTeilnehmer = $loPrepare->rowCount() == 1;
         }
