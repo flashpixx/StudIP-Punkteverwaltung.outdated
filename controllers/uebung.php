@@ -310,7 +310,7 @@
 
 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
-            } catch (Exception $e) { $laResult = studip_utf8encode( $e->getMessage() ); }
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
         
             Tools::sendJson( $this, $laResult );
         }
