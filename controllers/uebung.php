@@ -373,6 +373,8 @@
                         array_push($laError, "Zeile ".$i.": ".$e->getMessage());
                     } catch (UserDataIncomplete $e) {
                         array_push($laError, "Zeile ".$i.": ".$e->getMessage());
+                    } catch (UserNotSeminarMember $e) {
+                        array_push($laError, "Zeile ".$i.": ".$e->getMessage());
                     }
                 }
 
