@@ -343,28 +343,43 @@
                         array_push($laError, _("Zeile ".$i." hat ein ungültiges Format"));
                         continue;
                     }
-
-                    if (!is_numeric($laItems[0]))
+                
+                
+                    // der erste Eintrag des gesplitten Array ist die Matrikelnummer
+                    $laData["matrikelnummer"] = array_shift($laItems);
+                    if (!is_numeric($laData["matrikelnummer"]))
                     {
                         array_push($laError, _("Matrikelnummer in Zeile ".$i." ist nicht numerisch"));
                         continue;
                     }
-                    $laData["matrikelnummer"] = intval($laItems[0]);
-
-                    // Zahleneingabe der Punkte, soll sowohl mit Komma, wie auch Punkt als Dezimaltrenner möglich sein
-                    if ( (count($laItems) > 1) && (is_numeric($laItems[1])) )
-                        $laData["punkte"] = abs(floatval(  str_replace(",", ".", $laItems[1])  ));
-                    elseif ( (count($laItems) > 1) && (is_string($laItems[1])) )
-                        $laData["bemerkung"] = implode(" ", array_slice($laItems, 1));
-
-                    if ( (count($laItems) > 2) && (is_numeric($laItems[2])) )
-                        $laData["bonuspunkte"] = abs(floatval(  str_replace(",", ".", $laItems[2])  ));
-                    elseif ( (count($laItems) > 2) && (is_string($laItems[2])) )
-                        $laData["bemerkung"] = implode(" ", array_slice($laItems, 2));
-
-                    if ( (count($laItems) > 3) && (is_string($laItems[3])) )
-                        $laData["bemerkung"] = implode(" ", array_slice($laItems, 3));
-
+                    $laData["matrikelnummer"] = intval($laData["matrikelnummer"]);
+                
+                    // der zweite Eintrag müssen die Punkte sein, wobei als Trenner auch ein Komma erlaubt sein muss
+                    $laData["punkte"] = str_replace(",", ".", array_shift($laItems));
+                    if (!is_numeric($laData["punkte"]))
+                    {
+                        array_push($laError, _("Punkte in Zeile ".$i." sind nicht numerisch"));
+                        continue;
+                    }
+                    $laData["punkte"] = abs(floatval($laData["punkte"]));
+                
+                    // der dritte Eintrag müssen die Bonuspunkte sein, wobei als Trenner ebenso ein Komma erlaubt sein muss
+                    if (!empty($laItems))
+                    {
+                        $laData["bonuspunkte"] = str_replace(",", ".", array_shift($laItems));
+                        if (!is_numeric($laData["bonuspunkte"]))
+                        {
+                            array_push($laError, _("Bonuspunkte in Zeile ".$i." sind nicht numerisch"));
+                            continue;
+                        }
+                        $laData["bonuspunkte"] = abs(floatval($laData["bonuspunkte"]));
+                    }
+                
+                    // alle weiteren Einträge sind die Bemerkung
+                    if (!empty($laItems))
+                        $laData["bemerkung"] = implode(" ", $laItems);
+                
+                
                     try {
                         
                         $lo = new StudentUebung( $this->flash["uebung"], $laData["matrikelnummer"] );
