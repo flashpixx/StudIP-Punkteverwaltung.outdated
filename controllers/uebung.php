@@ -256,7 +256,7 @@
                         //foreach( $item->student()->gruppen($this->flash["veranstaltung"]) as $item ) {}
                         //    array_push($lxGruppen, $item["name"]);
                         //$lxGruppen = empty($lxGruppen) ? null : implode(", ", $lxGruppen);
-                        $lxGruppen = print_r($item, true);
+                        $lxGruppen = print_r($item->student(), true);
                         
                         
                         $laItem = array(
