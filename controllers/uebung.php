@@ -335,7 +335,7 @@
                     if (empty($lcLine))
                         continue;
 
-                    $laItems = preg_split("/[\s,]+/", trim($lcLine), -1, PREG_SPLIT_NO_EMPTY);
+                    $laItems = preg_split("/[\s]+/", trim($lcLine), -1, PREG_SPLIT_NO_EMPTY);
                     $laData  = array("matrikelnummer" => null, "punkte" => 0, "bonuspunkte" => 0, "bemerkung" => null);
 
                     if ( (!is_array($laItems)) || (empty($laItems)) )
