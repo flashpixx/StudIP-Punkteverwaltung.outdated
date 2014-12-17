@@ -292,7 +292,8 @@
             if ($this->moUebung->veranstaltung()->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
             if (!$this->istVeranstaltungsTeilnehmer())
-                throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+                //throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+                throw new UserNotSeminarMember( print_r($this, true) );
         
             if (!is_numeric($pnErreichtePunkte))
                 throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
