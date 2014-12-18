@@ -63,3 +63,11 @@
     font-weight:    bold;
     font-size:      x-small;
 }
+
+.ppv.punktetabelle
+{
+    overflow-y:     auto;
+    overflow-x:     hidden;
+    display:        block;
+    width:          100%;
+}

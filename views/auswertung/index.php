@@ -196,7 +196,7 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"punktetabelle\"></div>";
+        echo "<div id=\"punktetabelle\" class=\"ppv punktetabelle\"></div>";
 
 
     } catch (Exception $e) {
