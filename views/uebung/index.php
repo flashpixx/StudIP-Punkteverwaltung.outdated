@@ -190,7 +190,7 @@
                 echo "});";
                 echo "</script>";
 
-                echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
+                echo "<div id=\"punktetabelle\" class=\"ppv jtable\"></div>";
             }
         
         }
