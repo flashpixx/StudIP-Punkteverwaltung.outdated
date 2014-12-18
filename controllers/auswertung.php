@@ -134,55 +134,55 @@
                 
                 
                 array_push($laData, array(
-                    "Title"         => "Teilnehmeranzahl",
+                    "Titel"         => "Teilnehmeranzahl",
                     "Data"          => $laListe["statistik"]["teilnehmergesamt"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "Anzahl bestandenen Studenten",
+                    "Titel"         => "Anzahl bestandenen Studenten",
                     "Data"          => $laListe["statistik"]["teilnehmerbestanden"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen",
+                    "Titel"         => "Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen",
                     "Data"          => $laListe["statistik"]["teilnehmerbonus"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "Anzahl Studenten mit mehr als null Punkten",
+                    "Titel"         => "Anzahl Studenten mit mehr als null Punkten",
                     "Data"          => $laListe["statistik"]["teilnehmerpunktenotzero"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "Gesamtpunktanzahl",
+                    "Titel"         => "Gesamtpunktanzahl",
                     "Data"          => $laListe["gesamtpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "Punkte zur Zulassung",
+                    "Titel"         => "Punkte zur Zulassung",
                     "Data"          => $laListe["gesamtpunktebestanden"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "max. erreichte Punkte",
+                    "Titel"         => "max. erreichte Punkte",
                     "Data"          => $laListe["statistik"]["maxpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "min. erreichte Punkte",
+                    "Titel"         => "min. erreichte Punkte",
                     "Data"          => $laListe["statistik"]["minpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Title"         => "min. erreichte Punkte > 0",
+                    "Titel"         => "min. erreichte Punkte > 0",
                     "Data"          => $laListe["statistik"]["minpunktegreaterzero"],
                     "DataProzent"   => null
                 ));
