@@ -135,7 +135,7 @@
         
         echo "fields: {";
         
-        echo "Titel : { edit : false, title : \""._("Titel")."\", width : \"40%\" },";
+        echo "Titel : { key : true, create : false, edit : false, title : \""._("Titel")."\", width : \"40%\" },";
         echo "Data : { edit : false, title : \""._("Daten")."\", width : \"30%\" },";
         echo "DataProzent : { edit : false, title : \""._("Daten Prozent")."\", width : \"30%\" },";
         
