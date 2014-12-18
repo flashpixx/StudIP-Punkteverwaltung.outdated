@@ -134,55 +134,55 @@
                 
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "Teilnehmeranzahl" ),
+                    "Titel"         => studip_utf8encode( _("Teilnehmeranzahl") ),
                     "Data"          => $laListe["statistik"]["teilnehmergesamt"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "Anzahl bestandenen Studenten" ),
+                    "Titel"         => studip_utf8encode( _("Anzahl bestandenen Studenten") ),
                     "Data"          => $laListe["statistik"]["teilnehmerbestanden"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode("Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen" ),
+                    "Titel"         => studip_utf8encode( _("Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen") ),
                     "Data"          => $laListe["statistik"]["teilnehmerbonus"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "Anzahl Studenten mit mehr als null Punkten" ),
+                    "Titel"         => studip_utf8encode( _("Anzahl Studenten mit mehr als null Punkten") ),
                     "Data"          => $laListe["statistik"]["teilnehmerpunktenotzero"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "Gesamtpunktanzahl" ),
+                    "Titel"         => studip_utf8encode( _("Gesamtpunktanzahl") ),
                     "Data"          => $laListe["gesamtpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "Punkte zur Zulassung" ),
+                    "Titel"         => studip_utf8encode( _("Punkte zur Zulassung") ),
                     "Data"          => $laListe["gesamtpunktebestanden"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "max. erreichte Punkte" ),
+                    "Titel"         => studip_utf8encode( _("max. erreichte Punkte") ),
                     "Data"          => $laListe["statistik"]["maxpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "min. erreichte Punkte" ),
+                    "Titel"         => studip_utf8encode( _("min. erreichte Punkte") ),
                     "Data"          => $laListe["statistik"]["minpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( "min. erreichte Punkte > 0" ),
+                    "Titel"         => studip_utf8encode( _("min. erreichte Punkte > 0") ),
                     "Data"          => $laListe["statistik"]["minpunktegreaterzero"],
                     "DataProzent"   => null
                 ));
@@ -190,8 +190,8 @@
                 
                 
                 // alles fehlerfrei durchlaufen, setze Result
-                array_push( $laResult["Records"], $laData);
-                $laResult["Result"] = "OK";
+                $laResult["Records"] = $laData;
+                $laResult["Result"]  = "OK";
                 
                 // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
             } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
