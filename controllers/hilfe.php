@@ -62,11 +62,11 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
             
             
-            $this->faqpath = $this->plugin->getPluginPath() . "/assets/faq";
+            $this->hilfeindex = $this->plugin->getPluginPath() . "/assets/hilfe";
             if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                $this->faqpath .= "/dozent/";
+                $this->hilfeindex .= "/dozent/index.md";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
-                $this->faqpath .= "/tutor/";
+                $this->hilfeindex .= "/tutor/index.md";
             else
                 $this->faqpath = null;
         }
