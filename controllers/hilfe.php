@@ -69,6 +69,10 @@
                 $this->hilfeindex .= "/tutor/index.md";
             else
                 $this->faqpath = null;
+            
+            // @todo hier muss der Pfad zum Bildordner gesetzt werden und geprüft werden, ob die Datei
+            // die als Parameter übergeben wird, vorhanden ist, wenn möglich sollten alle benötigten Funktionen
+            // via Flash-Variable übergeben werden
         }
 
 

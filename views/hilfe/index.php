@@ -43,6 +43,7 @@
 
         // Encoding muss in WINDOWS-1252 / ISO-8859-1 umgewandelt werdem, da das Default von Stud.IP ist,
         // das Default-Encoding des Markdown-Parsers ist UTF-8
+        // @todo hier muss eine Callback Funktion gesetzt werden, um Links passend zu strukturieren
         echo "<span class=\"ppv hilfe\">\n";
         echo mb_convert_encoding( Markdown::defaultTransform( file_get_contents( $hilfeindex ) ), "ISO-8859-1", "auto" );
         echo "</span>";
