@@ -62,13 +62,12 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
             
             
-            $this->hilfeindex = $this->plugin->getPluginPath() . "/assets/hilfe";
+            $basepath         = $this->plugin->getPluginPath() . "/assets/hilfe";
+            $this->hilfeindex = null;
             if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                $this->hilfeindex .= "/dozent/index.md";
+                $this->hilfeindex = $basepath . "/dozent/index.md";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
-                $this->hilfeindex .= "/tutor/index.md";
-            else
-                $this->faqpath = null;
+                $this->hilfeindex = $basepath . "/tutor/index.md";
             
             // @todo hier muss der Pfad zum Bildordner gesetzt werden und geprŸft werden, ob die Datei
             // die als Parameter Ÿbergeben wird, vorhanden ist, wenn mšglich sollten alle benštigten Funktionen
