@@ -134,55 +134,55 @@
                 
                 
                 array_push($laData, array(
-                    "Titel"         => "Teilnehmeranzahl",
+                    "Titel"         => studip_utf8encode( "Teilnehmeranzahl" ),
                     "Data"          => $laListe["statistik"]["teilnehmergesamt"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "Anzahl bestandenen Studenten",
+                    "Titel"         => studip_utf8encode( "Anzahl bestandenen Studenten" ),
                     "Data"          => $laListe["statistik"]["teilnehmerbestanden"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen",
+                    "Titel"         => studip_utf8encode("Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen" ),
                     "Data"          => $laListe["statistik"]["teilnehmerbonus"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "Anzahl Studenten mit mehr als null Punkten",
+                    "Titel"         => studip_utf8encode( "Anzahl Studenten mit mehr als null Punkten" ),
                     "Data"          => $laListe["statistik"]["teilnehmerpunktenotzero"],
                     "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "Gesamtpunktanzahl",
+                    "Titel"         => studip_utf8encode( "Gesamtpunktanzahl" ),
                     "Data"          => $laListe["gesamtpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "Punkte zur Zulassung",
+                    "Titel"         => studip_utf8encode( "Punkte zur Zulassung" ),
                     "Data"          => $laListe["gesamtpunktebestanden"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "max. erreichte Punkte",
+                    "Titel"         => studip_utf8encode( "max. erreichte Punkte" ),
                     "Data"          => $laListe["statistik"]["maxpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "min. erreichte Punkte",
+                    "Titel"         => studip_utf8encode( "min. erreichte Punkte" ),
                     "Data"          => $laListe["statistik"]["minpunkte"],
                     "DataProzent"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => "min. erreichte Punkte > 0",
+                    "Titel"         => studip_utf8encode( "min. erreichte Punkte > 0" ),
                     "Data"          => $laListe["statistik"]["minpunktegreaterzero"],
                     "DataProzent"   => null
                 ));
