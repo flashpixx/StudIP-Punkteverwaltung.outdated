@@ -37,8 +37,8 @@
     
     try {
         
-        if (empty($hilfeindex))
-            throw new Exception( _("Sie haben nicht die notwendigen Berechtigung für die Anzeige") );
+        if ( (empty($hilfeindex)) || (!file_exists($hilfeindex)) )
+            throw new Exception( _("Das gewünschte Dokument kann nicht aufgerufen werden") );
         
 
         // Encoding muss in WINDOWS-1252 / ISO-8859-1 umgewandelt werdem, da das Default von Stud.IP ist,
