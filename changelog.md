@@ -7,7 +7,11 @@
  * Markdown FAQ (Fix Issue #41)
  * Ignore Liste eingefügt (Fix Issues #40 & #17)
  * Anzeige des Studiengangs in der Auswertung (Fix Issue #34)
- * Auswertungstabellen in jTables geändert (Fix Issue 28)
+ * Auswertungstabellen in jTables geändert (Fix Issue #28)
+ * Fehler bei Masseneingabe behoben (Fix Issue #43)
+ * eingetragene Gruppen des Benutzers in der Übungstabelle angezeigt (Fix Issue #42)
+ * JavaScript & CSS Daten in UTF-8 encodiert und mit passendem Encoding in den HTML Header eingebunden (vgl. Fix Issue #31)
+ * Masseneingabe verändert, so dass bei Zahlen sowohl Punkt, als auch Komma als Dezimaltrenner verwendet werden kann (Fix Issue #33)
 
 
 ## 0.22
@@ -19,3 +23,4 @@
  * Masseneingabe benutzerfreundlicher, so dass bei Fehler die Daten wieder angezeigt werden
  * Komponentenupdates für (jTable und Excel-Exporter)
  * Deaktivierte Liste für den Aushang wegen rechtlicher Bedenken
+ * doppelte Anzeige der Studenten behoben (Fix Issue #26)
