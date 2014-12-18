@@ -142,7 +142,7 @@
         echo "}";
         echo "});";
         
-        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        echo "jQuery(\"#auswertungstabelle\").jtable(\"load\");";
         
         echo "});";
         echo "</script>";
