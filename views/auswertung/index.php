@@ -40,8 +40,8 @@
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
-        $loBonuspunkte   = new Bonuspunkt( $loVeranstaltung );
-        $laBonuspunkte   = $loBonuspunkte->liste();
+        //$loBonuspunkte   = new Bonuspunkt( $loVeranstaltung );
+        //$laBonuspunkte   = $loBonuspunkte->liste();
         $loAuswertung    = new Auswertung( $loVeranstaltung );
         $laListe         = $loAuswertung->studententabelle();
         
@@ -120,10 +120,41 @@
         echo "}";
 
         echo "</script>";
-        echo "</div></p>";
+        echo "</div>";
+        
+        echo "<script type=\"text/javascript\">";
+        echo "jQuery(document).ready(function() {";
+        echo "jQuery(\"#auswertungstabelle\").jtable({";
+        
+        echo "title          : \"Auswertung\",";
+        echo "paging         : false,";
+        echo "sorting        : false,";
+        echo "actions: {";
+        echo "listAction   : \"".$auswertungaction."\",";
+        echo "},";
+        
+        echo "fields: {";
+        
+        echo "Titel : { edit : false, title : \""._("Titel")."\", width : \"40%\" },";
+        echo "Data : { edit : false, title : \""._("Daten")."\", width : \"30%\" },";
+        echo "DataProzent : { edit : false, title : \""._("Daten Prozent")."\", width : \"30%\" },";
+        
+        echo "}";
+        echo "});";
+        
+        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        
+        echo "});";
+        echo "</script>";
+        
+        echo "<div id=\"auswertungstabelle\" class=\"ppv jtable\"></div>";
+
+        
+        
 
 
         // hier muss noch etwas die Auswertung hinein
+        /*
         echo "<p><table align=\"center\" width=\"38%\">";
         echo "<tr><th align=\"left\">Teilnehmeranzahl</th><td>".$laListe["statistik"]["teilnehmergesamt"]."</td></tr>";
         
@@ -146,12 +177,13 @@
         // @todo beste Studenten sollen gelistet werden
 
         echo "</table></p>";
-
+        */
 
 
 
 
         // jTable für die Punkte erzeugen
+        echo "<h1 class=\"ppv\">Punkteliste</h1>";
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
         echo "jQuery(\"#punktetabelle\").jtable({";
@@ -196,7 +228,7 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"punktetabelle\" class=\"ppv punktetabelle\"></div>";
+        echo "<div id=\"punktetabelle\" class=\"ppv jtable\"></div>";
 
 
     } catch (Exception $e) {

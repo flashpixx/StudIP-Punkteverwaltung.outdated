@@ -81,6 +81,7 @@
         
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
             $this->listaction       = $this->url_for( "auswertung/jsonlist");
+            $this->auswertungaction = $this->url_for( "auswertung/jsonauswertung");
         }
 
 
@@ -112,6 +113,89 @@
 
             } catch (Exception $e) { }
         
+            Tools::sendJson( $this, $laResult );
+        }
+        
+        
+        /** Json Struktur, die allgemeine Informationen zu der Veranstaltung liefert **/
+        function jsonauswertung_action()
+        {
+            
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                $laBonuspunkte = $this->bonuspunkte->liste();
+                $laListe       = $this->auswertung->studententabelle();
+                $laData        = array();
+                
+                
+                
+                array_push($laData, array(
+                    "Title"         => "Teilnehmeranzahl",
+                    "Data"          => $laListe["statistik"]["teilnehmergesamt"],
+                    "DataProzent"   => null
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "Anzahl bestandenen Studenten",
+                    "Data"          => $laListe["statistik"]["teilnehmerbestanden"],
+                    "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen",
+                    "Data"          => $laListe["statistik"]["teilnehmerbonus"],
+                    "DataProzent"   => $laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "Anzahl Studenten mit mehr als null Punkten",
+                    "Data"          => $laListe["statistik"]["teilnehmerpunktenotzero"],
+                    "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "Gesamtpunktanzahl",
+                    "Data"          => $laListe["gesamtpunkte"],
+                    "DataProzent"   => null
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "Punkte zur Zulassung",
+                    "Data"          => $laListe["gesamtpunktebestanden"],
+                    "DataProzent"   => null
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "max. erreichte Punkte",
+                    "Data"          => $laListe["statistik"]["maxpunkte"],
+                    "DataProzent"   => null
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "min. erreichte Punkte",
+                    "Data"          => $laListe["statistik"]["minpunkte"],
+                    "DataProzent"   => null
+                ));
+                
+                array_push($laData, array(
+                    "Title"         => "min. erreichte Punkte > 0",
+                    "Data"          => $laListe["statistik"]["minpunktegreaterzero"],
+                    "DataProzent"   => null
+                ));
+                
+                
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                array_push( $laResult["Records"], $laData);
+                $laResult["Result"] = "OK";
+                
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
             Tools::sendJson( $this, $laResult );
         }
         
