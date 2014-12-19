@@ -4,8 +4,8 @@ php:
 install:
   - wget http://sourceforge.net/projects/studip/files/Stud.IP/2.5/Stud.IP-2.5.2.tar.bz2/download /tmp/Stud.IP-2.5.2.tar.bz2
   - tar -xvf /tmp/Stud.IP-2.5.2.tar.bz2 -C /opt/
-  - wget http://sourceforge.net/projects/studip/files/Stud.IP/3.0/Stud.IP-3.0.2.tar.bz2/download /tmp/Stud.IP-3.0.2.tar.bz2
-  - tar -xvf /tmp/Stud.IP-3.0.2.tar.bz2 -C /opt/
+  - wget http://sourceforge.net/projects/studip/files/Stud.IP/3.0/Stud.IP-3.0.3.tar.bz2/download /tmp/Stud.IP-3.0.3.tar.bz2
+  - tar -xvf /tmp/Stud.IP-3.0.3.tar.bz2 -C /opt/
   - wget http://sourceforge.net/projects/studip/files/Stud.IP/3.1/studip-3.1.tar.bz2/download /tmp/studip-3.1.tar.bz2
   - tar -xvf /tmp/studip-3.1.tar.bz2 -C /opt/
 before_script:
