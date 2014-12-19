@@ -47,7 +47,7 @@
         // erzeuge verschiedene Ausgabeformate
         $laExportformat  = array("pdf", "xlsx");
 
-        echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Datei Export</h1>";
+        echo "<h1 class=\"ppv\">Datei Export</h1>";
         echo "<table border=\"0\" width=\"25%\">";
 
         echo "<tr>";
@@ -68,7 +68,8 @@
             echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestanden"))."\">".strtoupper($lcType)."</a></td>";
         echo "</tr>";
 
-        echo "</table></div>";
+        echo "</table>";
+        echo "<br class=\"ppv withbreak\" />";
 
         
         
@@ -76,7 +77,7 @@
 
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
-        echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Statistik</h1>";
+        echo "<h1 class=\"ppv\">Statistik</h1>";
         echo "<div id=\"boxplot\" class=\"ppv statistikplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; float:right\">";
 
         echo "<script type=\"text/javascript\">";
@@ -146,15 +147,16 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"auswertungstabelle\" style=\"width:60%; float:left\" class=\"ppv jtable\"></div></div>";
-
+        echo "<div id=\"auswertungstabelle\" style=\"width:60%; float:left\" class=\"ppv jtable\"></div>";
+        echo "<br class=\"ppv withbreak\" />";
+        
         
         
 
 
 
         // jTable für die Punkte erzeugen
-        echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Punkteliste</h1>";
+        echo "<h1 class=\"ppv\">Punkteliste</h1>";
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
         echo "jQuery(\"#punktetabelle\").jtable({";
@@ -199,7 +201,8 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div><div>";
+        echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
+        echo "<br class=\"ppv withbreak\" />";
 
 
     } catch (Exception $e) {
