@@ -33,7 +33,7 @@
     {
         
         /** Array mit allen zur Verfügung stehenden Diensten **/
-        privte $maServices = array();
+        private $maServices = array();
         
         
         
@@ -42,7 +42,7 @@
          **/
         function push( $po )
         {
-            if (!($po instaceof MatrikelNummerInterface))
+            if (!($po instanceof MatrikelNummerInterface))
                 throw new Exception(_("übergebenes Objekt implementiert nicht das MatrikelNummerInterface"));
             
             array_push($this->maServices, $po);
