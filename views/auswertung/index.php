@@ -136,8 +136,8 @@
         echo "fields: {";
         
         echo "Titel : { edit : false, title : \""._("Titel")."\", width : \"40%\" },";
-        echo "Data : { edit : false, title : \""._("Daten")."\", width : \"30%\" },";
-        echo "DataProzent : { edit : false, title : \""._("Daten Prozent")."\", width : \"30%\" },";
+        echo "Data1 : { edit : false, title : \"\", width : \"30%\" },";
+        echo "Data2 : { edit : false, title : \"\", width : \"30%\" },";
         
         echo "}";
         echo "});";

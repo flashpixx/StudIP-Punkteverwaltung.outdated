@@ -134,57 +134,57 @@
                 
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("Teilnehmeranzahl") ),
-                    "Data"          => $laListe["statistik"]["teilnehmergesamt"],
-                    "DataProzent"   => null
+                    "Titel"   => studip_utf8encode( _("Teilnehmeranzahl") ),
+                    "Data1"   => $laListe["statistik"]["teilnehmergesamt"],
+                    "Data2"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("Anzahl bestandenen Studenten") ),
-                    "Data"          => $laListe["statistik"]["teilnehmerbestanden"],
-                    "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
+                    "Titel"   => studip_utf8encode( _("Anzahl bestandenen Studenten") ),
+                    "Data1"   => $laListe["statistik"]["teilnehmerbestanden"],
+                    "Data2"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbestanden"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%"
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen") ),
-                    "Data"          => $laListe["statistik"]["teilnehmerbonus"],
-                    "DataProzent"   => $laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)
+                    "Titel"   => studip_utf8encode( _("Anzahl Studenten mit Bonuspunkten / Prozent der bestandenen") ),
+                    "Data1"   => $laListe["statistik"]["teilnehmerbonus"],
+                    "Data2"   => $laListe["statistik"]["teilnehmerbestanden"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerbonus"] / $laListe["statistik"]["teilnehmerbestanden"] * 100,2)."%"
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("Anzahl Studenten mit mehr als null Punkten") ),
-                    "Data"          => $laListe["statistik"]["teilnehmerpunktenotzero"],
-                    "DataProzent"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)
+                    "Titel"   => studip_utf8encode( _("Anzahl Studenten mit mehr als null Punkten") ),
+                    "Data1"   => $laListe["statistik"]["teilnehmerpunktenotzero"],
+                    "Data2"   => $laListe["statistik"]["teilnehmergesamt"] == 0 ? 0 : round($laListe["statistik"]["teilnehmerpunktenotzero"] / $laListe["statistik"]["teilnehmergesamt"] * 100, 2)."%"
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("Gesamtpunktanzahl") ),
-                    "Data"          => $laListe["gesamtpunkte"],
-                    "DataProzent"   => null
+                    "Titel"   => studip_utf8encode( _("Gesamtpunktanzahl") ),
+                    "Data1"   => $laListe["gesamtpunkte"],
+                    "Data2"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("Punkte zur Zulassung") ),
-                    "Data"          => $laListe["gesamtpunktebestanden"],
-                    "DataProzent"   => null
+                    "Titel"   => studip_utf8encode( _("Punkte zur Zulassung") ),
+                    "Data1"   => $laListe["gesamtpunktebestanden"],
+                    "Data2"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("max. erreichte Punkte") ),
-                    "Data"          => $laListe["statistik"]["maxpunkte"],
-                    "DataProzent"   => null
+                    "Titel"   => studip_utf8encode( _("max. erreichte Punkte") ),
+                    "Data1"   => $laListe["statistik"]["maxpunkte"],
+                    "Data2"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("min. erreichte Punkte") ),
-                    "Data"          => $laListe["statistik"]["minpunkte"],
-                    "DataProzent"   => null
+                    "Titel"   => studip_utf8encode( _("min. erreichte Punkte") ),
+                    "Data1"   => $laListe["statistik"]["minpunkte"],
+                    "Data2"   => null
                 ));
                 
                 array_push($laData, array(
-                    "Titel"         => studip_utf8encode( _("min. erreichte Punkte > 0") ),
-                    "Data"          => $laListe["statistik"]["minpunktegreaterzero"],
-                    "DataProzent"   => null
+                    "Titel"   => studip_utf8encode( _("min. erreichte Punkte > 0") ),
+                    "Data1"   => $laListe["statistik"]["minpunktegreaterzero"],
+                    "Data2"   => null
                 ));
                 
                 // @todo beste Studenten sollen gelistet werden
