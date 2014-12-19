@@ -2,7 +2,8 @@
 
  * Fix Encoding Probleme (Fix Issue #30)
  * CSS Refactoring
- * Auswertung Refactorting / Änderung zu jTables
+ * StudIP 3.x Tests / Portierung
+ * Auswertung Refactorting / Änderung zu jTables (Spalten Anzeige Default Einstellungen gesetzt)
  * Header Sending direkt in den Controllern implementiert, somit Views reduziert
  * Markdown FAQ (Fix Issue #41)
  * Ignore Liste eingefügt (Fix Issues #40 & #17)
@@ -14,6 +15,7 @@
  * Masseneingabe verändert, so dass bei Zahlen sowohl Punkt, als auch Komma als Dezimaltrenner verwendet werden kann (Fix Issue #33)
  * Auswertungstabelle auf jQuery geändert (Fix Issue #28)
  * hinzugefügte Collection für die Verwendung von unterschiedlichen Diensten, um Matrikelnummern zu ermitteln (Fix Issue #47)
+ * PDF Erzeugung wieder hergestellt (Fix Issue #44)
 
 
 
