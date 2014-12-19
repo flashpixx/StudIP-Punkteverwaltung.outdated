@@ -78,7 +78,7 @@
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
         echo "<h1 class=\"ppv\">Statistik</h1>";
-        echo "<div id=\"boxplot\" class=\"ppv statistikplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; float:right\">";
+        echo "<div id=\"boxplot\" class=\"ppv statistikplot\" style=\"height: 350px; width: 38%; float:right\">";
 
         echo "<script type=\"text/javascript\">";
 
