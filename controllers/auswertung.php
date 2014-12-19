@@ -226,10 +226,7 @@
                     usort($laData["studenten"], function($a, $b) {
                           $ln = 0;
                           
-                          if ($a == $b)
-                            return 0;
-                          
-                          elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
+                          if (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
                             $ln = $a["matrikelnummer"] - $b["matrikelnummer"];
                           
                           elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
@@ -249,6 +246,7 @@
                           
                           elseif (stripos(Request::quoted("jtSorting"), "gesamtbestanden") !== false)
                             $ln = intval($a["veranstaltungenbestanden"]) - intval($b["veranstaltungenbestanden"]);
+                          
                           
                           if (stripos(Request::quoted("jtSorting"), "asc") === false)
                             $ln = -1 * $ln;
