@@ -253,15 +253,15 @@
                     
                     foreach ($laData["studenten"] as $lcStudentKey => $laStudent)
                     {
-                        $loStudent = new Student($lcStudentKey);
+                        //$loStudent = new Student($lcStudentKey);
                         
                         // erzeuge Basis-Datensatz
                         $laItem = array(
-                            "Auth"                => studip_utf8encode( $loStudent->id() ),
+                            "Auth"                => studip_utf8encode( $lcStudentKey ),
                             "Hinweis"             => null,
-                            "Matrikelnummer"      => $loStudent->matrikelnummer(),
-                            "Name"                => studip_utf8encode( $loStudent->name() ),
-                            "EmailAdresse"        => studip_utf8encode( $loStudent->email() ),
+                            "Matrikelnummer"      => $laStudent["matrikelnummer"],
+                            "Name"                => studip_utf8encode( $laStudent["name"] ),
+                            "EmailAdresse"        => studip_utf8encode( $laStudent["email"] ),
                             "Studiengang"         => $laStudent["studiengang"],
                             "Gesamtpunkte"        => $laStudent["uebungenpunkte"],
                             "GesamtpunkteProzent" => $laData["gesamtpunkte"] ? round($laStudent["uebungenpunkte"] / $laData["gesamtpunkte"] * 100, 2) : 0,
