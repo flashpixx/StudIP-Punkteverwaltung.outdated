@@ -253,8 +253,6 @@
                     
                     foreach ($laData["studenten"] as $lcStudentKey => $laStudent)
                     {
-                        //$loStudent = new Student($lcStudentKey);
-                        
                         // erzeuge Basis-Datensatz
                         $laItem = array(
                             "Auth"                => studip_utf8encode( $lcStudentKey ),
@@ -285,6 +283,7 @@
                         
                         
                         // Daten überprüfen und Hinweis setzen
+                        $loStudent = new Student($lcStudentKey);
                         if ($loStudent->checkStudiengangAbschlussFehler())
                             $laItem["Hinweis"] = studip_utf8encode( _("Fehler bei Studiengang und/oder Abschluss") );
                         
