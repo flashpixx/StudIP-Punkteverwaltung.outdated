@@ -47,7 +47,7 @@
         // erzeuge verschiedene Ausgabeformate
         $laExportformat  = array("pdf", "xlsx");
 
-        echo "<div><h1 class=\"ppv\">Datei Export</h1>";
+        echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Datei Export</h1>";
         echo "<table border=\"0\" width=\"25%\">";
 
         echo "<tr>";
@@ -76,7 +76,7 @@
 
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
-        echo "<div><h1 class=\"ppv\">Statistik</h1>";
+        echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Statistik</h1>";
         echo "<div id=\"boxplot\" class=\"ppv statistikplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; float:right\">";
 
         echo "<script type=\"text/javascript\">";
@@ -154,7 +154,7 @@
 
 
         // jTable für die Punkte erzeugen
-        echo "<div><h1 class=\"ppv\">Punkteliste</h1>";
+        echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Punkteliste</h1>";
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
         echo "jQuery(\"#punktetabelle\").jtable({";

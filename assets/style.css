@@ -82,3 +82,8 @@
     border-width:     1px;
     margin:           25px auto;
 }
+
+.ppv.withbreak
+{
+    clear:            both
+}
