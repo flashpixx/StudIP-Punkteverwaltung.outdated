@@ -39,20 +39,16 @@
         if (!VeranstaltungPermission::hasDozentRecht($loVeranstaltung))
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
-
-        //$loBonuspunkte   = new Bonuspunkt( $loVeranstaltung );
-        //$laBonuspunkte   = $loBonuspunkte->liste();
         $loAuswertung    = new Auswertung( $loVeranstaltung );
         $laListe         = $loAuswertung->studententabelle();
-        
-        // Sortierung hart nach Matrikelnummern
-        uasort($laListe["studenten"], function($a, $b) { return $a["matrikelnummer"] - $b["matrikelnummer"]; });
 
+        
+        
         // erzeuge verschiedene Ausgabeformate
         $laExportformat  = array("pdf", "xlsx");
 
-        echo "<h1 class=\"ppv\">Datei Export</h1>";
-        echo "<p><table border=\"0\" width=\"25%\">";
+        echo "<div><h1 class=\"ppv\">Datei Export</h1>";
+        echo "<table border=\"0\" width=\"25%\">";
 
         echo "<tr>";
         echo "<td>"._("vollst‰ndige Liste")."</td>";
@@ -72,13 +68,16 @@
             echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestanden"))."\">".strtoupper($lcType)."</a></td>";
         echo "</tr>";
 
-        echo "</table> </p>";
+        echo "</table></div>";
 
+        
+        
+        
 
         // Bild erzeugen
         // @see http://bl.ocks.org/mbostock/4061502
-        echo "<h1 class=\"ppv\">Statistik</h1>";
-        echo "<p><div id=\"boxplot\" class=\"ppv statistikplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; float:right\">";
+        echo "<div><h1 class=\"ppv\">Statistik</h1>";
+        echo "<div id=\"boxplot\" class=\"ppv statistikplot\" style=\"height: 350px; width: ".(80*count($laListe["uebungen"]))."px; float:right\">";
 
         echo "<script type=\"text/javascript\">";
 
@@ -147,7 +146,7 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"auswertungstabelle\" style=\"width:60%; float:left\" class=\"ppv jtable\"></div></p>";
+        echo "<div id=\"auswertungstabelle\" style=\"width:60%; float:left\" class=\"ppv jtable\"></div></div>";
 
         
         
@@ -155,7 +154,7 @@
 
 
         // jTable für die Punkte erzeugen
-        echo "<h1 class=\"ppv\">Punkteliste</h1>";
+        echo "<div><h1 class=\"ppv\">Punkteliste</h1>";
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
         echo "jQuery(\"#punktetabelle\").jtable({";
@@ -200,7 +199,7 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"punktetabelle\" style=\"width:45%\" class=\"ppv jtable\"></div>";
+        echo "<div id=\"punktetabelle\" style=\"width:45%\" class=\"ppv jtable\"></div><div>";
 
 
     } catch (Exception $e) {
