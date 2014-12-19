@@ -223,8 +223,8 @@
                     $laResult["TotalRecordCount"] = count($laData["studenten"]);
                     
                     // sortiere Daten anhand des Kriteriums
-                    
-                    usort($laData, function($a, $b) {
+                    /*
+                    usort($laData["studenten"], function($a, $b) {
                           $ln = 0;
                           
                           if ($a == $b)
@@ -245,10 +245,10 @@
                           
                           return $ln;
                     });
-                    
+                    */
                     
                     // hole Query Parameter, um die Datenmenge passend auszuwählen
-                    //$laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
+                    $laData["studenten"] = array_slice($laData["studenten"], Request::int("jtStartIndex"), Request::int("jtPageSize"));
                     
                     
                     foreach ($laData["studenten"] as $lcStudentKey => $laStudent)
