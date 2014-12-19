@@ -59,8 +59,8 @@
             elseif (is_string($px))
                 $lcHash = $px;
             
-            if (!empty($px))
-                unset( $this->maServices[ spl_object_hash($po) ] );
+            if (!empty($lcHash))
+                unset( $this->maServices[ $lcHash ] );
         }
         
         
