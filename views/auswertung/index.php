@@ -153,7 +153,7 @@
 
 
 
-        // jTable fŸr die Punkte erzeugen
+        // jTable für die Punkte erzeugen
         echo "<div class=\"ppv withbreak\"><h1 class=\"ppv\">Punkteliste</h1>";
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
@@ -199,7 +199,7 @@
         echo "});";
         echo "</script>";
         
-        echo "<div id=\"punktetabelle\" style=\"width:45%\" class=\"ppv jtable\"></div><div>";
+        echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div><div>";
 
 
     } catch (Exception $e) {
