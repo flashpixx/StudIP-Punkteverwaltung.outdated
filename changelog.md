@@ -12,6 +12,7 @@
  * eingetragene Gruppen des Benutzers in der Übungstabelle angezeigt (Fix Issue #42)
  * JavaScript & CSS Daten in UTF-8 encodiert und mit passendem Encoding in den HTML Header eingebunden (vgl. Fix Issue #31)
  * Masseneingabe verändert, so dass bei Zahlen sowohl Punkt, als auch Komma als Dezimaltrenner verwendet werden kann (Fix Issue #33)
+* Auswertungstabelle auf jQuery geändert (Fix Issue #28)
 
 
 ## 0.22
