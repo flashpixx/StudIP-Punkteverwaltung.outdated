@@ -45,18 +45,33 @@
             if (!($po instanceof MatrikelNummerInterface))
                 throw new Exception(_("übergebenes Objekt implementiert nicht das MatrikelNummerInterface"));
             
-            array_push($this->maServices, $po);
+            $this->maServices[ spl_object_hash($po) ] = $po;
+        }
+        
+        /** entfernt ein Objekt wieder aus der internen Collection
+         * @param $px Hash oder Objekt, der entfernt werden soll
+         **/
+        function remove( $px )
+        {
+            $lcHash = null;
+            if (is_object($px))
+                $lcHash = spl_object($px);
+            elseif (is_string($px))
+                $lcHash = $px;
+            
+            if (!empty($px))
+                unset( $this->maServices[ spl_object_hash($po) ] );
         }
         
         
-        /** liefert die Matrikelnummer oder einen leeren Wert zurück
+        /** liefert die Matrikelnummer oder einen leeren Wert zurück, wobei first-found die Suche beendet
          * @overload
          * @param $px BenutzerID oder ein Array mit IDs / Matrikelnummer bzw. Array mit Matrikelnummern
          * @return Leerwert, Nummer oder Array mit Nummern
          **/
         function get( $px )
         {
-            foreach($this->maServices as $loService)
+            foreach($this->maServices as $lcKey => $loService)
             {
                 $lxResult = $loService->get( $px );
                 if ( (is_array($lxResult)) || (is_numeric($lxResult)) )
