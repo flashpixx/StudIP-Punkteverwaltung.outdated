@@ -571,6 +571,7 @@
 
             // Daten dem PDF hinzufügen und senden
             $this->set_layout(null);
+            $this->render_nothing();
             $loPDF->addContent( $lcData );
             $loPDF->dispatch($lcTitle);
         }
