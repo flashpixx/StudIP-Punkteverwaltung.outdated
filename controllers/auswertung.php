@@ -223,7 +223,6 @@
                     $laResult["TotalRecordCount"] = count($laData["studenten"]);
                     
                     // sortiere Daten anhand des Kriteriums
-                    /*
                     usort($laData["studenten"], function($a, $b) {
                           $ln = 0;
                           
@@ -231,21 +230,32 @@
                             return 0;
                           
                           elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
-                            $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
+                            $ln = $a["matrikelnummer"] - $b["matrikelnummer"];
                           
                           elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
-                            $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
+                            $ln = strcasecmp(studip_utf8encode($a["name"]), studip_utf8encode($b["name"]));
                           
                           elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
-                            $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
+                            $ln = strcasecmp(studip_utf8encode($a["email"]), studip_utf8encode($b["email"]));
 
+                          elseif (stripos(Request::quoted("jtSorting"), "studiengang") !== false)
+                            $ln = strcasecmp(studip_utf8encode($a["studiengang"]), studip_utf8encode($b["studiengang"]));
+                          
+                          elseif (stripos(Request::quoted("jtSorting"), "gesamtpunkte") !== false)
+                            $ln = $a["uebungenpunkte"] - $b["uebungenpunkte"];
+                          
+                          elseif (stripos(Request::quoted("jtSorting"), "bonuspunkte") !== false)
+                            $ln = $a["bonuspunkte"] - $b["bonuspunkte"];
+                          
+                          elseif (stripos(Request::quoted("jtSorting"), "gesamtbestanden") !== false)
+                            $ln = intval($a["veranstaltungenbestanden"]) - intval($b["veranstaltungenbestanden"]);
                           
                           if (stripos(Request::quoted("jtSorting"), "asc") === false)
                             $ln = -1 * $ln;
                           
                           return $ln;
                     });
-                    */
+                
                     
                     // hole Query Parameter, um die Datenmenge passend auszuwählen
                     $laData["studenten"] = array_slice($laData["studenten"], Request::int("jtStartIndex"), Request::int("jtPageSize"));

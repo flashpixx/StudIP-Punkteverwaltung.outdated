@@ -177,7 +177,7 @@
         echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
         echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
         echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
-        echo "Studiengang : { visibility : \"hidden\", sorting: false, edit : false, title : \""._("Studiengang")."\", width : \"10%\" },";
+        echo "Studiengang : { visibility : \"hidden\", edit : false, title : \""._("Studiengang")."\", width : \"10%\" },";
         
         $lnSize = round( (35 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
@@ -188,10 +188,10 @@
             echo "ueb_bestanden_".$lcHash." : { visibility : \"hidden\", sorting: false, edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \"".$laUebung["name"]." "._("bestanden")."\", width : \"".$lnSize."%\" },";
         }
         
-        echo "Gesamtpunkte : { sorting: false, edit : false, title : \""._("Gesamtpunkte")."\", width : \"5%\" },";
+        echo "Gesamtpunkte : { edit : false, title : \""._("Gesamtpunkte")."\", width : \"5%\" },";
         echo "GesamtpunkteProzent : { sorting: false, edit : false, title : \""._("Gesamtpunkte Prozent")."\", width : \"5%\" },";
-        echo "gesamtbestanden : { sorting: false, visibility : \"hidden\", edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \""._("Gesamt bestanden")."\", width : \"5%\" },";
-        echo "Bonuspunkte : { sorting: false, edit : false, title : \""._("Bonuspunkte")."\", width : \"5%\" },";
+        echo "gesamtbestanden : { visibility : \"hidden\", edit : false, type : \"checkbox\", values : { \"false\" : \"nein\", \"true\" : \"ja\" }, title : \""._("Gesamt bestanden")."\", width : \"5%\" },";
+        echo "Bonuspunkte : { edit : false, title : \""._("Bonuspunkte")."\", width : \"5%\" },";
         
         echo "}";
         echo "});";
