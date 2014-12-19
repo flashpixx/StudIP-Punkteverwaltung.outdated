@@ -223,31 +223,29 @@
                     $laResult["TotalRecordCount"] = count($laData["studenten"]);
                     
                     // sortiere Daten anhand des Kriteriums
-                    /*
+                    
                     usort($laData, function($a, $b) {
                           $ln = 0;
                           
                           if ($a == $b)
-                          return 0;
+                            return 0;
                           
                           elseif (stripos(Request::quoted("jtSorting"), "matrikelnummer") !== false)
-                          $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
+                            $ln = $a->student()->matrikelnummer() - $b->student()->matrikelnummer();
                           
                           elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
-                          $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
+                            $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
                           
                           elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
-                          $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
-                          
+                            $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
 
                           
-                          
                           if (stripos(Request::quoted("jtSorting"), "asc") === false)
-                          $ln = -1 * $ln;
+                            $ln = -1 * $ln;
                           
                           return $ln;
-                          });
-                     */
+                    });
+                    
                     
                     // hole Query Parameter, um die Datenmenge passend auszuwählen
                     //$laData = array_slice($laData, Request::int("jtStartIndex"), Request::int("jtPageSize"));
