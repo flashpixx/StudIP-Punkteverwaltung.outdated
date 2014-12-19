@@ -1,10 +1,22 @@
-Stud.IP Punkteverwaltung
+# Stud.IP Punkteverwaltung
 ========================
 
 Das [Stud.IP Plugin](http://www.studip.de) ist für die Verwaltung von Übungen und Tutorien gedacht, in der die Teilnehmer einer Veranstaltung
-eine Vorleistung erbringen müssen. Die Rolle Dozent der Veranstaltung kann mehrere Übungen anlegen und definieren, wann die Vorleistung als
-bestanden gilt. Ebenso können für die Veranstaltung Bonuspunkte z.B. für eine Klausur definiert werden. Die Rolle Tutor kann dann für die
-Teilnehmer die Punkte eintragen. Jeder Teilnehmer sieht dann, welche Punkte er aktuell erreicht hat. Es können in der Veranstaltung
-ebenso eine Mindestpunktzahl zum erreichen der Übung eingetragen werden, ebenso eine Anzahl an Übungen, die unterhalb der Bestehengrenze
-liegen dürfen, so dass die Veranstaltung noch als bestanden gewertet werden kann. Der Dozent kann dann eine Liste als PDF herunterladen.
-Zusätzlich werden die Punktedaten statistisch ausgewertet und als Graphik für den Dozenten dargestellt
+eine Vorleistung erbringen müssen. 
+
+
+## Sichten
+
+Das Plugin ist unterteilt in drei Sichten:
+
+ * Administrator / Root - kann alle Einstellung für die interne Verwaltung verändern
+ * Dozent - kann Übungen, Bonuspunkte und Bewertungsschemata anlegen, sowie die Auswertung aller Teilnehmer ansehen
+ * Tutor - kann einzelne Teilnehmer bewerten
+ * Autor / Student - kann seine individuellen Leistungen einsehen
+
+## Benutzung
+
+Tutoren und Dozenten erhalten tabellarischen Zugriff auf die entsprechenden Einstellungen, so dass Sie einfach die Daten
+verändern können. Insbesondere Dozenten können mittels Log nachvollziehen wann und durch wen Eintragungen verändert wurden.
+Weiterhin können Veränderungen einmal tabellarisch über die GUI oder über eine textuelle Masseneingabe durchgeführt werden
+

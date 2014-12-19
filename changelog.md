@@ -1,6 +1,6 @@
 ## 0.23
 
- * Fix Encoding Probleme
+ * Fix Encoding Probleme (Fix Issue #30)
  * CSS Refactoring
  * Auswertung Refactorting / Änderung zu jTables
  * Header Sending direkt in den Controllern implementiert, somit Views reduziert
