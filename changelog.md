@@ -1,10 +1,10 @@
 ## 0.23
 
- * Fix Encoding Probleme (Fix Issue #30)
  * CSS Refactoring
- * StudIP 3.x Tests / Portierung
+ * Travis Builds für StudIP 2.5, 3.0, 3.1 Tests
  * Auswertung Refactorting / Änderung zu jTables (Spalten Anzeige Default Einstellungen gesetzt)
  * Header Sending direkt in den Controllern implementiert, somit Views reduziert
+ * Fix Encoding Probleme (Fix Issue #30)
  * Markdown FAQ (Fix Issue #41)
  * Ignore Liste eingefügt (Fix Issues #40 & #17)
  * Anzeige des Studiengangs in der Auswertung (Fix Issue #34)
