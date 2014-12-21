@@ -88,6 +88,13 @@
             if ( (!empty($lcMarkdownfile)) && (file_exists($lcMarkdownfile)) )
             {
                 $loMarkdown  = new Markdown();
+                
+                // Link Funktion definieren
+                $loMarkdown->url_filter_func= function( $lcLink ) {
+                    return "->".$lcLink."<-";
+                };
+                
+                // Markdown rendern
                 $this->hilfe = $loMarkdown->transform( file_get_contents( $lcMarkdownfile ) );
             }
         }
