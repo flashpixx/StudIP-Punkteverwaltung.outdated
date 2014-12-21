@@ -39,6 +39,13 @@
     /** Controller für die Sicht eines Studenten **/
     class HilfeController extends StudipController
     {
+        
+        /** Property, das den Teilpfad enthält, in dem die Hilfsdokumente zu finden sind **/
+        private static $documentpath = "/assets/hilfe";
+        
+        /** Name des URL Parameters, über das Dokumentname übergeben werden **/
+        private static $urlparameter = "doc";
+        
 
         /** Ctor, um aus dem Dispatcher die Referenz auf das Pluginobjekt
          * zu bekommen
@@ -68,9 +75,10 @@
             
             
             // Hilfe Basis Informationen setzen
+            // @todo für Multilanguage Support einfach ein entsprechendes Verzeichnis für die Sprache hinzufügen
             $this->hilfe      = null;
 
-            $basepath         = $this->plugin->getPluginPath() . "/assets/hilfe";
+            $basepath         = self::$documentpath;
             if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
                 $basepath     .= "/dozent/";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
@@ -79,8 +87,8 @@
                 
                 
             // Dokumentnamen ermitteln (mit passendem Encoding, so dass Dateinamen nur ASCII Buchstaben enthalten dürfen)
-            $lcFilenameName = Request::quoted("doc");
-            $lcMarkdownfile = $basepath . (empty($lcFilenameName) ? "index" : iconv(mb_detect_encoding($lcFilename), "ASCII//IGNORE", $lcFilename)) . ".md";
+            $lcFilenameName = strtolower(Request::quoted(self::$urlparameter));
+            $lcMarkdownfile = $this->plugin->getPluginPath() . $basepath . (empty($lcFilenameName) ? "index" : iconv(mb_detect_encoding($lcFilename), "ASCII//IGNORE", $lcFilename)) . ".md";
 
             
             
@@ -96,8 +104,11 @@
                     if (filter_var($lcLink, FILTER_VALIDATE_URL))
                         return $lcLink;
                     
-                    
-                    return "->".$lcLink."<-";
+                    // falls es kein externer Link ist, kann es nur noch ein interner Link oder ein Bild sein
+                    if (Tools::foundCISubStr($lcLink, array(".png", ".jpg", ".jpeg", ".svg")))
+                        return $this->plugin->getPluginURL() . $basepath . $lcLink;
+                        
+                    return $this->url_for("hilfe", array(self::$urlparameter => $lcLink));
                 };
                 
                 // Markdown rendern

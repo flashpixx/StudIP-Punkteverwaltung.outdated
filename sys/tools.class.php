@@ -115,6 +115,25 @@
             header("Content-Type: application/json");
             echo json_encode( $pxJson );
         }
+        
+        
+        /** überprüft, ob in einem String ein Substring oder ein Element eines Array
+         * von Substrings enthalten ist
+         * @param $pcString String, in dem gesucht wird
+         * @param $pxSearch String oder Array von Strings, die gesucht werden sollen
+         * @return true beim einem Fund
+         **/
+        static function foundCISubStr( $pcString, $pxSearch )
+        {
+            if (is_string($pxSearch))
+                return stripos() !== false;
+            elseif (is_array($pxSearch))
+                foreach( $pxSearch as $lc )
+                    if (foundSubStr($pcString, $lc))
+                        return true;
+            
+            return false;
+        }
     
     }
     
