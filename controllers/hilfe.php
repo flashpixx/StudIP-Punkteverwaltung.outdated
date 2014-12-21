@@ -86,7 +86,10 @@
             
             // Markdownfile lesen und rendern
             if ( (!empty($lcMarkdownfile)) && (file_exists($lcMarkdownfile)) )
-                $this->hilfe = Markdown::defaultTransform( file_get_contents( $lcMarkdownfile ) );
+            {
+                $loMarkdown  = new Markdown();
+                $this->hilfe = $loMarkdown->tranform( file_get_contents( $lcMarkdownfile ) );
+            }
         }
 
 
