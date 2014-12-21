@@ -19,6 +19,7 @@
  * OSM / Löschstrukturen gefixed (Fix Issue #45)
  * Auswertung zeigt die 10 beste Stundenten an (Fix Issue #19)
  * FAQ integriert (Fix Issue #41)
+ * Hilfe für Studierende eingefügt
 
 
 
