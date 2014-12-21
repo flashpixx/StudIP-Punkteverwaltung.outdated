@@ -129,7 +129,7 @@
                 return stripos() !== false;
             elseif (is_array($pxSearch))
                 foreach( $pxSearch as $lc )
-                    if (foundSubStr($pcString, $lc))
+                    if (self::foundCISubStr($pcString, $lc))
                         return true;
             
             return false;
