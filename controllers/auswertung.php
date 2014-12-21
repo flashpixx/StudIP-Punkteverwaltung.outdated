@@ -202,7 +202,7 @@
                 
                 array_push($laData, array(
                     "Titel"   => studip_utf8encode( _("zehn Studierende mit den besten Leistungen") ),
-                    "Data1"   => studip_utf8encode(implode("\n", $la)),
+                    "Data1"   => studip_utf8encode(implode(" - ", $la)),
                     "Data2"   => null
                 ));
                 
