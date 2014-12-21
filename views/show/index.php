@@ -48,8 +48,7 @@
         echo "title          : \"Punkteliste\",";
         echo "paging         : false,";
         echo "pageSize       : 50,";
-        echo "sorting        : true,";
-        echo "defaultSorting : \"Uebung ASC\",";
+        echo "sorting        : false,";
         echo "actions: {";
         echo "listAction   : \"".$listaction."\",";
         echo "},";
@@ -72,26 +71,7 @@
         echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
 
         
-        
-        
-        
-        
         /*
-        $loStudent    = new Student($GLOBALS["user"]->id);
-
-        $loAuswertung = new Auswertung($loVeranstaltung);
-        $laAuswertung = $loAuswertung->studentdaten($loStudent);
-
-        echo "<p><strong>"._("Hinweis:")."</strong> "._("Eine Übung, die noch nicht bewertet wurde, wird mit 0 Punkten angegeben. Warten Sie bitte die Bewertung Ihrer Übung ab, bevor Sie uns kontaktieren.")."</p>";
-
-
-        echo "<table width=\"100%\">";
-        echo "<tr><th>"._("Übung")."</th><th>"._("erreichte Punkte")."</th><th>"._("erreichte Prozent")."</th></tr>";
-
-        foreach( $laAuswertung["uebungen"] as $laUebung )
-            echo "<tr><td>".$laUebung["name"]."</td><td> ".$laUebung["studenten"][$loStudent->id()]["punktesumme"]."</td><td>".$laUebung["studenten"][$loStudent->id()]["erreichteprozent"]."%</td></tr>";
-
-
         if ($loStudent)
         {
             echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";

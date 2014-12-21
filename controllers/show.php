@@ -60,6 +60,21 @@
             // die aktuellen Daten bekommt
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
+            
+            $this->student                = null;
+            $this->auswertung             = null;
+            $this->initerror              = null;
+            
+            try {
+            
+                $this->student      = new Student($GLOBALS["user"]->id);
+                
+                $loAuswertung       = new Auswertung( $this->flash["veranstaltung"] );
+                $this->auswertung   = $loAuswertung->studentdaten( $this->student );
+                
+            } catch (Exception $e) {
+                $this->initerror = $e->getMessage();
+            }
         }
 
 
@@ -69,22 +84,21 @@
             Tools::addHTMLHeaderElements( $this->plugin );
             
             $this->listaction       = $this->url_for( "show/jsonlist");
-        
-            //PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
         }
 
         /** setzt den Studiengang des Users **/
         function studiengang_action()
         {
-
             try {
+                
+                if (!empty($this->initerror))
+                    throw new Exception($this->initerror);
+                
+                
                 $laData    = explode("#", Request::quoted("studiengang"));
-
                 if (count($laData) == 2)
                 {
-                    $loStudent = new Student( $GLOBALS["user"]->id );
-                    $loStudent->studiengang($this->flash["veranstaltung"], trim($laData[0]), trim($laData[1]));
-
+                    $this->student->studiengang($this->flash["veranstaltung"], trim($laData[0]), trim($laData[1]));
                     $this->flash["message"] = Tools::createMessage( "success", _("Anerkennung für den Studiengang für diese Veranstaltung geändert") );
                 }
                 
@@ -103,27 +117,23 @@
             
             try {
                 
-                $loStudent    = new Student($GLOBALS["user"]->id);
+                if (!empty($this->initerror))
+                    throw new Exception($this->initerror);
                 
-                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
-                $laAuswertung = $loAuswertung->studentdaten( $loStudent );
-                
-                
+
                 $la = array();
-                foreach( $laAuswertung["uebungen"] as $laUebung )
+                foreach( $this->auswertung["uebungen"] as $laUebung )
                     array_push($la, array(
                         "Uebung"        => studip_utf8encode( $laUebung["name"] ),
-                        "Punkte"        => $laUebung["studenten"][$loStudent->id()]["punktesumme"],
-                        "PunkteProzent" => $laUebung["studenten"][$loStudent->id()]["erreichteprozent"],
+                        "Punkte"        => $laUebung["studenten"][$this->student->id()]["punktesumme"],
+                        "PunkteProzent" => $laUebung["studenten"][$this->student->id()]["erreichteprozent"],
                         "Bewertung"     => null
                     ));
-                
-                // @todo Sorting fehlt
+
 
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Records"] = $la;
                 $laResult["Result"]  = "OK";
-                
                 
             } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
             
