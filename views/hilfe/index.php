@@ -32,7 +32,7 @@
     try {
         
         if (empty($hilfe))
-            throw new Exception( _("Das gewünschte Dokument kann nicht aufgerufen werden") );
+            throw new Exception( _("Das gewünschte Hilfe-Dokument kann nicht aufgerufen werden") );
         
 
         // Encoding muss in WINDOWS-1252 / ISO-8859-1 umgewandelt werdem, da das Default von Stud.IP ist,
