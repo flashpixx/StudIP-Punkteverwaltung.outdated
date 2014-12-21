@@ -189,11 +189,11 @@
                 
                 
                 // beste Studenten sollen gelistet werden
-                usort($laData["studenten"], function($a, $b) {
+                usort($laListe["studenten"], function($a, $b) {
                       return $a["uebungenpunkte"] - $b["uebungenpunkte"];
                 });
                 $la = array();
-                foreach($laData["studenten"] as $lcStudentKey => $laStudentValues)
+                foreach($laListe["studenten"] as $lcStudentKey => $laStudentValues)
                 {
                     array_push($la, $laStudentValues["name"] . "(" .$laStudentValues["matrikelnummer"]. ")");
                     if (count($la) >= 10)
