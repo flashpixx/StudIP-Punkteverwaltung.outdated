@@ -97,22 +97,32 @@
 
 
         /** löscht eine Übung mit allen dazugehörigen Daten
-         * @param $pxVeranstaltung Veranstaltungsobjekt oder -ID oder Übungsobjekt
-         * @param $pxID Übungsobjekt oder -ID (oder null, falls im ersten Parameter ein Übungsobjekt übergeben wurde)
+         * @param $pxObject Veranstaltungs- oder Übungsobjekt
+         * @param $pxUebung Übungsobjeckt oder null (vgl Ctor)
          **/
-        static function delete( $pxVeranstaltung, $pxID = null )
+        static function delete( $pxObject, $pxUebung = null )
         {
-            $lcClassName = __CLASS__;
-            $loUebung = new $lcClassName( $pxVeranstaltung, $pxID );
+            $laUebung = array();
+            
+            if ($pxObject instanceof Veranstaltung)
+                $laUebung = $pxObject->uebungen();
+            else {
+                $lcClassName = __CLASS__;
+                array_push($laUebung, new $lcClassName($pxObject, $pxUebung) );
+            }
+                
+            
+            foreach( $laUebung as $loUebung)
+            {
+                if ($loUebung->veranstaltung()->isClosed())
+                    throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
-            if ($loUebung->veranstaltung()->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
+                foreach( $loUebung->studentenuebung() as $item )
+                    StudentUebung::delete( $item->uebung(), $item->student() );
 
-            foreach( $loUebung->studentenuebung() as $item )
-                StudentUebung::delete( $item->uebung(), $item->student() );
-
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id = :id" );
-            $loPrepare->execute( array("semid" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
+                $loPrepare = DBManager::get()->prepare( "delete from ppv_uebung where seminar = :semid and id = :id" );
+                $loPrepare->execute( array("semid" => $loUebung->veranstaltung()->id(), "id" => $loUebung->id()) );
+            }
         }
 
 

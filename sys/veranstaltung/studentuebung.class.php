@@ -68,12 +68,16 @@
             if ($loUebung->veranstaltung()->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
 
-
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudentlog where uebung = :uebungid and student = :auth" );
-            $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
-
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_uebungstudent where uebung = :uebungid and student = :auth" );
-            $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
+            $laSQL = array(
+                "delete from ppv_uebungstudentlog where uebung = :uebungid and student = :auth",
+                "delete from ppv_uebungstudent where uebung = :uebungid and student = :auth"
+            );
+            
+            foreach( $laSQL as $lcSQL )
+            {
+                $loPrepare = DBManager::get()->prepare( $lcSQL );
+                $loPrepare->execute( array("uebungid" => $loUebung->id(), "auth" => $loStudent->id()) );
+            }
         }
 
 

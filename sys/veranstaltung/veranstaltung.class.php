@@ -92,16 +92,21 @@
             if ($lo->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr gelöscht werden"));
 
-            foreach ($lo->uebungen() as $uebung)
-                Uebung::delete( $lo, $uebung );
-
+            Uebung::delete( $lo );
             Bonuspunkte::delete( $lo );
+            
+            $laSQL = array(
+                "delete from ppv_seminar where id = :semid",
+                "delete from ppv_seminarmanuellezulassung where id = :semid",
+                "delete from ppv_studiengang where seminar = :semid"
+                           
+            );
 
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminar where id = :semid" );
-            $loPrepare->execute( array("semid" => $lo->id()) );
-
-            $loPrepare = DBManager::get()->prepare( "delete from ppv_seminarmanuellezulassung where id = :semid" );
-            $loPrepare->execute( array("semid" => $lo->id()) );
+            foreach( $laSQL  as $lcSQL )
+            {
+                $loPrepare = DBManager::get()->prepare( $lcSQL );
+                $loPrepare->execute( array("semid" => $lo->id()) );
+            }
         }
     
     
