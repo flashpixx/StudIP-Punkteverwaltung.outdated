@@ -100,6 +100,27 @@
             $laResult = array( "Result"  => "ERROR", "Records" => array() );
             
             try {
+                
+                $loStudent    = new Student($GLOBALS["user"]->id);
+                
+                $loAuswertung = new Auswertung($loVeranstaltung);
+                $laAuswertung = $loAuswertung->studentdaten($loStudent);
+                
+                
+                $la = array();
+                foreach( $laAuswertung["uebungen"] as $laUebung )
+                    array_push($la, array(
+                        "Uebung"        => studip_utf8encode( $laUebung["name"] ),
+                        "Punkte "       => $laUebung["studenten"][$loStudent->id()]["punktesumme"],
+                        "PunkteProzent" => $laUebung["studenten"][$loStudent->id()]["erreichteprozent"],
+                        "Bewertung"     => null
+                    ));
+
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["Records"] = $la;
+                $laResult["Result"]  = "OK";
+                
+                
             } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
             
             Tools::sendJson( $this, $laResult );
