@@ -29,7 +29,7 @@
     require_once(dirname(__DIR__) . "/sys/student.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/extensions/markdown/MarkdownExtra.inc.php");
+    require_once(dirname(__DIR__) . "/sys/extensions/markdown/MarkdownExtra.inc.php");
     
     
     use \Michelf\Markdown;
