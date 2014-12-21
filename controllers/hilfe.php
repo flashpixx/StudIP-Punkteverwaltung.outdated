@@ -68,21 +68,20 @@
             
             
             // Hilfe Basis Informationen setzen
-            $basepath         = $this->plugin->getPluginPath() . "/assets/hilfe";
             $this->hilfe      = null;
-            
-            
-            // Hilfedatei ermitteln
-            $lcMarkdownfile     = null;
+
+            $basepath         = $this->plugin->getPluginPath() . "/assets/hilfe";
             if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                $lcMarkdownfile = $basepath . "/dozent/index.md";
+                $basepath     .= "/dozent/;
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
-                $lcMarkdownfile = $basepath . "/tutor/index.md";
+                $basepath     .= "/tutor/;
+
+                
+                
+            // Dokumentnamen ermitteln
+            $lcMarkdownfile = $basepath . (empty(Request::quoted("doc")) ? "index" : iconv( mb_detect_encoding(Request::quoted("doc")), "ASCII//IGNORE", Request::quoted("doc"))) . "md";
             
-            // @todo hier muss der Pfad zum Bildordner gesetzt werden und geprüft werden, ob die Datei
-            // die als Parameter übergeben wird, vorhanden ist, wenn mšglich sollten alle bestätigten Funktionen
-            // via Flash-Variable übergeben werden
-            
+
             
             // Markdownfile lesen und rendern
             if ( (!empty($lcMarkdownfile)) && (file_exists($lcMarkdownfile)) )
@@ -95,6 +94,7 @@
                     // sofern eine externe URL angegeben wurde, direkt liefern
                     if (filter_var($lcLink, FILTER_VALIDATE_URL))
                         return $lcLink;
+                    
                     
                     return "->".$lcLink."<-";
                 };
