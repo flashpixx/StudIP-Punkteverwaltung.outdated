@@ -88,7 +88,7 @@
             if ( (!empty($lcMarkdownfile)) && (file_exists($lcMarkdownfile)) )
             {
                 $loMarkdown  = new Markdown();
-                $this->hilfe = $loMarkdown->tranform( file_get_contents( $lcMarkdownfile ) );
+                $this->hilfe = $loMarkdown->transform( file_get_contents( $lcMarkdownfile ) );
             }
         }
 
