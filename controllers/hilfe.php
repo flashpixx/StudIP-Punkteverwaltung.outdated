@@ -83,8 +83,8 @@
             if (empty(Request::quoted("doc")))
                 $lcMarkdownfile .= "index";
             else {
-                $lcEncoding      = mb_detect_encoding(Request::quoted("doc"));
-                $lcMarkdownfile .= iconv($lcEncoding, "ASCII//IGNORE", Request::quoted("doc"));
+                $lcName          = Request::quoted("doc");
+                $lcMarkdownfile .= iconv(mb_detect_encoding($lcName), "ASCII//IGNORE", $lcName);
             }
             $lcMarkdownfile .= ".md";
             
