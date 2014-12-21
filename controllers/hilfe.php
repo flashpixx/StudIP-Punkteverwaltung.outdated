@@ -91,6 +91,11 @@
                 
                 // Link Funktion definieren
                 $loMarkdown->url_filter_func= function( $lcLink ) {
+                    
+                    // sofern eine externe URL angegeben wurde, direkt liefern
+                    if (!filter_var($lcLink, FILTER_VALIDATE_URL))
+                        return $lcLink;
+                    
                     return "->".$lcLink."<-";
                 };
                 
