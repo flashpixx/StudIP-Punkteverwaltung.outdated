@@ -72,9 +72,9 @@
 
             $basepath         = $this->plugin->getPluginPath() . "/assets/hilfe";
             if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                $basepath     .= "/dozent/;
+                $basepath     .= "/dozent/";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
-                $basepath     .= "/tutor/;
+                $basepath     .= "/tutor/";
 
                 
                 
