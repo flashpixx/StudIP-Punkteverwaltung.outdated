@@ -126,7 +126,7 @@
         static function foundCISubStr( $pcString, $pxSearch )
         {
             if (is_string($pxSearch))
-                return stripos() !== false;
+                return stripos($pcString, $pxSearch) !== false;
             elseif (is_array($pxSearch))
                 foreach( $pxSearch as $lc )
                     if (self::foundCISubStr($pcString, $lc))
