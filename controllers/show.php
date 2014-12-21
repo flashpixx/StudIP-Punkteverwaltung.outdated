@@ -113,10 +113,12 @@
                 foreach( $laAuswertung["uebungen"] as $laUebung )
                     array_push($la, array(
                         "Uebung"        => studip_utf8encode( $laUebung["name"] ),
-                        "Punkte "       => $laUebung["studenten"][$loStudent->id()]["punktesumme"],
+                        "Punkte"        => $laUebung["studenten"][$loStudent->id()]["punktesumme"],
                         "PunkteProzent" => $laUebung["studenten"][$loStudent->id()]["erreichteprozent"],
                         "Bewertung"     => null
                     ));
+                
+                // @todo Sorting fehlt
 
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Records"] = $la;

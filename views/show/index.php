@@ -56,7 +56,7 @@
         
         echo "fields: {";
         
-        echo "Uebung : { edit : false, title : \""._("Übung")."\", width : \"30%\" },";
+        echo "Uebung : { edit : false, title : \""._("Übung")."\", width : \"40%\" },";
         echo "Punkte : { edit : false, title : \""._("erreichte Punkte")."\", width : \"20%\" },";
         echo "PunkteProzent : { edit : false, title : \""._("erreichte Prozent")."\", width : \"20%\" },";
         echo "Bewertung : { edit : false, title : \""._("Bewertung")."\", width : \"20%\" },";
