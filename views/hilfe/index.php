@@ -27,17 +27,11 @@
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/extensions/markdown/MarkdownExtra.inc.php");
-
-    
-    use \Michelf\Markdown;
-    
-    
     
     
     try {
         
-        if ( (empty($hilfeindex)) || (!file_exists($hilfeindex)) )
+        if (empty($hilfe))
             throw new Exception( _("Das gewünschte Dokument kann nicht aufgerufen werden") );
         
 
@@ -45,7 +39,7 @@
         // das Default-Encoding des Markdown-Parsers ist UTF-8
         // @todo hier muss eine Callback Funktion gesetzt werden, um Links passend zu strukturieren
         echo "<span class=\"ppv hilfe\">\n";
-        echo mb_convert_encoding( Markdown::defaultTransform( file_get_contents( $hilfeindex ) ), "ISO-8859-1", "auto" );
+        echo mb_convert_encoding( $hilfe, "ISO-8859-1", "auto" );
         echo "</span>";
 
         

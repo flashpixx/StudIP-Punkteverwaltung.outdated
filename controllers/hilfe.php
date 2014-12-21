@@ -29,6 +29,11 @@
     require_once(dirname(__DIR__) . "/sys/student.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/extensions/markdown/MarkdownExtra.inc.php");
+    
+    
+    use \Michelf\Markdown;
+    
 
 
     /** Controller für die Sicht eines Studenten **/
@@ -62,16 +67,26 @@
             $this->flash["veranstaltung"] = Veranstaltung::get();
             
             
+            // Hilfe Basis Informationen setzen
             $basepath         = $this->plugin->getPluginPath() . "/assets/hilfe";
-            $this->hilfeindex = null;
-            if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                $this->hilfeindex = $basepath . "/dozent/index.md";
-            elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
-                $this->hilfeindex = $basepath . "/tutor/index.md";
+            $this->hilfe      = null;
             
-            // @todo hier muss der Pfad zum Bildordner gesetzt werden und geprŸft werden, ob die Datei
-            // die als Parameter Ÿbergeben wird, vorhanden ist, wenn mšglich sollten alle benštigten Funktionen
-            // via Flash-Variable Ÿbergeben werden
+            
+            // Hilfedatei ermitteln
+            $lcMarkdownfile     = null;
+            if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                $lcMarkdownfile = $basepath . "/dozent/index.md";
+            elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
+                $lcMarkdownfile = $basepath . "/tutor/index.md";
+            
+            // @todo hier muss der Pfad zum Bildordner gesetzt werden und geprüft werden, ob die Datei
+            // die als Parameter übergeben wird, vorhanden ist, wenn mšglich sollten alle bestätigten Funktionen
+            // via Flash-Variable übergeben werden
+            
+            
+            // Markdownfile lesen und rendern
+            if (file_exists($lcMarkdownfile))
+                $this->hilfe = Markdown::defaultTransform( file_get_contents( $lcMarkdownfile ) );
         }
 
 
