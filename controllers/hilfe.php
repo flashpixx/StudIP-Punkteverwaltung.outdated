@@ -79,16 +79,10 @@
                 
                 
             // Dokumentnamen ermitteln (mit passendem Encoding, so dass Dateinamen nur ASCII Buchstaben enthalten dürfen)
-            $lcMarkdownfile = $basepath;
-            if (empty(Request::quoted("doc")))
-                $lcMarkdownfile .= "index";
-            else {
-                $lcName          = Request::quoted("doc");
-                $lcMarkdownfile .= iconv(mb_detect_encoding($lcName), "ASCII//IGNORE", $lcName);
-            }
-            $lcMarkdownfile .= ".md";
-            
+            $lcFilenameName = Request::quoted("doc");
+            $lcMarkdownfile = $basepath . (empty($lcFilenameName) ? "index" : iconv(mb_detect_encoding($lcFilename), "ASCII//IGNORE", $lcFilename)) . ".md"
 
+            
             
             // Markdownfile lesen und rendern
             if ( (!empty($lcMarkdownfile)) && (file_exists($lcMarkdownfile)) )
