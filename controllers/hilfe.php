@@ -61,7 +61,7 @@
         /** Before-Aufruf zum setzen von Defaultvariablen
          * @warn da der StudIPController keine Session initialisiert, muss die
          * Eigenschaft "flash" händisch initialisiert werden, damit persistent die Werte
-         * übergeben werden kˆnnen
+         * übergeben werden können
          **/
         function before_filter( &$action, &$args )
         {
@@ -78,17 +78,17 @@
             // @todo für Multilanguage Support einfach ein entsprechendes Verzeichnis für die Sprache hinzufügen
             $this->hilfe      = null;
 
-            $basepath         = self::$documentpath;
+            $this->basepath         = self::$documentpath;
             if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
-                $basepath     .= "/dozent/";
+                $this->basepath    .= "/dozent/";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
-                $basepath     .= "/tutor/";
+                $this->basepath    .= "/tutor/";
 
                 
                 
             // Dokumentnamen ermitteln (mit passendem Encoding, so dass Dateinamen nur ASCII Buchstaben enthalten dürfen)
             $lcFilenameName = strtolower(Request::quoted(self::$urlparameter));
-            $lcMarkdownfile = $this->plugin->getPluginPath() . $basepath . (empty($lcFilenameName) ? "index" : iconv(mb_detect_encoding($lcFilename), "ASCII//IGNORE", $lcFilename)) . ".md";
+            $lcMarkdownfile = $this->plugin->getPluginPath() . $this->basepath . (empty($lcFilenameName) ? "index" : iconv(mb_detect_encoding($lcFilename), "ASCII//IGNORE", $lcFilename)) . ".md";
 
             
             
@@ -106,7 +106,7 @@
                     
                     // falls es kein externer Link ist, kann es nur noch ein interner Link oder ein Bild sein
                     if (Tools::foundCISubStr($lcLink, array(".png", ".jpg", ".jpeg", ".svg")))
-                        return $this->plugin->getPluginURL() . $basepath . $lcLink;
+                        return $this->plugin->getPluginURL() . $this->basepath . "img" . $lcLink;
                         
                     return $this->url_for("hilfe", array(self::$urlparameter => $lcLink));
                 };
