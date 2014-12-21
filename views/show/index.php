@@ -40,6 +40,43 @@
         if (!$loVeranstaltung)
             throw new Exception(_("keine Veranstaltung gefunden"));
 
+        
+        echo "<script type=\"text/javascript\">";
+        echo "jQuery(document).ready(function() {";
+        echo "jQuery(\"#punktetabelle\").jtable({";
+        
+        echo "title          : \"Punkteliste\",";
+        echo "paging         : true,";
+        echo "pageSize       : 500,";
+        echo "sorting        : true,";
+        echo "defaultSorting : \"Uebung ASC\",";
+        echo "actions: {";
+        echo "listAction   : \"".$listaction."\",";
+        echo "},";
+        
+        echo "fields: {";
+        
+        echo "Uebung : { edit : false, title : \""._("Übung")."\", width : \"30%\" },";
+        echo "Punkte : { edit : false, title : \""._("erreichte Punkte")."\", width : \"20%\" },";
+        echo "PunkteProzent : { edit : false, title : \""._("erreichte Prozent")."\", width : \"20%\" },";
+        echo "Bewertung : { edit : false, title : \""._("Bewertung")."\", width : \"20%\" },";
+        
+        echo "}";
+        echo "});";
+        
+        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        
+        echo "});";
+        echo "</script>";
+        
+        echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
+
+        
+        
+        
+        
+        
+        /*
         $loStudent    = new Student($GLOBALS["user"]->id);
 
         $loAuswertung = new Auswertung($loVeranstaltung);
@@ -105,6 +142,8 @@
         }
 
         echo "</table>";
+        */
+
 
 
     } catch (Exception $e) {

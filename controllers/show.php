@@ -65,8 +65,10 @@
         function index_action()
         {
             Tools::addHTMLHeaderElements( $this->plugin );
+            
+            $this->listaction       = $this->url_for( "show/jsonlist");
         
-            PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
+            //PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
         }
 
         /** setzt den Studiengang des Users **/
@@ -88,6 +90,19 @@
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
             $this->redirect("show");
+        }
+        
+        
+        /** Action, um die Json-Daten fŸr die jTable zu erzeugen **/
+        function jsonlist_action()
+        {
+            // Daten fŸr das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            try {
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
         }
 
 
