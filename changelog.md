@@ -17,6 +17,7 @@
  * hinzugefügte Collection für die Verwendung von unterschiedlichen Diensten, um Matrikelnummern zu ermitteln (Fix Issue #47)
  * PDF Erzeugung wieder hergestellt (Fix Issue #44)
  * OSM / Löschstrukturen gefixed (Fix Issue #45)
+ * Auswertung zeigt die 10 beste Stundenten an (Fix Issue #19)
 
 
 
