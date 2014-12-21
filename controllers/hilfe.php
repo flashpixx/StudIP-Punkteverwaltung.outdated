@@ -83,8 +83,10 @@
                 $this->basepath    .= "/dozent/";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
                 $this->basepath    .= "/tutor/";
+            elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
+                $this->basepath    .= "/autor/";
 
-                
+            
                 
             // Dokumentnamen ermitteln (mit passendem Encoding, so dass Dateinamen nur ASCII Buchstaben enthalten dürfen)
             $lcFilename     = strtolower(Request::quoted(self::$urlparameter));

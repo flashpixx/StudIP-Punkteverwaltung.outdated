@@ -80,6 +80,7 @@
                 return;
 
             Navigation::addItem( "/course/punkteverwaltung", new Navigation(_("Punkte"), PluginEngine::GetURL($this, array(), "show")) );
+            Navigation::addItem( "/course/punkteverwaltung/hilfe", new AutoNavigation(_("Hilfe"), PluginEngine::GetURL($this, array(), "hilfe")) );
         }
 
 
