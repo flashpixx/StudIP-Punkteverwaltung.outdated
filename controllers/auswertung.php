@@ -187,7 +187,17 @@
                     "Data2"   => null
                 ));
                 
-                // @todo beste Studenten sollen gelistet werden
+                
+                // beste Studenten sollen gelistet werden
+                usort($laData["studenten"], function($a, $b) {
+                      return $a["uebungenpunkte"] - $b["uebungenpunkte"];
+                });
+                
+                array_push($laData, array(
+                    "Titel"   => studip_utf8encode( _("fünf Studierende mit den besten Leistunegn") ),
+                    "Data1"   => null,
+                    "Data2"   => null
+                ));
                 
                 
                 // alles fehlerfrei durchlaufen, setze Result
