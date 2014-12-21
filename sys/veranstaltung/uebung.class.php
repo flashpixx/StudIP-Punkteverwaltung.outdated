@@ -91,7 +91,8 @@
                 if (self::canUserAdded($row["student"]))
                     $loPrepareInsert->execute( array("id" => $lcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
         
-            return new (get_called_class())( $pxVeranstaltung, $lcID );
+            $lcClassName = __CLASS__;
+            return new $lcClassName( $pxVeranstaltung, $lcID );
         }
 
 
@@ -105,8 +106,10 @@
             
             if ($pxObject instanceof Veranstaltung)
                 $laUebung = $pxObject->uebungen();
-            else
-                array_push($laUebung, new (get_called_class())($pxObject, $pxUebung) );
+            else {
+                $lcClassName = __CLASS__;
+                array_push($laUebung, new $lcClassName($pxObject, $pxUebung) );
+            }
                 
             
             foreach( $laUebung as $loUebung)
