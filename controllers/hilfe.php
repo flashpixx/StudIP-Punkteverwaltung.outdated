@@ -106,8 +106,9 @@
                     
                     // falls es kein externer Link ist, kann es nur noch ein interner Link oder ein Bild sein
                     if (Tools::foundCISubStr($lcLink, array(".png", ".jpg", ".jpeg", ".svg")))
-                        return $this->plugin->getPluginURL() . $this->basepath . "img" . $lcLink;
-                        
+                        return $this->plugin->getPluginURL() . $this->basepath . "img/" . strtolower($lcLink);
+                    
+                    // alle anderen Dokumente werden als Markdown Dokumente verlinkt
                     return $this->url_for("hilfe", array(self::$urlparameter => $lcLink));
                 };
                 
