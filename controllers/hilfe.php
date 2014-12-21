@@ -104,9 +104,9 @@
                     if (filter_var($lcLink, FILTER_VALIDATE_URL))
                         return $lcLink;
                     
-                    // falls es kein externer Link ist, kann es nur noch ein interner Link oder ein Bild sein
+                    // falls es kein externer Link ist, kann es nur noch ein interner Link oder ein Bild sein (Dateiname in ASCII umcodieren)
                     if (Tools::foundCISubStr($lcLink, array(".png", ".jpg", ".jpeg", ".svg")))
-                        return $this->plugin->getPluginURL() . $this->basepath . "img/" . strtolower($lcLink);
+                        return $this->plugin->getPluginURL() . $this->basepath . "img/" . iconv(mb_detect_encoding($lcLink), "ASCII//IGNORE", strtolower($lcLink));
                     
                     // alle anderen Dokumente werden als Markdown Dokumente verlinkt
                     return $this->url_for("hilfe", array(self::$urlparameter => $lcLink));
