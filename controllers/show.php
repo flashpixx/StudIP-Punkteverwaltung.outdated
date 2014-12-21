@@ -105,8 +105,8 @@
                 
                 $loStudent    = new Student($GLOBALS["user"]->id);
                 
-                $loAuswertung = new Auswertung($loVeranstaltung);
-                $laAuswertung = $loAuswertung->studentdaten($loStudent);
+                $loAuswertung = new Auswertung( $this->flash["veranstaltung"] );
+                $laAuswertung = $loAuswertung->studentdaten( $loStudent );
                 
                 
                 $la = array();
