@@ -25,9 +25,11 @@
 
 
 
-    require_once(dirname(__DIR__) . "/sys/tools.class.php");
+    require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
+    require_once(dirname(__DIR__) . "/sys/auswertung.class.php");
     require_once(dirname(__DIR__) . "/sys/student.class.php");
-
+    require_once(dirname(__DIR__) . "/sys/tools.class.php");
+    
 
     /** Controller für die Sicht eines Studenten **/
     class ShowController extends StudipController
