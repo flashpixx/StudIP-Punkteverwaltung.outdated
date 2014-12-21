@@ -16,6 +16,7 @@
  * Auswertungstabelle auf jQuery geändert (Fix Issue #28)
  * hinzugefügte Collection für die Verwendung von unterschiedlichen Diensten, um Matrikelnummern zu ermitteln (Fix Issue #47)
  * PDF Erzeugung wieder hergestellt (Fix Issue #44)
+ * OSM / Löschstrukturen gefixed (Fix Issue #45)
 
 
 
