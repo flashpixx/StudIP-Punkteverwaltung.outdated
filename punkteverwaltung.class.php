@@ -79,8 +79,9 @@
             if (!Veranstaltung::get())
                 return;
 
-            Navigation::addItem( "/course/punkteverwaltung",            new Navigation(_("Punkte"),         PluginEngine::GetURL($this, array(), "show")) );
-            Navigation::addItem( "/course/punkteverwaltung/hilfe",      new AutoNavigation(_("Hilfe"),      PluginEngine::GetURL($this, array(), "hilfe")) );
+            Navigation::addItem( "/course/punkteverwaltung",            new Navigation(_("Punkte"),             PluginEngine::GetURL($this, array(), "show")) );
+            Navigation::addItem( "/course/punkteverwaltung/show",       new AutoNavigation(_("Bewertungen"),    PluginEngine::GetURL($this, array(), "show")) );
+            Navigation::addItem( "/course/punkteverwaltung/hilfe",      new AutoNavigation(_("Hilfe"),          PluginEngine::GetURL($this, array(), "hilfe")) );
         }
 
 
