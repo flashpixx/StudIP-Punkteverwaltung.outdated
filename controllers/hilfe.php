@@ -83,7 +83,7 @@
                 $this->basepath    .= "/dozent/";
             elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
                 $this->basepath    .= "/tutor/";
-            elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
+            elseif (VeranstaltungPermission::hasAutorRecht($this->flash["veranstaltung"]))
                 $this->basepath    .= "/autor/";
 
             
