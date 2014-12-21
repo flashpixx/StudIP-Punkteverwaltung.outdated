@@ -46,8 +46,8 @@
         echo "jQuery(\"#punktetabelle\").jtable({";
         
         echo "title          : \"Punkteliste\",";
-        echo "paging         : true,";
-        echo "pageSize       : 500,";
+        echo "paging         : false,";
+        echo "pageSize       : 50,";
         echo "sorting        : true,";
         echo "defaultSorting : \"Uebung ASC\",";
         echo "actions: {";
