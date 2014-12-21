@@ -192,10 +192,18 @@
                 usort($laData["studenten"], function($a, $b) {
                       return $a["uebungenpunkte"] - $b["uebungenpunkte"];
                 });
+                $la = array();
+                foreach($laData["studenten"] as $lcStudentKey => $laStudentValues)
+                {
+                    array_push($la, $laStudentValues["name"] . "(" .$laStudentValues["matrikelnummer"]. ")");
+                    if (count($la) >= 10)
+                        break;
+                }
+                
                 
                 array_push($laData, array(
-                    "Titel"   => studip_utf8encode( _("fünf Studierende mit den besten Leistunegn") ),
-                    "Data1"   => null,
+                    "Titel"   => studip_utf8encode( _("zehn Studierende mit den besten Leistunegn") ),
+                    "Data1"   => studip_utf8encode(implode(", ", $la)),
                     "Data2"   => null
                 ));
                 
