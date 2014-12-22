@@ -58,7 +58,7 @@
         echo "Uebung : { edit : false, title : \""._("Übung")."\", width : \"40%\" },";
         echo "Punkte : { edit : false, title : \""._("erreichte Punkte")."\", width : \"20%\" },";
         echo "PunkteProzent : { edit : false, title : \""._("erreichte Prozent")."\", width : \"20%\" },";
-        echo "Score : { edit : false, title : \""._("Bewertung")."\", width : \"20%\", display : function(pxData) { return \"<div class='ppv score' data-score=\"3\" />\"; } },"; // https://github.com/hikalkan/jtable/issues/667
+        echo "Score : { edit : false, title : \""._("Bewertung")."\", width : \"20%\", display : function(pxData) { return \"<div class='ppv score' data-score='3' />\"; } },"; // https://github.com/hikalkan/jtable/issues/667
         
         echo "}";
         echo "});";
