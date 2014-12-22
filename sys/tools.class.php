@@ -100,7 +100,21 @@
             PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/d3.v3.min.js"), "" );
             PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/d3.v3/box.js"), "" );
             
+            
             PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/raty/jquery.raty.js"), "" );
+            $laRatyOptions = array(
+                "starOff"   => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-off.png",
+                "starOn"    => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-on.png",
+                "starHalf"  => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-half.png",
+                "cancelOff" => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-off.png",
+                "cancelOn"  => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-on.png",
+                "hints"     => "[\"mangelhaft\", \"schlecht\", \"befriedigend\", \"gut\", \"hervorragend\"]",
+                "number"    => 5,
+                "readOnly"  => "true",
+                "score"     => "function() { return $(this).attr(\"data-score\"); }"
+            );
+            PageLayout::addHeadElement( "script", null, "$(\".ppv.score\").raty(" . mb_convert_encoding( json_encode($laRattyOptions), "ISO-8859-1", "auto" ) . ");" );
+                            
         }
     
     
