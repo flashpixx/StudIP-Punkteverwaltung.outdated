@@ -108,7 +108,7 @@
                 "starHalf"  => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-half.png",
                 "cancelOff" => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-off.png",
                 "cancelOn"  => $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-on.png",
-                "hints"     => "[\"mangelhaft\", \"schlecht\", \"befriedigend\", \"gut\", \"hervorragend\"]",
+                "hints"     => "[\""._("mangelhaft")."\", \""._("schlecht")."\", \""._("befriedigend")."\", \""._("gut")."\", \""._("hervorragend")."\"]",
                 "number"    => 5,
                 "readOnly"  => "true",
                 "score"     => "function() { return $(this).attr(\"data-score\"); }"
