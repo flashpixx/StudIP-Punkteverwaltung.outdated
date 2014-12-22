@@ -127,7 +127,7 @@
                         "Uebung"        => studip_utf8encode( $laUebung["name"] ),
                         "Punkte"        => $laUebung["studenten"][$this->student->id()]["punktesumme"],
                         "PunkteProzent" => $laUebung["studenten"][$this->student->id()]["erreichteprozent"],
-                        "Bewertung"     => null
+                        "Score"         => 0
                     ));
 
 

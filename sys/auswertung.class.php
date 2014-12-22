@@ -86,7 +86,8 @@
                 "uebungenpunkte"           => 0,                                 // Summe über alle erreichten Übungspunkte
                 "veranstaltungenbestanden" => false,                             // Boolean, ob die Veranstaltung als komplett bestanden gilt
                 "bonuspunkte"              => 0,                                 // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
-                "manuelleZulassung"        => !empty($lcZulassungsBemerkung)     // Boolean für die manuelle Zulassung
+                "manuelleZulassung"        => !empty($lcZulassungsBemerkung),    // Boolean für die manuelle Zulassung,
+                "score"                    => 0                                  // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking)
             );
         }
 
