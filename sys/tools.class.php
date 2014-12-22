@@ -112,7 +112,7 @@
             $lcRatyOptions .= "number : 5,";
             $lcRatyOptions .= "readOnly : true,";
             $lcRatyOptions .= "score : function() { return $(this).attr(\"data-score\"); }";
-            PageLayout::addHeadElement( "script", array("type" => "text/javascript"), "jQuery(\".jtable\").ready(function($) { jQuery(\".ppv.score\").raty({" . $lcRatyOptions . "}); });" );
+            PageLayout::addHeadElement( "script", array("type" => "text/javascript"), "jQuery(\".ppv.jtable\").ready(function($) { jQuery(\".rating\").raty({" . $lcRatyOptions . "}); });" );
                             
         }
     
