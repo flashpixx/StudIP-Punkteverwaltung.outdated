@@ -113,7 +113,7 @@
                 "readOnly"  => "true",
                 "score"     => "function() { return $(this).attr(\"data-score\"); }"
             );
-            PageLayout::addHeadElement( "script", null, "jQuery(document).ready(function($) { $(\".ppv.score\").raty(" . mb_convert_encoding( json_encode($laRattyOptions), "ISO-8859-1", "auto" ) . "); });" );
+            PageLayout::addHeadElement( "script", null, "jQuery(document).ready(function($) { $(\".ppv.score\").raty(" . mb_convert_encoding( json_encode($laRatyOptions), "ISO-8859-1", "auto" ) . "); });" );
                             
         }
     
