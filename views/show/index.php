@@ -41,6 +41,7 @@
             throw new Exception(_("keine Veranstaltung gefunden"));
         
         
+        // Raty Konfiguration muss passend für die Plugin-Struktur angepasst werden
         $lcRatyOptions = "";
         $lcRatyOptions .= "starOff : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/star-off.png" ."\",";
         $lcRatyOptions .= "starOn : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/star-on.png" ."\",";
@@ -62,9 +63,9 @@
         echo "paging         : false,";
         echo "pageSize       : 50,";
         echo "sorting        : false,";
-        echo "recordsLoaded: function (event, data) {";
-        echo "jQuery(\".rating\").raty({" . $lcRatyOptions . "});";
-        echo "},";
+        // recordsLoaded erhält als Parameter alle Records übergeben, so dass für den Score-Wert manuell das
+        // Raty aufgerufen werden muss und hier nur das jQuery-Bind durchgeführt wird
+        echo "recordsLoaded: function (event, data) { jQuery(\".ppv.rating\").raty({" . $lcRatyOptions . "}); },";
         echo "actions: {";
         echo "listAction   : \"".$listaction."\",";
         echo "},";
@@ -74,7 +75,7 @@
         echo "Uebung : { edit : false, title : \""._("‹bung")."\", width : \"40%\" },";
         echo "Punkte : { edit : false, title : \""._("erreichte Punkte")."\", width : \"20%\" },";
         echo "PunkteProzent : { edit : false, title : \""._("erreichte Prozent")."\", width : \"20%\" },";
-        echo "Score : { edit : false, title : \""._("Bewertung")."\", width : \"20%\", display : function( pxData ) {return \"<div class='rating' data-score='\"+pxData.record.Score+\"' />\";} },";
+        echo "Score : { edit : false, title : \""._("Bewertung")."\", width : \"20%\", display : function( pxData ) {return \"<div class='ppv rating' data-score='\"+pxData.record.Score+\"' />\";} },";
         
         echo "}";
         echo "});";
