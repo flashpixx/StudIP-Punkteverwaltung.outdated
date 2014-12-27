@@ -102,18 +102,6 @@
             
             
             PageLayout::addHeadElement( "script", array( "charset" => "UTF-8", "src" => $poPlugin->getPluginUrl() . "/sys/extensions/raty/jquery.raty.js"), "" );
-            $lcRatyOptions = "";
-            $lcRatyOptions .= "starOff : \"" . $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-off.png" ."\",";
-            $lcRatyOptions .= "starOn : \"" . $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-on.png" ."\",";
-            $lcRatyOptions .= "starHalf : \"" . $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/star-half.png" ."\",";
-            $lcRatyOptions .= "cancelOff : \"" . $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-off.png" ."\",";
-            $lcRatyOptions .= "cancelOn : \"" . $poPlugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-on.png" ."\",";
-            $lcRatyOptions .= "hints : [\""._("mangelhaft")."\", \""._("schlecht")."\", \""._("befriedigend")."\", \""._("gut")."\", \""._("hervorragend")."\"],";
-            $lcRatyOptions .= "number : 5,";
-            $lcRatyOptions .= "readOnly : true,";
-            $lcRatyOptions .= "score : function() { return $(this).attr(\"data-score\"); }";
-            PageLayout::addHeadElement( "script", array("type" => "text/javascript"), "jQuery(\".ppv.jtable\").ready(function($) { jQuery(\".rating\").raty({" . $lcRatyOptions . "}); });" );
-                            
         }
     
     

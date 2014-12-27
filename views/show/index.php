@@ -39,6 +39,19 @@
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
         if (!$loVeranstaltung)
             throw new Exception(_("keine Veranstaltung gefunden"));
+        
+        
+        $lcRatyOptions = "";
+        $lcRatyOptions .= "starOff : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/star-off.png" ."\",";
+        $lcRatyOptions .= "starOn : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/star-on.png" ."\",";
+        $lcRatyOptions .= "starHalf : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/star-half.png" ."\",";
+        $lcRatyOptions .= "cancelOff : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-off.png" ."\",";
+        $lcRatyOptions .= "cancelOn : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-on.png" ."\",";
+        $lcRatyOptions .= "hints : [\""._("mangelhaft")."\", \""._("schlecht")."\", \""._("befriedigend")."\", \""._("gut")."\", \""._("hervorragend")."\"],";
+        $lcRatyOptions .= "number : 5,";
+        $lcRatyOptions .= "readOnly : true,";
+        $lcRatyOptions .= "score : function() { return jQuery(this).attr(\"data-score\"); }";
+        
 
         
         echo "<script type=\"text/javascript\">";
@@ -49,6 +62,9 @@
         echo "paging         : false,";
         echo "pageSize       : 50,";
         echo "sorting        : false,";
+        echo "recordsLoaded: function (event, data) {";
+        echo "jQuery(\".rating\").raty({" . $lcRatyOptions . "});";
+        echo "},";
         echo "actions: {";
         echo "listAction   : \"".$listaction."\",";
         echo "},";
