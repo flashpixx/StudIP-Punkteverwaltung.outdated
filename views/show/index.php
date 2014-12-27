@@ -48,8 +48,8 @@
         $lcRatyOptions .= "starHalf : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/star-half.png" ."\",";
         $lcRatyOptions .= "cancelOff : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-off.png" ."\",";
         $lcRatyOptions .= "cancelOn : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-on.png" ."\",";
-        $lcRatyOptions .= "hints : [\""._("mangelhaft")."\", \""._("schlecht")."\", \""._("befriedigend")."\", \""._("gut")."\", \""._("hervorragend")."\"],";
-        $lcRatyOptions .= "number : 5,";
+        $lcRatyOptions .= "hints : [\""._("ungenügend")."\", \""._("mangelhaft")."\", \""._("ausreichend")."\", \""._("befriedigend")."\", \""._("gut")."\", \""._("hervorragend")."\"],";
+        $lcRatyOptions .= "number : 6,";
         $lcRatyOptions .= "readOnly : true,";
         $lcRatyOptions .= "score : function() { return jQuery(this).attr(\"data-score\"); }";
         
