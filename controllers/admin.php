@@ -155,7 +155,14 @@
             $this->redirect("admin");
         }
 
+        
+        /** Funktion, um die Verwaltung der Teilnehmer zu initialisieren **/
+        function teilnehmer_action()
+        {
+            
+        }
 
+        
         /** updatet die Teilnehmerliste in allen Übungen **/
         function updateteilnehmer_action()
         {
