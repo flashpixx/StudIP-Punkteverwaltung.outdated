@@ -202,6 +202,7 @@
                 } catch (Exception $e) {
                     $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                     $this->redirect("createuebung");
+                    return;
                 }
             }
             
