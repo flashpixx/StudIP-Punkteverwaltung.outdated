@@ -2,6 +2,7 @@
 !.gitignore
 !plugin.manifest
 !update.xml
+!.travis.yml
 !*.md
 !*.php
 !*.sql
