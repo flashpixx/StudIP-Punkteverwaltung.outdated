@@ -177,7 +177,7 @@
         echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
         echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
         echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
-        echo "Studiengang : { visibility : \"hidden\", edit : false, title : \""._("Studiengang")."\", width : \"10%\" " . ($loVeranstaltung->isClosed() ? null : "display : function( pxData ) {return \"<span class='ppv unsure'>\"+pxData.record.Studiengang+\"</span>\";}") . " },";
+        echo "Studiengang : { visibility : \"hidden\", edit : false, title : \""._("Studiengang")."\", width : \"10%\" },";
         
         $lnSize = round( (35 / count($laListe["uebungen"]))/3, 1 );
         foreach($laListe["uebungen"] as $laUebung)
