@@ -99,7 +99,7 @@
                 if ($this->flash["veranstaltung"]->isClosed())
                     array_push( $this->flash["studiengang"], reset($this->student->studiengang($this->flash["veranstaltung"])) );
                 else
-                    $this->flash["studiengang"] = $loStudent->studiengang();
+                    $this->flash["studiengang"] = $this->student->studiengang();
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         }
