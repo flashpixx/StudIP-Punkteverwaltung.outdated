@@ -4,5 +4,6 @@
 !update.xml
 !*.md
 !*.php
+!*.sql
 !assets/**
 !sys/extension/**

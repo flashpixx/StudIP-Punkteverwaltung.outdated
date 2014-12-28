@@ -40,7 +40,7 @@
     // http://studip.tleilax.de/plugins/generator/
     // http://docs.studip.de/api
     // http://docs.studip.de/develop/Entwickler/Migrations
-    // http://docs.studip.de/develop/Entwickler/HowToGettext
+    // http://docs.studip.de/develop/Entwickler/HowToGettext / find . -type f -name "*.php" | xargs xgettext -o translation.mo -L php --keyword=_ --from-code=iso-8859-1
     
 
 
