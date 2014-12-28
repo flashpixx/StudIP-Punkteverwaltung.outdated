@@ -1,4 +1,8 @@
-*.zip
-*.gz
-*.txt
-
+*.*
+!.gitignore
+!plugin.manifest
+!update.xml
+!*.md
+!*.php
+!assets/**
+!sys/extension/**
