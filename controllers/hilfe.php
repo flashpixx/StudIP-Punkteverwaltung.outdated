@@ -113,6 +113,14 @@
                     if (Tools::foundCISubStr($lcLink, array(".png", ".jpg", ".jpeg", ".svg")))
                         return $this->plugin->getPluginURL() . $this->basepath . "img/" . iconv(mb_detect_encoding($lcLink), "ASCII//IGNORE", strtolower($lcLink));
                     
+                    // wenn in dem Link ein # enthalten ist, dann wird ein Tag im Dokument angesprungen
+                    if (Tools::foundCISubStr($lcLink, array("#")))
+                    {
+                        $la     = explode("#");
+                        $lcLink = array_shift($la);
+                        return $this->url_for("hilfe", array(self::$urlparameter => $lcLink)) . "#" . implode("", $la);
+                    }
+                        
                     // alle anderen Dokumente werden als Markdown Dokumente verlinkt
                     return $this->url_for("hilfe", array(self::$urlparameter => $lcLink));
                 };
