@@ -87,7 +87,6 @@
                 "veranstaltungenbestanden" => false,                             // Boolean, ob die Veranstaltung als komplett bestanden gilt
                 "bonuspunkte"              => 0,                                 // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
                 "manuelleZulassung"        => !empty($lcZulassungsBemerkung),    // Boolean für die manuelle Zulassung
-                "score"                    => 0                                  // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking) - zulässige Scorewerte liegen in [1,7]
             );
         }
 
@@ -97,18 +96,23 @@
          * @param $poUebungStudent ÜbungStudent Objekt
          * @param $pnBestandenPunkte Punkteanzahl, die für das Bestehen notwendig sind
          * @param $pnUebungMaxPunkte maximal zu erreichende Punkte der Übung
+         * @param $paScore Score-Array
          * @return Array mit Daten
          **/
-        private function createStudentenPunkteArray( $poUebungStudent, $pnBestandenPunkte, $pnUebungMaxPunkte )
+        private function createStudentenPunkteArray( $poUebungStudent, $pnBestandenPunkte, $pnUebungMaxPunkte, $paScore )
         {
             $data = array(
-                 "erreichtepunkte" => $poUebungStudent->erreichtePunkte(),                              // Punkte, die erreicht wurden
-                 "zusatzpunkte"    => $poUebungStudent->zusatzPunkte()                                  // Zusatzpunkte
+                 "erreichtepunkte"  => $poUebungStudent->erreichtePunkte(),                              // Punkte, die erreicht wurden
+                 "zusatzpunkte"     => $poUebungStudent->zusatzPunkte()                                  // Zusatzpunkte
+                 "punktesumme"      => 0,                                                                // Summe aus Zusatzpunkte + erreichte Punkte
+                 "bestanden"        => false,                                                            // Boolean, ob die Übung bestanden wurde
+                 "erreichteprozent" => 0,                                                                // Prozentzahl der Punktesumme
+                 "score"            => 0                                                                 // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking) - zulässige Scorewerte liegen in [1,7]
             );
 
-            $data["punktesumme"]      = $data["erreichtepunkte"] + $data["zusatzpunkte"];               // Summe aus Zusatzpunkte + erreichte Punkte
-            $data["bestanden"]        = $data["punktesumme"] >= $pnBestandenPunkte;                     // Boolean, ob die Übung bestanden wurde
-            $data["erreichteprozent"] = round($data["punktesumme"] / $pnUebungMaxPunkte * 100, 2);      // Prozentzahl der Punktesumme
+            $data["punktesumme"]      = $data["erreichtepunkte"] + $data["zusatzpunkte"];
+            $data["bestanden"]        = $data["punktesumme"] >= $pnBestandenPunkte;
+            $data["erreichteprozent"] = round($data["punktesumme"] / $pnUebungMaxPunkte * 100, 2);
 
             return $data;
         }
@@ -204,13 +208,15 @@
             $main = array( "gesamtpunkte" => 0, "gesamtpunktebestanden" => 0, "uebungen" => array(), "studenten" => array($loStudent->id() => $this->createStudentenArray($loStudent)) );
 
             // Iteration über jede Übung und über jeden Teilnehmer
+            $uebungscore = array();
             foreach ( $this->moVeranstaltung->uebungen() as $uebung)
             {
-                $main["gesamtpunkte"] += $uebung->maxPunkte();
-                $uebungarray = $this->createUebungsArray( $uebung );
+                $main["gesamtpunkte"]            += $uebung->maxPunkte();
+                $uebungarray                      = $this->createUebungsArray( $uebung );
+                $uebungscore[$uebung->id()]       = $this->createScore($uebung);
 
                 foreach ($uebung->studentenuebung(false, $loStudent) as $studentuebung )
-                    $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"], $uebungscore[$uebung->id()] );
                 
                 $main["uebungen"][$uebung->name()] = $uebungarray;
             }
@@ -228,12 +234,11 @@
             {
                 $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
                 $uebungarray  = $this->createUebungsArray( $uebung );
-                $score        = $this->createScore($uebung);
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
                     $loStudentUebung                                                                   = new StudentUebung( $uebung, $key );
-                    $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"], $uebungscore[$uebung->id()] );
                 }
 
                 // berechne die kummulierten Daten
@@ -271,16 +276,18 @@
 
 
             // Iteration über jede Übung und über jeden Teilnehmer
+            $uebungscore = array();
             foreach ( $this->moVeranstaltung->uebungen() as $uebung)
             {
-                $main["gesamtpunkte"] += $uebung->maxPunkte();
-                $uebungarray = $this->createUebungsArray( $uebung );
+                $main["gesamtpunkte"]         += $uebung->maxPunkte();
+                $uebungarray                   = $this->createUebungsArray( $uebung );
+                $uebungscore[$uebung->id()]    = $this->createScore($uebung);
 
                 foreach ($uebung->studentenuebung() as $studentuebung )
                 {
                     // Student der globalen Namensliste hinzufügen bzw. überschreiben und Punktedaten erzeugen
                     $main["studenten"][$studentuebung->student()->id()]        = $this->createStudentenArray( $studentuebung->student() );
-                    $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    $uebungarray["studenten"][$studentuebung->student()->id()] = $this->createStudentenPunkteArray( $studentuebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"], $uebungscore[$uebung->id()] );
                 }
 
                 $main["uebungen"][$uebung->name()] = $uebungarray;
@@ -304,7 +311,7 @@
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
                     $loStudentUebung                                                                   = new StudentUebung( $uebung, $key );
-                    $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
+                    $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"], $uebungscore[$uebung->id()] );
                 }
 
 
