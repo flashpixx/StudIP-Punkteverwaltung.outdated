@@ -201,7 +201,7 @@
                     $this->flash["message"] = Tools::createMessage( "success", _("neue Übung erstellt") );
                 } catch (Exception $e) {
                     $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
-                    $this->redirect("createuebung");
+                    $this->redirect("admin/createuebung");
                     return;
                 }
             }
