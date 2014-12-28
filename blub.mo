@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-28 13:56+0100\n"
+"POT-Creation-Date: 2014-12-28 14:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: controllers/admin.php:56
-msgid " - Punkteverwaltung - Administration"
-msgstr ""
 
 #: controllers/admin.php:77
 msgid ""
@@ -88,10 +84,6 @@ msgstr ""
 
 #: controllers/admin.php:208
 msgid "Veranstaltung erfolgreich geöffnet"
-msgstr ""
-
-#: controllers/auswertung.php:60
-msgid " - Punkteverwaltung - Auswertung"
 msgstr ""
 
 #: controllers/auswertung.php:98 controllers/auswertung.php:338
@@ -197,30 +189,14 @@ msgstr ""
 msgid "nein"
 msgstr ""
 
-#: controllers/bonuspunkte.php:53
-msgid " - Punkteverwaltung - Bonuspunkte"
-msgstr ""
-
 #: controllers/bonuspunkte.php:78 controllers/zulassung.php:80
 msgid ""
 "Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der "
 "Veranstaltung zu verändern"
 msgstr ""
 
-#: controllers/hilfe.php:68
-msgid " - Punkteverwaltung - Hilfe"
-msgstr ""
-
-#: controllers/show.php:56
-msgid " - Punkteverwaltung - Anzeige"
-msgstr ""
-
 #: controllers/show.php:123
 msgid "Anerkennung für den Studiengang für diese Veranstaltung geändert"
-msgstr ""
-
-#: controllers/uebung.php:71 controllers/uebung.php:78
-msgid " - Punkteverwaltung - Übung ["
 msgstr ""
 
 #: controllers/uebung.php:83
@@ -265,10 +241,6 @@ msgstr ""
 
 #: controllers/uebung.php:371
 msgid "Bonuspunkte in Zeile "
-msgstr ""
-
-#: controllers/zulassung.php:53
-msgid " - Punkteverwaltung - Zulassung"
 msgstr ""
 
 #: punkteverwaltung.class.php:83 views/auswertung/index.php:186
@@ -330,15 +302,21 @@ msgid "Userdaten sind fehlerhafte"
 msgstr ""
 
 #: sys/student.class.php:109
-msgid "Userdaten zum Login: ["
+#, php-format
+msgid "Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden"
 msgstr ""
 
 #: sys/student.class.php:111
-msgid "Matrikelnummer zum Login: ["
+#, php-format
+msgid ""
+"Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden"
 msgstr ""
 
 #: sys/student.class.php:140
-msgid "Für den Studierenden "
+#, php-format
+msgid ""
+"Für den Studierenden %s (%s) stimmen Studiengang- und/oder "
+"Abschlusszuordnung nicht"
 msgstr ""
 
 #: sys/student.class.php:143
@@ -407,7 +385,9 @@ msgstr ""
 #: sys/veranstaltung/studentuebung.class.php:202
 #: sys/veranstaltung/studentuebung.class.php:242
 #: sys/veranstaltung/studentuebung.class.php:299
-msgid "Der Benutzer ["
+#, php-format
+msgid ""
+"Der Benutzer [%s / %s] ist nicht als Teilnehmer der Veranstaltung eingetragen"
 msgstr ""
 
 #: sys/veranstaltung/studentuebung.class.php:163

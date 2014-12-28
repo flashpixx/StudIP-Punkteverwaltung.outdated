@@ -106,9 +106,9 @@
             if ( (!is_object($loUser)) || (empty($loUser)) )
                 throw new UserNotFound(_("Userdaten sind fehlerhafte"));
             if (!UserModel::check($this->mcID))
-                throw new UserDataIncomplete(_("Userdaten zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
+                throw new UserDataIncomplete( sprintf(_("Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden"), $loUser->username, $loUser->email) );
             if (empty($this->mnMatrikelnummer))
-                throw new UserDataIncomplete(_("Matrikelnummer zum Login: [".$loUser->username."] / EMail: [".$loUser->email."] konnten nicht ermittelt werden"));
+                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden"), $loUser->username, $loUser->email) );
             
         }
 
@@ -137,7 +137,7 @@
             $la = array();
             if ( (($pcStudiengang) && (!$pcAbschluss)) || ((!$pcStudiengang) && ($pcAbschluss)) )
             {
-                throw new Exception(_("Für den Studierenden ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
+                throw new Exception( sprintf(_("Für den Studierenden %s (%s) stimmen Studiengang- und/oder Abschlusszuordnung nicht"), $this->mcName, $this->mcEmail) );
             } elseif (($pcStudiengang) && ($pcAbschluss)) {
                 if ($poVeranstaltung->isClosed())
                     throw new Exception(_("Veranstaltung ist geschlossen, eine Änderung des Studiengangs ist nicht möglich."));

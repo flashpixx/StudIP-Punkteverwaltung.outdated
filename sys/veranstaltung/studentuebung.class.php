@@ -157,7 +157,7 @@
                 if ($this->moUebung->veranstaltung()->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
                 if (!$this->istVeranstaltungsTeilnehmer())
-                    throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+                    throw new UserNotSeminarMember( sprintf(_("Der Benutzer [%s / %s] ist nicht als Teilnehmer der Veranstaltung eingetragen"), $this->moStudent->name(), $this->moStudent->email()) );
 
                 if ($pn > $this->moUebung->maxPunkte())
                     throw new Exception(_("Erreichte Punkte sind sind größer als die möglichen Punkte, die bei der Übung vergeben werden können. Bitte Zusatzpunkte verwenden"));
@@ -199,7 +199,7 @@
                 if ($this->moUebung->veranstaltung()->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
                 if (!$this->istVeranstaltungsTeilnehmer())
-                    throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+                    throw new UserNotSeminarMember( sprintf(_("Der Benutzer [%s / %s] ist nicht als Teilnehmer der Veranstaltung eingetragen"), $this->moStudent->name(), $this->moStudent->email()) );
             
                 if ($pn < 0)
                     throw new Exception(_("Zusatzpunkte müssen größer gleich Null sein"));
@@ -239,7 +239,7 @@
                 if ($this->moUebung->veranstaltung()->isClosed())
                     throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
                 if (!$this->istVeranstaltungsTeilnehmer())
-                    throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+                    throw new UserNotSeminarMember( sprintf(_("Der Benutzer [%s / %s] ist nicht als Teilnehmer der Veranstaltung eingetragen"), $this->moStudent->name(), $this->moStudent->email()) );
 
                 $this->moLogPrepare->execute( array("uebungid" => $this->moUebung->id(), "auth" => $this->moStudent->id()) );
 
@@ -296,7 +296,7 @@
             if ($this->moUebung->veranstaltung()->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen, es können keine Änderungen mehr durchgeführt werden"));
             if (!$this->istVeranstaltungsTeilnehmer())
-                throw new UserNotSeminarMember(_("Der Benutzer [".$this->moStudent->name()." / ".$this->moStudent->email()."] ist nicht als Teilnehmer der Veranstaltung eingetragen"));
+                throw new UserNotSeminarMember( sprintf(_("Der Benutzer [%s / %s] ist nicht als Teilnehmer der Veranstaltung eingetragen"), $this->moStudent->name(), $this->moStudent->email()) );
         
             if (!is_numeric($pnErreichtePunkte))
                 throw new Exception(_("Erreichte Punkte sind nicht numerisch"));
