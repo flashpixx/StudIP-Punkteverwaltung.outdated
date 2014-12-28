@@ -69,10 +69,9 @@
             if (empty($laStudiengang))
                 $laStudiengang = $poStudent->studiengang();
             
-            $la = array();
+            $laStudiengangChar = array();
             foreach( $laStudiengang as $laItem )
-                array_push($la, trim($laItem["abschluss"]." ".$laItem["fach"]));
-            $lcStudiengang = implode(", ", $la);
+                array_push($laStudiengangChar, trim($laItem["abschluss"]." ".$laItem["fach"]));
 
 
             $lcZulassungsBemerkung = $poStudent->manuelleZulassung($this->moVeranstaltung);
@@ -82,7 +81,7 @@
                 "name"                     => $poStudent->name(),                // Name des Studenten
                 "matrikelnummer"           => $poStudent->matrikelnummer(),      // Matrikelnummer des Studenten
                 "email"                    => $poStudent->email(),               // EMail des Studenten
-                "studiengang"              => $lcStudiengang,                    // Studiengang (wenn nicht gesetzt, dann null)
+                "studiengang"              => implode(", ", $laStudiengangChar), // Studiengang oder die Liste aller Studiengänge
                 "uebungenbestanden"        => 0,                                 // Anzahl der Übungen, die bestanden wurden
                 "uebungennichtbestanden"   => 0,                                 // Anzahl der Übungen, die nicht bestanden wurden
                 "uebungenpunkte"           => 0,                                 // Summe über alle erreichten Übungspunkte
