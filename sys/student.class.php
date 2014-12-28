@@ -137,7 +137,7 @@
             $la = array();
             if ( (($pcStudiengang) && (!$pcAbschluss)) || ((!$pcStudiengang) && ($pcAbschluss)) )
             {
-                throw new Exception(_("Für den StudentenIn ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
+                throw new Exception(_("Für den Studierenden ".$this->mcName." (".$this->mcEmail.") stimmen Studiengang- und/oder Abschlusszuordnung nicht"));
             } elseif (($pcStudiengang) && ($pcAbschluss)) {
                 if ($poVeranstaltung->isClosed())
                     throw new Exception(_("Veranstaltung ist geschlossen, eine Änderung des Studiengangs ist nicht möglich."));
