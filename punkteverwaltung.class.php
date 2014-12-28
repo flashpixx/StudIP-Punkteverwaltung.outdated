@@ -79,9 +79,10 @@
             if (!Veranstaltung::get())
                 return;
 
-            Navigation::addItem( "/course/punkteverwaltung",            new Navigation(_("Punkte"),             PluginEngine::GetURL($this, array(), "show")) );
-            Navigation::addItem( "/course/punkteverwaltung/show",       new AutoNavigation(_("Bewertungen"),    PluginEngine::GetURL($this, array(), "show")) );
-            Navigation::addItem( "/course/punkteverwaltung/hilfe",      new AutoNavigation(_("Hilfe"),          PluginEngine::GetURL($this, array(), "hilfe")) );
+            Navigation::addItem( "/course/punkteverwaltung",              new Navigation(_("Punkte"),             PluginEngine::GetURL($this, array(), "show")) );
+            Navigation::addItem( "/course/punkteverwaltung/show",         new AutoNavigation(_("Bewertungen"),    PluginEngine::GetURL($this, array(), "show")) );
+            Navigation::addItem( "/course/punkteverwaltung/studiengang",  new AutoNavigation(_("Studiengang"),    PluginEngine::GetURL($this, array(), "show/studienganglist")) );
+            Navigation::addItem( "/course/punkteverwaltung/hilfe",        new AutoNavigation(_("Hilfe"),          PluginEngine::GetURL($this, array(), "hilfe")) );
         }
 
 
@@ -101,7 +102,7 @@
 
             if (!$loVeranstaltung->isClosed())
             {
-                Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer",   new AutoNavigation(_("Teilnehmer in Übung(en) aktualisieren"),      PluginEngine::GetURL($this, array(), "admin/updateteilnehmer")) );
+                Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer",   new AutoNavigation(_("Teilnehmer verwalten"),                       PluginEngine::GetURL($this, array(), "admin/updateteilnehmer")) );
                 Navigation::addItem( "/course/punkteverwaltung/createuebung",       new AutoNavigation(_("neue Übung erzeugen"),                        PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             }
         
