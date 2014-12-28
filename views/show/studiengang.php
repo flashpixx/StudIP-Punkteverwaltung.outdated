@@ -55,7 +55,7 @@
          
                     echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".trim($item["abschluss"]." ".$item["fach"])."</option>";
                 }
-            echo "</select>";
+            echo "</select> ";
          
             echo "<input type=\"submit\" name=\"submitted\" value=\""._("Übernehmen")."\"/>";
             echo "</form>";
