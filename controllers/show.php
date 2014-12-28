@@ -61,6 +61,9 @@
             $this->flash                  = Trails_Flash::instance();
             $this->flash["veranstaltung"] = Veranstaltung::get();
             
+            $this->flash["studiengang"]   = array();
+            
+            
             $this->student                = null;
             $this->auswertung             = null;
             $this->initerror              = null;
@@ -95,7 +98,6 @@
                 if (!empty($this->initerror))
                     throw new Exception($this->initerror);
                 
-                $this->flash["studiengang"] = array();
                 if ($this->flash["veranstaltung"]->isClosed())
                     array_push( $this->flash["studiengang"], reset($this->student->studiengang($this->flash["veranstaltung"])) );
                 else

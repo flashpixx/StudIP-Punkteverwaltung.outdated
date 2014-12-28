@@ -29,59 +29,37 @@
     
     try {
         
-        /*
-         if ($loStudent)
-         {
-         echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
-         echo "<tr><td><strong>"._("Anerkennung f¸r den Studiengang:")."</strong></td><td colspan=\"2\">";
-         
-         $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
-         if ($loVeranstaltung->isClosed())
-         echo $laStudiengang["abschluss"]." ".$laStudiengang["fach"];
-         
-         else {
-         $laStudiengaenge = $loStudent->studiengang();
-         
-         if (count($laStudiengaenge) > 1)
-         {
-         $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
-         
-         
-         echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
-         CSRFProtection::tokenTag();
-         
-         echo "<select name=\"studiengang\" size=\"1\">";
-         foreach ($laStudiengaenge as $item)
-         if ( ($item["abschluss_id"]) && ($item["fach_id"]) ) {
-         $lcSelect = null;
-         if ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) )
-         $lcSelect = "selected=\"selected\"";
-         
-         echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".trim($item["abschluss"]." ".$item["fach"])."</option>";
-         }
-         echo "</select>";
-         
-         echo "<input type=\"submit\" name=\"submitted\" value=\""._("¸bernehmen")."\"/>";
-         echo "</form>";
-         
-         } else {
-         $laStudiengaenge = reset($laStudiengaenge);
-         echo $laStudiengaenge["abschluss"]." ".$laStudiengaenge["fach"];
-         }
-         
-         }
-         echo "</td></tr>";
-         
-         echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
-         if (!$loVeranstaltung->isClosed())
-         echo "<tr><td colspan=\"3\"><strong>"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des ‹bungsbetriebes, somit ist die Angabe unter Umst‰nden inkorrekt / unvollst‰ndig z.B. wenn noch nicht alle Daten eingetragen wurden!")."</strong></td></tr>";
-         echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td colspan=\"2\">".($laAuswertung["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$laAuswertung["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
-         
-         }
-         
-         echo "</table>";
-         */
+        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
+        if (!$loVeranstaltung)
+            throw new Exception(_("keine Veranstaltung gefunden"));
         
+        $laStudiengaenge = isset($flash["studiengang"]) ? $flash["studiengang"] : null;
+        if (empty($laStudiengaenge))
+            throw new Exception(_("keine Studieng�nge gefunden"));
+        
+        
+        if (count($laStudiengaenge) == 1)
+            echo _("Diese Veranstaltung wird f�r den Studiengang [%s] anerkannt", $laStudiengaenge[0]["abschluss"]." ".$laStudiengaenge[0]["fach"]);
+        else {
+            
+            echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengangset")."\">\n";
+            CSRFProtection::tokenTag();
+         
+            echo "<select name=\"studiengang\" size=\"1\">";
+            foreach ($laStudiengaenge as $item)
+                if ( ($item["abschluss_id"]) && ($item["fach_id"]) ) {
+                    $lcSelect = null;
+                    if ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) )
+                        $lcSelect = "selected=\"selected\"";
+         
+                    echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".trim($item["abschluss"]." ".$item["fach"])."</option>";
+                }
+            echo "</select>";
+         
+            echo "<input type=\"submit\" name=\"submitted\" value=\""._("¸bernehmen")."\"/>";
+            echo "</form>";
+         
+         }
         
         
     } catch (Exception $e) {

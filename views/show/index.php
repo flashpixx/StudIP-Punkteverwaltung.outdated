@@ -86,65 +86,17 @@
         echo "</script>";
         
         echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
-
         
         /*
-        if ($loStudent)
-        {
-            echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
-            echo "<tr><td><strong>"._("Anerkennung für den Studiengang:")."</strong></td><td colspan=\"2\">";
-
-            $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
-            if ($loVeranstaltung->isClosed())
-                echo $laStudiengang["abschluss"]." ".$laStudiengang["fach"];
-
-            else {
-                $laStudiengaenge = $loStudent->studiengang();
-
-                if (count($laStudiengaenge) > 1)
-                {
-                    $laStudiengang = reset($loStudent->studiengang($loVeranstaltung));
-
-
-                    echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengang")."\">\n";
-                    CSRFProtection::tokenTag();
-
-                    echo "<select name=\"studiengang\" size=\"1\">";
-                    foreach ($laStudiengaenge as $item)
-                        if ( ($item["abschluss_id"]) && ($item["fach_id"]) ) {
-                            $lcSelect = null;
-                            if ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) )
-                                $lcSelect = "selected=\"selected\"";
-
-                            echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".trim($item["abschluss"]." ".$item["fach"])."</option>";
-                        }
-                    echo "</select>";
-
-                    echo "<input type=\"submit\" name=\"submitted\" value=\""._("übernehmen")."\"/>";
-                    echo "</form>";
-
-                } else {
-                    $laStudiengaenge = reset($laStudiengaenge);
-                    echo $laStudiengaenge["abschluss"]." ".$laStudiengaenge["fach"];
-                }
-
-            }
-            echo "</td></tr>";
-
-            echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
-            if (!$loVeranstaltung->isClosed())
-                echo "<tr><td colspan=\"3\"><strong>"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des Übungsbetriebes, somit ist die Angabe unter Umständen inkorrekt / unvollständig z.B. wenn noch nicht alle Daten eingetragen wurden!")."</strong></td></tr>";
-            echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td colspan=\"2\">".($laAuswertung["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$laAuswertung["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
-
-        }
-
-        echo "</table>";
+        echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
+        if (!$loVeranstaltung->isClosed())
+            echo "<tr><td colspan=\"3\"><strong>"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des †bungsbetriebes, somit ist die Angabe unter UmstŠnden inkorrekt / unvollstŠndig z.B. wenn noch nicht alle Daten eingetragen wurden!")."</strong></td></tr>";
+        echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td colspan=\"2\">".($laAuswertung["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$laAuswertung["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
         */
-
-
-
+         
+        
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
     }
-
-?>
+    
+    ?>
