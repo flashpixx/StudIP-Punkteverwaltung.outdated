@@ -23,7 +23,12 @@
     @endcond
     **/
 
+    
+    /** Include-Wrapper, um Includes, die aus StudIP benötigt werden, zentral zu kapseln
+     * und passend für unterschiedliche Versionen zu includieren
+     **/
 
+    
     
     // UserModel ist ab der StudIP 2.5 in einer anderen Datei
     if (!class_exists("UserModel"))
