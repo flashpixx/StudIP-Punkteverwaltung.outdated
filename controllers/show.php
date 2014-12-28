@@ -96,7 +96,7 @@
                     throw new Exception($this->initerror);
                 
                 $this->flash["studiengang"] = array();
-                if ($loVeranstaltung->isClosed())
+                if ($this->flash["veranstaltung"]->isClosed())
                     array_push( $this->flash["studiengang"], reset($this->student->studiengang($this->flash["veranstaltung"])) );
                 else
                     $this->flash["studiengang"] = $loStudent->studiengang();
