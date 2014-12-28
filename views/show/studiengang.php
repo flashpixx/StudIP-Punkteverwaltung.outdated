@@ -48,11 +48,9 @@
             echo "<label for=\"studiengang\">"._("Studiengang auswählen, für den die Veranstaltung anerkannt werden soll").":</label> ";
             echo "<select id=\"studiengang\" name=\"studiengang\" size=\"1\">";
             foreach ($laStudiengaenge as $item)
-                if ( ($item["abschluss_id"]) && ($item["fach_id"]) ) {
-                    $lcSelect = null;
-                    if ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) )
-                        $lcSelect = "selected=\"selected\"";
-         
+                if ( ($item["abschluss_id"]) && ($item["fach_id"]) )
+                {
+                    $lcSelect = ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) ) ? "selected=\"selected\"" : null;
                     echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".trim($item["abschluss"]." ".$item["fach"])."</option>";
                 }
             echo "</select> ";

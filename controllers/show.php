@@ -70,10 +70,12 @@
             
             try {
             
-                $this->student      = new Student($GLOBALS["user"]->id);
+                $this->student               = new Student($GLOBALS["user"]->id);
                 
-                $loAuswertung       = new Auswertung( $this->flash["veranstaltung"] );
-                $this->auswertung   = $loAuswertung->studentdaten( $this->student );
+                $loAuswertung                = new Auswertung( $this->flash["veranstaltung"] );
+                $this->auswertung            = $loAuswertung->studentdaten( $this->student );
+                
+                $this->flash["studiengang"]  = $this->flash["veranstaltung"]->isClosed() ? $this->student->studiengang($this->flash["veranstaltung"]) : $this->student->studiengang();
                 
             } catch (Exception $e) {
                 $this->initerror = $e->getMessage();
@@ -97,11 +99,6 @@
                 
                 if (!empty($this->initerror))
                     throw new Exception($this->initerror);
-                
-                if ($this->flash["veranstaltung"]->isClosed())
-                    array_push( $this->flash["studiengang"], reset($this->student->studiengang($this->flash["veranstaltung"])) );
-                else
-                    $this->flash["studiengang"] = $this->student->studiengang();
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         }
