@@ -86,8 +86,27 @@
             $this->listaction       = $this->url_for( "show/jsonlist");
         }
 
-        /** setzt den Studiengang des Users **/
+        
+        /** liest den oder die StudiengŠnge des Users **/
         function studiengang_action()
+        {
+            try {
+                
+                if (!empty($this->initerror))
+                    throw new Exception($this->initerror);
+                
+                $this->flash["studiengang"] = array();
+                if ($loVeranstaltung->isClosed())
+                    array_push( $this->flash["studiengang"], reset($this->student->studiengang($this->flash["veranstaltung"])) );
+                else
+                    $this->flash["studiengang"] = $loStudent->studiengang();
+
+            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
+        }
+        
+        
+        /** setzt den Studiengang des Users **/
+        function studiengangset_action()
         {
             try {
                 
@@ -105,7 +124,7 @@
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
-            $this->redirect("show");
+            $this->redirect("studiengang");
         }
         
         
