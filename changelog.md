@@ -22,6 +22,7 @@
  * Hilfe für Studierende eingefügt
  * Multilanguage-Support für die Strings korrigiert
  * Bewertung für den Studierenden eingefügt (Fix Issue #11)
+ * Anzeige des bzw. der Studiengänge in der Auswertung (Fix Issue #34)
 
 
 
