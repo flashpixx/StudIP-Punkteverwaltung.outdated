@@ -40,6 +40,7 @@
     // http://studip.tleilax.de/plugins/generator/
     // http://docs.studip.de/api
     // http://docs.studip.de/develop/Entwickler/Migrations
+    // http://docs.studip.de/develop/Entwickler/HowToGettext
     
 
 
