@@ -59,7 +59,7 @@
         }
 
 
-        /** erzeugt ein Array mit den informationen eines Studenten
+        /** erzeugt ein Array mit den Informationen eines Studenten
          * @param $poStudent Studentenobjekt
          * @return Array
          **/
@@ -86,8 +86,8 @@
                 "uebungenpunkte"           => 0,                                 // Summe über alle erreichten Übungspunkte
                 "veranstaltungenbestanden" => false,                             // Boolean, ob die Veranstaltung als komplett bestanden gilt
                 "bonuspunkte"              => 0,                                 // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
-                "manuelleZulassung"        => !empty($lcZulassungsBemerkung),    // Boolean für die manuelle Zulassung,
-                "score"                    => 0                                  // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking)
+                "manuelleZulassung"        => !empty($lcZulassungsBemerkung),    // Boolean für die manuelle Zulassung
+                "score"                    => 0                                  // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking) - zulässige Scorewerte liegen in [0,6]
             );
         }
 
@@ -132,6 +132,63 @@
             return $data;
         }
 
+        
+        /** erzeugt das Score-Array
+         * @param $poUebung Übungsobject
+         * @return Score-Array (Key-Value Struktur, wobei der Key den Punktewert
+         * enthält der Überprüft wird und der Value den Score
+         **/
+        private function createScore( $poUebung )
+        {
+            $laPunkte = array();
+            foreach( $poUebung->studentenuebung() as $loData )
+                array_push($laPunkte, $loData->zusatzPunkte()+$loData->erreichtePunkte() );
+            sort($laPunkte, SORT_NUMERIC);
+            
+            // 0.25 & 0.75 Quantil ermitteln und dann innerhalb aller Teile äquidistant verteilen:
+            // min bis < 0.25 Quantil (2 Teile) / 0.25 Quantil bis < 0.75 Quantil (3 teile) / 0.75 Quantil bis max (2 Teile)
+            $lnQ25   = $laPunkte[ intval(count($laPunkte) * 0.25) ];
+            $lnQ75   = $laPunkte[ intval(count($laPunkte) * 0.75) ];
+            $lnMin   = $laPunkte[0];
+            $lnMax   = $laPunkte[count($laPunkte)-1];
+            
+            // Score-Werte erzeugen
+            $laScore = array();
+            
+            $ln                    = round( 0.5 * ($lnQ25 - $lnMin), 2);
+            $laScore[$lnMin+$ln]   = 0;
+            $laScore[$lnMin+2*$ln] = 1;
+            
+            $ln                    = round( 1/3 * ($lnQ75-$lnQ25), 2);
+            $laScore[$lnQ25+$ln]   = 2;
+            $laScore[$lnQ25+2*ln]  = 3;
+            $laScore[$lnQ25+3*ln]  = 4;
+            
+            $ln                    = round( 0.5 * ($lnMax-$lnQ75), 2);
+            $laScore[$lnQ75+$ln]   = 5;
+            $laScore[$lnQ75+2*$ln] = 6;
+            
+            ksort($laScore);
+            return $laScore;
+        }
+        
+        
+        /** ermittelt aus dem Score-Array die passende Punkte
+         * @param $paScore Array mit Scores
+         * @param $pnPunkte Punktwert
+         * @return Score-Wert
+         **/
+        private function getScore( $paScore, $pnPunkte )
+        {
+            $lnReturn = 0;
+            foreach($paScore as $lnKey => $lnScore)
+            {
+                $lnReturn = $lnScore;
+                if ($lnKey >= $pnPunkte)
+                    return $lnReturn;
+            }
+            return $lnReturn;
+        }
 
 
 
@@ -171,10 +228,11 @@
             {
                 $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
                 $uebungarray  = $this->createUebungsArray( $uebung );
+                $score        = $this->createScore($uebung);
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {
-                    $loStudentUebung                                                                 = new StudentUebung( $uebung, $key );
+                    $loStudentUebung                                                                   = new StudentUebung( $uebung, $key );
                     $main["uebungen"][$uebung->name()]["studenten"][$loStudentUebung->student()->id()] = $this->createStudentenPunkteArray( $loStudentUebung, $uebungarray["bestandenpunkte"], $uebungarray["maxPunkte"] );
                 }
 
@@ -241,6 +299,7 @@
             {
                 $uebung       = new Uebung( $this->moVeranstaltung, $uebungitem["id"] );
                 $uebungarray  = $this->createUebungsArray( $uebung );
+                $score        = $this->createScore($uebung);
 
                 foreach( array_diff_key( $main["studenten"], array_fill_keys($uebung->studentenuebung(true), null)) as $key => $val )
                 {

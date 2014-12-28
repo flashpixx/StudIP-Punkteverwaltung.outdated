@@ -12,7 +12,7 @@ Das Plugin ist unterteilt in drei Sichten:
  * Administrator / Root - kann alle Einstellung für die interne Verwaltung verändern
  * Dozent - kann Übungen, Bonuspunkte und Bewertungsschemata anlegen, sowie die Auswertung aller Teilnehmer ansehen
  * Tutor - kann einzelne Teilnehmer bewerten
- * Autor / Student - kann seine individuellen Leistungen einsehen
+ * Autor / Student - kann seine individuellen Leistungen einsehen und erhält eine Bewertung anhand von fünf Sterne über die Leistung im Vergleich zu allen anderen Teilnehmern
 
 ## Benutzung
 
