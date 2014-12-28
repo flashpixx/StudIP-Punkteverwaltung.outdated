@@ -87,7 +87,7 @@
                 "veranstaltungenbestanden" => false,                             // Boolean, ob die Veranstaltung als komplett bestanden gilt
                 "bonuspunkte"              => 0,                                 // Bonuspunkte, die auf die Gesamtpunktzahl angerechnet werden
                 "manuelleZulassung"        => !empty($lcZulassungsBemerkung),    // Boolean für die manuelle Zulassung
-                "score"                    => 0                                  // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking) - zulässige Scorewerte liegen in [0,6]
+                "score"                    => 0                                  // Score-Wert, um die Bewertung dem Studenten anzuzeigen (Ranking) - zulässige Scorewerte liegen in [1,7]
             );
         }
 
@@ -156,17 +156,17 @@
             $laScore = array();
             
             $ln                    = round( 0.5 * ($lnQ25 - $lnMin), 2);
-            $laScore[$lnMin+$ln]   = 0;
-            $laScore[$lnMin+2*$ln] = 1;
+            $laScore[$lnMin+$ln]   = 1;
+            $laScore[$lnMin+2*$ln] = 2;
             
             $ln                    = round( 1/3 * ($lnQ75-$lnQ25), 2);
-            $laScore[$lnQ25+$ln]   = 2;
-            $laScore[$lnQ25+2*ln]  = 3;
-            $laScore[$lnQ25+3*ln]  = 4;
+            $laScore[$lnQ25+$ln]   = 3;
+            $laScore[$lnQ25+2*ln]  = 4;
+            $laScore[$lnQ25+3*ln]  = 5;
             
             $ln                    = round( 0.5 * ($lnMax-$lnQ75), 2);
-            $laScore[$lnQ75+$ln]   = 5;
-            $laScore[$lnQ75+2*$ln] = 6;
+            $laScore[$lnQ75+$ln]   = 6;
+            $laScore[$lnQ75+2*$ln] = 7;
             
             ksort($laScore);
             return $laScore;
