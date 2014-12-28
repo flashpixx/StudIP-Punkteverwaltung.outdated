@@ -93,7 +93,7 @@
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr gelöscht werden"));
 
             Uebung::delete( $lo );
-            Bonuspunkte::delete( $lo );
+            Bonuspunkt::delete( $lo );
             
             $laSQL = array(
                 "delete from ppv_seminar where id = :semid",
