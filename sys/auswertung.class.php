@@ -103,7 +103,7 @@
         {
             $data = array(
                  "erreichtepunkte"  => $poUebungStudent->erreichtePunkte(),                              // Punkte, die erreicht wurden
-                 "zusatzpunkte"     => $poUebungStudent->zusatzPunkte()                                  // Zusatzpunkte
+                 "zusatzpunkte"     => $poUebungStudent->zusatzPunkte(),                                 // Zusatzpunkte
                  "punktesumme"      => 0,                                                                // Summe aus Zusatzpunkte + erreichte Punkte
                  "bestanden"        => false,                                                            // Boolean, ob die Übung bestanden wurde
                  "erreichteprozent" => 0,                                                                // Prozentzahl der Punktesumme
