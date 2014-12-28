@@ -35,7 +35,7 @@
         
         $laStudiengaenge = isset($flash["studiengang"]) ? $flash["studiengang"] : null;
         if (empty($laStudiengaenge))
-            throw new Exception(_("keine Studiengänge gefunden"));
+            throw new Exception(_("keine Studiengänge für den User eingetragen"));
         
         
         if (count($laStudiengaenge) == 1)
