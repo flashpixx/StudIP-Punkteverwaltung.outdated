@@ -118,7 +118,7 @@
                     {
                         $la     = explode("#", $lcLink);
                         $lcLink = array_shift($la);
-                        return $this->url_for("hilfe", array(self::$urlparameter => $lcLink)) . "#" . implode("", $la);
+                        return $this->url_for("hilfe", array(self::$urlparameter => $lcLink)) . "#" . urlencode(implode("", $la));
                     }
                         
                     // alle anderen Dokumente werden als Markdown Dokumente verlinkt
