@@ -113,6 +113,7 @@
             $data["punktesumme"]      = $data["erreichtepunkte"] + $data["zusatzpunkte"];
             $data["bestanden"]        = $data["punktesumme"] >= $pnBestandenPunkte;
             $data["erreichteprozent"] = round($data["punktesumme"] / $pnUebungMaxPunkte * 100, 2);
+            $data["score"]            = $this->getScore( $paScore, $data["punktesumme"] );
 
             return $data;
         }
