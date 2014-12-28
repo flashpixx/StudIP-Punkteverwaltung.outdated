@@ -139,7 +139,10 @@
 
                     $this->flash["message"] = Tools::createMessage( "success", _("Übung gelöscht") );
                     
-                    $this->redirect("uebung");
+                    if ($this->flash["veranstaltung"]->hasUebungen())
+                        $this->redirect("uebung");
+                    else
+                        $this->redirect("admin");
                     return;
                 }
                 elseif (Request::int("dialogno")) { }
