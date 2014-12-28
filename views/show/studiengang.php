@@ -39,7 +39,7 @@
         
         
         if (count($laStudiengaenge) == 1)
-            printf(_("Diese Veranstaltung wird für den Studiengang [%s] anerkannt", $laStudiengaenge[0]["abschluss"]." ".$laStudiengaenge[0]["fach"]));
+            printf(_("Diese Veranstaltung wird für den Studiengang [%s] anerkannt"), $laStudiengaenge[0]["abschluss"]." ".$laStudiengaenge[0]["fach"]);
         else {
             
             echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengangset")."\">\n";
