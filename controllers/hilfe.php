@@ -107,6 +107,9 @@
                         return $lcLink;
                     
                     // falls es kein externer Link ist, kann es nur noch ein interner Link oder ein Bild sein (Dateiname in ASCII umcodieren)
+                    // wobei das Bild entweder durch die Dateiendung oder den Pfad "img/" erkennat wird
+                    if (Tools::foundCISubStr($lcLink, array("img/")))
+                        return $this->plugin->getPluginURL() . $this->basepath . iconv(mb_detect_encoding($lcLink), "ASCII//IGNORE", strtolower($lcLink));
                     if (Tools::foundCISubStr($lcLink, array(".png", ".jpg", ".jpeg", ".svg")))
                         return $this->plugin->getPluginURL() . $this->basepath . "img/" . iconv(mb_detect_encoding($lcLink), "ASCII//IGNORE", strtolower($lcLink));
                     
