@@ -42,7 +42,7 @@
             printf(_("Diese Veranstaltung wird für den Studiengang %s anerkannt."), "<strong>" . $laStudiengaenge[0]["abschluss"] ." ". $laStudiengaenge[0]["fach"] . "</strong>");
         else {
             
-            echo "<form method=\"post\" action=\"".$controller->url_for("studiengangset")."\">\n";
+            echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengangset")."\">\n";
             CSRFProtection::tokenTag();
          
             echo "<label for=\"studiengang\">"._("Studiengang auswählen, für den die Veranstaltung anerkannt werden soll").":</label> ";
