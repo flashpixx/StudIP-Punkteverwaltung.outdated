@@ -339,7 +339,7 @@
 
                     if ( (!is_array($laItems)) || (empty($laItems)) )
                     {
-                        array_push($laError, _("Zeile ".$i." hat ein ungültiges Format"));
+                        array_push($laError, sprintf(_("Zeile %d hat ein ungültiges Format"), $i));
                         continue;
                     }
                 
@@ -348,7 +348,7 @@
                     $laData["matrikelnummer"] = array_shift($laItems);
                     if (!is_numeric($laData["matrikelnummer"]))
                     {
-                        array_push($laError, _("Matrikelnummer in Zeile ".$i." ist nicht numerisch"));
+                        array_push($laError, sprintf(_("Matrikelnummer in Zeile %d ist nicht numerisch"), $i));
                         continue;
                     }
                     $laData["matrikelnummer"] = intval($laData["matrikelnummer"]);
@@ -357,7 +357,7 @@
                     $laData["punkte"] = str_replace(",", ".", array_shift($laItems));
                     if (!is_numeric($laData["punkte"]))
                     {
-                        array_push($laError, _("Punkte in Zeile ".$i." sind nicht numerisch"));
+                        array_push($laError, sprintf(_("Punkte in Zeile %d sind nicht numerisch"), $i));
                         continue;
                     }
                     $laData["punkte"] = abs(floatval($laData["punkte"]));
@@ -368,7 +368,7 @@
                         $laData["bonuspunkte"] = str_replace(",", ".", array_shift($laItems));
                         if (!is_numeric($laData["bonuspunkte"]))
                         {
-                            array_push($laError, _("Bonuspunkte in Zeile ".$i." sind nicht numerisch"));
+                            array_push($laError, sprintf(_("Bonuspunkte in Zeile %d sind nicht numerisch"), $i));
                             continue;
                         }
                         $laData["bonuspunkte"] = abs(floatval($laData["bonuspunkte"]));

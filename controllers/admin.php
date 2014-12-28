@@ -156,7 +156,7 @@
         }
 
         
-        /** Funktion, um die Verwaltung der Teilnehmer zu initialisieren **/
+        /** Funktion, um die Teilnehmer zu verwalten **/
         function teilnehmer_action()
         {
             
@@ -177,16 +177,12 @@
                 $this->flash["message"] = Tools::createMessage( "success", _("Teilnehmer in den Übungen aktualisiert") );
             }
 
-            $this->redirect("admin/teilnehmer");
+            $this->redirect("admin");
         }
 
 
         /** Aufruf um eine neue Übung zu erzeugen **/
-        function createuebung_action() { }
-
-
-        /** führt die Action für das CreateÜbungs Form aus **/
-        function createuebungsetting_action()
+        function createuebung_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung anzulegen") );
@@ -201,9 +197,10 @@
                 }
             }
 
-            $this->redirect("admin");
+            $this->redirect("uebung");
         }
 
+        
         /** öffnet die Veranstaltung, wenn sie geschlossen wurde **/
         function reopen_action()
         {

@@ -71,7 +71,7 @@
             echo "</div>\n";
             if ($loVeranstaltung->isClosed())
             {
-                echo "<p><strong>Die Veranstaltung wurde am ".$loVeranstaltung->closedDateTime()." geschlossen</strong>";
+                echo "<p><strong>" . sprintf(_("Die Veranstaltung wurde am %s geschlossen"), $loVeranstaltung->closedDateTime()) . "</strong>";
                 if (VeranstaltungPermission::hasAdminRecht())
                     echo " (<a href=\"".$controller->url_for("admin/reopen")."\">Veranstaltung wieder öffnen</a>)";
                 echo "</p>";
