@@ -65,13 +65,15 @@
          **/
         private function createStudentenArray( $poStudent )
         {
-            $lcStudiengang = null;
             $laStudiengang = $poStudent->studiengang( $this->moVeranstaltung );
-            if ($laStudiengang)
-            {
-                $laStudiengang = reset($laStudiengang);
-                $lcStudiengang = trim($laStudiengang["abschluss"]." ".$laStudiengang["fach"]);
-            }
+            if (empty($laStudiengang))
+                $laStudiengang = $poStudent->studiengang();
+            
+            $la = array();
+            foreach( $laStudiengang as $laItem )
+                array_push($la, trim($laItem["abschluss"]." ".$laItem["fach"]));
+            $lcStudiengang = implode(", ", $la);
+
 
             $lcZulassungsBemerkung = $poStudent->manuelleZulassung($this->moVeranstaltung);
 
