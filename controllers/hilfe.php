@@ -116,7 +116,7 @@
                     // wenn in dem Link ein # enthalten ist, dann wird ein Tag im Dokument angesprungen
                     if (Tools::foundCISubStr($lcLink, array("#")))
                     {
-                        $la     = explode("#");
+                        $la     = explode("#", $lcLink);
                         $lcLink = array_shift($la);
                         return $this->url_for("hilfe", array(self::$urlparameter => $lcLink)) . "#" . implode("", $la);
                     }
