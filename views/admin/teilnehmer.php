@@ -25,6 +25,8 @@
     
     
     
+    Tools::showMessage($flash["message"]);
+    
     echo "<h1 class=\"ppv\">Teilnehmer aktualisieren</h1>";
     
     echo "<a href=\"".$controller->url_for("admin/createuebungsetting")."\">Teilnehmer aktualisieren</a>";
