@@ -97,7 +97,7 @@
             
             $laSQL = array(
                 "delete from ppv_seminar where id = :semid",
-                "delete from ppv_seminarmanuellezulassung where id = :semid",
+                "delete from ppv_seminarmanuellezulassung where seminar = :semid",
                 "delete from ppv_studiengang where seminar = :semid"
                            
             );
