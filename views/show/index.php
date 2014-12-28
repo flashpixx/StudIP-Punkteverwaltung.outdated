@@ -49,7 +49,7 @@
         $lcRatyOptions .= "cancelOff : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-off.png" ."\",";
         $lcRatyOptions .= "cancelOn : \"" . $plugin->getPluginUrl() . "/sys/extensions/raty/images/cancel-on.png" ."\",";
         $lcRatyOptions .= "hints : [\""._("ungenügend")."\", \""._("mangelhaft")."\", \""._("ausreichend")."\", \""._("befriedigend")."\", \""._("gut")."\", \""._("hervorragend")."\"],";
-        $lcRatyOptions .= "noRatedMsg : \""._("keine Bewertung hinterlegt")."\",
+        $lcRatyOptions .= "noRatedMsg : \""._("keine Bewertung hinterlegt")."\",";
         $lcRatyOptions .= "number : 7,";
         $lcRatyOptions .= "readOnly : true,";
         $lcRatyOptions .= "score : function() { return jQuery(this).attr(\"data-score\"); }";
