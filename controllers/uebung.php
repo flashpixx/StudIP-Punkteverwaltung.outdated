@@ -138,7 +138,11 @@
                         Uebung::delete( $this->flash["uebung"] );
 
                     $this->flash["message"] = Tools::createMessage( "success", _("Übung gelöscht") );
-                    $this->redirect("admin");
+                    
+                    if ($this->flash["veranstaltung"]->hasUebungen())
+                        $this->redirect("uebung");
+                    else
+                        $this->redirect("admin");
                     return;
                 }
                 elseif (Request::int("dialogno")) { }

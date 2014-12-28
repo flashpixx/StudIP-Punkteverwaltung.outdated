@@ -335,6 +335,17 @@
             return $this->mcCloseDateTime;
         }
 
+        
+        /** liefert die Inforamtion, ob die Veranstaltung Übungen hat
+         * @return Boolean ob Übungen existieren
+         **/
+        function hasUebungen()
+        {
+            $loPrepare = DBManager::get()->prepare("select id from ppv_uebung where seminar = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $loPrepare->execute( array("semid" => $this->mcID) );
+            
+            return $loPrepare->rowCount() > 0;
+        }
 
 
         /** liefert ein Array mit allen Übungsobjekten
