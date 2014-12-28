@@ -45,7 +45,8 @@
             echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengangset")."\">\n";
             CSRFProtection::tokenTag();
          
-            echo "<select name=\"studiengang\" size=\"1\">";
+            echo "<label for=\"studiengang\">"._("Studiengang auswählen, für den die Veranstaltung anerkannt werden soll").":</label>";
+            echo "<select id=\"studiengang\" name=\"studiengang\" size=\"1\">";
             foreach ($laStudiengaenge as $item)
                 if ( ($item["abschluss_id"]) && ($item["fach_id"]) ) {
                     $lcSelect = null;
@@ -56,7 +57,7 @@
                 }
             echo "</select>";
          
-            echo "<input type=\"submit\" name=\"submitted\" value=\""._("Â¸bernehmen")."\"/>";
+            echo "<input type=\"submit\" name=\"submitted\" value=\""._("Übernehmen")."\"/>";
             echo "</form>";
          
          }
