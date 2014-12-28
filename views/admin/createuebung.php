@@ -24,6 +24,8 @@
     **/
 
 
+    
+    Tools::showMessage($flash["message"]);
 
     echo "<form method=\"post\" action=\"".$controller->url_for("admin/adduebung")."\">\n";
     CSRFProtection::tokenTag();
