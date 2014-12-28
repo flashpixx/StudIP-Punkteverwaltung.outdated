@@ -180,9 +180,16 @@
             $this->redirect("admin");
         }
 
-
-        /** Aufruf um eine neue Übung zu erzeugen **/
+        
+        /** Funktion, um neue Übungen zu erzeugen **/
         function createuebung_action()
+        {
+            
+        }
+
+        
+        /** Aufruf um eine neue Übung zu erzeugen **/
+        function adduebung_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung anzulegen") );
@@ -195,11 +202,9 @@
                 } catch (Exception $e) {
                     $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
                 }
-                
-                $this->redirect("uebung");
             }
-
-            $this->redirect("createuebung");
+            
+            $this->redirect("uebung");
         }
 
         
