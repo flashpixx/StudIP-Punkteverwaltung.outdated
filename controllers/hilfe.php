@@ -122,7 +122,7 @@
                     }
                         
                     // alle anderen Dokumente werden als Markdown Dokumente verlinkt
-                    return $this->url_for("hilfe", array(self::$urlparameter => $lcLink));
+                    return $this->url_for( "hilfe", array(self::$urlparameter => iconv(mb_detect_encoding($lcLink), "ASCII//IGNORE", strtolower($lcLink))) );
                 };
                 
                 // Markdown rendern
