@@ -139,7 +139,7 @@
          **/
         private function createPunkteTableRow( $pcName = null, $pnPunkte = null, $pnProzent = null, $pnScore = null )
         {
-            return array( "Uebung" => $pcName, "Punkte" => $pnPunkte, "PunkteProzent" => $pnProzent, "Score" => $pnScore );
+            return array( "Uebung" => studip_utf8encode($pcName), "Punkte" => $pnPunkte, "PunkteProzent" => $pnProzent, "Score" => $pnScore );
         }
         
         
@@ -156,7 +156,7 @@
                 
                 $la = array();
                 foreach( $this->auswertung["uebungen"] as $laUebung )
-                    array_push( $la, $this->createPunkteTableRow(studip_utf8encode($laUebung["name"]), $laUebung["studenten"][$this->student->id()]["punktesumme"], $laUebung["studenten"][$this->student->id()]["erreichteprozent"]), $laUebung["studenten"][$this->student->id()]["score"] );
+                    array_push( $la, $this->createPunkteTableRow($laUebung["name"], $laUebung["studenten"][$this->student->id()]["punktesumme"], $laUebung["studenten"][$this->student->id()]["erreichteprozent"]), $laUebung["studenten"][$this->student->id()]["score"] );
 
                 $this->createPunkteTableRow();
                 $this->createPunkteTableRow(_("Bonuspunkte"), $this->auswertung["uebungen"]["studenten"][$this->student->id()]["bonuspunkte"]);
