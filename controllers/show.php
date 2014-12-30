@@ -129,6 +129,20 @@
         }
         
         
+        
+        /** erzeugt einen Eintrag fŸr die Punktetabelle
+         * @param $pcName Name der 1. Spalte
+         * @param $pnPunkte Punkte der 2. Spalten
+         * @param $pnProzent Prozent der Punkte der 3. Spalte
+         * @param $pnScore Scorewert der 4. Spalte
+         * @return Array
+         **/
+        private function createPunkteTableRow( $pcName = null, $pnPunkte = null, $pnProzent = null, $pnScore = null )
+        {
+            return array( "Uebung" => $pcName, "Punkte" => $pnPunkte, "PunkteProzent" => $pnProzent, "Score" => $pnScore );
+        }
+        
+        
         /** Action, um die Json-Daten fŸr die jTable zu erzeugen **/
         function jsonlist_action()
         {
@@ -140,16 +154,13 @@
                 if (!empty($this->initerror))
                     throw new Exception($this->initerror);
                 
-
                 $la = array();
                 foreach( $this->auswertung["uebungen"] as $laUebung )
-                    array_push($la, array(
-                        "Uebung"        => studip_utf8encode( $laUebung["name"] ),
-                        "Punkte"        => $laUebung["studenten"][$this->student->id()]["punktesumme"],
-                        "PunkteProzent" => $laUebung["studenten"][$this->student->id()]["erreichteprozent"],
-                        "Score"         => $laUebung["studenten"][$this->student->id()]["score"]
-                    ));
+                    array_push( $la, $this->createPunkteTableRow(studip_utf8encode($laUebung["name"]), $laUebung["studenten"][$this->student->id()]["punktesumme"], $laUebung["studenten"][$this->student->id()]["erreichteprozent"]), $laUebung["studenten"][$this->student->id()]["score"] );
 
+                $this->createPunkteTableRow();
+                $this->createPunkteTableRow(_("Bonuspunkte"), $this->auswertung["uebungen"]["studenten"][$this->student->id()]["bonuspunkte"]);
+                
 
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Records"] = $la;
