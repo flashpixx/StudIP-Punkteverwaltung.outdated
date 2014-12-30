@@ -58,22 +58,23 @@
 
             // Initialisierung der Session & setzen der Veranstaltung, damit jeder View
             // die aktuellen Daten bekommt
-            $this->flash                  = Trails_Flash::instance();
-            $this->flash["veranstaltung"] = Veranstaltung::get();
+            $this->flash                                 = Trails_Flash::instance();
+            $this->flash["veranstaltung"]                = Veranstaltung::get();
             
-            $this->flash["studiengang"]   = array();
+            $this->flash["studiengang"]                  = array();
+            $this->flash["veranstaltungstudiengang"]     = array();
             
             
-            $this->student                = null;
-            $this->auswertung             = null;
-            $this->initerror              = null;
+            $this->student                               = null;
+            $this->auswertung                            = null;
+            $this->initerror                             = null;
             
             try {
             
-                $this->student                 = new Student($GLOBALS["user"]->id);
+                $this->student                           = new Student($GLOBALS["user"]->id);
                 
-                $loAuswertung                  = new Auswertung( $this->flash["veranstaltung"] );
-                $this->auswertung              = $loAuswertung->studentdaten( $this->student );
+                $loAuswertung                            = new Auswertung( $this->flash["veranstaltung"] );
+                $this->auswertung                        = $loAuswertung->studentdaten( $this->student );
                 
                 $this->flash["studiengang"]              = $this->student->studiengang();
                 $this->flash["veranstaltungstudiengang"] = $this->student->studiengang($this->flash["veranstaltung"]);

@@ -37,7 +37,7 @@
         if (empty($laStudiengaenge))
             throw new Exception(_("keine Studiengänge für den User eingetragen"));
         
-        $laCurrentStudiengang = empty($flash["veranstaltungstudiengang"]) : $flash["veranstaltungstudiengang"] : array_shift($flash["veranstaltungstudiengang"]);
+        $laCurrentStudiengang = empty($flash["veranstaltungstudiengang"]) ? $flash["veranstaltungstudiengang"] : array_shift($flash["veranstaltungstudiengang"]);
         
         
         
