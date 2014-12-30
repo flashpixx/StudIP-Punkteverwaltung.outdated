@@ -37,10 +37,17 @@
         if (empty($laStudiengaenge))
             throw new Exception(_("keine Studiengänge für den User eingetragen"));
         
+        $laCurrentStudiengang = empty($flash["veranstaltungstudiengang"]) : $flash["veranstaltungstudiengang"] : array_shift($flash["veranstaltungstudiengang"]);
         
-        if (count($laStudiengaenge) == 1)
+        
+        
+        
+        if ($loVeranstaltung->isClosed())
+            printf(_("Diese Veranstaltung wurde für den Studiengang %s anerkannt."), "<strong>" . $laCurrentStudiengang["abschluss"] ." ". $laCurrentStudiengang["fach"] . "</strong>");
+        elseif (count($laStudiengaenge) == 1)
             printf(_("Diese Veranstaltung wird für den Studiengang %s anerkannt."), "<strong>" . $laStudiengaenge[0]["abschluss"] ." ". $laStudiengaenge[0]["fach"] . "</strong>");
-        else {
+        elseif (count($laStudiengaenge) > 1)
+        {
             
             echo "<form method=\"post\" action=\"".$controller->url_for("show/studiengangset")."\">\n";
             CSRFProtection::tokenTag();
@@ -48,17 +55,17 @@
             echo "<label for=\"studiengang\">"._("Studiengang auswählen, für den die Veranstaltung anerkannt werden soll").":</label> ";
             echo "<select id=\"studiengang\" name=\"studiengang\" size=\"1\">";
             foreach ($laStudiengaenge as $item)
-                if ( ($item["abschluss_id"]) && ($item["fach_id"]) )
-                {
-                    $lcSelect = ( (!empty($laStudiengang)) && ($laStudiengang["abschluss_id"] == $item["abschluss_id"]) && ($laStudiengang["fach_id"] == $item["fach_id"]) ) ? "selected=\"selected\"" : null;
-                    echo "<option value=\"".$item["abschluss_id"]."#".$item["fach_id"]."\" ".$lcSelect.">".trim($item["abschluss"]." ".$item["fach"])."</option>";
-                }
+            {
+                $lcSelect = (!empty($laCurrentStudiengang)) && ($item["abschluss_id"] == $laCurrentStudiengang["abschluss_id"]) && ($item["fach_id"] == $laCurrentStudiengang["fach_id"]) ? "selected=\"selected\"" : null;
+                printf("<option value=\"%s\" %s >%s</option>", $item["abschluss_id"]."#".$item["fach_id"], $lcSelect, trim($item["abschluss"]." ".$item["fach"]));
+            }
             echo "</select> ";
          
             echo "<input type=\"submit\" name=\"submitted\" value=\""._("Übernehmen")."\"/>";
             echo "</form>";
-         
          }
+        else
+            throw new Exception(_("Studiengänge können nicht ermittelt werden"));
         
         
     } catch (Exception $e) {

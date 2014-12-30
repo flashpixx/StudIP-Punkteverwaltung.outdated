@@ -75,8 +75,8 @@
                 $loAuswertung                  = new Auswertung( $this->flash["veranstaltung"] );
                 $this->auswertung              = $loAuswertung->studentdaten( $this->student );
                 
-                $this->flash["studiengang"]    = $this->flash["veranstaltung"]->isClosed() ? $this->student->studiengang($this->flash["veranstaltung"]) : $this->student->studiengang();
-                $this->flash["studiengangset"] = $this->student->studiengang($this->flash["veranstaltung"]);
+                $this->flash["studiengang"]              = $this->student->studiengang();
+                $this->flash["veranstaltungstudiengang"] = $this->student->studiengang($this->flash["veranstaltung"]);
                 
             } catch (Exception $e) {
                 $this->initerror = $e->getMessage();
