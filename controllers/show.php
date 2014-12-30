@@ -158,8 +158,8 @@
                 foreach( $this->auswertung["uebungen"] as $laUebung )
                     array_push( $la, $this->createPunkteTableRow($laUebung["name"], $laUebung["studenten"][$this->student->id()]["punktesumme"], $laUebung["studenten"][$this->student->id()]["erreichteprozent"]), $laUebung["studenten"][$this->student->id()]["score"] );
 
-                $this->createPunkteTableRow();
-                $this->createPunkteTableRow(_("Bonuspunkte"), $this->auswertung["uebungen"]["studenten"][$this->student->id()]["bonuspunkte"]);
+                array_push( $la, $this->createPunkteTableRow() );
+                array_push( $la, $this->createPunkteTableRow(_("Bonuspunkte"), $this->auswertung["uebungen"]["studenten"][$this->student->id()]["bonuspunkte"]) );
                 
 
                 // alles fehlerfrei durchlaufen, setze Result
