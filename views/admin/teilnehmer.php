@@ -29,7 +29,7 @@
     
     echo "<h1 class=\"ppv\">Teilnehmer aktualisieren</h1>";
     
-    echo "<a href=\"".$controller->url_for("admin/createuebungsetting")."\">Teilnehmer aktualisieren</a>";
+    echo "<a href=\"".$controller->url_for("admin/updateteilnehmer")."\">Teilnehmer aktualisieren</a>";
     
     
     echo "<h1 class=\"ppv\">Teilnehmer ignorieren</h1>";
