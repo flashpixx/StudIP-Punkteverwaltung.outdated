@@ -160,6 +160,8 @@
         /** Funktion, um die Teilnehmer zu verwalten **/
         function teilnehmer_action()
         {
+            Tools::addHTMLHeaderElements( $this->plugin );
+            
             $this->ignorelistaction   = $this->url_for( "admin/jsonlistignore");
             $this->ignoreremoveaction = $this->url_for( "admin/jsonignoreremove");
             $this->ignoreupdateaction = $this->url_for( "admin/jsonignoreupdate");
