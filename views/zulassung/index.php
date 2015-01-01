@@ -57,10 +57,10 @@
         echo "fields: {";
 
         echo "Auth : { key : true, create : false, edit : false, list : false },";
-        echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"10%\" },";
-        echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
-        echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"20%\" },";
-        echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"50%\" }";
+        echo "Name : { edit : false, title : \"Name\", width : \"10%\" },";
+        echo "EmailAdresse : { edit : false, title : \"EMail Adresse\", width : \"10%\" },";
+        echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"5%\" },";
+        echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"75%\" }";
         
         echo "}";
         echo "});";
