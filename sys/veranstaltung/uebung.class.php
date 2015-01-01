@@ -83,12 +83,13 @@
 
             
             // erzeuge die Default Liste der Studenten aus der Liste der angemeldeten
-            $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $laIgnoreUser = $this->moVeranstaltung->getIgnore();
+            $loPrepare    = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $lo->id(), "status" => "autor") );
         
             $loPrepareInsert = DBManager::get()->prepare("insert into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                if (self::canUserAdded($row["student"]))
+                if (self::canUserAdded($row["student"], $laIgnoreUser))
                     $loPrepareInsert->execute( array("id" => $lcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
         
             $lcClassName = __CLASS__;
@@ -381,12 +382,13 @@
         /** updated die Teilnehmerliste, ergänzt fehlende Teilnehmer **/
         function updateTeilnehmer()
         {
-            $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+            $laIgnoreUser = $this->moVeranstaltung->getIgnore();
+            $loPrepare    = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "status" => "autor") );
 
             $loPrepareInsert = DBManager::get()->prepare("insert ignore into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                if (self::canUserAdded($row["student"]))
+                if (self::canUserAdded($row["student"], $laIgnoreUser))
                     $loPrepareInsert->execute( array("id" => $this->mcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
         
         }
@@ -398,11 +400,12 @@
          * Admin-Recht, besitzen aber keine Matrikelnummer, so dass sie nicht
          * in die Übung eingefügt werden dürfen
          * @param $pcUser UserID
+         * @param $paIgnoreUser Liste der Ignore-User
          * @return boolean, ob er eingefügt werden kann
          **/
-        static private function canUserAdded( $pcUser )
+        static private function canUserAdded( $pcUser, $paIgnoreUser = array() )
         {
-            return $GLOBALS["perm"]->have_perm("autor", $pcUser) || $GLOBALS["perm"]->have_perm("tutor", $pcUser);
+            return ($GLOBALS["perm"]->have_perm("autor", $pcUser) || $GLOBALS["perm"]->have_perm("tutor", $pcUser)) && (!array_key_exists($pcUser, $paIgnoreUser));
         }
 
 

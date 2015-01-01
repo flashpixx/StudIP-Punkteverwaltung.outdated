@@ -171,9 +171,7 @@
 
             else
             {
-                foreach($this->flash["veranstaltung"]->uebungen() as $ueb)
-                    $ueb->updateTeilnehmer();
-
+                $this->flash["veranstaltung"]->updateTeilnehmer();
                 $this->flash["message"] = Tools::createMessage( "success", _("Teilnehmer in den Übungen aktualisiert") );
             }
 

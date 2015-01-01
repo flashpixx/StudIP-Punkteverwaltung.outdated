@@ -398,12 +398,22 @@
         {
             $loPrepare = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid" );
             $loPrepare->execute( array("semid" => $this->mcID, "status" => "autor") );
-
+            
             $la = array();
+            $laIgnore = $this->getIgnore();
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push($la, new Student($row["student"]) );
+                if (!array_key_exists($row["student"], $laIgnore))
+                    array_push($la, new Student($row["student"]) );
 
             return $la;
+        }
+        
+        
+        /** updated alle Teilnehmer in den Übungen **/
+        function updateTeilnehmer()
+        {
+            foreach($this->uebungen() as $ueb)
+                $ueb->updateTeilnehmer();
         }
     
     
@@ -502,7 +512,7 @@
          
             $la = array();
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                array_push($la, array("userid" => $row["student"], "bemerkung" => $row["bemerkung"]) );
+                $la["student"] = $row["bemerkung"];
             
             return $la;
         }
