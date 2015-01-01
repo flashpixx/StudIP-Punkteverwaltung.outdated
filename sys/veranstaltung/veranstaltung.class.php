@@ -98,8 +98,8 @@
             $laSQL = array(
                 "delete from ppv_seminar where id = :semid",
                 "delete from ppv_seminarmanuellezulassung where seminar = :semid",
-                "delete from ppv_studiengang where seminar = :semid"
-                           
+                "delete from ppv_studiengang where seminar = :semid",
+                "delete from ppv_ignore where seminar = :semid"
             );
 
             foreach( $laSQL  as $lcSQL )
@@ -409,10 +409,9 @@
     
         /** ermöglicht das "harte" Löschen aller User-Daten, die in der Veranstaltung für den User
          * hinterlegt sind, ohne explizite Existenzprüfungen durchzuführen (z.B. bei Studenten ohne Matrikelnummer)
-         * @param $px Veranstaltungsobjekt / -ID
          * @param $pxUser User-Hash / User- / Studentenobjekt
          **/
-        function clearUserData( $px, $pxUser )
+        function clearUserData( $pxUser )
         {
             if ($this->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
@@ -432,13 +431,80 @@
                             "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
                             "delete from ppv_studiengang where seminar= :semid and student= :student",
                             "delete usl from ppv_uebungstudentlog as usl join  ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
-                            );
+            );
         
             foreach( $laExecutes as $lcSQL )
             {
                 $loPrepare = DBManager::get()->prepare( $lcSQL );
                 $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser) );
             }
+        }
+        
+        
+        /** fügt einen Benutzer auf die Ignoreliste
+         * @param $pxUser Userobjekt / -authentifizierung
+         * @param $pcBemerkung Bemerkungstext
+         **/
+        function setIgnore( $pxUser, $pcBemerkung )
+        {
+            if ($this->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+            
+            if ($pxUser instanceof Student)
+                $pxUser = $pxUser->id();
+            elseif ($pxUser instanceof User)
+                $pxUser = $pxUser->getUserid();
+            elseif (is_string($pxUser)) {}
+            else
+                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
+
+            if (empty($pcBemerkung))
+                throw new Exception(_("Bemerkung muss gesetzt sein"));
+            
+            
+            
+            $this->clearUserData( $pxUser );
+            
+            $loPrepare = DBManager::get()->prepare( "insert ignore into ppv_ignore (seminar, student, bemerkung) values (:semid, :student, :bemerkung)" );
+            $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser, "bemerkung" => $pcBemerkung) );
+        }
+        
+        
+        /** entfernt einen Eintrag von der Ignoreliste
+         * @param $pxUser Userobjekt / -authentifizierung
+         **/
+        function removeIgnore( $pxUser )
+        {
+            if ($this->isClosed())
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+            
+            if ($pxUser instanceof Student)
+                $pxUser = $pxUser->id();
+            elseif ($pxUser instanceof User)
+                $pxUser = $pxUser->getUserid();
+            elseif (is_string($pxUser)) {}
+            else
+                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
+            
+            
+            $loPrepare = DBManager::get()->prepare( "delete ppv_ignore where seminar = :semid and student = :student" );
+            $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser) );
+        }
+        
+        
+        /** liefert eine Liste mit allen Daten der Ignorelist
+         * @return Array mit Authentifizierungen und Bemerkungen
+         **/
+        function getIgnore()
+        {
+            $loPrepare = DBManager::get()->prepare( "select student, bemerkung from ppv_ignore where seminar = :semid" );
+            $loPrepare->execute( array("semid" => $this->mcID) );
+         
+            $la = array();
+            foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
+                array_push($la, array("userid" => $row["student"], "bemerkung" => $row["bemerkung"]) );
+            
+            return $la;
         }
 
     }
