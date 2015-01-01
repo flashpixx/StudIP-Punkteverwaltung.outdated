@@ -88,13 +88,6 @@
         
         echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
         
-        /*
-        echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
-        if (!$loVeranstaltung->isClosed())
-            echo "<tr><td colspan=\"3\"><strong>"._("Die nachfolgende Angabe bezieht sich auf den aktuellen Stand des Übungsbetriebes, somit ist die Angabe unter Umständen inkorrekt / unvollständig z.B. wenn noch nicht alle Daten eingetragen wurden!")."</strong></td></tr>";
-        echo "<tr><td>"._("bestanden (Bonuspunkte)")."</td><td colspan=\"2\">".($laAuswertung["studenten"][$loStudent->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein"))." (".$laAuswertung["studenten"][$loStudent->id()]["bonuspunkte"].")</td></tr>";
-        */
-         
         
     } catch (Exception $e) {
         Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
