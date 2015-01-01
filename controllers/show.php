@@ -160,7 +160,7 @@
 
                 array_push( $la, $this->createPunkteTableRow() );
                 array_push( $la, $this->createPunkteTableRow( _("Bonuspunkte"), $this->auswertung["studenten"][$this->student->id()]["bonuspunkte"]) );
-                array_push( $la, $this->createPunkteTableRow( _("Bestanden"),   $this->auswertung["studenten"][$this->student->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein") ) );
+                array_push( $la, $this->createPunkteTableRow( _("Veranstaltung bestanden"),   $this->auswertung["studenten"][$this->student->id()]["veranstaltungenbestanden"] ? _("ja") : _("nein") ) );
                 
 
                 // alles fehlerfrei durchlaufen, setze Result
