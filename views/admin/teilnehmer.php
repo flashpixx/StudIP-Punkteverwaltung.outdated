@@ -27,12 +27,58 @@
     
     Tools::showMessage($flash["message"]);
     
-    echo "<h1 class=\"ppv\">Teilnehmer aktualisieren</h1>";
+    try {
+        
+        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
     
-    echo "<a href=\"".$controller->url_for("admin/updateteilnehmer")."\">Teilnehmer aktualisieren</a>";
+    
+        echo "<h1 class=\"ppv\">Teilnehmer aktualisieren</h1>";
+    
+        echo "<a href=\"".$controller->url_for("admin/updateteilnehmer")."\">Teilnehmer aktualisieren</a>";
     
     
-    echo "<h1 class=\"ppv\">Teilnehmer ignorieren</h1>";
     
+    
+    
+        echo "<h1 class=\"ppv\">Teilnehmer ignorieren</h1>";
+        echo "<script type=\"text/javascript\">";
+        echo "jQuery(document).ready(function() {";
+        echo "jQuery(\"#ignoretabelle\").jtable({";
+        
+        echo "title          : \"ignorierte Benutzer\",";
+        echo "paging         : true,";
+        echo "pageSize       : 500,";
+        echo "sorting        : true,";
+        echo "defaultSorting : \"Name ASC\",";
+        echo "actions: {";
+        echo "listAction   : \"".$ignorelistaction."\",";
+        if (!$loVeranstaltung->isClosed())
+            echo "updateAction : \"".$updateaction."\",";
+        echo "},";
+        
+        echo "fields: {";
+        
+        echo "Auth : { key : true, create : false, edit : false, list : false },";
+        echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
+        echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
+        echo "EmailAdresse : { edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
+        echo "Bemerkung : { edit : true, title : \""._("Bemerkung")."\", width : \"75%\" },";
+        
+        
+        echo "}";
+        echo "});";
+        
+        echo "jQuery(\"#ignoretabelle\").jtable(\"load\");";
+        
+        echo "});";
+        echo "</script>";
+        
+        echo "<div id=\"ignoretabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
+
+        
+    } catch (Exception $e) {
+        Tools::showMessage( Tools::createMessage("error", $e->getMessage()) );
+    }
+
     
 ?>

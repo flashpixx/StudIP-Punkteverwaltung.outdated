@@ -26,6 +26,7 @@
 
 
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
+    require_once(dirname(__DIR__) . "/sys/student.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
@@ -159,7 +160,9 @@
         /** Funktion, um die Teilnehmer zu verwalten **/
         function teilnehmer_action()
         {
-            
+            $this->ignorelistaction   = $this->url_for( "admin/jsonlistignore");
+            $this->ignoreremoveaction = $this->url_for( "admin/jsonignoreremove");
+            $this->ignoreupdateaction = $this->url_for( "admin/jsonignoreupdate");
         }
 
         
@@ -177,12 +180,83 @@
 
             $this->redirect("admin/teilnehmer");
         }
+        
+        
+        /** liefert die Liste der ignorierten Teilnehmer **/
+        function jsonlistignore_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+    
+            try {
+                
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+                $la = array();
+                foreach( $this->flash["veranstaltung"]->getIgnore() as $lcKey => $lcBemerkung)
+                {
+                    $lo = new Student( $lcKey );
+                    array_push( $la, array("Auth" => studip_utf8encode($lo->id()), "Name" => studip_utf8encode($lo->name()), "EMailAdresse" => studip_utf8encode($lo->email()), "Matrikelnummer" => $lo->matrikelnummer(), "Bemerkung" => studip_utf8encode($lcBemerkung)) );
+                }
+                    
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["Records"] = $la;
+                $laResult["Result"]  = "OK";
+                
+            // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
+        
+        
+        /** liefert die Liste, wenn ein Datensatz der Ignoreliste entfernt wurde **/
+        function jsonignoreremove_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+            // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
+        
+        
+        /** liefert die Liste, wenn ein Eintrag der Ignoreliste geändert wurde **/
+        function jsonignoreupdate_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+            // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
 
         
         /** Funktion, um neue Übungen zu erzeugen **/
         function createuebung_action()
         {
-            
+        
         }
 
         
@@ -190,7 +264,7 @@
         function adduebung_action()
         {
             if (!VeranstaltungPermission::hasDozentRecht())
-                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die eine Übung anzulegen") );
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um eine Übung anzulegen") );
 
             elseif (Request::submitted("submitted"))
             {
