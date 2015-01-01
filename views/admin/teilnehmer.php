@@ -53,7 +53,7 @@
         echo "actions: {";
         echo "listAction   : \"".$ignorelistaction."\",";
         if (!$loVeranstaltung->isClosed())
-            echo "updateAction : \"".$updateaction."\",";
+            echo "updateAction : \"".$ignoreupdateaction."\",";
         echo "},";
         
         echo "fields: {";
