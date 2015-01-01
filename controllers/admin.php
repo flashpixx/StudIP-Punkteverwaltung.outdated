@@ -175,7 +175,7 @@
                 $this->flash["message"] = Tools::createMessage( "success", _("Teilnehmer in den Übungen aktualisiert") );
             }
 
-            $this->redirect("teilnehmer");
+            $this->redirect("admin/teilnehmer");
         }
 
         
