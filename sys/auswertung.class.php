@@ -337,9 +337,7 @@
                 $main["studenten"][$lcStudentKey]["bonuspunkte"]              = ($main["gesamtpunkte"] == 0 ? 0 : $loBonuspunkte->get( $laStudent["uebungenpunkte"] / $main["gesamtpunkte"] * 100 ));
             }
 
-            // @todo Sortierung nach Punkten muss noch hinzugefügt werden
-
-
+    
             // berechnet die Statistik
             $main["statistik"]["teilnehmergesamt"]        = count($main["studenten"]);
             $main["statistik"]["teilnehmerbestanden"]     = 0;
