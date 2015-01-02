@@ -103,7 +103,7 @@
 
             if (!$loVeranstaltung->isClosed())
             {
-                Navigation::addItem( "/course/punkteverwaltung/updateteilnehmer",   new AutoNavigation(_("Teilnehmer verwalten"),                       PluginEngine::GetURL($this, array(), "admin/teilnehmer")) );
+                Navigation::addItem( "/course/punkteverwaltung/teilnehmer",         new AutoNavigation(_("Teilnehmer verwalten"),                       PluginEngine::GetURL($this, array(), "admin/teilnehmer")) );
                 Navigation::addItem( "/course/punkteverwaltung/createuebung",       new AutoNavigation(_("neue Übung erzeugen"),                        PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             }
         

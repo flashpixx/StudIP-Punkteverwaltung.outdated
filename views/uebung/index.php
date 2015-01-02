@@ -170,16 +170,16 @@
                 }
 
 
-                echo "Name : { edit : false, title : \"Name\", width : \"20%\" },";
+                echo "Name : { edit : false, title : \"Name\", width : \"10%\" },";
                 echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \"EMail Adresse\", width : \"10%\" },";
-                echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"3%\" },";
-                echo "Gruppen : { visibility : \"hidden\", sorting: false, edit : false, title : \"Gruppen\", width : \"17%\" },";
+                echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"5%\" },";
+                echo "Gruppen : { visibility : \"hidden\", sorting: false, edit : false, title : \"Gruppen\", width : \"25%\" },";
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";
                 echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"5%\" },";
                 if (VeranstaltungPermission::hasDozentRecht($loUebung->veranstaltung()))
                 {
                     echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"15%\" },";
-                    echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"15%\" }";
+                    echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"25%\" }";
                 } else
                     echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"35%\" }";
 
