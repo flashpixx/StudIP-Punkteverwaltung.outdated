@@ -432,7 +432,7 @@
             if ($this->isClosed())
             {
                 $laSelectExecutes = array(
-                    "select * from ppv_uebungstudent where u.seminar= :semid and us.student= :student",
+                    "select * from ppv_uebungstudent as us join ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
                     "select * from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
                     "select * from ppv_studiengang where seminar= :semid and student= :student",
                     "select * from from ppv_uebungstudentlog as usl join ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
@@ -450,7 +450,7 @@
             
             // lösche zuerst alle Punktedaten, manuelle Zulassungen, Studiengang & Logdaten
             $laDeleteExecutes = array(
-                            "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
+                            "delete us from ppv_uebungstudent as us join ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
                             "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
                             "delete from ppv_studiengang where seminar= :semid and student= :student",
                             "delete usl from ppv_uebungstudentlog as usl join ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
