@@ -307,6 +307,7 @@
          **/
         function abgabeDatum( $pc = false, $pnreturntype = self::DATEASSTRING )
         {
+            
             if ( (!is_bool($pc)) && ((empty($pc)) || (is_string($pc))) )
             {
                 $lxDate              = self::createDateTimeFromString($pc);
@@ -382,6 +383,9 @@
         /** updated die Teilnehmerliste, ergänzt fehlende Teilnehmer **/
         function updateTeilnehmer()
         {
+            if ($this->moVeranstaltung)
+                throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr verändert werden"));
+            
             $laIgnoreUser = $this->moVeranstaltung->getIgnore();
             $loPrepare    = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $this->moVeranstaltung->id(), "status" => "autor") );
