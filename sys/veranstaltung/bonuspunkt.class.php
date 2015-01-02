@@ -57,9 +57,6 @@
         function __construct( $pxVeranstaltung )
         {
             $this->moVeranstaltung = Veranstaltung::get( $pxVeranstaltung );
-            if (empty($this->moVeranstaltung))
-                throw new Exception(_("Veranstaltungsobjekt konnte nicht erzeugt werden"));
-            
             $this->readData();
         }
 

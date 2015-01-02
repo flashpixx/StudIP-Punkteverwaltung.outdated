@@ -60,12 +60,7 @@
          **/
         static function get( $px = null )
         {
-            try
-            {
-                return new Veranstaltung($px);
-            } catch (Exception $e) {}
-
-            return null;
+            return new Veranstaltung($px);
         }
 
 
