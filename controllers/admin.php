@@ -176,8 +176,12 @@
 
             else
             {
-                $this->flash["veranstaltung"]->updateTeilnehmer();
-                $this->flash["message"] = Tools::createMessage( "success", _("Teilnehmer in den Übungen aktualisiert") );
+                try {
+                    $this->flash["veranstaltung"]->updateTeilnehmer();
+                    $this->flash["message"] = Tools::createMessage( "success", _("Teilnehmer in den Übungen aktualisiert") );
+                } catch (Exception $e) {
+                    $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+                }
             }
 
             $this->redirect("admin/teilnehmer");
