@@ -418,9 +418,6 @@
          **/
         function clearUserData( $pxUser )
         {
-            if ($this->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
-        
             if ($pxUser instanceof Student)
                 $pxUser = $pxUser->id();
             elseif ($pxUser instanceof User)
@@ -428,17 +425,38 @@
             elseif (is_string($pxUser)) {}
             else
                 throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
-        
-        
+
+            // es wird geprüft, ob für den Studenten Daten hinterlegt sind, sofern die Veranstaltung
+            // geschlossen ist, in diesem Fall wird dann eine Exception geworfen, da keine
+            // Änderungen durchgeführt werden dürfen, andernfalls werden die Daten des Users entfernt
+            if ($this->isClosed())
+            {
+                $laSelectExecutes = array(
+                    "select * from ppv_uebungstudent where u.seminar= :semid and us.student= :student",
+                    "select * from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
+                    "select * from ppv_studiengang where seminar= :semid and student= :student",
+                    "select * from from ppv_uebungstudentlog as usl join ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
+                );
+                
+                foreach( $laSelectExecutes as $lcSQL )
+                {
+                    $loPrepare = DBManager::get()->prepare( $lcSQL );
+                    $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser) );
+                    if ($loPrepare->rowCount() > 0)
+                        throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
+                }
+            }
+            
+            
             // lösche zuerst alle Punktedaten, manuelle Zulassungen, Studiengang & Logdaten
-            $laExecutes = array(
+            $laDeleteExecutes = array(
                             "delete us from ppv_uebungstudent as us join  ppv_uebung as u on us.uebung = u.id where u.seminar= :semid and us.student= :student",
                             "delete from ppv_seminarmanuellezulassung where seminar= :semid and student= :student",
                             "delete from ppv_studiengang where seminar= :semid and student= :student",
-                            "delete usl from ppv_uebungstudentlog as usl join  ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
+                            "delete usl from ppv_uebungstudentlog as usl join ppv_uebung as u on usl.uebung = u.id where u.seminar= :semid and usl.student= :student"
             );
         
-            foreach( $laExecutes as $lcSQL )
+            foreach( $laDeleteExecutes as $lcSQL )
             {
                 $loPrepare = DBManager::get()->prepare( $lcSQL );
                 $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser) );
@@ -452,9 +470,6 @@
          **/
         function setIgnore( $pxUser, $pcBemerkung )
         {
-            if ($this->isClosed())
-                throw new Exception(_("Die Veranstaltung wurde geschlossen und somit können keine Änderungen durchgeführt werden"));
-            
             if ($pxUser instanceof Student)
                 $pxUser = $pxUser->id();
             elseif ($pxUser instanceof User)
@@ -465,8 +480,6 @@
 
             if (empty($pcBemerkung))
                 throw new Exception(_("Bemerkung muss gesetzt sein"));
-            
-            
             
             $this->clearUserData( $pxUser );
             
