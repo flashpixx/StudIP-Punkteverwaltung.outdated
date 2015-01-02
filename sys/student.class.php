@@ -104,12 +104,14 @@
             else
                 throw new UserNotFound(_("Userdaten-Eingabe inkorrekt"));
 
+            if (empty($this->mcID))
+                throw new UserNotFound(_("User-ID nicht ermittelbar"));
             if ( (!is_object($loUser)) || (empty($loUser)) )
-                throw new UserNotFound(_("Userdaten sind fehlerhafte"));
+                throw new UserNotFound( sprintf(_("Userdaten sind ermittelbar. <a href=\"%s\">Benutzer ignorieren</a>"), Tools::url_for("admin/addignore", array("auth" => $this->mcID))) );
             if (!UserModel::check($this->mcID))
-                throw new UserDataIncomplete( sprintf(_("Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. <a href=\"%s\">Benutzer ignorieren</a>"), $loUser->username, $loUser->email, Tools::url_for("admin/addignore")) );
+                throw new UserDataIncomplete( sprintf(_("Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. <a href=\"%s\">Benutzer ignorieren</a>"), $loUser->username, $loUser->email, Tools::url_for("admin/addignore", array("auth" => $this->mcID)) );
             if (empty($this->mnMatrikelnummer))
-                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. <a href=\"%s\">Benutzer ignorieren</a>"), $loUser->username, $loUser->email, Tools::url_for("admin/addignore")) );
+                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. <a href=\"%s\">Benutzer ignorieren</a>"), $loUser->username, $loUser->email, Tools::url_for("admin/addignore", array("auth" => $this->mcID)) );
             
         }
 

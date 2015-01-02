@@ -297,6 +297,24 @@
 
             $this->redirect("admin");
         }
+        
+        
+        /** fügt einen User auf die Ignorelist ein **/
+        function addignore_action()
+        {
+            if (!VeranstaltungPermission::hasDozentRecht())
+                $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um eine Übung anzulegen") );
+            
+            try {
+                
+                $this->flash["veranstaltung"]->setIgnore( Request::quoted("auth") );
+                
+            } catch (Exception $e) {
+                $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );
+            }
+            
+            $this->redirect("admin/teilnehmer");
+        }
 
 
         /** URL Aufruf **/

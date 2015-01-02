@@ -478,13 +478,19 @@
             else
                 throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
 
-            if (empty($pcBemerkung))
-                throw new Exception(_("Bemerkung muss gesetzt sein"));
             
+            // prüft ob die User-ID als Teilnehmer der Veranstaltung gefunden werden kann
+            $loPrepare = DBManager::get()->prepare("select * from seminar_user where Seminar_id = :semid and user_id = :uid" );
+            $loPrepare->execute( array("semid" => $this->mcID, "uid" => $pxUser) );
+            if ($loPrepare->rowCount() != 1)
+                throw new Exception(_("User konnte nicht als Teilnehmer ermittelt werden"));
+            
+            
+            // entfernt die Daten und fügt den User auf die Ignore-Liste ein
             $this->clearUserData( $pxUser );
             
             $loPrepare = DBManager::get()->prepare( "insert ignore into ppv_ignore (seminar, student, bemerkung) values (:semid, :student, :bemerkung)" );
-            $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser, "bemerkung" => $pcBemerkung) );
+            $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser, "bemerkung" => (empty($pcBemerkung) ? null : $pcBemerkung)) );
         }
         
         
