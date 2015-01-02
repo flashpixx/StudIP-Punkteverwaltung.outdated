@@ -58,7 +58,7 @@
          * @param $px VeranstaltungsID (SeminarID) oder Veranstaltungsobjekt [leer für aktuelle ID, sofern vorhanden]
          * @return liefert null (false) bei Nicht-Existenz, andernfalls das Veranstaltungsobject
          **/
-        static function get( $pcID = null )
+        static function get( $px = null )
         {
             try
             {
