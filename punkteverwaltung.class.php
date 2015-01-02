@@ -100,13 +100,8 @@
             Navigation::addItem( "/course/punkteverwaltung/bonuspunkte",            new AutoNavigation(_("Bonuspunkte"),                                PluginEngine::GetURL($this, array(), "bonuspunkte")) );
             Navigation::addItem( "/course/punkteverwaltung/statistik",              new AutoNavigation(_("Auswertungen"),                               PluginEngine::GetURL($this, array(), "auswertung")) );
             Navigation::addItem( "/course/punkteverwaltung/zulassung",              new AutoNavigation(_("manuelle Zulassung"),                         PluginEngine::GetURL($this, array(), "zulassung")) );
-
-            if (!$loVeranstaltung->isClosed())
-            {
-                Navigation::addItem( "/course/punkteverwaltung/teilnehmer",         new AutoNavigation(_("Teilnehmer verwalten"),                       PluginEngine::GetURL($this, array(), "admin/teilnehmer")) );
-                Navigation::addItem( "/course/punkteverwaltung/createuebung",       new AutoNavigation(_("neue Übung erzeugen"),                        PluginEngine::GetURL($this, array(), "admin/createuebung")) );
-            }
-        
+            Navigation::addItem( "/course/punkteverwaltung/teilnehmer",             new AutoNavigation(_("Teilnehmer verwalten"),                       PluginEngine::GetURL($this, array(), "admin/teilnehmer")) );
+            Navigation::addItem( "/course/punkteverwaltung/createuebung",           new AutoNavigation(_("neue Übung erzeugen"),                        PluginEngine::GetURL($this, array(), "admin/createuebung")) );
             Navigation::addItem( "/course/punkteverwaltung/uebung",                 new AutoNavigation(_("Übungen"),                                    PluginEngine::GetURL($this, array(), "uebung")) );
             Navigation::addItem( "/course/punkteverwaltung/hilfe",                  new AutoNavigation(_("Hilfe"),                                      PluginEngine::GetURL($this, array(), "hilfe")) );
         }
