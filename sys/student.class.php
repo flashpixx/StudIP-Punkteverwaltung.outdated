@@ -25,6 +25,7 @@
 
 
 
+    require_once("tools.class.php");
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
     require_once("studipincludes.php");
@@ -106,9 +107,9 @@
             if ( (!is_object($loUser)) || (empty($loUser)) )
                 throw new UserNotFound(_("Userdaten sind fehlerhafte"));
             if (!UserModel::check($this->mcID))
-                throw new UserDataIncomplete( sprintf(_("Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden"), $loUser->username, $loUser->email) );
+                throw new UserDataIncomplete( sprintf(_("Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. <a href=\"%s\">Benutzer ignorieren</a>"), $loUser->username, $loUser->email, Tools::url_for("admin/addignore")) );
             if (empty($this->mnMatrikelnummer))
-                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden"), $loUser->username, $loUser->email) );
+                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. <a href=\"%s\">Benutzer ignorieren</a>"), $loUser->username, $loUser->email, Tools::url_for("admin/addignore")) );
             
         }
 

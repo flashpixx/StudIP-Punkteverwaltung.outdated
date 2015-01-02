@@ -28,6 +28,83 @@
     /** Klasse für zentrale Funktionen **/
     class Tools
     {
+        
+        /** global static Array für zentrale Speicherung von Daten **/
+        private static $maGlobalStorage = array();
+        
+        
+        
+        /** prüft, ob in dem globalen Storage ein Eintrag existiert
+         * @param $pcName Name des Eintrages
+         * @return Bool für die Existenz
+         **/
+        static function existStorage( $pcName )
+        {
+            if (!is_string($pcName))
+                throw new Exception( _("Für das Storage muss ein String übergeben werden") );
+            
+            return array_key_exists( $pcName, self::$maGlobalStorage );
+        }
+        
+        
+        /** setzt einen Wert in das Storage
+         * @param $pcName Name für den Eintrag
+         * @param $pxValue Wert
+         **/
+        static function setStorage( $pcName, $pxValue = null )
+        {
+            if (!is_string($pcName))
+                throw new Exception( _("Für das Storage muss ein String übergeben werden") );
+            
+            self::$maGlobalStorage[$pcName] = $pxValue;
+        }
+        
+        
+        /** liefert ein Element aus dem Storage
+         * @param $pcName Name des Element
+         * @return Daten
+         **/
+        static function getStorage( $pcName )
+        {
+            if (!self::existStorage($pcName))
+                throw new Exception( _("Element im Storage nicht gefunden") );
+            
+            return self::$maGlobalStorage[$pcName];
+        }
+        
+        
+        /** entfernt ein Element aus dem Storage
+         * @param $pcName Name des Elements
+         **/
+        static function deleteStorage( $pcName )
+        {
+            if (!self::existStorage($pcName))
+                throw new Exception( _("Element im Storage nicht gefunden") );
+            
+            unset(self::$maGlobalStorage[$pcName]);
+        }
+        
+        
+        /** erzeugt eine URL für das Plugin - analog in den Controllern
+         * @param $to Ziel-URL
+         * @return volle URL
+         **/
+        static function url_for($to)
+        {
+            $args = func_get_args();
+            
+            # find params
+            $params = array();
+            if (is_array(end($args)))
+                $params = array_pop($args);
+            
+            # urlencode all but the first argument
+            $args    = array_map("urlencode", $args);
+            $args[0] = $to;
+            
+            return PluginEngine::getURL(self::getStorage("plugin"), $params, join("/", $args));
+        }
+        
 
         /** Methode, die eine Messagebox generiert, sofern Daten vorhanden sind
          * @see http://docs.studip.de/develop/Entwickler/ModalerDialog

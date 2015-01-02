@@ -26,6 +26,7 @@
 
 
     require_once("bootstrap.php");
+    require_once("sys/tools.class.php");
     require_once("sys/veranstaltungpermission.class.php");
     require_once("sys/veranstaltung/veranstaltung.class.php");
 
@@ -57,6 +58,9 @@
         function __construct()
         {
             parent::__construct();
+            
+            // setzt die Plugin-Instance in das zentrale Storage, um in Exceptions auf das Objekt zugreifen zu können
+            Tools::setStorage("plugin", $this);
 
             // Navigation wird in Abhängigkeit der Berechtigungen und des Kontextes gesetzt,
             // nur wenn Plugin aktiviert ist und es es sich um eine Veranstaltung handelt wird
