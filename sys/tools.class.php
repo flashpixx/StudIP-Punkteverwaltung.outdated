@@ -86,6 +86,8 @@
         
         
         /** erzeugt eine URL für das Plugin - analog in den Controllern
+         * @note das url_for in den Controllern darf nicht entfernt werden, da
+         * dies von der Klassenstruktur her vorhanden sein muss
          * @param $to Ziel-URL
          * @return volle URL
          **/
