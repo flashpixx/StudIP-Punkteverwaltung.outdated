@@ -204,7 +204,7 @@
                 $la = array();
                 foreach( $this->flash["veranstaltung"]->getIgnore() as $lcKey => $lcBemerkung)
                 {
-                    $lo = new BaseUser $lcKey );
+                    $lo = new BaseUser( $lcKey );
                 
                     // manuelles lesen der Matrikelnummer, da nicht sicher ist, ob eine Nummer existiert
                     $lnMatrikelnummer = null;
