@@ -204,8 +204,15 @@
                 $la = array();
                 foreach( $this->flash["veranstaltung"]->getIgnore() as $lcKey => $lcBemerkung)
                 {
-                    $lo = new Student( $lcKey );
-                    array_push( $la, array("Auth" => studip_utf8encode($lo->id()), "Name" => studip_utf8encode($lo->name()), "EMailAdresse" => studip_utf8encode($lo->email()), "Matrikelnummer" => $lo->matrikelnummer(), "Bemerkung" => studip_utf8encode($lcBemerkung)) );
+                    $lo = new BaseUser $lcKey );
+                
+                    // manuelles lesen der Matrikelnummer, da nicht sicher ist, ob eine Nummer existiert
+                    $lnMatrikelnummer = null;
+                    $la = MatrikelNummerFactory::get()->get( $lo->id() );
+                    if (is_array($la))
+                        $lnMatrikelnummer = $la["num"];
+                
+                    array_push( $la, array("Auth" => studip_utf8encode($lo->id()), "Name" => studip_utf8encode($lo->name()), "EMailAdresse" => studip_utf8encode($lo->email()), "Matrikelnummer" => $lnMatrikelnummer, "Bemerkung" => studip_utf8encode($lcBemerkung)) );
                 }
                     
                 // alles fehlerfrei durchlaufen, setze Result

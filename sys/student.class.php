@@ -26,36 +26,18 @@
 
 
     require_once("tools.class.php");
+    require_once("baseuser.class.php");
     require_once("matrikelnummer/factory.class.php");
     require_once("veranstaltung/veranstaltung.class.php");
-    require_once("studipincludes.php");
     
 
-    /** Exception, um einen User, der nicht gefunden wurde, zu erkennen **/
-    class UserNotFound extends Exception {}
     
-    /** Exception, die geworfen wird, wenn die Userdaten nicht vollständig sind **/
-    class UserDataIncomplete extends Exception {}
-    
-
-
     /** Klasse um einen Studenten vollständig abzubilden **/
-    class Student
+    class Student extends BaseUser
     {
 
-        /** speichert die UserID des Studenten **/
-        private $mcID     = null;
-
-        /** speichert den Namen des Users **/
-        private $mcName   = null;
-
-        /** speichert die EMail des Users **/
-        private $mcEmail  = null;
-
-        /** speichert die Matrikelnummer des users **/
-        private $mnMatrikelnummer = null;
-        
-
+        /** speichert die Matrikelnummer des Users **/
+        protected $mnMatrikelnummer = null;
 
         
         /** Ctor um einen Studenten zu erzeugen
@@ -63,65 +45,26 @@
          **/
         function __construct( $px )
         {
-            $loUser = null;
-        
-            if ($px instanceof $this)
-            {
-                $this->mcID             = $px->mcID;
-                $this->mcName           = $px->mcName;
-                $this->mcEmail          = $px->mcEmail;
-                $this->mnMatrikelnummer = $px->mnMatrikelnummer;
-            
-                $loUser                 = new User($this->mcID);
-            }
-            elseif (is_string($px))
-            {
-                $loUser        = new User($px);
-                // der Name wird in der Form "Nachname, Vorname" ausgegeben
-                $this->mcName  = $loUser->getFullName("full_rev");
-                $this->mcEmail = User::find($px)->email;
-                $this->mcID    = $px;
-
-                $la = MatrikelNummerFactory::get()->get( $this->mcID );
-                if (is_array($la))
-                    $this->mnMatrikelnummer = $la["num"];
-
-            }
-            elseif (is_numeric($px))
+            if (is_numeric($px))
             {
                 $la = MatrikelNummerFactory::get()->get( $px );
                 if (is_array($la))
                 {
                     $this->mnMatrikelnummer = $px;
-
-                    $loUser        = new User($la["uid"]);
-                    // der Name wird in der Form "Nachname, Vorname" ausgegeben
-                    $this->mcName  = $loUser->getFullName("full_rev");
-                    $this->mcEmail = User::find($la["uid"])->email;
-                    $this->mcID    = $la["uid"];
+                    parent::__construct($la["uid"]);
                 }
-            }
-            else
-                throw new UserNotFound(_("Userdaten-Eingabe inkorrekt"));
+            
+            } else {
+                
+                parent::__construct($px);
+                $la = MatrikelNummerFactory::get()->get( $this->mcID );
+                if (is_array($la))
+                    $this->mnMatrikelnummer = $la["num"];
 
-            if (empty($this->mcID))
-                throw new UserNotFound(_("User-ID nicht ermittelbar"));
-            if ( (!is_object($loUser)) || (empty($loUser)) )
-                throw new UserNotFound( sprintf(_("Userdaten sind ermittelbar. <a href=\"%s\">Benutzer ignorieren</a>"), Tools::url_for("admin/addignore", array("auth" => $this->mcID))) );
-            if (!UserModel::check($this->mcID))
-                throw new UserDataIncomplete( sprintf( _("Userdaten zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. %s"),     $loUser->username, $loUser->email, sprintf("<a href=\"%s\">%s</a>", Tools::url_for("admin/addignore", array("auth" => $this->mcID)), _("Benutzer ignorieren")) ) );
+            }
+                
             if (empty($this->mnMatrikelnummer))
                 throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. %s"), $loUser->username, $loUser->email, sprintf("<a href=\"%s\">%s</a>", Tools::url_for("admin/addignore", array("auth" => $this->mcID)), _("Benutzer ignorieren")) ) );
-            
-        }
-
-
-        /** liefert die ID des Users
-         * @return ID
-         **/
-        function id()
-        {
-            return $this->mcID;
         }
 
 
@@ -257,24 +200,6 @@
         function matrikelnummer()
         {
             return $this->mnMatrikelnummer;
-        }
-
-
-        /** liefert den vollständigen Namen des Users
-         * @return Name
-         **/
-        function name()
-        {
-            return $this->mcName;
-        }
-
-
-        /** liefert die EMail Adresse des Users 
-         * @return EMail
-         **/
-        function email()
-        {
-            return $this->mcEmail;
         }
 
     }
