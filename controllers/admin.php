@@ -216,8 +216,9 @@
                 }
                     
                 // alles fehlerfrei durchlaufen, setze Result
-                $laResult["Records"] = $la;
-                $laResult["Result"]  = "OK";
+                $laResult["TotalRecordCount"] = count($la);
+                $laResult["Records"]          = $la;
+                $laResult["Result"]           = "OK";
                 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
             } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }

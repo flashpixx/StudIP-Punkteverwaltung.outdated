@@ -60,7 +60,7 @@
         
         echo "Auth : { key : true, create : false, edit : false, list : false },";
         echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
-        echo "EmailAdresse : { edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
+        echo "EMailAdresse : { edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
         echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
         echo "Bemerkung : { edit : true, title : \""._("Bemerkung")."\", width : \"75%\" },";
         
