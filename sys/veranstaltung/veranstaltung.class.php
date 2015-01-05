@@ -526,7 +526,7 @@
          
             $la = array();
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
-                $la["student"] = $row["bemerkung"];
+                $la[ $row["student"] ] = $row["bemerkung"];
             
             return $la;
         }

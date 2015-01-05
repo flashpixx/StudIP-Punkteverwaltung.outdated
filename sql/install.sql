@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `ppv_uebungstudent` (
   `korrektor` varchar(32) NOT NULL,
   `erreichtepunkte` decimal(5,2) unsigned NOT NULL,
   `zusatzpunkte` decimal(5,2) unsigned NOT NULL,
+  `bestanden` TINYINT(1) unsigned NOT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`uebung`,`student`)
 );
@@ -68,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `ppv_uebungstudentlog` (
   `korrektor` varchar(32) NOT NULL,
   `erreichtepunkte` decimal(5,2) unsigned NOT NULL,
   `zusatzpunkte` decimal(5,2) unsigned NOT NULL,
+  `bestanden` TINYINT(1) unsigned NOT NULL,
   `bemerkung` longtext,
   PRIMARY KEY (`id`),
   KEY `uebung` (`uebung`,`student`),
