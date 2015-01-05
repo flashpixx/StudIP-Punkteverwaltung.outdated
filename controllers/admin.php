@@ -208,9 +208,9 @@
                 
                     // manuelles lesen der Matrikelnummer, da nicht sicher ist, ob eine Nummer existiert
                     $lnMatrikelnummer = null;
-                    $la = MatrikelNummerFactory::get()->get( $lo->id() );
-                    if (is_array($la))
-                        $lnMatrikelnummer = $la["num"];
+                    $laNum = MatrikelNummerFactory::get()->get( $lo->id() );
+                    if (is_array($laNum))
+                        $lnMatrikelnummer = $laNum["num"];
                 
                     array_push( $la, array("Auth" => studip_utf8encode($lo->id()), "Name" => studip_utf8encode($lo->name()), "EMailAdresse" => studip_utf8encode($lo->email()), "Matrikelnummer" => $lnMatrikelnummer, "Bemerkung" => studip_utf8encode($lcBemerkung)) );
                 }
