@@ -87,7 +87,7 @@
             $loPrepare    = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $lo->id(), "status" => "autor") );
         
-            $loPrepareInsert = DBManager::get()->prepare("insert into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, bemerkung)" );
+            $loPrepareInsert = DBManager::get()->prepare("insert into ppv_uebungstudent (uebung, student, korrektor, erreichtepunkte, zusatzpunkte, bemerkung) values (:id, :student, :korrektor, :punkte, :punkte, :bemerkung)" );
             foreach( $loPrepare->fetchAll(PDO::FETCH_ASSOC) as $row )
                 if (self::canUserAdded($row["student"], $laIgnoreUser))
                     $loPrepareInsert->execute( array("id" => $lcID, "student" => $row["student"], "korrektor" => $GLOBALS["user"]->id, "punkte" => 0, "bemerkung" => null) );
