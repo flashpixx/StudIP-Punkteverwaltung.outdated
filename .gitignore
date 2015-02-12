@@ -6,5 +6,6 @@
 !*.md
 !*.php
 !*.sql
+!documentation/documentation.doxyfile
 !assets/**
 !sys/extension/**
