@@ -511,7 +511,7 @@
                 throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
             
             
-            $loPrepare = DBManager::get()->prepare( "delete ppv_ignore where seminar = :semid and student = :student" );
+            $loPrepare = DBManager::get()->prepare( "delete from ppv_ignore where seminar = :semid and student = :student" );
             $loPrepare->execute( array("semid" => $this->mcID, "student" => $pxUser) );
         }
         
