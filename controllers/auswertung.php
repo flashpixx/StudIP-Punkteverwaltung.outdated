@@ -81,6 +81,7 @@
         
             $this->statistikaction  = $this->url_for( "auswertung/jsonstatistik");
             $this->listaction       = $this->url_for( "auswertung/jsonlist");
+            $this->deleteaction     = $this->url_for( "auswertung/jsondelete");
             $this->auswertungaction = $this->url_for( "auswertung/jsonauswertung");
         }
 
@@ -214,6 +215,31 @@
                 // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
             } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
             
+            Tools::sendJson( $this, $laResult );
+        }
+    
+    
+        /** löscht / ignoriert einen User **/
+        function jsondelete_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+        
+            try {
+            
+                // hole die Übung und prüfe die Rechte
+                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+            
+                $this->flash["veranstaltung"]->setIgnore( Request::quoted("auth") );
+            
+                // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
+                $laResult["Result"] = "OK";
+            
+            
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+        
             Tools::sendJson( $this, $laResult );
         }
         

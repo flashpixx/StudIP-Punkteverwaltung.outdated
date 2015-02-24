@@ -167,7 +167,8 @@
         echo "sorting        : true,";
         echo "defaultSorting : \"Matrikelnummer ASC\",";
         echo "actions: {";
-        echo "listAction   : \"".$listaction."\",";
+        echo "listAction     : \"".$listaction."\",";
+        echo "deleteAction   : \"".$deleteaction."\",";
         echo "},";
         
         echo "fields: {";
