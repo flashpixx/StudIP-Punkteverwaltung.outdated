@@ -231,7 +231,7 @@
                 if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
             
-                $this->flash["veranstaltung"]->setIgnore( Request::quoted("auth") );
+                $this->flash["veranstaltung"]->setIgnore( Request::quoted("Auth") );
             
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Result"] = "OK";

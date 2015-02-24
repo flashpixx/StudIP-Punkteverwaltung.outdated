@@ -323,7 +323,7 @@
             
             try {
                 
-                $this->flash["veranstaltung"]->setIgnore( Request::quoted("auth") );
+                $this->flash["veranstaltung"]->setIgnore( Request::quoted("Auth") );
                 
             } catch (Exception $e) {
                 $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() );

@@ -64,7 +64,7 @@
             }
                 
             if (empty($this->mnMatrikelnummer))
-                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. %s"), $loUser->username, $loUser->email, sprintf("<a href=\"%s\">%s</a>", Tools::url_for("admin/addignore", array("auth" => $this->mcID)), _("Benutzer ignorieren")) ) );
+                throw new UserDataIncomplete( sprintf(_("Matrikelnummer zum Login: [%s] / EMail: [%s] konnten nicht ermittelt werden. %s"), $loUser->username, $loUser->email, sprintf("<a href=\"%s\">%s</a>", Tools::url_for("admin/addignore", array("Auth" => $this->mcID)), _("Benutzer ignorieren")) ) );
         }
 
 
