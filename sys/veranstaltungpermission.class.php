@@ -32,6 +32,16 @@
     class VeranstaltungPermission
     {
 
+        /** prüft, ob der aktuelle Benutzer Root Rechte auf der Veranstaltung hat
+         * @param $px null, String oder Veranstaltungsobjekt
+         * @return Boolean für die Rechte
+         **/
+        static function hasRootRecht( $px = null )
+        {
+            return $GLOBALS["perm"]->have_perm("root");
+        }
+    
+    
         /** prüft, ob der aktuelle Benutzer Admin Rechte auf der Veranstaltung hat
          * @param $px null, String oder Veranstaltungsobjekt
          * @return Boolean für die Rechte
