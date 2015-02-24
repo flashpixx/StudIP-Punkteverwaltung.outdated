@@ -383,7 +383,7 @@
         /** updated die Teilnehmerliste, ergänzt fehlende Teilnehmer **/
         function updateTeilnehmer()
         {
-            if ($this->moVeranstaltung)
+            if ($this->moVeranstaltung->isClosed())
                 throw new Exception(_("Die Veranstaltung wurde geschlossen und kann somit nicht mehr verändert werden"));
             
             $laIgnoreUser = $this->moVeranstaltung->getIgnore();
