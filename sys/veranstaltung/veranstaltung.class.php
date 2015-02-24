@@ -468,7 +468,7 @@
          * @param $pxUser Userobjekt / -authentifizierung
          * @param $pcBemerkung Bemerkungstext
          **/
-        function setIgnore( $pxUser, $pcBemerkung )
+        function setIgnore( $pxUser, $pcBemerkung = null )
         {
             if ($pxUser instanceof Student)
                 $pxUser = $pxUser->id();
@@ -476,7 +476,7 @@
                 $pxUser = $pxUser->getUserid();
             elseif (is_string($pxUser)) {}
             else
-                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben " + print_r($pxUser, true)));
+                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
 
             
             // prüft ob die User-ID als Teilnehmer der Veranstaltung gefunden werden kann
