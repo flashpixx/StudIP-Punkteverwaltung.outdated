@@ -476,7 +476,7 @@
                 $pxUser = $pxUser->getUserid();
             elseif (is_string($pxUser)) {}
             else
-                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben"));
+                throw new Exception(_("Fehlerhaftes Datenobjekt übergeben " + print_r($pxUser, true)));
 
             
             // prüft ob die User-ID als Teilnehmer der Veranstaltung gefunden werden kann

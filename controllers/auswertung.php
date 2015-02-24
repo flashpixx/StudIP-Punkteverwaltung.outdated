@@ -233,7 +233,7 @@
             
                 $this->flash["veranstaltung"]->setIgnore( Request::quoted("auth") );
             
-                // alles fehlerfrei durchlaufen, setze Result (lese die geänderten Daten aus der Datenbank)
+                // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Result"] = "OK";
             
             
