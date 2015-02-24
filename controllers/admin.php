@@ -240,6 +240,11 @@
                 if (!VeranstaltungPermission::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
+                $this->flash["veranstaltung"]->removeIgnore( Request::quoted("Auth") );
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["Result"] = "OK";
+                
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
             } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
             
