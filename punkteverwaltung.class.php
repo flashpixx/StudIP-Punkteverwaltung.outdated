@@ -62,6 +62,10 @@
             // setzt die Plugin-Instance in das zentrale Storage, um in Exceptions auf das Objekt zugreifen zu können
             Tools::setStorage("plugin", $this);
 
+            // Root-Navigation
+            if (VeranstaltungPermission::hasRootRecht())
+                $this->setRootNavigation();
+        
             // Navigation wird in Abhängigkeit der Berechtigungen und des Kontextes gesetzt,
             // nur wenn Plugin aktiviert ist und es es sich um eine Veranstaltung handelt wird
             // es aktiviert
@@ -72,10 +76,6 @@
                     $this->setTutorNavigation();
                 elseif (VeranstaltungPermission::hasAutorRecht())
                     $this->setAutorNavigation();
-        
-            if (VeranstaltungPermission::hasRootRecht())
-                $this->setRootNavigation();
-
         }
 
 

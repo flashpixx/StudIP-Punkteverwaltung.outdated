@@ -50,7 +50,7 @@
          **/
         function before_filter( &$action, &$args )
         {
-            PageLayout::setTitle( sprintf("%s - Punkteverwaltung - Root Administration", $_SESSION["SessSemName"]["header_line"]) );
+            PageLayout::setTitle( _("Punkteverwaltung - Root Administration") );
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
             // Initialisierung der Session
