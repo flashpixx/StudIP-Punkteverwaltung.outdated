@@ -18,11 +18,15 @@
  * PDF Erzeugung wieder hergestellt (Fix Issue #44)
  * OSM / Löschstrukturen gefixed (Fix Issue #45)
  * Auswertung zeigt die 10 beste Stundenten an (Fix Issue #19)
- * FAQ / Hilfe integriert (Fix Issue #41)
- * Hilfe für Studierende eingefügt
  * Multilanguage-Support für die Strings korrigiert
  * Bewertung für den Studierenden eingefügt (Fix Issue #11)
  * Anzeige des bzw. der Studiengänge in der Auswertung (Fix Issue #34)
+ * Ignore Liste (Fix Issue #40)
+
+ * eine globale Konfiguration (für Root) hinzugefügt (Fix Issue #37)
+ * HIS/LSF Export hinzugefügt (Fix Issue #25)
+ * FAQ / Hilfe integriert (Fix Issue #41)
+ * Migrationsscript hinzugefügt (Fix Issue #46)
 
 
 

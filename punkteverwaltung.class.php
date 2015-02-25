@@ -49,7 +49,7 @@
      * @see http://docs.studip.de/develop/Entwickler/Trails
      * @see http://docs.studip.de/develop/Entwickler/Navigation
      **/
-    class punkteverwaltung extends StudIPPlugin implements StandardPlugin, AdministrationPlugin
+    class punkteverwaltung extends StudIPPlugin implements StandardPlugin, SystemPlugin
     {
 
         /** Ctor des Plugins zur Erzeugung der Navigation
@@ -72,6 +72,7 @@
                     $this->setTutorNavigation();
                 elseif (VeranstaltungPermission::hasAutorRecht())
                     $this->setAutorNavigation();
+        
             if (VeranstaltungPermission::hasRootRecht())
                 $this->setRootNavigation();
 
