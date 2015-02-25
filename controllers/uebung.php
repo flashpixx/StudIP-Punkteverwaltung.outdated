@@ -68,14 +68,14 @@
                 if (Request::quoted("ueid"))
                 {
                     $this->flash["uebung"] = new Uebung($this->flash["veranstaltung"], Request::quoted("ueid"));
-                    PageLayout::setTitle( sprintf("%s - Punkteverwaltung - Übung [%s]", $_SESSION["SessSemName"]["header_line"], $this->flash["uebung"]->name()) );
+                    PageLayout::setTitle( sprintf(_("%s - Punkteverwaltung - Übung [%s]"), $_SESSION["SessSemName"]["header_line"], $this->flash["uebung"]->name()) );
                     return;
                 } else {
                     $laUebungen = $this->flash["veranstaltung"]->uebungen();
                     if ( (is_array($laUebungen)) && (!empty($laUebungen)) )
                     {
                         $this->flash["uebung"] = end($laUebungen);
-                        PageLayout::setTitle( sprintf("%s - Punkteverwaltung - Übung [%s]", $_SESSION["SessSemName"]["header_line"], $this->flash["uebung"]->name()) );
+                        PageLayout::setTitle( sprintf(_("%s - Punkteverwaltung - Übung [%s]"), $_SESSION["SessSemName"]["header_line"], $this->flash["uebung"]->name()) );
                         return;
                     }
                 }

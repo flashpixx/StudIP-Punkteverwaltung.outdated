@@ -57,7 +57,7 @@
          **/
         function before_filter( &$action, &$args )
         {
-            PageLayout::setTitle( sprintf("%s - Punkteverwaltung - Auswertung", $_SESSION["SessSemName"]["header_line"]) );
+            PageLayout::setTitle( sprintf(_("%s - Punkteverwaltung - Auswertung"), $_SESSION["SessSemName"]["header_line"]) );
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
             try {

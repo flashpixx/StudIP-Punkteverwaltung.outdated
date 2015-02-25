@@ -57,6 +57,7 @@
             echo "deleteAction : \"".$ignoreremoveaction."\",";
             echo "updateAction : \"".$ignoreupdateaction."\",";
         }
+        echo "deleteConfirmation: function(pxData) { pxData.deleteConfirmMessage = \"".sprintf(_("Nach Freigabe des Datensatzes [%s] muss die Teilnehmerliste aktualisiert werden"), "\"+pxData.record.EMailAdresse+\"")."\"; },";
         echo "},";
         
         echo "fields: {";
