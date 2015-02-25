@@ -25,7 +25,7 @@
 
 
 
-    require_once(dirname(__DIR__) . "/sys/permission.class.php");
+    require_once(dirname(__DIR__) . "/sys/authentification.class.php");
 
 
     /** Controller für die Root-Einstellungen **/

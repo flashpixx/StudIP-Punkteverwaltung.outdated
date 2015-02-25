@@ -27,7 +27,7 @@
 
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/student.class.php");
-    require_once(dirname(__DIR__) . "/sys/permission.class.php");
+    require_once(dirname(__DIR__) . "/sys/authentification.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
 
@@ -74,7 +74,7 @@
         /** erzeugt für eine Veranstaltung einen neuen Eintrag mit Defaultwerten **/
         function create_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Punkteverwaltung zu aktivieren") );
 
             else
@@ -92,7 +92,7 @@
         /** Update Aufruf, um die Einstellungen zu setzen **/
         function updatesettings_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Einstellung der Punkteverwaltung zu ändern") );
             
             elseif (Request::submitted("submitted"))
@@ -115,7 +115,7 @@
         /** schließt eine Veranstaltung **/
         function close_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
 
             elseif (Request::int("dialogyes"))
@@ -138,7 +138,7 @@
         /** löscht alle Daten zu der Veranstaltung **/
         function delete_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Daten zu löschen") );
             elseif (Request::int("dialogyes"))
             {
@@ -171,7 +171,7 @@
         /** updatet die Teilnehmerliste in allen Übungen **/
         function updateteilnehmer_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Teilnehmer zu aktualisieren") );
 
             else
@@ -198,7 +198,7 @@
             try {
                 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if (!Permission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
                 $la = array();
@@ -237,7 +237,7 @@
             try {
                 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if (!Permission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
                 $this->flash["veranstaltung"]->removeIgnore( Request::quoted("Auth") );
@@ -262,7 +262,7 @@
             try {
                 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if (!Permission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
             // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
@@ -282,7 +282,7 @@
         /** Aufruf um eine neue Übung zu erzeugen **/
         function adduebung_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um eine Übung anzulegen") );
 
             elseif (Request::submitted("submitted"))
@@ -304,7 +304,7 @@
         /** öffnet die Veranstaltung, wenn sie geschlossen wurde **/
         function reopen_action()
         {
-            if (!Permission::hasAdminRecht())
+            if (!Authentification::hasAdminRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Veranstaltung wieder zu öffnen") );
             else
             {
@@ -323,7 +323,7 @@
         /** fügt einen User auf die Ignorelist ein **/
         function addignore_action()
         {
-            if (!Permission::hasDozentRecht())
+            if (!Authentification::hasDozentRecht())
                 $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um eine Übung anzulegen") );
             
             try {

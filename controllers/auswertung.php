@@ -28,7 +28,7 @@
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/auswertung.class.php");
     require_once(dirname(__DIR__) . "/sys/student.class.php");
-    require_once(dirname(__DIR__) . "/sys/permission.class.php");
+    require_once(dirname(__DIR__) . "/sys/authentification.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/extensions/excel/PHPExcel.php");
     require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . "/lib/classes/exportdocument/ExportPDF.class.php");
@@ -95,7 +95,7 @@
 
             try {
                 
-                if (!Permission::hasDozentRecht($this->flash["veranstaltung"]))
+                if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
                 $laListe      = $this->auswertung->studententabelle();
@@ -228,7 +228,7 @@
             try {
             
                 // hole die Übung und prüfe die Rechte
-                if (!Permission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
             
                 $this->flash["veranstaltung"]->setIgnore( Request::quoted("Auth") );
@@ -256,7 +256,7 @@
             try {
                 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if (!Permission::hasDozentRecht( $this->flash["veranstaltung"] ))
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
                 $laData = $this->auswertung->studententabelle();
@@ -360,7 +360,7 @@
         {
             try {
                 
-                if (!Permission::hasDozentRecht($this->flash["veranstaltung"]))
+                if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 

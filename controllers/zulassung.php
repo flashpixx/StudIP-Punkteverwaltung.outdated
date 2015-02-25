@@ -26,7 +26,7 @@
 
     
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
-    require_once(dirname(__DIR__) . "/sys/permission.class.php");
+    require_once(dirname(__DIR__) . "/sys/authentification.class.php");
 
     
     /** Controller für die manuelle Zulassung eines Studenten **/
@@ -77,7 +77,7 @@
         {
             try {
 
-                if (!Permission::hasDozentRecht($this->flash["veranstaltung"]))
+                if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
                     $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
 
 
@@ -99,7 +99,7 @@
             try {
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if (!Permission::hasDozentRecht($this->flash["veranstaltung"]))
+                if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 $laData = $this->flash["veranstaltung"]->teilnehmer();
@@ -173,7 +173,7 @@
             try {
 
                 // hole die Übung und prüfe die Rechte
-                if (!Permission::hasDozentRecht($this->flash["veranstaltung"]))
+                if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception("Sie haben nicht die notwendige Berechtigung");
 
                 // setze die Bemerkung und decodiert vorher die das von Json geforderte UTF-8

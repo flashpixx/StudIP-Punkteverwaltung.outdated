@@ -27,7 +27,7 @@
 
     require_once("bootstrap.php");
     require_once("sys/tools.class.php");
-    require_once("sys/permission.class.php");
+    require_once("sys/authentification.class.php");
     require_once("sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -63,18 +63,18 @@
             Tools::setStorage("plugin", $this);
 
             // Root-Navigation
-            if (Permission::hasRootRecht())
+            if (Authentification::hasRootRecht())
                 $this->setRootNavigation();
         
             // Navigation wird in Abhängigkeit der Berechtigungen und des Kontextes gesetzt,
             // nur wenn Plugin aktiviert ist und es es sich um eine Veranstaltung handelt wird
             // es aktiviert
             if ( ($this->isActivated()) && (Navigation::hasItem("/course")) )
-                if (Permission::hasDozentRecht())
+                if (Authentification::hasDozentRecht())
                     $this->setAdminNavigation();
-                elseif (Permission::hasTutorRecht())
+                elseif (Authentification::hasTutorRecht())
                     $this->setTutorNavigation();
-                elseif (Permission::hasAutorRecht())
+                elseif (Authentification::hasAutorRecht())
                     $this->setAutorNavigation();
         }
 

@@ -29,7 +29,7 @@
 
     
     /** Klasse um Zugriffsrechte zu einer Veranstaltung für den aktuellen User zu prüfen **/
-    class Permission
+    class Authentification
     {
 
         /** prüft, ob der aktuelle Benutzer Root Rechte auf der Veranstaltung hat

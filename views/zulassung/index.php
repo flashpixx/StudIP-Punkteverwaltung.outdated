@@ -26,7 +26,7 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/permission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/authentification.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -35,7 +35,7 @@
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
-        if (!Permission::hasDozentRecht($loVeranstaltung))
+        if (!Authentification::hasDozentRecht($loVeranstaltung))
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 

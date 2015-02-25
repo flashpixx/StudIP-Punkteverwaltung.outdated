@@ -26,7 +26,7 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/permission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/authentification.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -39,7 +39,7 @@
         if (is_object($loUebung))
         {
 
-            if ((!Permission::hasDozentRecht($loUebung->veranstaltung())) && (!Permission::hasTutorRecht($loUebung->veranstaltung())))
+            if ((!Authentification::hasDozentRecht($loUebung->veranstaltung())) && (!Authentification::hasTutorRecht($loUebung->veranstaltung())))
                 throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
             else {
 
@@ -61,7 +61,7 @@
                 
                 
                 // der Dozent kann die Daten der Übung ändern
-                if (Permission::hasDozentRecht($loUebung->veranstaltung()))
+                if (Authentification::hasDozentRecht($loUebung->veranstaltung()))
                 {
                     echo "<form method=\"post\" action=\"".$controller->url_for("uebung/updatesetting", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
                     CSRFProtection::tokenTag();
@@ -105,7 +105,7 @@
                 // Feld für Masseneingabe (bei Tutoren Ansicht, muss der öffnende Div-Tag entfernt werden, da dies oben unterhalb vom else schon geschieht)
                 if (!$loUebung->veranstaltung()->isClosed())
                 {
-                    if (Permission::hasDozentRecht($loUebung->veranstaltung()))
+                    if (Authentification::hasDozentRecht($loUebung->veranstaltung()))
                         echo "<div class=\"steel2\">";
                     echo "<h1 class=\"ppv\">"._("Masseneingabe")."</h1>\n";
                     echo "<form method=\"post\" action=\"".$controller->url_for("uebung/massedit", array("ueid" => $this->flash["uebung"]->id()))."\">\n";
@@ -143,7 +143,7 @@
                 echo "fields: {";
 
                 echo "Auth : { key : true, create : false, edit : false, list : false },";
-                if (Permission::hasDozentRecht($loUebung->veranstaltung()))
+                if (Authentification::hasDozentRecht($loUebung->veranstaltung()))
                 {
                     echo "Log : { create : false, sorting: false, edit : false, title : \"\", width : \"3%\",";
                     echo "display : function(row) {";
@@ -176,7 +176,7 @@
                 echo "Gruppen : { visibility : \"hidden\", sorting: false, edit : false, title : \"Gruppen\", width : \"25%\" },";
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";
                 echo "ZusatzPunkte : { title : \"Zusatzpunkte\", width : \"5%\" },";
-                if (Permission::hasDozentRecht($loUebung->veranstaltung()))
+                if (Authentification::hasDozentRecht($loUebung->veranstaltung()))
                 {
                     echo "Bemerkung : { title : \"Bemerkung\", type  : \"textarea\", width : \"15%\" },";
                     echo "Korrektor : { title : \"Korrektor\", edit : false, width : \"25%\" }";

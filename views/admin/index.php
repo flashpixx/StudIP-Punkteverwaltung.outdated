@@ -26,7 +26,7 @@
     
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/permission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/authentification.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -73,7 +73,7 @@
             if ($loVeranstaltung->isClosed())
             {
                 echo "<p><strong>" . sprintf(_("Die Veranstaltung wurde am %s geschlossen"), $loVeranstaltung->closedDateTime()) . "</strong>";
-                if (Permission::hasAdminRecht())
+                if (Authentification::hasAdminRecht())
                     echo " (<a href=\"".$controller->url_for("admin/reopen")."\">Veranstaltung wieder öffnen</a>)";
                 echo "</p>";
             } else
