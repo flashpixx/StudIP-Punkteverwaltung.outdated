@@ -130,7 +130,7 @@
         /** Root Navigation **/
         private function setRootNavigation()
         {
-            Navigation::addItem("/admin/plugins/punkteverwaltung",  new Navigation(_("Punkteverwaltung"),   PluginEngine::getURL($this, array(), "root")));
+            Navigation::addItem("/punkteverwaltung",  new AutoNavigation(_("Punkteverwaltung"),   PluginEngine::getURL($this, array(), "root")));
         }
     
     
