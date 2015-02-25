@@ -26,7 +26,7 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/permission.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -34,8 +34,9 @@
 
     try {
 
-        if (!$flash["veranstaltung"])
-            throw new Exception(_("Sie haben nicht die notwendigen Rechte, um die Daten einzusehen"));
+        $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
+        if (!Permission::hasDozentRecht($loVeranstaltung))
+            throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
 
         // jTable für die Studenten / Bemerkungen erzeugen

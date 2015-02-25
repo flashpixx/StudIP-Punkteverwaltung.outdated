@@ -27,7 +27,7 @@
 
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
     require_once(dirname(__DIR__) . "/sys/student.class.php");
-    require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(__DIR__) . "/sys/permission.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/extensions/markdown/MarkdownExtra.inc.php");
     
@@ -79,11 +79,11 @@
             $this->hilfe      = null;
 
             $this->basepath         = self::$documentpath;
-            if (VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+            if (Permission::hasDozentRecht($this->flash["veranstaltung"]))
                 $this->basepath    .= "/dozent/";
-            elseif (VeranstaltungPermission::hasTutorRecht($this->flash["veranstaltung"]))
+            elseif (Permission::hasTutorRecht($this->flash["veranstaltung"]))
                 $this->basepath    .= "/tutor/";
-            elseif (VeranstaltungPermission::hasAutorRecht($this->flash["veranstaltung"]))
+            elseif (Permission::hasAutorRecht($this->flash["veranstaltung"]))
                 $this->basepath    .= "/autor/";
 
             

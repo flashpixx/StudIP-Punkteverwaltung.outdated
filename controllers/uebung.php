@@ -29,7 +29,7 @@
     require_once(dirname(__DIR__) . "/sys/veranstaltung/veranstaltung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/uebung.class.php");
     require_once(dirname(__DIR__) . "/sys/veranstaltung/studentuebung.class.php");
-    require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(__DIR__) . "/sys/permission.class.php");
 
 
     /** Controller für die Administration der Übungen **/
@@ -80,7 +80,7 @@
                     }
                 }
                 
-                throw new Exception(  _("Es wurden bisher keine Daten hinterlegt.").( VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]) ? null : " "._("Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung") )  );
+                throw new Exception(  _("Es wurden bisher keine Daten hinterlegt.").( Permission::hasDozentRecht($this->flash["veranstaltung"]) ? null : " "._("Bei Fragen wenden Sie sich bitte an den/die Dozenten der Veranstaltung") )  );
 
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
 
@@ -107,7 +107,7 @@
         function updatesetting_action()
         {
             try {
-                if (!VeranstaltungPermission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
+                if (!Permission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
                     $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu verändern") );
                 elseif (Request::submitted("submitted"))
                 {
@@ -132,7 +132,7 @@
             try {
                 if (Request::int("dialogyes"))
                 {
-                    if (!VeranstaltungPermission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
+                    if (!Permission::hasDozentRecht($this->flash["uebung"]->veranstaltung()))
                         $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Übung zu löschen") );
                     else
                         Uebung::delete( $this->flash["uebung"] );
@@ -164,7 +164,7 @@
             $laResult = array( "Result"  => "ERROR", "Records" => array() );
 
             try {
-                if (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
+                if (!Permission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 // hole Student und Logdaten
@@ -208,7 +208,7 @@
             try {
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
+                if ( (!Permission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!Permission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 $laData = $this->flash["uebung"]->studentenuebung();
@@ -273,7 +273,7 @@
                                     "Bemerkung"       => studip_utf8encode( $item->bemerkung() )
                         );
 
-                        if (VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
+                        if (Permission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() ))
                             $laItem["Korrektor"] = studip_utf8encode( $item->korrektor() );
 
 
@@ -300,7 +300,7 @@
             try {
 
                 // hole die Übung und prüfe die Rechte
-                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
+                if ( (!Permission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!Permission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 // hole die Zuordnung von Übung und Student und setze die Daten, wobei bei den Textdaten auf korrektes UTF-8 Decoding geachtet werden muss
@@ -326,7 +326,7 @@
             try {
 
                 // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
-                if ( (!VeranstaltungPermission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!VeranstaltungPermission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
+                if ( (!Permission::hasTutorRecht( $this->flash["uebung"]->veranstaltung() )) && (!Permission::hasDozentRecht( $this->flash["uebung"]->veranstaltung() )) )
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
 
                 $i = 0;

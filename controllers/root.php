@@ -25,7 +25,7 @@
 
 
 
-    require_once(dirname(__DIR__) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(__DIR__) . "/sys/permission.class.php");
 
 
     /** Controller für die Root-Einstellungen **/

@@ -26,7 +26,7 @@
 
 
     require_once(dirname(dirname(__DIR__)) . "/sys/tools.class.php");
-    require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltungpermission.class.php");
+    require_once(dirname(dirname(__DIR__)) . "/sys/permission.class.php");
     require_once(dirname(dirname(__DIR__)) . "/sys/veranstaltung/veranstaltung.class.php");
 
 
@@ -35,7 +35,7 @@
     try {
 
         $loVeranstaltung = isset($flash["veranstaltung"]) ? $flash["veranstaltung"] : null;
-        if (!VeranstaltungPermission::hasDozentRecht($loVeranstaltung))
+        if (!Permission::hasDozentRecht($loVeranstaltung))
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
         echo "<form method=\"post\" action=\"".$controller->url_for("bonuspunkte/update")."\">\n";

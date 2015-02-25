@@ -26,6 +26,7 @@
     
     
     require_once(dirname(__DIR__) . "/sys/tools.class.php");
+    require_once(dirname(__DIR__) . "/sys/permission.class.php");
 
 
     /** Controller für die Bonuspunkte eines Studenten **/
@@ -74,7 +75,7 @@
         {
             try {
 
-                if (!VeranstaltungPermission::hasDozentRecht($this->flash["veranstaltung"]))
+                if (!Permission::hasDozentRecht($this->flash["veranstaltung"]))
                     $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
 
                 $loBonusPunkte = $this->flash["veranstaltung"]->bonuspunkte();
