@@ -235,7 +235,6 @@
             
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Result"] = "OK";
-                $laResult["Message"] = "test message";
             
             
                 // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
