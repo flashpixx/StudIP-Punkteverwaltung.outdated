@@ -466,6 +466,8 @@
          **/
         private function exportLSFExcel( $paOutput, $pcTitle )
         {
+            $loExcel = new PHPExcel();
+            
             // Dokument Properties setzen
             $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
             $loExcel->getProperties()->setTitle(utf8_encode($pcTitle));
