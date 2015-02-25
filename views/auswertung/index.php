@@ -67,6 +67,11 @@
         foreach( $laExportformat as $lcType )
             echo "<td><a href=\"".$controller->url_for("auswertung/export", array("type" => $lcType, "target" => "bestanden"))."\">".strtoupper($lcType)."</a></td>";
         echo "</tr>";
+        
+        echo "<tr>";
+        echo "<td>"._("bestandene Studenten (HIS/LSF Import)")."</td>";
+        echo "<td>&nbsp;</zd><td><a href=\"".$controller->url_for("auswertung/export", array("type" => "xlsx", "target" => "lsf"))."\">XLSX</a></td>";
+        echo "</tr>";
 
         echo "</table>";
         echo "<br class=\"ppv withbreak\" />";

@@ -361,7 +361,9 @@
                 
                 if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
                     throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
-
+                
+                // Titel
+                $lcTitle = $this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester();
 
                 // erzeuge Datenarray mit harter Sortierung nach Matrikelnummer,
                 // Items die leer (empty) sind, erscheinen nicht in der Ausgabe
@@ -426,6 +428,15 @@
                                 array_push( $laOutput,  $laItem );
                             }
                         break;
+                        
+                    // speziell formatierte Exceldatei für den Import HIS/LSF
+                    case "lsf" :
+                        foreach ($laListe["studenten"] as $lcStudentKey => $laStudent)
+                            if ($laStudent["veranstaltungenbestanden"])
+                                array_push( $laOutput, $laStudent["matrikelnummer"]);
+                        
+                        $this->exportLSFExcel($laOutput, $lcTitle);
+                        return;
 
 
                     default :
@@ -434,7 +445,6 @@
 
 
                 // erzeuge Ausgabeformat, das Senden inkl. Headerinformationen geschieht durch den View
-                $lcTitle = $this->flash["veranstaltung"]->name() ." "._("im")." ". $this->flash["veranstaltung"]->semester();
                 switch (strtolower(Request::quoted("type")))
                 {
                     case "pdf"  : $this->exportPDF( $laOutput, $lcTitle );   break;
@@ -448,6 +458,65 @@
             } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
         }
 
+        
+        /** Exportfunktion für Excel
+         * @see https://github.com/PHPOffice/PHPExcel
+         * @param $paOutput Datenarray
+         * @param $pcTitle String mit Titel der Veranstaltung
+         **/
+        private function exportLSFExcel( $paOutput, $pcTitle )
+        {
+            // Dokument Properties setzen
+            $loExcel->getProperties()->setCreator("Stud.IP Punkteplugin");
+            $loExcel->getProperties()->setTitle(utf8_encode($pcTitle));
+            $loExcel->getProperties()->setDescription(utf8_encode("Liste mit den Übungsleistungen"));
+            $loExcel->getProperties()->setKeywords("Stud.IP '".utf8_encode($pcTite)."' Studium");
+            
+            
+            // erzeuge Sheet und setze Layout-Strukturen
+            $loExcel->setActiveSheetIndex(0);
+            $loExcel->getDefaultStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_GENERAL);
+            $loSheet = $loExcel->getActiveSheet();
+            
+            $loSheet->setTitle("Tabelle1");
+            $loSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+            $loSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+            
+            
+            $loSheet->setCellValue( "A1", utf8_encode("startHISsheet"));
+            $loSheet->setCellValue( "D1", utf8_encode("endHISsheet"));
+            
+            $loSheet->setCellValue( "A2", utf8_encode("mtknr"));
+            $loSheet->setCellValue( "B2", utf8_encode("bewertung"));
+            $loSheet->setCellValue( "C2", utf8_encode("pdatum"));
+            $loSheet->setCellValue( "D2", utf8_encode("pzutxt"));
+            
+            for($i=0; $i < count($paOutput); $i++)
+            {
+                $loSheet->setCellValue( "A".($i+3), utf8_encode($paOutput[$i]) );
+                $loSheet->setCellValue( "B".($i+3), utf8_encode("+") );
+            }
+            
+            $loSheet->setCellValue( "A".(count($paOutput)+3), utf8_encode("endHISsheet") );
+            
+            $loCellIterator = $loSheet->getRowIterator()->current()->getCellIterator();
+            $loCellIterator->setIterateOnlyExistingCells( true );
+            foreach( $loCellIterator as $loCell )
+                $loSheet->getColumnDimension( $loCell->getColumn() )->setAutoSize( true );
+            
+            
+            // erzeuge Download / Ausgabe (ohne den View zu rendern)
+            $this->set_layout(null);
+            $this->render_nothing();
+            header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            header("Content-Disposition: attachment;filename=\"".$pcTitle.".xlsx\"");
+            header("Cache-Control: max-age=1");
+            
+            $loOutput = PHPExcel_IOFactory::createWriter($loExcel, "Excel2007");
+            $loOutput->save("php://output");
+        }
+        
+        
         
         /** Exportfunktion für Excel
          * @see https://github.com/PHPOffice/PHPExcel
