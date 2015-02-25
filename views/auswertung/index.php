@@ -168,8 +168,12 @@
         echo "defaultSorting : \"Matrikelnummer ASC\",";
         echo "actions: {";
         echo "listAction     : \"".$listaction."\",";
-        echo "deleteAction   : \"".$deleteaction."\",";
+        if (!$loVeranstaltung->isClosed())
+            echo "deleteAction   : \"".$deleteaction."\",";
         echo "},";
+        
+        if (!$loVeranstaltung->isClosed())
+            echo "deleteConfirmation: function(pxData) { pxData.deleteConfirmMessage = \"".sprintf(_("Beim Ignorieren des Datensatzes [%s] werden alle hinterlegten Punktedaten gelöscht"), "\"+pxData.record.EMailAdresse+\"")."\"; }, ";
         
         echo "fields: {";
         
