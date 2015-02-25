@@ -145,7 +145,7 @@
                                         "Auth"            => studip_utf8encode( $item->id() ),
                                         "Matrikelnummer"  => $item->matrikelnummer(),
                                         "Name"            => studip_utf8encode( $item->name() ),
-                                        "EmailAdresse"    => studip_utf8encode( $item->email() ),
+                                        "EMailAdresse"    => studip_utf8encode( $item->email() ),
                                         "Bemerkung"       => studip_utf8encode( $item->manuelleZulassung($this->flash["veranstaltung"]) )
                                         );
 

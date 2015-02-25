@@ -180,7 +180,7 @@
         echo "Auth : { key : true, create : false, edit : false, list : false },";
         echo "Hinweis : { edit : false, sorting: false, title : \""._("Hinweis")."\", width : \"10%\" },";
         echo "Name : { edit : false, title : \""._("Name")."\", width : \"10%\" },";
-        echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
+        echo "EMailAdresse : { visibility : \"hidden\", edit : false, title : \""._("EMail Adresse")."\", width : \"10%\" },";
         echo "Matrikelnummer : { edit : false, title : \""._("Matrikelnummer")."\", width : \"5%\" },";
         echo "Studiengang : { visibility : \"hidden\", edit : false, title : \""._("Studiengang")."\", width : \"10%\" " . ($loVeranstaltung->isClosed() ? null : ", display : function( pxData ) { if (pxData) return \"<span class='ppv unsure'>\"+pxData.record.Studiengang+\"</span>\"; }") . " },";
         

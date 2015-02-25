@@ -266,7 +266,7 @@
                                     "Auth"            => studip_utf8encode( $item->student()->id() ),
                                     "Matrikelnummer"  => $item->student()->matrikelnummer(),
                                     "Name"            => studip_utf8encode( $item->student()->name() ),
-                                    "EmailAdresse"    => studip_utf8encode( $item->student()->email() ),
+                                    "EMailAdresse"    => studip_utf8encode( $item->student()->email() ),
                                     "Gruppen"         => studip_utf8encode( $lxGruppen ),
                                     "ErreichtePunkte" => $item->erreichtePunkte(),
                                     "ZusatzPunkte"    => $item->zusatzPunkte(),

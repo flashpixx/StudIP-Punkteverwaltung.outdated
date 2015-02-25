@@ -171,7 +171,7 @@
 
 
                 echo "Name : { edit : false, title : \"Name\", width : \"10%\" },";
-                echo "EmailAdresse : { visibility : \"hidden\", edit : false, title : \"EMail Adresse\", width : \"10%\" },";
+                echo "EMailAdresse : { visibility : \"hidden\", edit : false, title : \"EMail Adresse\", width : \"10%\" },";
                 echo "Matrikelnummer : { edit : false, title : \"Matrikelnummer\", width : \"5%\" },";
                 echo "Gruppen : { visibility : \"hidden\", sorting: false, edit : false, title : \"Gruppen\", width : \"25%\" },";
                 echo "ErreichtePunkte : { title : \"erreichte Punkte\", width : \"10%\" },";

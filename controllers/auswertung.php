@@ -311,7 +311,7 @@
                             "Hinweis"             => null,
                             "Matrikelnummer"      => $laStudent["matrikelnummer"],
                             "Name"                => studip_utf8encode( $laStudent["name"] ),
-                            "EmailAdresse"        => studip_utf8encode( $laStudent["email"] ),
+                            "EMailAdresse"        => studip_utf8encode( $laStudent["email"] ),
                             "Studiengang"         => $laStudent["studiengang"],
                             "Gesamtpunkte"        => $laStudent["uebungenpunkte"],
                             "GesamtpunkteProzent" => $laData["gesamtpunkte"] ? round($laStudent["uebungenpunkte"] / $laData["gesamtpunkte"] * 100, 2) : 0,
