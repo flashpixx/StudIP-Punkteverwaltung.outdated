@@ -135,8 +135,7 @@
             $loNavigation = new AutoNavigation(_("Punkteverwaltung"));
             $loNavigation->setURL(PluginEngine::GetURL($this, array(), "root"));
             $loNavigation->setImage(Assets::image_path("blank.gif"));
-            Navigation::addItem("/punkteverwaltung", $loNavigation);
-            //Navigation::activateItem("/punkteverwaltung");
+            Navigation::addItem("/admin/punkteverwaltung", $loNavigation);
         }
     
     

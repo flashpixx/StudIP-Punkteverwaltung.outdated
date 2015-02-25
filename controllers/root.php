@@ -50,6 +50,9 @@
          **/
         function before_filter( &$action, &$args )
         {
+            // Menupunkt aktivieren
+            Navigation::activateItem("/admin/punkteverwaltung")
+        
             PageLayout::setTitle( _("Punkteverwaltung - Root Administration") );
             $this->set_layout($GLOBALS["template_factory"]->open("layouts/base_without_infobox"));
 
