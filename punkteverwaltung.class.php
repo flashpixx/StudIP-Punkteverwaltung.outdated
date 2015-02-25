@@ -127,13 +127,16 @@
         }
     
     
-        /** Root Navigation **/
+        /** Root Navigation
+         * @warn addItem muss direkt vom Root-Element sein, da sonst das Menü nicht angezeigt wird
+         **/
         private function setRootNavigation()
         {
-            $navigation = new AutoNavigation(_("Punkteverwaltung"));
-            $navigation->setURL(PluginEngine::GetURL($this, array(), "root"));
-            $navigation->setImage(Assets::image_path("blank.gif"));
-            Navigation::addItem("/punkteverwaltung", $navigation);
+            $loNavigation = new AutoNavigation(_("Punkteverwaltung"));
+            $loNavigation->setURL(PluginEngine::GetURL($this, array(), "root"));
+            $loNavigation->setImage(Assets::image_path("blank.gif"));
+            Navigation::addItem("/admin/punkteverwaltung", $loNavigation);
+            Navigation::activateItem("/admin/punkteverwaltung");
         }
     
     
