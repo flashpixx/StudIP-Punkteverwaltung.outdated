@@ -230,7 +230,7 @@
                           elseif (stripos(Request::quoted("jtSorting"), "name") !== false)
                             $ln = strcasecmp(studip_utf8encode($a->student()->name()), studip_utf8encode($b->student()->name()));
 
-                          elseif (stripos(Request::quoted("jtSorting"), "email") !== false)
+                          elseif (stripos(Request::quoted("jtSorting"), "emailadresse") !== false)
                             $ln = strcasecmp(studip_utf8encode($a->student()->email()), studip_utf8encode($b->student()->email()));
 
                           elseif (stripos(Request::quoted("jtSorting"), "bemerkung") !== false)
