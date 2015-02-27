@@ -38,20 +38,17 @@
         if (!Authentification::hasDozentRecht($loVeranstaltung))
             throw new Exception(_("Sie haben nicht die erforderlichen Rechte"));
 
-        echo "<form method=\"post\" action=\"".$controller->url_for("bonuspunkte/update")."\">\n";
-        CSRFProtection::tokenTag();
-
         echo "<div class=\"steel1\">\n";
-
-        echo "<p>"._("Die Bonuspunkte werden auf der Basis der Gesamtpunkte (Summe aller erreichten Punkte) berechnet und gesondert in der Auswertung ausgeführt. Damit können z.B. Bonuspunkte für eine Klausur automatisch generiert werden")."</p><hr width=\"100%\"/>";
+        echo "<p>"._("Die Bonuspunkte werden auf der Basis der Gesamtpunkte (Summe aller erreichten Punkte) berechnet und gesondert in der Auswertung ausgeführt. Damit können z.B. Bonuspunkte für eine Klausur automatisch generiert werden")."</p>";
+        
         
         echo "<script type=\"text/javascript\">";
         echo "jQuery(document).ready(function() {";
         echo "jQuery(\"#punktetabelle\").jtable({";
         
-        echo "title          : \"Punktetabelle - Gesamt\",";
+        echo "title          : \"Bonuspunktetabelle\",";
         echo "paging         : true,";
-        echo "pageSize       : 500,";
+        echo "pageSize       : 50,";
         echo "sorting        : false,";
         echo "defaultSorting : \"Prozent ASC\",";
         echo "actions: {";
@@ -76,46 +73,9 @@
         echo "});";
         echo "</script>";
         
+        
         echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
-
-        
-        
-        
-        
-        
-
-        echo "<table width=\"100%\">\n";
-        echo "<tr><th>"._("löschen")."</th><th>"._("Prozentzahl, ab der die Bonuspunkte vergeben werden")."</th><th>"._("Punkte")."</th></tr>\n";
-        
-
-        $i=0;
-        foreach($loVeranstaltung->bonuspunkte()->liste() as $key => $val)
-        {
-            echo "<tr>";
-            echo "<td><input type=\"checkbox\" value=\"1\" name=\"del".$i."\" /></td>";
-            echo "<td><input type=\"text\" value=\"".$key."\" name=\"prozent".$i."\" /></td>";
-            echo "<td><input type=\"text\" value=\"".$val."\" name=\"punkte".$i."\" /></td>";
-            echo "</tr>";
-
-            $i++;
-        }
-
-        if ($i > 0)
-            echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
-        echo "<tr>";
-        echo "<td><label for=\"prozentnew\">"._("neuer Datensatz")."</label></td>";
-        echo "<td><input type=\"text\" name=\"prozentnew\" /></td>";
-        echo "<td><input type=\"text\" name=\"punktenew\" /></td>";
-        echo "</tr>";
-
-        echo "</table>\n";
-        echo "</div>\n";
-
-        if (!$loVeranstaltung->isClosed())
-            echo "<p><input type=\"hidden\" value=\"".$i."\" name=\"count\"/><input type=\"submit\" name=\"submitted\" value=\""._("Angaben übernehmen")."\"/></p>";
-
-        echo "</form>";
-
+        echo "</div>";
 
 
     } catch (Exception $e) {

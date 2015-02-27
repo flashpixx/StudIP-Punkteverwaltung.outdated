@@ -72,6 +72,7 @@
         }
         
         
+        /** Json List Action **/
         function jsonlist_action()
         {
             // Daten für das Json Objekt holen und ein Default Objekt setzen
@@ -99,36 +100,6 @@
             Tools::sendJson( $this, $laResult );
         }
         
-
-
-        /** Update Action
-        function update_action()
-        {
-            try {
-
-                if (!Authentification::hasDozentRecht($this->flash["veranstaltung"]))
-                    $this->flash["message"] = Tools::createMessage( "error", _("Sie haben nicht die erforderlichen Rechte um die Bonuspunkte der Veranstaltung zu verändern") );
-
-                $loBonusPunkte = $this->flash["veranstaltung"]->bonuspunkte();
-
-                $newitem = array("prozent" => Request::float("prozentnew"), "punkte" => Request::float("punktenew"));
-                if ( (!empty($newitem["prozent"])) && (!empty($newitem["punkte"])) )
-                    $loBonusPunkte->set($newitem["prozent"], $newitem["punkte"]);
-
-                for($i=0; $i < Request::int("count"); $i++)
-                {
-                    if (Request::int("del".$i))
-                        $loBonusPunkte->remove( Request::float("prozent".$i) );
-                    else
-                        $loBonusPunkte->set( Request::float("prozent".$i), Request::float("punkte".$i) );
-                }
-
-
-            } catch (Exception $e) { $this->flash["message"] = Tools::createMessage( "error", $e->getMessage() ); }
-        
-            $this->redirect("bonuspunkte");
-        }
-        */
 
 
         /** URL Aufruf **/
