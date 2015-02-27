@@ -28,5 +28,10 @@
    
 
     Tools::showMessage($flash["message"]);
+    
+    echo "<div class=\"steel1\">\n";
+    echo "<h1 class=\"ppv\">Administration</h1>";
+    
+    echo "</div>";
 
 ?>
