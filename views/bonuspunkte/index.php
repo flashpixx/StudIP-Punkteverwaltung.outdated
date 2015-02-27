@@ -63,8 +63,8 @@
         
         echo "fields: {";
         
-        echo "Prozent : { key : true, edit : true, create : true },";
-        echo "Punkte : {  },";
+        echo "Prozent : { key : true, edit : true, create : true, title : \""._("Prozent")."\" },";
+        echo "Punkte  : { title : \""._("Punkte")."\" },";
         
         echo "}";
         echo "});";
