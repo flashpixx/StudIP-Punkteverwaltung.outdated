@@ -69,6 +69,7 @@
             $this->listaction       = $this->url_for( "bonuspunkte/jsonlist");
             $this->deleteaction     = $this->url_for( "bonuspunkte/jsondelete");
             $this->updateaction     = $this->url_for( "bonuspunkte/jsonupdate");
+            $this->createaction     = $this->url_for( "bonuspunkte/jsoncreate");
         }
         
         

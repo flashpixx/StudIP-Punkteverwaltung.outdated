@@ -48,14 +48,15 @@
         
         echo "title          : \"Bonuspunktetabelle\",";
         echo "paging         : true,";
-        echo "pageSize       : 50,";
+        echo "pageSize       : 10,";
         echo "sorting        : false,";
         echo "defaultSorting : \"Prozent ASC\",";
         echo "actions: {";
         echo "listAction     : \"".$listaction."\",";
         if (!$loVeranstaltung->isClosed())
         {
-            echo "deleteAction   : \"".$deleteaction."\",";
+            echo "createAction : \"".$createaction."\",";
+            echo "deleteAction : \"".$deleteaction."\",";
             echo "updateAction : \"".$updateaction."\",";
         }
         echo "},";
