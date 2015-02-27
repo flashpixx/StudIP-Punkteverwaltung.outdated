@@ -65,12 +65,43 @@
         function index_action()
         {
             Tools::addHTMLHeaderElements( $this->plugin );
-        
-            PageLayout::addStyle("tr:nth-child(even) {background: #ccc} tr:nth-child(odd) {background: #eee}");
+            
+            $this->listaction       = $this->url_for( "bonuspunkte/jsonlist");
+            $this->deleteaction     = $this->url_for( "bonuspunkte/jsondelete");
+            $this->updateaction     = $this->url_for( "bonuspunkte/jsonupdate");
         }
+        
+        
+        function jsonlist_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+                $la = array();
+                foreach($this->flash["veranstaltung"]->bonuspunkte()->liste() as $key => $val)
+                    array_push( $la, array("Prozent" => floatval($key), "Punkte" => floatval($val) ) );
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["TotalRecordCount"] = count($la);
+                $laResult["Records"]          = $la;
+                $laResult["Result"]           = "OK";
+                
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
+        
 
 
-        /** Update Action **/
+        /** Update Action
         function update_action()
         {
             try {
@@ -97,6 +128,7 @@
         
             $this->redirect("bonuspunkte");
         }
+        */
 
 
         /** URL Aufruf **/

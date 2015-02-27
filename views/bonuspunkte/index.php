@@ -44,6 +44,45 @@
         echo "<div class=\"steel1\">\n";
 
         echo "<p>"._("Die Bonuspunkte werden auf der Basis der Gesamtpunkte (Summe aller erreichten Punkte) berechnet und gesondert in der Auswertung ausgeführt. Damit können z.B. Bonuspunkte für eine Klausur automatisch generiert werden")."</p><hr width=\"100%\"/>";
+        
+        echo "<script type=\"text/javascript\">";
+        echo "jQuery(document).ready(function() {";
+        echo "jQuery(\"#punktetabelle\").jtable({";
+        
+        echo "title          : \"Punktetabelle - Gesamt\",";
+        echo "paging         : true,";
+        echo "pageSize       : 500,";
+        echo "sorting        : false,";
+        echo "defaultSorting : \"Prozent ASC\",";
+        echo "actions: {";
+        echo "listAction     : \"".$listaction."\",";
+        if (!$loVeranstaltung->isClosed())
+        {
+            echo "deleteAction   : \"".$deleteaction."\",";
+            echo "updateAction : \"".$updateaction."\",";
+        }
+        echo "},";
+        
+        echo "fields: {";
+        
+        echo "Prozent : { key : true },";
+        echo "Punkte : {  },";
+        
+        echo "}";
+        echo "});";
+        
+        echo "jQuery(\"#punktetabelle\").jtable(\"load\");";
+        
+        echo "});";
+        echo "</script>";
+        
+        echo "<div id=\"punktetabelle\" style=\"width:100%\" class=\"ppv jtable\"></div>";
+
+        
+        
+        
+        
+        
 
         echo "<table width=\"100%\">\n";
         echo "<tr><th>"._("löschen")."</th><th>"._("Prozentzahl, ab der die Bonuspunkte vergeben werden")."</th><th>"._("Punkte")."</th></tr>\n";
