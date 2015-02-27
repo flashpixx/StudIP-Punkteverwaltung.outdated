@@ -62,7 +62,7 @@
         
         echo "fields: {";
         
-        echo "Prozent : { key : true },";
+        echo "Prozent : { key : true, edit : true, create : true },";
         echo "Punkte : {  },";
         
         echo "}";
