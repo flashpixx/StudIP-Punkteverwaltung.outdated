@@ -169,7 +169,8 @@
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
                 
-                throw new Exception(print_r(file_get_contents("php://input"), "true"));
+                $this->flash["veranstaltung"]->bonuspunkte()->remove( Request::float("jtRecordKey") );
+                $this->flash["veranstaltung"]->bonuspunkte()->set( Request::float("Prozent"), Request::float("Punkte") );
                 
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["Record"]           = array("Prozent" => Request::float("Prozent"), "Punkte" => Request::float("Punkte") );
