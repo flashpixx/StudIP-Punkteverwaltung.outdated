@@ -82,7 +82,7 @@
             
             try {
                 
-                // hole die Übung und prüfe die Berechtigung (in Abhängigkeit des gesetzen Parameter die Übung initialisieren)
+                // nur Dozenten haben die Berechtigung
                 if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
                     throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
                 
@@ -93,6 +93,33 @@
                 // alles fehlerfrei durchlaufen, setze Result
                 $laResult["TotalRecordCount"] = count($la);
                 $laResult["Records"]          = $la;
+                $laResult["Result"]           = "OK";
+                
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
+        
+        
+        /** fügt einen neuen Datensatz hinzu **/
+        function jsoncreate_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                // nur Dozenten haben die Berechtigung
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+                
+                $this->flash["veranstaltung"]->bonuspunkte()->set( Request::float("Prozent"), Request::float("Punkte") );
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["Record"]           = array("Prozent" => Request::float("Prozent"), "Punkte" => Request::float("Punkte") );
                 $laResult["Result"]           = "OK";
                 
                 // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
