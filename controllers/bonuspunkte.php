@@ -172,7 +172,7 @@
                 throw new Exception(print_r(file_get_contents("php://input"), "true"));
                 
                 // alles fehlerfrei durchlaufen, setze Result
-                laResult["Record"]            = array("Prozent" => Request::float("Prozent"), "Punkte" => Request::float("Punkte") );
+                $laResult["Record"]           = array("Prozent" => Request::float("Prozent"), "Punkte" => Request::float("Punkte") );
                 $laResult["Result"]           = "OK";
                 
                 // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
