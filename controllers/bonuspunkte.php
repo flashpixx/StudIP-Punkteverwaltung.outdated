@@ -128,6 +128,59 @@
             Tools::sendJson( $this, $laResult );
         }
         
+        
+        /** löscht einen Datensatz **/
+        function jsondelete_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                // nur Dozenten haben die Berechtigung
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+                
+                $this->flash["veranstaltung"]->bonuspunkte()->remove( Request::float("Prozent") );
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                $laResult["Result"]           = "OK";
+                
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
+        
+        
+        /** updated einen Datensatz **/
+        function jsonupdate_action()
+        {
+            // Daten für das Json Objekt holen und ein Default Objekt setzen
+            $laResult = array( "Result"  => "ERROR", "Records" => array() );
+            
+            
+            try {
+                
+                // nur Dozenten haben die Berechtigung
+                if (!Authentification::hasDozentRecht( $this->flash["veranstaltung"] ))
+                    throw new Exception(_("Sie haben nicht die notwendige Berechtigung"));
+                
+                
+                throw new Exception(print_r(file_get_contents("php://input"), "true"));
+                
+                // alles fehlerfrei durchlaufen, setze Result
+                laResult["Record"]            = array("Prozent" => Request::float("Prozent"), "Punkte" => Request::float("Punkte") );
+                $laResult["Result"]           = "OK";
+                
+                // fange Exception und liefer Exceptiontext passend codiert in das Json-Result
+            } catch (Exception $e) { $laResult["Message"] = studip_utf8encode( $e->getMessage() ); }
+            
+            Tools::sendJson( $this, $laResult );
+        }
+        
 
 
         /** URL Aufruf **/

@@ -50,7 +50,7 @@
         echo "paging         : true,";
         echo "pageSize       : 10,";
         echo "sorting        : false,";
-        echo "defaultSorting : \"Prozent ASC\",";
+        echo "defaultSorting : \"Prozent DESC\",";
         echo "actions: {";
         echo "listAction     : \"".$listaction."\",";
         if (!$loVeranstaltung->isClosed())
