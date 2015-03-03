@@ -62,10 +62,12 @@
             // setzt die Plugin-Instance in das zentrale Storage, um in Exceptions auf das Objekt zugreifen zu können
             Tools::setStorage("plugin", $this);
 
-            // Root-Navigation
+            // Root-Navigation - deaktiviert @see https://github.com/flashpixx/StudIP-Punkteverwaltung/issues/37
+            /*
             if (Authentification::hasRootRecht())
                 $this->setRootNavigation();
-        
+             */
+             
             // Navigation wird in Abhängigkeit der Berechtigungen und des Kontextes gesetzt,
             // nur wenn Plugin aktiviert ist und es es sich um eine Veranstaltung handelt wird
             // es aktiviert
@@ -129,7 +131,7 @@
     
         /** Root Navigation
          * @warn addItem muss direkt vom Root-Element sein, da sonst das Menü nicht angezeigt wird
-         **/
+         **
         private function setRootNavigation()
         {
             $loNavigation = new AutoNavigation(_("Punkteverwaltung"));
@@ -137,7 +139,7 @@
             $loNavigation->setImage(Assets::image_path("blank.gif"));
             Navigation::addItem("/admin/punkteverwaltung", $loNavigation);
         }
-    
+        */
     
     
 

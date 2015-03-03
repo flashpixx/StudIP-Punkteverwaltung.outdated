@@ -22,9 +22,8 @@
  * Bewertung für den Studierenden eingefügt (Fix Issue #11)
  * Anzeige des bzw. der Studiengänge in der Auswertung (Fix Issue #34)
  * Ignore Liste (Fix Issue #40)
-
- * eine globale Konfiguration (für Root) hinzugefügt (Fix Issue #37)
  * HIS/LSF Export hinzugefügt (Fix Issue #25)
+
  * FAQ / Hilfe integriert (Fix Issue #41)
  * Migrationsscript hinzugefügt (Fix Issue #46)
 
