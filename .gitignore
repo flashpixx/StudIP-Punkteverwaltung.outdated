@@ -9,3 +9,5 @@
 !documentation/documentation.doxyfile
 !assets/**
 !sys/extension/**
+
+.DS_Store
