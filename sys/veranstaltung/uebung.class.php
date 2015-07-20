@@ -83,7 +83,7 @@
 
             
             // erzeuge die Default Liste der Studenten aus der Liste der angemeldeten
-            $laIgnoreUser = $this->moVeranstaltung->getIgnore();
+            $laIgnoreUser = $pxVeranstaltung->getIgnore();
             $loPrepare    = DBManager::get()->prepare("select user_id as student from seminar_user where status = :status and Seminar_id = :semid", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
             $loPrepare->execute( array("semid" => $lo->id(), "status" => "autor") );
         
