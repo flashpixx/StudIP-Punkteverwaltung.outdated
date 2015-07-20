@@ -573,6 +573,7 @@
                                 array_push($laHeader, $lcName." "._("bestanden"));
                         }
 
+                    // @bug mehrfache A,AA...
                     for($i=0; $i < count($laHeader); $i++)
                         $loSheet->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
                 
