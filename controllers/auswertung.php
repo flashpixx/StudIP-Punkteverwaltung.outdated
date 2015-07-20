@@ -573,11 +573,10 @@
                                 array_push($laHeader, $lcName." "._("bestanden"));
                         }
 
-                    // @bug mehrfache A,AA...
                     for($i=0; $i < count($laHeader); $i++)
-                        $loSheet->setCellValue( chr(65+$i)."1", utf8_encode($laHeader[$i]));
+                        $loSheet->setCellValue( str_repeat(chr(65+$i%26), ($i/25)+1)."1", utf8_encode($laHeader[$i]));
                 
-                    $loHeader = $loExcel->getActiveSheet()->getStyle("A1:".(chr(65+count($laHeader)))."1");
+                    $loHeader = $loExcel->getActiveSheet()->getStyle("A1:".(str_repeat(chr(65+count($laHeader)%26), count($laHeader)/25+1))."1");
                     $loHeader->getFont()->setBold(true);
                     $loHeader->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 }
