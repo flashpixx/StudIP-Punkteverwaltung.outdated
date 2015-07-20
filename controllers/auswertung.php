@@ -574,9 +574,9 @@
                         }
 
                     for($i=0; $i < count($laHeader); $i++)
-                        $loSheet->setCellValue( str_repeat(chr(65+$i%26), ($i/25)+1)."1", utf8_encode($laHeader[$i]));
+                        $loSheet->setCellValue( PHPExcel_Cell::stringFromColumnIndex($i)."1", utf8_encode($laHeader[$i]));
                 
-                    $loHeader = $loExcel->getActiveSheet()->getStyle("A1:".(str_repeat(chr(65+count($laHeader)%26), count($laHeader)/25+1))."1");
+                    $loHeader = $loExcel->getActiveSheet()->getStyle("A1:".PHPExcel_Cell::stringFromColumnIndex(count($laHeader))."1");
                     $loHeader->getFont()->setBold(true);
                     $loHeader->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 }
@@ -623,7 +623,7 @@
             $loOutput->save("php://output");
         }
     
-
+    
 
         /** Exportfunktion für PDF
          * @see http://docs.studip.de/develop/Entwickler/PDFExport
